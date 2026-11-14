@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 5 熱力學關係式</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 5</div>
+  <h1>熱力學關係式</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+
+<div class="card">
+<h3 style="margin-top:4px">1. 四個基本方程與自然變數</h3>
+<p>封閉系統、只有 \(P\)–\(V\) 功時，四個能量函數的全微分（筆記裡的「四大天王」）：</p>
+<table>
+<tr><th>函數</th><th>定義</th><th>基本方程</th><th>自然變數</th></tr>
+<tr><td>內能 \(U\)</td><td>—</td><td>\(dU = T\,dS - P\,dV\)</td><td>\(S,\ V\)</td></tr>
+<tr><td>焓 \(H\)</td><td>\(H = U + PV\)</td><td>\(dH = T\,dS + V\,dP\)</td><td>\(S,\ P\)</td></tr>
+<tr><td>Helmholtz 自由能 \(A\)</td><td>\(A = U - TS\)</td><td>\(dA = -S\,dT - P\,dV\)</td><td>\(T,\ V\)</td></tr>
+<tr><td>Gibbs 自由能 \(G\)</td><td>\(G = H - TS\)</td><td>\(dG = -S\,dT + V\,dP\)</td><td>\(T,\ P\)</td></tr>
+</table>
+
+<h3>2. Maxwell 關係式</h3>
+<p>四個基本方程都是恰當微分，交叉偏導數相等，得到四條 Maxwell 關係式。式子裡沒有 \(U, H, A, G\)，只剩 \(T, S, P, V\)：</p>
+<p style="text-align:center">
+\( \left(\dfrac{\partial T}{\partial V}\right)_S = -\left(\dfrac{\partial P}{\partial S}\right)_V \qquad
+   \left(\dfrac{\partial T}{\partial P}\right)_S = \left(\dfrac{\partial V}{\partial S}\right)_P \)<br>
+\( \left(\dfrac{\partial S}{\partial V}\right)_T = \left(\dfrac{\partial P}{\partial T}\right)_V \qquad
+   \left(\dfrac{\partial S}{\partial P}\right)_T = -\left(\dfrac{\partial V}{\partial T}\right)_P \)
+</p>
+
+<h3>3. 可量測的材料性質</h3>
+<table>
+<tr><th>性質</th><th>定義</th><th>與熵的關係</th></tr>
+<tr><td>定容熱容 \(C_V\)</td><td>\(\left(\dfrac{\partial U}{\partial T}\right)_V\)</td><td>\(\left(\dfrac{\partial S}{\partial T}\right)_V = \dfrac{C_V}{T}\)</td></tr>
+<tr><td>定壓熱容 \(C_P\)</td><td>\(\left(\dfrac{\partial H}{\partial T}\right)_P\)</td><td>\(\left(\dfrac{\partial S}{\partial T}\right)_P = \dfrac{C_P}{T}\)</td></tr>
+<tr><td>體膨脹係數 \(\alpha\)</td><td>\(\dfrac{1}{V}\left(\dfrac{\partial V}{\partial T}\right)_P\)</td><td>\(\left(\dfrac{\partial S}{\partial P}\right)_T = -V\alpha\)</td></tr>
+<tr><td>等溫壓縮係數 \(\beta\)</td><td>\(-\dfrac{1}{V}\left(\dfrac{\partial V}{\partial P}\right)_T\)</td><td>\(\left(\dfrac{\partial P}{\partial T}\right)_V = \dfrac{\alpha}{\beta}\)</td></tr>
+</table>
+
+<h3>4. 兩個數學工具</h3>
+<p><b>循環關係</b>（「風水輪流轉」）：對任意三個變數 \(x, y, z\)，</p>
+<p style="text-align:center">\( \left(\dfrac{\partial x}{\partial y}\right)_z \left(\dfrac{\partial y}{\partial z}\right)_x \left(\dfrac{\partial z}{\partial x}\right)_y = -1 \)</p>
+<p>實際用法：要求的偏導數＝負號 × 湊出同樣分子分母的兩個偏導數相除。</p>
+<p><b>恰當微分判別</b>：若 \(dZ = M\,dx + N\,dy\) 是全微分，則 \(\left(\dfrac{\partial M}{\partial y}\right)_x = \left(\dfrac{\partial N}{\partial x}\right)_y\)。</p>
+
+<div class="tip"><b>解題口訣</b><br>
+① 看到 \(S\) 對 \(T\) 偏微 → 填 \(C/T\)（定 \(V\) 用 \(C_V\)，定 \(P\) 用 \(C_P\)）。<br>
+② 看到 \(S\) 對 \(V\) 或 \(P\) 偏微 → 用 Maxwell 換成 \(P, V, T\)；對壓力偏微要加負號。<br>
+③ 換出來的 \(P, V, T\) 偏導數，能用 \(\alpha, \beta\) 就用；不能就先用循環關係湊成 \(\alpha, \beta\)。<br>
+④ 下標固定 \(S\) 的偏導數，先看能不能直接化簡，不行就用循環關係把 \(S\) 移出下標。
+</div>
+</div>
+
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit04.html">← 單元 4</a><a href="index.html">目錄</a></div>
+<footer>材料熱力學練習簿 · 單元 5 熱力學關係式 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "5 熱力學關係式";
+/* ===== 推導練習資料 ===== */
+const R = String.raw;
+const derivations = [
+{
+  id:"5-D1", math:["m4", "m5"], title:"由第一、二定律到四個基本方程",
+  goal:R`\(dU = T\,dS - P\,dV,\ \ dH = T\,dS + V\,dP,\ \ dA = -S\,dT - P\,dV,\ \ dG = -S\,dT + V\,dP\)`,
+  from:R`第一定律、第二定律、\(H, A, G\) 的定義`,
+  steps:[
+    {w:"先寫出能量守恆。", q:"寫出封閉系統的第一定律（微分形式）。",
+     hint:R`Gaskell 的 \(w\) 是系統對外界作的功，所以功前面是減號。`,
+     a:R`\(dU = \delta q - \delta w\)`},
+    {w:"把熱和功換成用狀態函數表示的式子。", q:"考慮可逆過程，且只有 P–V 功，把 δq 與 δw 換成狀態函數。",
+     hint:R`哪個定律把可逆熱量和熵連起來？可逆膨脹時外壓等於系統壓力。`,
+     a:R`\(\delta q_{rev} = T\,dS,\ \ \delta w_{rev} = P\,dV \ \Rightarrow\ dU = T\,dS - P\,dV\)`},
+    {w:"確認這個式子在什麼情況下都能用。", q:"這個式子是用可逆過程導出的，為什麼對不可逆過程也成立？",
+     hint:R`看看式子裡每一項是不是狀態函數的微分。`,
+     a:R`式中 \(U, S, V\) 都是狀態函數，只要始末狀態相同，\(dU\) 就相同，與路徑無關，所以對任何過程都成立。但在不可逆過程中 \(T\,dS \neq \delta q\)、\(P\,dV \neq \delta w\)，只有「總和」相等。`},
+    {w:"從 U 變到 H：加上 PV 再取微分。", q:"由 H = U + PV 求 dH。",
+     hint:R`對乘積 \(PV\) 取全微分：\(d(PV) = P\,dV + V\,dP\)。`,
+     a:R`\(dH = dU + P\,dV + V\,dP = T\,dS + V\,dP\)`},
+    {w:"從 U 變到 A：減掉 TS 再取微分。", q:"由 A = U − TS 求 dA。",
+     hint:R`\(d(TS) = T\,dS + S\,dT\)，再代入 \(dU\)。`,
+     a:R`\(dA = dU - T\,dS - S\,dT = -S\,dT - P\,dV\)`},
+    {w:"從 H 變到 G：減掉 TS 再取微分。", q:"由 G = H − TS 求 dG。",
+     hint:R`同上一步，這次代入 \(dH\)。`,
+     a:R`\(dG = dH - T\,dS - S\,dT = -S\,dT + V\,dP\)`}
+  ],
+  meaning:R`從 \(U\) 到 \(H, A, G\)，每一次都是把一個自然變數換成它的「共軛變數」（\(S \leftrightarrow T\)、\(V \leftrightarrow P\)），這就是 Legendre 轉換。實驗通常控制 \(T\) 與 \(P\)，所以 \(G\) 是材料科學最常用的函數。`,
+  checks:[
+    {q:R`\(dU = T\,dS - P\,dV\) 能不能用在不可逆過程？`,
+     opts:["可以，因為式中只含狀態函數的微分","不行，只能用在可逆過程","只有絕熱過程才可以","只有理想氣體才可以"], ans:0,
+     ex:R`式子本身只含狀態函數，與路徑無關；只是不可逆時不能把 \(T\,dS\) 解讀成熱量。`},
+    {q:R`\(G\) 的自然變數是什麼？`,
+     opts:[R`\(S, V\)`,R`\(S, P\)`,R`\(T, V\)`,R`\(T, P\)`], ans:3,
+     ex:R`\(dG = -S\,dT + V\,dP\)，微分項是 \(dT\) 與 \(dP\)。`}
+  ]
+},
+{
+  id:"5-D2", math:["m3", "m8"], title:"Maxwell 關係式",
+  goal:R`四條 Maxwell 關係式，特別是 \(\left(\frac{\partial S}{\partial V}\right)_T = \left(\frac{\partial P}{\partial T}\right)_V\) 與 \(\left(\frac{\partial S}{\partial P}\right)_T = -\left(\frac{\partial V}{\partial T}\right)_P\)`,
+  from:R`四個基本方程、恰當微分判別`,
+  steps:[
+    {w:"先學一個判斷規則：真正的函數，偏微分的順序可以交換。", q:"若 dZ = M dx + N dy 是恰當微分，M 與 N 之間有什麼關係？為什麼？",
+     hint:R`\(M = (\partial Z/\partial x)_y\)、\(N = (\partial Z/\partial y)_x\)；混合二階偏導數與微分次序無關。`,
+     a:R`\(\left(\dfrac{\partial M}{\partial y}\right)_x = \dfrac{\partial^2 Z}{\partial y\,\partial x} = \dfrac{\partial^2 Z}{\partial x\,\partial y} = \left(\dfrac{\partial N}{\partial x}\right)_y\)`},
+    {w:"把規則用在 dU 上。", q:"套用到 dU = T dS − P dV。",
+     hint:R`這裡 \(M = T\)、\(N = -P\)、\(x = S\)、\(y = V\)。`,
+     a:R`\(\left(\dfrac{\partial T}{\partial V}\right)_S = -\left(\dfrac{\partial P}{\partial S}\right)_V\)`},
+    {w:"把規則用在 dH 上。", q:"套用到 dH = T dS + V dP。",
+     hint:R`\(M = T\)、\(N = V\)、\(x = S\)、\(y = P\)。`,
+     a:R`\(\left(\dfrac{\partial T}{\partial P}\right)_S = \left(\dfrac{\partial V}{\partial S}\right)_P\)`},
+    {w:"把規則用在 dA 上。", q:"套用到 dA = −S dT − P dV。",
+     hint:R`\(M = -S\)、\(N = -P\)，兩邊的負號會互相抵消。`,
+     a:R`\(\left(\dfrac{\partial S}{\partial V}\right)_T = \left(\dfrac{\partial P}{\partial T}\right)_V\)`},
+    {w:"把規則用在 dG 上，並換成 α。", q:"套用到 dG = −S dT + V dP，並用 α 表示。",
+     hint:R`\(M = -S\)、\(N = V\)。最後用 \(\alpha = \frac{1}{V}(\partial V/\partial T)_P\)。`,
+     a:R`\(\left(\dfrac{\partial S}{\partial P}\right)_T = -\left(\dfrac{\partial V}{\partial T}\right)_P = -V\alpha\)`}
+  ],
+  meaning:R`熵無法直接量測，Maxwell 關係式把「熵隨 \(V\) 或 \(P\) 的變化」換成可量的 \(P\)–\(V\)–\(T\) 數據。後兩條（由 \(A\) 與 \(G\) 來）最常用，因為它們的下標是實驗容易控制的 \(T\)。`,
+  checks:[
+    {q:R`\(\left(\frac{\partial S}{\partial V}\right)_T\) 等於什麼？`,
+     opts:[R`\(\left(\frac{\partial P}{\partial T}\right)_V\)`,R`\(-\left(\frac{\partial P}{\partial T}\right)_V\)`,R`\(\left(\frac{\partial V}{\partial T}\right)_P\)`,R`\(\frac{C_V}{T}\)`], ans:0,
+     ex:R`由 \(dA = -S\,dT - P\,dV\) 得到，兩個負號抵消。`},
+    {q:"Maxwell 關係式最主要的用途是什麼？",
+     opts:["把難量的熵偏導數換成可量的 P、V、T 數據","計算反應的平衡常數","證明第二定律","求出絕對熵"], ans:0,
+     ex:"這正是下一個推導要用的技巧。"}
+  ]
+},
+{
+  id:"5-D3", math:["m3", "m9"], title:R`熱力學狀態方程 \((\partial U/\partial V)_T\)`,
+  goal:R`\(\left(\dfrac{\partial U}{\partial V}\right)_T = T\left(\dfrac{\partial P}{\partial T}\right)_V - P = \dfrac{T\alpha}{\beta} - P\)`,
+  from:R`\(dU = T\,dS - P\,dV\)、Maxwell 關係式、循環關係`,
+  steps:[
+    {w:"從 dU 出發，看定溫下體積變一點點時 U 變多少。", q:"在定溫下，把 dU = T dS − P dV 兩邊除以 dV。",
+     hint:R`定溫時 \(dS\) 和 \(dV\) 的比值就是 \((\partial S/\partial V)_T\)。`,
+     a:R`\(\left(\dfrac{\partial U}{\partial V}\right)_T = T\left(\dfrac{\partial S}{\partial V}\right)_T - P\)`},
+    {w:"把量不到的熵換成量得到的東西。", q:R`式中的 \((\partial S/\partial V)_T\) 無法直接量，怎麼換掉？`,
+     hint:R`下標是 \(T\)，變數有 \(V\)：要用從 \(A\) 來的那一條 Maxwell 關係式。`,
+     a:R`\(\left(\dfrac{\partial S}{\partial V}\right)_T = \left(\dfrac{\partial P}{\partial T}\right)_V \ \Rightarrow\ \left(\dfrac{\partial U}{\partial V}\right)_T = T\left(\dfrac{\partial P}{\partial T}\right)_V - P\)`},
+    {w:"再換成材料手冊查得到的 α 和 β。", q:R`用循環關係把 \((\partial P/\partial T)_V\) 寫成 α、β。`,
+     hint:R`\(\left(\frac{\partial P}{\partial T}\right)_V\left(\frac{\partial T}{\partial V}\right)_P\left(\frac{\partial V}{\partial P}\right)_T = -1\)，再把分子分母湊成 \(\alpha\) 與 \(\beta\) 的定義。`,
+     a:R`\(\left(\dfrac{\partial P}{\partial T}\right)_V = -\dfrac{(\partial V/\partial T)_P}{(\partial V/\partial P)_T} = -\dfrac{V\alpha}{-V\beta} = \dfrac{\alpha}{\beta}\)，所以 \(\left(\dfrac{\partial U}{\partial V}\right)_T = \dfrac{T\alpha}{\beta} - P\)`}
+  ],
+  meaning:R`\((\partial U/\partial V)_T\) 代表定溫下改變體積時內能的變化，反映原子或分子間的交互作用。只要有狀態方程（\(P\)–\(V\)–\(T\) 關係），就能算出它；理想氣體的結果是 0（見習題 P1）。`,
+  checks:[
+    {q:R`推導中為什麼要把 \((\partial S/\partial V)_T\) 換掉？`,
+     opts:["熵不能直接量測，要換成可量的 P–V–T 數據","因為它永遠等於零","因為它的單位不對","因為定溫下熵不變"], ans:0,
+     ex:"這是 Maxwell 關係式的典型用法。"},
+    {q:R`\((\partial P/\partial T)_V\) 用 α、β 表示是？`,
+     opts:[R`\(\alpha/\beta\)`,R`\(\beta/\alpha\)`,R`\(-\alpha/\beta\)`,R`\(\alpha\beta\)`], ans:0,
+     ex:R`循環關係中兩個負號抵消：\(-V\alpha/(-V\beta)\)。`}
+  ]
+},
+{
+  id:"5-D4", math:["m3", "m4"], title:R`熵的全微分 \(dS(T,V)\) 與 \(dS(T,P)\)`,
+  goal:R`\(dS = \dfrac{C_V}{T}dT + \dfrac{\alpha}{\beta}dV \qquad dS = \dfrac{C_P}{T}dT - V\alpha\,dP\)`,
+  from:R`熱容的定義、Maxwell 關係式`,
+  steps:[
+    {w:"把熵看成溫度和體積的函數，先寫出全微分的「空格」。", q:"把 S 看成 T、V 的函數，寫出 dS 的全微分。",
+     hint:"全微分 = 對每個變數的偏導數 × 該變數的微分，相加。",
+     a:R`\(dS = \left(\dfrac{\partial S}{\partial T}\right)_V dT + \left(\dfrac{\partial S}{\partial V}\right)_T dV\)`},
+    {w:"填第一個空格：熵隨溫度的變化。", q:R`求 \((\partial S/\partial T)_V\)。`,
+     hint:R`定容可逆加熱：\(\delta q = C_V\,dT\)，同時 \(\delta q_{rev} = T\,dS\)。`,
+     a:R`\(T\,dS = C_V\,dT \ \Rightarrow\ \left(\dfrac{\partial S}{\partial T}\right)_V = \dfrac{C_V}{T}\)`},
+    {w:"填第二個空格：熵隨體積的變化。", q:R`求 \((\partial S/\partial V)_T\)，寫出 dS(T,V)。`,
+     hint:"用 D2 與 D3 的結果。",
+     a:R`\(\left(\dfrac{\partial S}{\partial V}\right)_T = \left(\dfrac{\partial P}{\partial T}\right)_V = \dfrac{\alpha}{\beta} \ \Rightarrow\ dS = \dfrac{C_V}{T}dT + \dfrac{\alpha}{\beta}dV\)`},
+    {w:"換成溫度和壓力，用同樣的方法再做一次。", q:"同樣的方法，把 S 看成 T、P 的函數，寫出 dS(T,P)。",
+     hint:R`定壓時 \(\delta q = C_P\,dT\)；對壓力偏微用從 \(G\) 來的 Maxwell 關係式（記得負號）。`,
+     a:R`\(\left(\dfrac{\partial S}{\partial T}\right)_P = \dfrac{C_P}{T},\ \ \left(\dfrac{\partial S}{\partial P}\right)_T = -V\alpha \ \Rightarrow\ dS = \dfrac{C_P}{T}dT - V\alpha\,dP\)`}
+  ],
+  meaning:R`這兩條式子讓我們只用可量的 \(C_P, C_V, \alpha, \beta\) 就能算任何過程的熵變。筆記口訣：看到 \(dT\) 填 \(C/T\)；看到 \(dV\) 補 \((\partial P/\partial T)_V\)；看到 \(dP\) 補 \(-(\partial V/\partial T)_P\)。`,
+  checks:[
+    {q:R`對 1 mol 理想氣體，\((\partial S/\partial P)_T\) 等於？`,
+     opts:[R`\(-R/P\)`,R`\(R/P\)`,R`\(-R/V\)`,R`0`], ans:0,
+     ex:R`理想氣體 \(V\alpha = (\partial V/\partial T)_P = R/P\)，所以 \((\partial S/\partial P)_T = -R/P\)。積分就得到 \(\Delta S = -R\ln(P_2/P_1)\)。`},
+    {q:"定溫下把固體加壓，它的熵會？",
+     opts:["減少（α > 0 時）","增加","不變","無法判斷"], ans:0,
+     ex:R`\(dS = -V\alpha\,dP\)，\(\alpha > 0\)、\(dP > 0\) 時 \(dS < 0\)；但固體的 \(V\alpha\) 很小，所以變化很小（見習題 P4）。`}
+  ]
+},
+{
+  id:"5-D5", math:["m3", "m4"], title:R`\(C_P - C_V\) 的一般式`,
+  goal:R`\(C_P - C_V = \dfrac{TV\alpha^2}{\beta}\)`,
+  from:"D4 的兩條 dS 式子",
+  steps:[
+    {w:"同一個熵變有兩種寫法，讓它們相等。", q:"兩條 dS 描述同一個狀態函數的變化，把它們設為相等。",
+     hint:"左邊用 dS(T,P)，右邊用 dS(T,V)。",
+     a:R`\(\dfrac{C_P}{T}dT - V\alpha\,dP = \dfrac{C_V}{T}dT + \dfrac{\alpha}{\beta}dV\)`},
+    {w:"選一個方便的情況：壓力固定。", q:"考慮定壓過程（dP = 0），兩邊除以 dT。",
+     hint:R`定壓下 \(dV/dT\) 就是 \((\partial V/\partial T)_P\)。`,
+     a:R`\(\dfrac{C_P}{T} = \dfrac{C_V}{T} + \dfrac{\alpha}{\beta}\left(\dfrac{\partial V}{\partial T}\right)_P\)`},
+    {w:"把剩下的偏導數換成 α，整理出答案。", q:R`把 \((\partial V/\partial T)_P\) 寫成 α，整理出 \(C_P - C_V\)。`,
+     hint:R`\((\partial V/\partial T)_P = V\alpha\)，兩邊乘以 \(T\)。`,
+     a:R`\(C_P - C_V = T\cdot\dfrac{\alpha}{\beta}\cdot V\alpha = \dfrac{TV\alpha^2}{\beta}\)`},
+    {w:"用理想氣體檢查答案對不對。", q:"用理想氣體驗證：結果應該是 R。",
+     hint:R`理想氣體 \(\alpha = 1/T\)、\(\beta = 1/P\)。`,
+     a:R`\(C_P - C_V = \dfrac{TV(1/T)^2}{1/P} = \dfrac{PV}{T} = R\) ✓`}
+  ],
+  meaning:R`固體的熱容理論（如 Debye 模型）算的是 \(C_V\)，實驗量的是 \(C_P\)，這條式子把兩者連起來。因為 \(\beta > 0\)、\(\alpha^2 \ge 0\)，所以 \(C_P \ge C_V\) 永遠成立；對固體而言差值通常只有幾個百分比（見習題 P3）。`,
+  checks:[
+    {q:R`下列關於 \(C_P - C_V\) 的敘述何者正確？`,
+     opts:[R`對任何穩定物質都有 \(C_P \ge C_V\)`,R`固體的 \(C_P - C_V\) 等於 R`,R`若 \(\alpha < 0\) 則 \(C_P < C_V\)`,R`\(C_P - C_V\) 與溫度無關`], ans:0,
+     ex:R`式中是 \(\alpha^2\)，即使 \(\alpha < 0\)（例如 0–4 °C 的水）差值仍為正。`},
+    {q:"推導中為什麼可以令兩條 dS 相等？",
+     opts:["S 是狀態函數，不論用哪組變數描述，同一變化的 dS 都一樣","因為過程是可逆的","因為 Cp = Cv","因為是理想氣體"], ans:0,
+     ex:"狀態函數的變化只看始末狀態。"}
+  ]
+},
+{
+  id:"5-D6", math:["m5"], title:"Gibbs–Helmholtz 方程",
+  goal:R`\(\left[\dfrac{\partial (G/T)}{\partial T}\right]_P = -\dfrac{H}{T^2}\)`,
+  from:R`\(dG = -S\,dT + V\,dP\)、\(G = H - TS\)`,
+  steps:[
+    {w:"先寫出 G 隨溫度怎麼變。", q:R`由 dG 寫出 \((\partial G/\partial T)_P\)。`,
+     hint:"定壓時 dP = 0。",
+     a:R`\(\left(\dfrac{\partial G}{\partial T}\right)_P = -S\)`},
+    {w:"把熵換成 G 和 H。", q:"用 G = H − TS 把 −S 換成 G 與 H。",
+     hint:R`由定義解出 \(S = (H - G)/T\)。`,
+     a:R`\(\left(\dfrac{\partial G}{\partial T}\right)_P = \dfrac{G - H}{T}\)`},
+    {w:"對 G/T 微分（商的微分）。", q:"對 G/T 在定壓下對 T 偏微分（商的微分）。",
+     hint:R`\(\dfrac{d}{dT}\left(\dfrac{G}{T}\right) = \dfrac{1}{T}\dfrac{dG}{dT} - \dfrac{G}{T^2}\)`,
+     a:R`\(\left[\dfrac{\partial (G/T)}{\partial T}\right]_P = \dfrac{1}{T}\left(\dfrac{\partial G}{\partial T}\right)_P - \dfrac{G}{T^2}\)`},
+    {w:"代入、化簡。", q:"代入第 2 步的結果並化簡。",
+     hint:R`\(\dfrac{1}{T}\cdot\dfrac{G-H}{T} - \dfrac{G}{T^2}\)，\(G\) 會消掉。`,
+     a:R`\(\left[\dfrac{\partial (G/T)}{\partial T}\right]_P = \dfrac{G - H}{T^2} - \dfrac{G}{T^2} = -\dfrac{H}{T^2}\)`},
+    {w:"換一個自變數，得到實驗常用的形式。", q:"改用 1/T 為自變數，寫出等價形式。",
+     hint:R`\(d(1/T) = -dT/T^2\)。`,
+     a:R`\(\left[\dfrac{\partial (G/T)}{\partial (1/T)}\right]_P = H\)；對反應則是 \(\left[\dfrac{\partial (\Delta G^\circ/T)}{\partial (1/T)}\right]_P = \Delta H^\circ\)`}
+  ],
+  meaning:R`Gibbs–Helmholtz 方程連結 \(G\) 與 \(H\)：知道 \(\Delta G^\circ(T)\)（例如由平衡常數或電動勢量得）就能求 \(\Delta H^\circ\)，反過來也行。把 \(\Delta G^\circ/T\) 對 \(1/T\) 作圖，斜率就是 \(\Delta H^\circ\)。`,
+  checks:[
+    {q:R`將 \(\Delta G^\circ/T\) 對 \(1/T\) 作圖，斜率是什麼？`,
+     opts:[R`\(\Delta H^\circ\)`,R`\(-\Delta S^\circ\)`,R`\(\Delta S^\circ\)`,R`\(-\Delta H^\circ/R\)`], ans:0,
+     ex:R`由等價形式 \(\partial(\Delta G^\circ/T)/\partial(1/T) = \Delta H^\circ\)。`},
+    {q:"推導的第一步用到哪個基本方程？",
+     opts:[R`\(dG = -S\,dT + V\,dP\)`,R`\(dH = T\,dS + V\,dP\)`,R`\(dU = T\,dS - P\,dV\)`,R`\(dA = -S\,dT - P\,dV\)`], ans:0,
+     ex:R`定壓下得到 \((\partial G/\partial T)_P = -S\)。`}
+  ]
+},
+{
+  id:"5-D7", math:["m3", "m9"], title:"Joule–Thomson 係數",
+  goal:R`\(\mu_{JT} \equiv \left(\dfrac{\partial T}{\partial P}\right)_H = \dfrac{V}{C_P}(T\alpha - 1)\)`,
+  from:R`第一定律、\(dH = T\,dS + V\,dP\)、循環關係、Maxwell 關係式`,
+  steps:[
+    {w:"先證明節流過程的焓不變。", q:"氣體穩定地通過多孔塞（絕熱），由高壓 P₁ 流到低壓 P₂。證明此過程等焓。",
+     hint:R`追蹤 1 mol 氣體：左邊活塞對它作功 \(P_1V_1\)，它推動右邊活塞作功 \(P_2V_2\)，且 \(q = 0\)。`,
+     a:R`\(U_2 - U_1 = q - w = 0 - (P_2V_2 - P_1V_1) \ \Rightarrow\ U_1 + P_1V_1 = U_2 + P_2V_2 \ \Rightarrow\ H_1 = H_2\)`},
+    {w:"把要求的偏導數換成好算的。", q:R`用循環關係把 \((\partial T/\partial P)_H\) 換成下標不含 H 的偏導數。`,
+     hint:R`\(T, P, H\) 三個變數：負號 × 湊成分子分母一樣。`,
+     a:R`\(\left(\dfrac{\partial T}{\partial P}\right)_H = -\dfrac{(\partial H/\partial P)_T}{(\partial H/\partial T)_P} = -\dfrac{1}{C_P}\left(\dfrac{\partial H}{\partial P}\right)_T\)`},
+    {w:"算出焓隨壓力的變化。", q:R`由 dH = T dS + V dP 求 \((\partial H/\partial P)_T\)。`,
+     hint:R`定溫下除以 \(dP\)，再用 \((\partial S/\partial P)_T = -V\alpha\)。`,
+     a:R`\(\left(\dfrac{\partial H}{\partial P}\right)_T = T\left(\dfrac{\partial S}{\partial P}\right)_T + V = V(1 - T\alpha)\)`},
+    {w:"組合起來，用理想氣體檢查。", q:"組合得到 μ_JT，並檢查理想氣體。",
+     hint:R`理想氣體 \(\alpha = 1/T\)。`,
+     a:R`\(\mu_{JT} = -\dfrac{V(1 - T\alpha)}{C_P} = \dfrac{V}{C_P}(T\alpha - 1)\)；理想氣體 \(T\alpha = 1\)，所以 \(\mu_{JT} = 0\)：節流前後溫度不變。`}
+  ],
+  meaning:R`\(\mu_{JT} > 0\)（\(T\alpha > 1\)）時，氣體節流降壓後會冷卻，這是氣體液化與冷凍循環的原理；\(\mu_{JT} = 0\) 的溫度稱為反轉溫度。`,
+  checks:[
+    {q:"為什麼節流過程是等焓過程？",
+     opts:["絕熱，且推入與推出的流動功恰好組成 PV 項","因為過程可逆","因為溫度不變","因為體積不變"], ans:0,
+     ex:R`節流是高度不可逆的過程，但始末狀態的焓相同。`},
+    {q:R`某氣體 \(T\alpha > 1\)，經節流降壓後溫度會？`,
+     opts:["降低","升高","不變","視壓力而定，無法判斷"], ans:0,
+     ex:R`\(\mu_{JT} > 0\)，而 \(dP < 0\)，所以 \(dT = \mu_{JT}\,dP < 0\)。`}
+  ]
+}
+];
+
+/* ===== 習題資料 ===== */
+const problems = [
+{
+  id:"5-P1", title:"理想氣體的內能與焓只和溫度有關", kind:"self",
+  text:R`利用 D3 的熱力學狀態方程，證明 1 mol 理想氣體 \(\left(\dfrac{\partial U}{\partial V}\right)_T = 0\)，並進一步證明 \(\left(\dfrac{\partial H}{\partial P}\right)_T = 0\)。`,
+  hint:R`由 \(PV = RT\) 求 \((\partial P/\partial T)_V\)。第二部分可以用 \(H = U + PV\)，或用 D7 第 3 步的結果。`,
+  sol:R`\(\left(\dfrac{\partial P}{\partial T}\right)_V = \dfrac{R}{V} = \dfrac{P}{T}\)，代入 \(\left(\dfrac{\partial U}{\partial V}\right)_T = T\cdot\dfrac{P}{T} - P = 0\)。<br>
+  第二部分：\(\left(\dfrac{\partial H}{\partial P}\right)_T = V(1 - T\alpha)\)，理想氣體 \(\alpha = 1/T\)，所以等於 0。<br>
+  也就是說理想氣體的 \(U\) 與 \(H\) 都只是溫度的函數；第一定律章節中把這當作假設，這裡由熱力學關係式證明了它。`
+},
+{
+  id:"5-P2", title:"van der Waals 氣體的內壓", kind:"mc",
+  text:R`1 mol 氣體遵守 van der Waals 方程 \(\left(P + \dfrac{a}{V^2}\right)(V - b) = RT\)。它的 \(\left(\dfrac{\partial U}{\partial V}\right)_T\) 是？`,
+  opts:[R`\(\dfrac{a}{V^2}\)`,R`\(\dfrac{RT}{V-b}\)`,R`0`,R`\(-\dfrac{a}{V^2}\)`], ans:0,
+  hint:R`先把方程寫成 \(P = \dfrac{RT}{V-b} - \dfrac{a}{V^2}\)，求 \((\partial P/\partial T)_V\)，再代入 D3 的結果。`,
+  sol:R`\(\left(\dfrac{\partial P}{\partial T}\right)_V = \dfrac{R}{V-b}\)，所以 \(\left(\dfrac{\partial U}{\partial V}\right)_T = \dfrac{RT}{V-b} - P = \dfrac{a}{V^2}\)。<br>
+  延伸：定溫下從 \(V_1\) 膨脹到 \(V_2\)，\(\Delta U = \displaystyle\int_{V_1}^{V_2}\dfrac{a}{V^2}dV = a\left(\dfrac{1}{V_1} - \dfrac{1}{V_2}\right) > 0\)。分子間有吸引力（\(a > 0\)），拉開分子要消耗能量，所以內能增加。`
+},
+{
+  id:"5-P3", title:R`銅的 \(C_P - C_V\)`, kind:"num",
+  text:R`銅在 298 K 的數據：莫耳體積 \(V = 7.11\ \text{cm}^3/\text{mol}\)，體膨脹係數 \(\alpha = 4.95\times10^{-5}\ \text{K}^{-1}\)，等溫壓縮係數 \(\beta = 7.30\times10^{-12}\ \text{Pa}^{-1}\)。計算 \(C_P - C_V\)，單位 J/(mol·K)。`,
+  answer:0.711, tol:0.03, unit:"J/(mol·K)",
+  hint:R`用 D5 的結果。注意單位：\(V\) 要換成 \(\text{m}^3/\text{mol}\)，才能和 Pa 配成 J。`,
+  sol:R`\(C_P - C_V = \dfrac{TV\alpha^2}{\beta} = \dfrac{(298)(7.11\times10^{-6})(4.95\times10^{-5})^2}{7.30\times10^{-12}} \approx 0.711\ \text{J/(mol·K)}\)。<br>
+  銅在室溫的 \(C_P\) 約 24.4 J/(mol·K)，差值不到 3%，所以固體常近似 \(C_P \approx C_V\)；但在高溫時 \(T\) 與 \(\alpha\) 都變大，差值不能忽略。`
+},
+{
+  id:"5-P4", title:"定溫加壓時固體的熵變", kind:"num",
+  text:R`沿用 P3 的銅數據，在 298 K 下把 1 mol 銅由 1 atm 加壓到 1000 atm。假設 \(V\) 與 \(\alpha\) 不隨壓力改變，計算 \(\Delta S\)，單位 J/(mol·K)。（1 atm = 1.01325 × 10⁵ Pa）`,
+  answer:-0.0356, tol:0.03, unit:"J/(mol·K)",
+  hint:R`用 D4 的 \(dS = \dfrac{C_P}{T}dT - V\alpha\,dP\)，定溫時第一項為零，再積分。`,
+  sol:R`\(\Delta S = -V\alpha\,\Delta P = -(7.11\times10^{-6})(4.95\times10^{-5})(999\times1.01325\times10^{5}) \approx -0.0356\ \text{J/(mol·K)}\)。<br>
+  比較：理想氣體做同樣的加壓，\(\Delta S = -R\ln 1000 \approx -57.4\ \text{J/(mol·K)}\)，約為銅的 1600 倍。凝相的熵對壓力很不敏感，這也是凝相反應常忽略壓力效應的原因。`
+},
+{
+  id:"5-P5", title:R`由 \(\Delta G^\circ(T)\) 求 \(\Delta H^\circ\)`, kind:"num",
+  text:R`某反應的標準自由能變化可寫成 \(\Delta G^\circ = a + bT\ln T + cT\)（J），其中 \(a = -400{,}000\)、\(b = 10\)、\(c = -50\)。求 1000 K 時的 \(\Delta H^\circ\)，單位 kJ。`,
+  answer:-410, tol:0.01, unit:"kJ",
+  hint:R`用 Gibbs–Helmholtz：先寫出 \(\Delta G^\circ/T\)，再對 \(T\) 微分。`,
+  sol:R`\(\dfrac{\Delta G^\circ}{T} = \dfrac{a}{T} + b\ln T + c\)，\(\dfrac{d(\Delta G^\circ/T)}{dT} = -\dfrac{a}{T^2} + \dfrac{b}{T} = -\dfrac{\Delta H^\circ}{T^2}\)。<br>
+  所以 \(\Delta H^\circ = a - bT = -400{,}000 - 10\times1000 = -410{,}000\ \text{J} = -410\ \text{kJ}\)。<br>
+  檢查：\(c\) 項（\(cT\)）完全不影響 \(\Delta H^\circ\)，它只貢獻給 \(\Delta S^\circ\)。`
+},
+{
+  id:"5-P6", title:"節流後氣體會變冷還是變熱？", kind:"mc",
+  text:R`某氣體在 300 K 時的體膨脹係數 \(\alpha = 4.0\times10^{-3}\ \text{K}^{-1}\)。讓它通過節流閥降壓，出口溫度會？`,
+  opts:["降低","升高","不變","需要知道 Cp 才能判斷"], ans:0,
+  hint:R`計算 \(T\alpha\)，和 1 比較，再看 D7 的結果。`,
+  sol:R`\(T\alpha = 300\times4.0\times10^{-3} = 1.2 > 1\)，所以 \(\mu_{JT} = \dfrac{V}{C_P}(T\alpha - 1) > 0\)。降壓 \(dP < 0\)，因此 \(dT = \mu_{JT}\,dP < 0\)，溫度降低。<br>
+  判斷正負號不需要 \(C_P\) 的數值，因為 \(V/C_P\) 一定是正的。`
+}
+];
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

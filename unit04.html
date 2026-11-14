@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 4 熱力勢與平衡判據</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 4</div>
+  <h1>熱力勢與平衡判據</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：不同的比賽，用不同的計分方式</h3>
+<p>單元 2 說：孤立系統會往熵增加的方向走。但實驗室裡的東西幾乎都不是孤立的，它們會和外界交換熱。每次都要算「系統＋外界」的熵太麻煩，所以發明了新的「分數」，只要看系統自己就能判斷：</p>
+<table>
+<tr><th>實驗條件</th><th>看哪個分數</th><th>會自己發生的方向</th><th>平衡時</th></tr>
+<tr><td>孤立（\(U, V\) 固定）</td><td>熵 \(S\)</td><td>\(dS > 0\)</td><td>\(S\) 最大</td></tr>
+<tr><td>定溫、定容</td><td>\(A = U - TS\)</td><td>\(dA < 0\)</td><td>\(A\) 最小</td></tr>
+<tr><td>定溫、定壓（最常見）</td><td>\(G = H - TS\)</td><td>\(dG < 0\)</td><td>\(G\) 最小</td></tr>
+</table>
+
+<h3>\(G = H - TS\)：拔河比賽</h3>
+<p>在定溫下 \(\Delta G = \Delta H - T\Delta S\)。可以想成兩隊在拔河：</p>
+<ul>
+<li>\(\Delta H < 0\)（放熱、原子鍵結更穩）→ 幫忙讓 \(\Delta G\) 變負。</li>
+<li>\(\Delta S > 0\)（變更亂）→ 也幫忙，而且溫度越高，這隊力氣越大（因為乘上 \(T\)）。</li>
+</ul>
+<table>
+<tr><th>\(\Delta H\)</th><th>\(\Delta S\)</th><th>結果</th><th>例子</th></tr>
+<tr><td>−</td><td>+</td><td>任何溫度都會發生</td><td>許多燃燒反應</td></tr>
+<tr><td>+</td><td>−</td><td>任何溫度都不會發生</td><td>—</td></tr>
+<tr><td>−</td><td>−</td><td>低溫才會發生</td><td>水結冰</td></tr>
+<tr><td>+</td><td>+</td><td>高溫才會發生</td><td>冰熔化、蒸發</td></tr>
+</table>
+
+<h3>平衡溫度</h3>
+<p>兩隊力氣剛好一樣時（\(\Delta G = 0\)），就是平衡，例如熔點、沸點、相變溫度：</p>
+<p style="text-align:center;font-size:18px">\(T_{eq} = \dfrac{\Delta H}{\Delta S}\)</p>
+
+<h3>自由能「自由」在哪裡？</h3>
+<p>\(-\Delta A\) 是定溫下系統<b>最多</b>能對外作的功；\(-\Delta G\) 是定溫定壓下，扣掉推開大氣的功之後，<b>最多</b>能拿來作其他功（例如電池的電功）的能量。「自由」就是「可以自由拿來用」的意思。</p>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit03.html">← 單元 3</a><a href="index.html">目錄</a><a href="unit05.html">單元 5 →</a></div>
+<footer>材料熱力學練習簿 · 單元 4 熱力勢與平衡判據 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "4 熱力勢與平衡判據";
+const R = String.raw;
+const derivations = [
+{
+  id:"4-D1", math:["m5"], title:"定溫定容的平衡判據：dA ≤ 0",
+  goal:R`定 \(T\)、定 \(V\)、不作其他功時 \(dA \le 0\)；且 \(-\Delta A\) 是最大功`,
+  from:R`Clausius 不等式 \(T\,dS \ge \delta q\)、第一定律、\(A = U - TS\)`,
+  steps:[
+    {w:"把第一定律和第二定律合在一起。",
+     q:"用第一定律把 Clausius 不等式裡的 δq 換掉。",
+     hint:R`\(\delta q = dU + \delta w\)。`,
+     a:R`\(T\,dS \ge dU + \delta w \Rightarrow dU - T\,dS \le -\delta w\)`},
+    {w:"溫度固定時，左邊剛好可以寫成 A 的變化。",
+     q:"定溫時 d(TS) = ? 把左邊寫成 dA。",
+     hint:R`定溫 \(dT = 0\)，所以 \(d(TS) = T\,dS\)。`,
+     a:R`\(dA = d(U - TS) = dU - T\,dS \Rightarrow dA \le -\delta w\)`},
+    {w:"看看這個不等式在說什麼：A 的減少量和功的關係。",
+     q:"移項，δw 最大可以是多少？",
+     hint:"把不等式兩邊同乘 −1，記得不等號要反過來。",
+     a:R`\(\delta w \le -dA\)：系統對外作的功，最多等於 \(A\) 的減少量（可逆時取等號）。`},
+    {w:"再加上「體積固定、不作其他功」的條件。",
+     q:"定容且沒有其他功時，δw = 0，判據變成？",
+     hint:"直接代入 δw = 0。",
+     a:R`\(dA \le 0\)：會自己發生的變化讓 \(A\) 減少，\(A\) 最小時就是平衡。`}
+  ],
+  meaning:R`我們不用再算外界的熵了，只要看系統自己的 \(A\) 就能判斷。\(A\) 也叫「功函數」，因為它的減少量就是最大功。`,
+  checks:[
+    {q:"推導第 2 步為什麼 d(TS) = T dS？",
+     opts:["溫度固定，dT = 0","熵固定","因為可逆","因為 T = S"], ans:0, ex:R`乘積規則 \(d(TS) = T\,dS + S\,dT\)，\(dT = 0\) 時第二項消失。`},
+    {q:"定溫定容下，平衡狀態的 A 是？",
+     opts:["最小值","最大值","0","等於 U"], ans:0, ex:"會自己發生的變化讓 A 一直減少，直到不能再減少。"}
+  ]
+},
+{
+  id:"4-D2", math:["m5"], title:"定溫定壓的平衡判據：dG ≤ 0",
+  goal:R`定 \(T\)、定 \(P\)、不作其他功時 \(dG \le 0\)`,
+  from:R`D1 第 1 步的結果、\(G = H - TS = U + PV - TS\)`,
+  steps:[
+    {w:"把功拆成兩種：推開外界的功，和其他的功。",
+     q:"把 δw 寫成 P dV + δw′（δw′ 是電功等其他功），代入 D1 第 1 步。",
+     hint:R`\(dU - T\,dS \le -\delta w\)。`,
+     a:R`\(dU + P\,dV - T\,dS \le -\delta w'\)`},
+    {w:"溫度、壓力都固定時，左邊剛好就是 G 的變化。",
+     q:"定 T、定 P 時，寫出 dG。",
+     hint:R`\(dG = dU + P\,dV + V\,dP - T\,dS - S\,dT\)，\(dP = dT = 0\)。`,
+     a:R`\(dG = dU + P\,dV - T\,dS \Rightarrow dG \le -\delta w'\)`},
+    {w:"沒有其他功時，得到最常用的判據。",
+     q:"δw′ = 0 時判據是？",
+     hint:"直接代入。",
+     a:R`\(dG \le 0\)：定溫定壓下，會自己發生的變化讓 \(G\) 減少，\(G\) 最小時平衡。`}
+  ],
+  meaning:R`材料製程幾乎都在固定溫度、大氣壓下進行，所以 \(G\) 是材料科學最重要的函數：相變、反應、擴散會不會發生，都看 \(\Delta G\) 的正負。`,
+  checks:[
+    {q:"定溫定壓下，ΔG > 0 的變化會？",
+     opts:["不會自己發生（反方向會）","會自己發生","已經平衡","一定很快"], ans:0, ex:R`\(\Delta G > 0\) 時，逆反應的 \(\Delta G < 0\)，是逆反應會自己發生。`},
+    {q:R`\(-\Delta G\) 代表什麼？`,
+     opts:["定溫定壓下，最多能作的「其他功」（例如電功）","吸收的熱","內能的變化","推開大氣的功"], ans:0, ex:R`\(dG \le -\delta w'\)；單元 12 電化學會用到 \(\Delta G = -zFE\)。`}
+  ]
+},
+{
+  id:"4-D3", math:[], title:"ΔG = ΔH − TΔS 與自發性",
+  goal:R`定溫時 \(\Delta G = \Delta H - T\Delta S\)；平衡溫度 \(T_{eq} = \Delta H/\Delta S\)`,
+  from:R`\(G = H - TS\)`,
+  steps:[
+    {w:"寫出變化前後的 G，相減。",
+     q:"狀態 1 → 狀態 2，溫度都是 T。寫出 ΔG。",
+     hint:R`\(G_2 - G_1 = (H_2 - TS_2) - (H_1 - TS_1)\)。`,
+     a:R`\(\Delta G = \Delta H - T\Delta S\)`},
+    {w:"平衡時兩股力量打平。",
+     q:"平衡時 ΔG = 0，解出 T。",
+     hint:R`假設 \(\Delta H\)、\(\Delta S\) 不隨溫度改變。`,
+     a:R`\(0 = \Delta H - T_{eq}\Delta S \Rightarrow T_{eq} = \dfrac{\Delta H}{\Delta S}\)`},
+    {w:"判斷溫度高於或低於平衡溫度時會怎樣。",
+     q:"以熔化為例（ΔH > 0、ΔS > 0）。T > T_eq 時 ΔG 的正負？",
+     hint:R`\(T\) 變大，\(T\Delta S\) 這一項變大。`,
+     a:R`\(T > T_{eq}\)：\(T\Delta S > \Delta H\)，\(\Delta G < 0\)，會熔化；\(T < T_{eq}\)：\(\Delta G > 0\)，不會熔化（反而會凝固）。`}
+  ],
+  meaning:R`溫度就像拔河比賽的裁判，決定熵那一隊的力氣有多大。低溫時 \(\Delta H\) 說了算（穩定的鍵結贏）；高溫時 \(T\Delta S\) 說了算（亂度贏）。所以加熱時，材料會變成越來越亂的相：固體 → 液體 → 氣體。`,
+  checks:[
+    {q:"水結冰（ΔH < 0、ΔS < 0）在什麼條件下會自己發生？",
+     opts:["低於 0 °C","高於 0 °C","任何溫度","都不會"], ans:0, ex:R`低溫時 \(T\Delta S\) 這項小，\(\Delta H < 0\) 主導，\(\Delta G < 0\)。`},
+    {q:R`在熔點時，固液兩相的 \(\Delta G\) 是？`,
+     opts:["0","正","負","等於 ΔH"], ans:0, ex:"兩相平衡，ΔG = 0。"}
+  ]
+},
+{
+  id:"4-D4", math:["m5","m6","m7"], title:"G 隨壓力的變化",
+  goal:R`\(\left(\dfrac{\partial G}{\partial P}\right)_T = V\)；理想氣體 \(G(P_2) - G(P_1) = RT\ln\dfrac{P_2}{P_1}\)`,
+  from:R`\(G = U + PV - TS\)、\(dU = T\,dS - P\,dV\)（單元 5 會詳細推導）`,
+  steps:[
+    {w:"先寫出 G 的全微分。",
+     q:"用乘積規則對 G = U + PV − TS 取微分。",
+     hint:R`\(d(PV) = P\,dV + V\,dP\)，\(d(TS) = T\,dS + S\,dT\)。`,
+     a:R`\(dG = dU + P\,dV + V\,dP - T\,dS - S\,dT\)`},
+    {w:"代入 dU，很多項會互相抵消。",
+     q:"代入 dU = T dS − P dV 並化簡。",
+     hint:R`\(T\,dS\) 和 \(P\,dV\) 都會消掉。`,
+     a:R`\(dG = -S\,dT + V\,dP\)`},
+    {w:"只看溫度固定時，G 怎麼隨壓力變。",
+     q:"定溫（dT = 0）時，(∂G/∂P)_T = ?",
+     hint:"把 dT = 0 代入。",
+     a:R`\(\left(\dfrac{\partial G}{\partial P}\right)_T = V\)`},
+    {w:"對理想氣體積分，得到常用公式。",
+     q:"1 mol 理想氣體 V = RT/P，從 P₁ 積分到 P₂。",
+     hint:R`\(\int RT\,dP/P = RT\ln(P_2/P_1)\)。`,
+     a:R`\(G(P_2) - G(P_1) = RT\ln\dfrac{P_2}{P_1}\)；固體、液體 \(V\) 很小且幾乎不變：\(\Delta G \approx V\Delta P\)`}
+  ],
+  meaning:R`加壓會讓 \(G\) 增加，增加多少看體積：氣體體積大，壓力影響很大；固體體積小，壓力影響很小。這條式子是單元 8（氣體）和單元 11（反應平衡）的基礎。`,
+  checks:[
+    {q:R`\(\left(\frac{\partial G}{\partial P}\right)_T\) 等於？`,
+     opts:["V","−S","P","H"], ans:0, ex:R`由 \(dG = -S\,dT + V\,dP\)。`},
+    {q:"同樣加壓，為什麼固體的 ΔG 比氣體小很多？",
+     opts:["固體的莫耳體積小很多","固體的溫度比較低","固體的熵比較大","固體不受壓力影響"], ans:0, ex:R`\(\Delta G \approx V\Delta P\)，固體的 \(V\) 大約只有氣體的千分之一。`}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"4-P1", kind:"mc", title:"選對分數",
+  text:"在大氣中、恆溫爐裡加熱一塊鋼，要判斷某個相變會不會發生，應該看哪個量？",
+  opts:["G（Gibbs 自由能）","A（Helmholtz 自由能）","系統的 S","U"], ans:0,
+  hint:"大氣中＝壓力固定；恆溫爐＝溫度固定。",
+  sol:R`定溫定壓看 \(G\)：\(\Delta G < 0\) 會發生。`
+},
+{
+  id:"4-P2", kind:"num", title:"過冷的冰會熔化嗎？",
+  text:R`冰的熔化：\(\Delta H = 6008\ \text{J/mol}\)、\(\Delta S = 22.0\ \text{J/(mol·K)}\)（假設不隨溫度改變）。求 263 K（−10 °C）時熔化的 \(\Delta G\)，單位 J/mol。`,
+  answer:222, tol:0.03, unit:"J/mol",
+  hint:R`\(\Delta G = \Delta H - T\Delta S\)。`,
+  sol:R`\(\Delta G = 6008 - 263\times22.0 = 6008 - 5786 = +222\ \text{J/mol} > 0\)：−10 °C 時冰不會熔化，反過來水會結冰。`
+},
+{
+  id:"4-P3", kind:"num", title:"相變溫度",
+  text:R`某金屬由 α 相變成 β 相：\(\Delta H = 2900\ \text{J/mol}\)、\(\Delta S = 2.5\ \text{J/(mol·K)}\)。相變溫度是多少 K？`,
+  answer:1160, tol:0.01, unit:"K",
+  hint:R`\(T_{eq} = \Delta H/\Delta S\)。`,
+  sol:R`\(T_{eq} = 2900/2.5 = 1160\ \text{K}\)。高於 1160 K 時 \(T\Delta S\) 贏，β 相穩定（β 相比較亂）；低於 1160 K 時 α 相穩定。`
+},
+{
+  id:"4-P4", kind:"num", title:"加壓對氣體自由能的影響",
+  text:R`1 mol 理想氣體在 1000 K 下，從 1 atm 等溫加壓到 10 atm。求 \(\Delta G\)，單位 kJ。`,
+  answer:19.14, tol:0.01, unit:"kJ",
+  hint:R`\(\Delta G = RT\ln(P_2/P_1)\)。`,
+  sol:R`\(\Delta G = 8.314\times1000\times\ln10 \approx 19{,}144\ \text{J} = 19.14\ \text{kJ}\)。`
+},
+{
+  id:"4-P5", kind:"mc", title:"拔河比賽",
+  text:R`某反應 \(\Delta H < 0\)、\(\Delta S > 0\)。下列何者正確？`,
+  opts:["任何溫度都會自己發生","只有高溫會發生","只有低溫會發生","任何溫度都不會發生"], ans:0,
+  hint:R`\(\Delta G = \Delta H - T\Delta S\)，兩項各是什麼正負號？`,
+  sol:R`\(\Delta H < 0\)，\(-T\Delta S < 0\)，兩隊都往同一邊拉，\(\Delta G\) 永遠是負的。`
+}
+];
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

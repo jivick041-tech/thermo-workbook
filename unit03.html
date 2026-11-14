@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 3 熵的統計詮釋</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 3</div>
+  <h1>熵的統計詮釋</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：熵就是在數「有幾種排法」</h3>
+<p>丟 4 枚硬幣，看到「2 正 2 反」這個結果（<b>巨觀狀態</b>），背後其實有 6 種排法（<b>微觀狀態</b>）：正正反反、正反正反、正反反正、反正正反、反正反正、反反正正。但「4 個都是正面」只有 1 種排法。</p>
+<p>排法越多的結果越容易出現。粒子數量非常大的時候，排法最多的那個結果幾乎一定會出現，這就是<b>平衡</b>。</p>
+
+<h3>Boltzmann 公式</h3>
+<p style="text-align:center;font-size:18px">\(S = k\ln\Omega\)</p>
+<table>
+<tr><th>符號</th><th>意思</th></tr>
+<tr><td>\(\Omega\)</td><td>微觀狀態數（有幾種排法）</td></tr>
+<tr><td>\(k\)</td><td>Boltzmann 常數 \(= R/N_A \approx 1.381\times10^{-23}\ \text{J/K}\)，等於「每一個粒子」的氣體常數</td></tr>
+</table>
+<p>為什麼要取 ln？兩個系統放在一起時，排法數要<b>相乘</b>（\(\Omega_A\times\Omega_B\)），但熵應該<b>相加</b>（\(S_A + S_B\)）。只有 ln 能把相乘變成相加。</p>
+
+<h3>組態熵：混在一起有幾種排法</h3>
+<p>想像晶體裡有 \(N\) 個位置，放 \(n_A\) 個 A 原子和 \(n_B\) 個 B 原子。排法數：</p>
+<p style="text-align:center">\(\Omega = \dfrac{N!}{n_A!\,n_B!}\)</p>
+<p>原本 A 和 B 分開時只有 1 種排法（\(S = 0\)），混在一起後排法暴增，所以混合會讓熵增加：</p>
+<p style="text-align:center;font-size:18px">\(\Delta S_{mix} = -R\,(X_A\ln X_A + X_B\ln X_B)\)（每莫耳）</p>
+<p>\(X_A, X_B\) 是莫耳分率（小於 1，所以 ln 是負的，前面的負號讓 \(\Delta S_{mix} > 0\)）。</p>
+
+<div class="tip"><b>新的數學工具：階乘與 Stirling 近似</b><br>
+\(N! = N\times(N-1)\times\cdots\times2\times1\)，例如 \(4! = 24\)。<br>
+\(N\) 很大時（例如 \(10^{23}\)），\(N!\) 大到算不出來，但它的 ln 可以近似：\(\ln N! \approx N\ln N - N\)。
+</div>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit02.html">← 單元 2</a><a href="index.html">目錄</a><a href="unit04.html">單元 4 →</a></div>
+<footer>材料熱力學練習簿 · 單元 3 熵的統計詮釋 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "3 熵的統計詮釋";
+const R = String.raw;
+const derivations = [
+{
+  id:"3-D1", math:["m7"], title:"為什麼熵要取 ln",
+  goal:R`\(S = k\ln\Omega\) 是唯一能讓「排法相乘、熵相加」的形式`,
+  from:"熵可以相加；兩個獨立系統的排法數相乘",
+  steps:[
+    {w:"先確定兩個系統放在一起時，排法數怎麼算。",
+     q:"系統 A 有 Ω_A 種排法，系統 B 有 Ω_B 種排法。兩個一起看，總共幾種？",
+     hint:"A 的每一種排法，都可以搭配 B 的任何一種排法。",
+     a:R`\(\Omega_{總} = \Omega_A\times\Omega_B\)`},
+    {w:"再寫出熵應該怎麼合起來。",
+     q:"熵和質量、體積一樣是可以相加的量。總熵是？",
+     hint:"兩杯水倒在一起，熵就是兩杯的熵加起來。",
+     a:R`\(S_{總} = S_A + S_B\)`},
+    {w:"找出什麼樣的函數能同時滿足上面兩件事。",
+     q:R`若 \(S = f(\Omega)\)，需要 \(f(\Omega_A\Omega_B) = f(\Omega_A) + f(\Omega_B)\)。哪個函數有這個性質？`,
+     hint:R`回想 ln 的性質：\(\ln(ab) = \ln a + \ln b\)。`,
+     a:R`對數函數：\(S = k\ln\Omega\)，常數 \(k\) 由實驗決定（Boltzmann 常數）。`}
+  ],
+  meaning:R`熵其實就是「排法數的對數」。只有一種排法（完美排好的晶體）時 \(\Omega = 1\)，\(S = k\ln 1 = 0\)，這也是第三定律的微觀意義。`,
+  checks:[
+    {q:R`完美晶體只有一種排法，它的組態熵是？`,
+     opts:["0","k","1","無限大"], ans:0, ex:R`\(\ln 1 = 0\)。`},
+    {q:"為什麼用 ln 而不是直接用 Ω？",
+     opts:["排法數相乘，但熵要相加","Ω 太小","ln 比較好算","因為 Ω 是負的"], ans:0, ex:"ln 把乘法變成加法。"}
+  ]
+},
+{
+  id:"3-D2", math:[], title:"排列數 Ω = N!/(n_A! n_B!)",
+  goal:R`\(N\) 個位置放 \(n_A\) 個 A、\(n_B\) 個 B，排法數 \(\Omega = \dfrac{N!}{n_A!\,n_B!}\)`,
+  from:"數數的原理",
+  steps:[
+    {w:"先假裝每個原子都長得不一樣，數數看有幾種排法。",
+     q:"如果 N 個原子都可以分辨（貼上編號），排進 N 個位置有幾種排法？",
+     hint:"第 1 個位置有 N 種選擇，第 2 個有 N − 1 種……",
+     a:R`\(N\times(N-1)\times\cdots\times1 = N!\)`},
+    {w:"但 A 原子其實都長一樣，要扣掉重複算的。",
+     q:"n_A 個 A 原子彼此交換位置，看起來一模一樣。這樣的交換有幾種？",
+     hint:R`\(n_A\) 個東西自己排，有 \(n_A!\) 種。`,
+     a:R`\(n_A!\) 種，B 原子同理有 \(n_B!\) 種`},
+    {w:"把重複的除掉。",
+     q:"真正不同的排法有幾種？",
+     hint:"每一種「看得出差別」的排法，在 N! 裡被重複算了 n_A! × n_B! 次。",
+     a:R`\(\Omega = \dfrac{N!}{n_A!\,n_B!}\)`}
+  ],
+  meaning:"這就是國中、高中學過的「組合數」C(N, n_A)。用 4 枚硬幣驗證：N = 4，2 正 2 反，Ω = 4!/(2!2!) = 24/4 = 6 ✓",
+  checks:[
+    {q:"5 個位置放 2 個 A、3 個 B，有幾種排法？",
+     opts:["10","20","120","6"], ans:0, ex:"5!/(2!3!) = 120/12 = 10。"},
+    {q:"為什麼要除以 n_A!？",
+     opts:["A 原子彼此交換看起來一樣，被重複計算了","因為 A 原子比較少","因為要變成機率","為了讓數字變小"], ans:0, ex:"同種原子無法分辨。"}
+  ]
+},
+{
+  id:"3-D3", math:["m7"], title:"Stirling 近似",
+  goal:R`\(\ln N! \approx N\ln N - N\)（\(N\) 很大時）`,
+  from:R`\(\ln(ab) = \ln a + \ln b\)、積分 \(\int\ln x\,dx = x\ln x - x\)`,
+  steps:[
+    {w:"把階乘的 ln 拆成很多項相加。",
+     q:"ln N! 可以寫成什麼的總和？",
+     hint:R`\(N! = 1\times2\times\cdots\times N\)，用 \(\ln(ab) = \ln a + \ln b\)。`,
+     a:R`\(\ln N! = \ln 1 + \ln 2 + \cdots + \ln N = \displaystyle\sum_{x=1}^{N}\ln x\)`},
+    {w:"N 很大時，一格一格加起來就像算曲線下的面積。",
+     q:"把總和近似成積分。",
+     hint:R`每一項是寬 1、高 \(\ln x\) 的長條，很多長條加起來 ≈ 曲線 \(y = \ln x\) 下的面積。`,
+     a:R`\(\ln N! \approx \displaystyle\int_1^N \ln x\,dx\)`},
+    {w:"算出這個積分。",
+     q:R`利用 \(\int\ln x\,dx = x\ln x - x\)。`,
+     hint:R`代入上下限，下限 1 的部分是 \(1\cdot\ln1 - 1 = -1\)，和 \(N\) 比起來可以忽略。`,
+     a:R`\(\ln N! \approx (N\ln N - N) - (0 - 1) \approx N\ln N - N\)`}
+  ],
+  meaning:R`粒子數動不動就是 \(10^{23}\)，直接算 \(N!\) 不可能，但用 Stirling 近似就能處理。\(N\) 越大，近似越準。`,
+  checks:[
+    {q:"Stirling 近似在什麼時候最準？",
+     opts:["N 很大時","N 很小時","N = 1 時","N 是偶數時"], ans:0, ex:"N 越大，忽略掉的項相對越小。"},
+    {q:R`\(\ln N!\) 可以拆成？`,
+     opts:[R`\(\ln1 + \ln2 + \cdots + \ln N\)`,R`\(N\ln N\)`,R`\(\ln N\times\ln(N-1)\)`,R`\(N!\ln N\)`], ans:0, ex:"乘法的 ln 等於 ln 相加。"}
+  ]
+},
+{
+  id:"3-D4", math:["m7"], title:"理想混合熵",
+  goal:R`\(\Delta S_{mix} = -R\,(X_A\ln X_A + X_B\ln X_B)\)（每莫耳）`,
+  from:R`\(S = k\ln\Omega\)、D2 的 \(\Omega\)、D3 的 Stirling 近似、\(k N_A = R\)`,
+  steps:[
+    {w:"寫出混合前後的熵差。",
+     q:"混合前 A、B 分開，各只有 1 種排法。混合後的 Ω 用 D2。寫出 ΔS_mix。",
+     hint:R`混合前 \(S = k\ln 1 = 0\)。`,
+     a:R`\(\Delta S_{mix} = k\ln\dfrac{N!}{n_A!\,n_B!} = k\,(\ln N! - \ln n_A! - \ln n_B!)\)`},
+    {w:"每個階乘都用 Stirling 近似換掉。",
+     q:"代入 ln x! ≈ x ln x − x，並注意 N = n_A + n_B。",
+     hint:R`三個 \(-x\) 項：\(-N + n_A + n_B = 0\)，會消掉。`,
+     a:R`\(\Delta S_{mix} = k\,(N\ln N - n_A\ln n_A - n_B\ln n_B)\)`},
+    {w:"把 N ln N 拆開，湊成莫耳分率。",
+     q:R`把 \(N\ln N\) 寫成 \(n_A\ln N + n_B\ln N\)，再合併。`,
+     hint:R`\(n_A\ln N - n_A\ln n_A = -n_A\ln(n_A/N) = -n_A\ln X_A\)。`,
+     a:R`\(\Delta S_{mix} = -k\,(n_A\ln X_A + n_B\ln X_B)\)`},
+    {w:"換成 1 莫耳的量。",
+     q:R`1 mol 時 \(N = N_A\)（亞佛加厥數），\(n_A = X_AN_A\)，\(kN_A = R\)。`,
+     hint:"把 n_A、n_B 用 X_A N_A、X_B N_A 代入。",
+     a:R`\(\Delta S_{mix} = -R\,(X_A\ln X_A + X_B\ln X_B)\)`}
+  ],
+  meaning:R`因為 \(X < 1\)，\(\ln X < 0\)，所以 \(\Delta S_{mix}\) 一定是正的：兩種原子混在一起，排法變多，熵增加。這就是為什麼不同的氣體會自己混合、合金裡的原子會自己擴散。單元 9（溶液）會再用到這條式子。`,
+  checks:[
+    {q:R`\(X_A = 0.5\) 時，\(\Delta S_{mix}\) 是？`,
+     opts:[R`\(R\ln 2\)`,"0",R`\(0.5R\)`,R`\(-R\ln 2\)`], ans:0, ex:R`\(-R(0.5\ln0.5 + 0.5\ln0.5) = -R\ln0.5 = R\ln2 \approx 5.76\ \text{J/(mol·K)}\)，這是二元理想混合熵的最大值。`},
+    {q:"推導中 −N + n_A + n_B 等於？",
+     opts:["0","N","2N","n_A"], ans:0, ex:R`因為 \(N = n_A + n_B\)。`}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"3-P1", kind:"num", title:"數硬幣",
+  text:"丟 6 枚硬幣，出現「3 正 3 反」有幾種排法？",
+  answer:20, tol:0.001, unit:"種",
+  hint:R`\(\Omega = \dfrac{6!}{3!\,3!}\)。`,
+  sol:R`\(\Omega = 720/(6\times6) = 20\)。而「6 個全正」只有 1 種，所以 3 正 3 反出現的機會是全正的 20 倍。`
+},
+{
+  id:"3-P2", kind:"num", title:"Stirling 近似有多準？",
+  text:R`用 Stirling 近似計算 \(\ln(100!)\)。（實際值約 363.7）`,
+  answer:360.5, tol:0.003, unit:"",
+  hint:R`\(100\ln100 - 100\)，\(\ln100 \approx 4.605\)。`,
+  sol:R`\(100\times4.605 - 100 \approx 360.5\)，和實際值 363.7 只差不到 1%。\(N = 10^{23}\) 時誤差小到可以完全忽略。`
+},
+{
+  id:"3-P3", kind:"num", title:"理想混合熵",
+  text:R`1 mol 的 A–B 理想溶液，\(X_A = 0.3\)。求 \(\Delta S_{mix}\)，單位 J/K。`,
+  answer:5.08, tol:0.01, unit:"J/K",
+  hint:R`\(-R\,(0.3\ln0.3 + 0.7\ln0.7)\)，\(\ln0.3 \approx -1.204\)，\(\ln0.7 \approx -0.357\)。`,
+  sol:R`\(\Delta S_{mix} = -8.314\times(0.3\times(-1.204) + 0.7\times(-0.357)) = 8.314\times0.611 \approx 5.08\ \text{J/K}\)。比 \(X_A = 0.5\) 時的 5.76 J/K 小一點。`
+},
+{
+  id:"3-P4", kind:"mc", title:"Boltzmann 常數",
+  text:R`Boltzmann 常數 \(k\) 和氣體常數 \(R\) 的關係是？`,
+  opts:[R`\(k = R/N_A\)`,R`\(k = RN_A\)`,R`\(k = R\)`,R`\(k = R/T\)`], ans:0,
+  hint:R`\(R\) 是「每莫耳」，\(k\) 是「每個粒子」。`,
+  sol:R`\(k = 8.314/(6.022\times10^{23}) \approx 1.381\times10^{-23}\ \text{J/K}\)。`
+},
+{
+  id:"3-P5", kind:"mc", title:"為什麼氣體會自己混合？",
+  text:"把裝 A 氣體和 B 氣體的兩個容器打通（溫度、壓力相同，理想氣體），它們會自己混合。主要原因是？",
+  opts:["混合後排法變多，熵增加","混合會放熱","A 和 B 互相吸引","壓力不同"], ans:0,
+  hint:"理想氣體之間沒有交互作用，混合時也不吸熱放熱。",
+  sol:R`理想混合 \(\Delta H_{mix} = 0\)，推動混合的完全是 \(\Delta S_{mix} > 0\)。`
+}
+];
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

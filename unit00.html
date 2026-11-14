@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 0 先備：認識主角與數學工具箱</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 0</div>
+  <h1>先備：認識主角與數學工具箱</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#roles">① 認識主角</a><a href="#mathbox">② 數學工具箱</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="partlbl">第一部分</div>
+<h2 id="roles">先認識主角：每個符號在說什麼</h2>
+<p>熱力學的式子看起來很嚇人，其實只是在描述幾個主角之間的關係。先把主角認識清楚，後面的推導就只是「換個角度描述同一件事」。</p>
+<p>想像一個<b>系統</b>：例如一個裝了氣體、上面有活塞的罐子。罐子以外的一切叫<b>外界</b>。罐子裡有非常非常多的小粒子（原子或分子），一直在跑來跑去、互相碰撞。</p>
+
+<h3>看得到、量得到的狀態</h3>
+<div class="grid">
+  <div class="role"><span class="sym">\(T\)</span><span class="nm">溫度</span>
+    <div class="one">粒子跑跳得有多激烈。</div>
+    <div class="eg">像操場上的小朋友：下課時跑來跑去（溫度高），上課時安靜坐好（溫度低）。</div>
+    <div class="unit">單位：K（克耳文）＝ °C + 273.15</div></div>
+  <div class="role"><span class="sym">\(P\)</span><span class="nm">壓力</span>
+    <div class="one">粒子撞牆壁的力道，平均攤在每單位面積上。</div>
+    <div class="eg">很多人一起擠一扇門，門被推的感覺。人越多、推越用力，壓力越大。</div>
+    <div class="unit">單位：Pa（帕）＝ N/m²；1 atm ≈ 1.013 × 10⁵ Pa</div></div>
+  <div class="role"><span class="sym">\(V\)</span><span class="nm">體積</span>
+    <div class="one">系統佔了多大的空間。</div>
+    <div class="eg">罐子裡活塞以下那一段空間有多大。</div>
+    <div class="unit">單位：m³；1 cm³ = 10⁻⁶ m³</div></div>
+</div>
+
+<h3>能量家族</h3>
+<div class="grid">
+  <div class="role"><span class="sym">\(U\)</span><span class="nm">內能</span>
+    <div class="one">系統裡面藏著的全部能量。</div>
+    <div class="eg">像存錢筒裡的錢：包括粒子跑動的能量，加上粒子之間互相拉扯的能量。我們只在乎「存錢筒裡的錢變多還是變少」（\(\Delta U\)）。</div>
+    <div class="unit">單位：J（焦耳）</div></div>
+  <div class="role"><span class="sym">\(q\)</span><span class="nm">熱</span>
+    <div class="one">因為溫度不同，自己流進或流出系統的能量。</div>
+    <div class="eg">熱湯放在桌上，熱會自己流到空氣裡。熱是「流動中的能量」，不是系統「擁有」的東西。</div>
+    <div class="unit">單位：J；\(q > 0\) 表示系統吸熱</div></div>
+  <div class="role"><span class="sym">\(w\)</span><span class="nm">功</span>
+    <div class="one">系統推動外界（或被外界推）時交換的能量。</div>
+    <div class="eg">氣體推動活塞往上，就是系統對外界作功，存錢筒的錢會減少。本講義跟 Gaskell 一樣：\(w > 0\) 表示系統對外界作功。</div>
+    <div class="unit">單位：J；推活塞的功 \(= P\,dV\)</div></div>
+  <div class="role"><span class="sym">\(H\)</span><span class="nm">焓</span>
+    <div class="one">\(H = U + PV\)：內能，再加上「為了佔住這個空間所付出的能量」。</div>
+    <div class="eg">走進一間擠滿人的教室，你除了自己的力氣（\(U\)），還得把別人推開才有位置站（\(PV\)）。在固定壓力下（例如在大氣中做實驗），系統吸的熱剛好就等於 \(H\) 的增加量。</div>
+    <div class="unit">單位：J</div></div>
+  <div class="role"><span class="sym">\(S\)</span><span class="nm">熵</span>
+    <div class="one">「亂」的程度：同一個樣子，粒子有多少種排法。</div>
+    <div class="eg">整理好的書桌只有一種排法；亂七八糟的書桌有超多種排法。沒人去管時，房間只會越來越亂，不會自己變整齊。大自然也一樣，熵總是傾向增加。</div>
+    <div class="unit">單位：J/K</div></div>
+  <div class="role"><span class="sym">\(A\)</span><span class="nm">Helmholtz 自由能</span>
+    <div class="one">\(A = U - TS\)：在固定溫度、固定體積下，真正「拿得出來用」的能量。</div>
+    <div class="eg">存錢筒裡的錢（\(U\)）不能全部花掉，有一部分被「亂度」綁住了（\(TS\)）。扣掉綁住的部分，剩下的才是零用錢。</div>
+    <div class="unit">單位：J</div></div>
+  <div class="role"><span class="sym">\(G\)</span><span class="nm">Gibbs 自由能</span>
+    <div class="one">\(G = H - TS\)：在固定溫度、固定壓力下，拿得出來用的能量；也是判斷「會不會自己發生」的分數。</div>
+    <div class="eg">像球放在山坡上：球會自己往低處滾。在定溫定壓下，變化會自己往 \(G\) 變小的方向走，\(G\) 最低的地方就是最穩定的狀態（平衡）。材料科學最常用的就是它。</div>
+    <div class="unit">單位：J</div></div>
+</div>
+
+<h3>材料的「個性」：實驗量得到的性質</h3>
+<div class="grid">
+  <div class="role"><span class="sym">\(C_P,\ C_V\)</span><span class="nm">熱容</span>
+    <div class="one">要讓溫度升高 1 度，需要給多少熱。</div>
+    <div class="eg">像食量：有人吃一碗就飽，有人要吃三碗。\(C_V\) 是體積固定時的食量；\(C_P\) 是壓力固定時的食量。壓力固定時系統會膨脹、要推開外界，多花一點能量，所以 \(C_P \ge C_V\)。</div>
+    <div class="unit">單位：J/(mol·K)</div></div>
+  <div class="role"><span class="sym">\(\alpha\)</span><span class="nm">體膨脹係數</span>
+    <div class="one">溫度升高 1 度，體積變大幾分之幾。</div>
+    <div class="eg">夏天鐵軌會變長，所以鐵軌之間要留縫。\(\alpha\) 越大，越「怕熱」、越會脹。</div>
+    <div class="unit">單位：K⁻¹</div></div>
+  <div class="role"><span class="sym">\(\beta\)</span><span class="nm">等溫壓縮係數</span>
+    <div class="one">壓力增加 1 單位，體積縮小幾分之幾。</div>
+    <div class="eg">捏海綿很容易扁（\(\beta\) 大）；捏石頭幾乎不動（\(\beta\) 小）。氣體像海綿，固體像石頭。</div>
+    <div class="unit">單位：Pa⁻¹</div></div>
+</div>
+
+<div class="tip"><b>一句話記住四個能量函數</b><br>
+\(U\)：全部的能量。\(H\)：全部的能量＋佔位置的能量。<br>
+\(A\)：定溫、定容時可用的能量。\(G\)：定溫、定壓時可用的能量，越低越穩定。
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="mathbox">數學工具箱</h2>
+<p>這個單元會用到的數學只有下面這幾招。每一招都附一個例子；推導練習裡標了「用到的數學」，忘記時可以點回來看。</p>
+
+<div class="math" id="m1"><h3>M1　\(d\)：一點點的變化</h3>
+<div class="plain">\(\Delta T\) 是「變了多少」（例如從 300 K 到 310 K，\(\Delta T = 10\) K）。\(dT\) 是「變了非常非常小的一點點」。</div>
+<p>為什麼要用 \(dT\)？因為很多量在變化過程中一直在改變（例如加熱時熱容也在變），只有切成很小很小的一段，才能把它當成固定值來算，最後再全部加起來（積分，見 M6）。</p>
+</div>
+
+<div class="math" id="m2"><h3>M2　導數：變化的比例（斜率）</h3>
+<div class="plain">\(\dfrac{dy}{dx}\) 的意思是：「\(x\) 變一點點時，\(y\) 跟著變多少倍」。</div>
+<div class="ex">例：走路的距離 \(s\) 對時間 \(t\) 的導數 \(\dfrac{ds}{dt}\) 就是速度。<br>
+例：\(\dfrac{dV}{dT}\) 就是「溫度升 1 度，體積變大多少」。</div>
+</div>
+
+<div class="math" id="m3"><h3>M3　偏微分：只動一個，其他固定</h3>
+<div class="plain">如果一個量同時受好幾個變數影響，\(\left(\dfrac{\partial y}{\partial x}\right)_z\) 的意思是：<b>把 \(z\) 固定不動</b>，只改變 \(x\)，看 \(y\) 變多少。<br>右下角的小字（下標）就是「被固定的那個」。</div>
+<div class="ex">例：長方形面積 \(Z = xy\)。<br>
+把寬 \(y\) 固定，只改長 \(x\)：\(\left(\dfrac{\partial Z}{\partial x}\right)_y = y\)（長每多 1，面積多一條寬）。<br>
+把長 \(x\) 固定，只改寬 \(y\)：\(\left(\dfrac{\partial Z}{\partial y}\right)_x = x\)。</div>
+<div class="ex">熱力學例：\(\left(\dfrac{\partial V}{\partial T}\right)_P\) ＝ 壓力固定時，溫度升 1 度體積變多少。下標不同，答案就不同！氣體在定壓下加熱會膨脹，但在定容（\(V\) 固定）下，體積當然不會變。</div>
+</div>
+
+<div class="math" id="m4"><h3>M4　全微分：所有變數一起動</h3>
+<div class="plain">當 \(x\) 和 \(y\) 都變一點點，\(Z\) 的總變化 ＝（只動 \(x\) 造成的）＋（只動 \(y\) 造成的）：<br>
+\(dZ = \left(\dfrac{\partial Z}{\partial x}\right)_y dx + \left(\dfrac{\partial Z}{\partial y}\right)_x dy\)</div>
+<div class="ex">例：長方形 \(Z = xy\)，長多了 \(dx\)、寬多了 \(dy\)：\(dZ = y\,dx + x\,dy\)。<br>
+想像畫圖：原本的長方形右邊多了一條（面積 \(y\,dx\)），上面多了一條（面積 \(x\,dy\)）；角落那一小塊 \(dx\,dy\) 小到可以忽略。</div>
+<div class="ex">熱力學例：把熵看成溫度和體積的函數 \(S(T,V)\)：\(dS = \left(\dfrac{\partial S}{\partial T}\right)_V dT + \left(\dfrac{\partial S}{\partial V}\right)_T dV\)。</div>
+</div>
+
+<div class="math" id="m5"><h3>M5　常用的微分規則</h3>
+<table>
+<tr><th>規則</th><th>式子</th><th>例子</th></tr>
+<tr><td>常數</td><td>\(d(c) = 0\)</td><td>\(R\) 是常數，\(dR = 0\)</td></tr>
+<tr><td>常數倍</td><td>\(d(cx) = c\,dx\)</td><td>\(d(RT) = R\,dT\)</td></tr>
+<tr><td>次方</td><td>\(d(x^n) = n x^{n-1}dx\)</td><td>\(d(T^2) = 2T\,dT\)；\(d(1/T) = -\dfrac{dT}{T^2}\)</td></tr>
+<tr><td>自然對數</td><td>\(d(\ln x) = \dfrac{dx}{x}\)</td><td>\(d(\ln P) = \dfrac{dP}{P}\)</td></tr>
+<tr><td>乘積</td><td>\(d(uv) = u\,dv + v\,du\)</td><td>\(d(PV) = P\,dV + V\,dP\)；\(d(TS) = T\,dS + S\,dT\)</td></tr>
+<tr><td>商</td><td>\(d\!\left(\dfrac{u}{v}\right) = \dfrac{v\,du - u\,dv}{v^2}\)</td><td>\(d\!\left(\dfrac{G}{T}\right) = \dfrac{dG}{T} - \dfrac{G\,dT}{T^2}\)</td></tr>
+</table>
+<p class="stats">乘積規則就是 M4 長方形的例子：兩個都在變，所以兩邊各多一條。</p>
+</div>
+
+<div class="math" id="m6"><h3>M6　積分：把一點點加起來</h3>
+<div class="plain">積分 \(\displaystyle\int_a^b\) 就是把 \(a\) 到 \(b\) 之間每一小段的變化全部加起來，得到總變化。</div>
+<table>
+<tr><th>要加的東西</th><th>結果</th><th>熱力學哪裡用到</th></tr>
+<tr><td>\(\displaystyle\int_{x_1}^{x_2} c\,dx\)</td><td>\(c\,(x_2 - x_1)\)</td><td>固體加壓 \(\Delta S = -V\alpha\,\Delta P\)</td></tr>
+<tr><td>\(\displaystyle\int_{x_1}^{x_2} \dfrac{dx}{x}\)</td><td>\(\ln\dfrac{x_2}{x_1}\)</td><td>理想氣體 \(\Delta S = -R\ln\dfrac{P_2}{P_1}\)</td></tr>
+<tr><td>\(\displaystyle\int_{x_1}^{x_2} \dfrac{dx}{x^2}\)</td><td>\(\dfrac{1}{x_1} - \dfrac{1}{x_2}\)</td><td>van der Waals 氣體的 \(\Delta U\)</td></tr>
+</table>
+</div>
+
+<div class="math" id="m7"><h3>M7　自然對數 ln</h3>
+<div class="plain">\(\ln x\) 問的是：「\(e\)（約 2.718）要幾次方才會等於 \(x\)？」計算機上的 ln 鍵就是它。</div>
+<p>常用性質：\(\ln 1 = 0\)；\(\ln(ab) = \ln a + \ln b\)；\(\ln\dfrac{a}{b} = \ln a - \ln b\)；\(\ln a^n = n\ln a\)。<br>
+常見數值：\(\ln 2 \approx 0.693\)，\(\ln 10 \approx 2.303\)，\(\ln 1000 = 3\ln 10 \approx 6.91\)。</p>
+</div>
+
+<div class="math" id="m8"><h3>M8　恰當微分：先後順序沒關係</h3>
+<div class="plain">如果 \(Z\) 是一個真正的函數（例如狀態函數 \(U, H, S, G\)），先對 \(x\) 偏微、再對 \(y\) 偏微，和反過來做，答案一定一樣。</div>
+<div class="ex">例：\(Z = x^2 y\)。<br>
+先 \(x\) 後 \(y\)：\(\dfrac{\partial Z}{\partial x} = 2xy\)，再對 \(y\)：\(2x\)。<br>
+先 \(y\) 後 \(x\)：\(\dfrac{\partial Z}{\partial y} = x^2\)，再對 \(x\)：\(2x\)。兩個一樣 ✓</div>
+<p>所以若 \(dZ = M\,dx + N\,dy\)，就有 \(\left(\dfrac{\partial M}{\partial y}\right)_x = \left(\dfrac{\partial N}{\partial x}\right)_y\)。Maxwell 關係式就是這樣來的。</p>
+</div>
+
+<div class="math" id="m9"><h3>M9　循環關係（風水輪流轉）</h3>
+<div class="plain">三個彼此相關的變數 \(x, y, z\)，三個偏導數「輪流」相乘一定等於 \(-1\)：<br>
+\(\left(\dfrac{\partial x}{\partial y}\right)_z \left(\dfrac{\partial y}{\partial z}\right)_x \left(\dfrac{\partial z}{\partial x}\right)_y = -1\)</div>
+<p>記法：分子、分母、下標三個位置，\(x \to y \to z\) 輪流坐一次。</p>
+<div class="ex">用理想氣體 \(PV = RT\)（1 mol）驗證：<br>
+\(\left(\dfrac{\partial P}{\partial T}\right)_V = \dfrac{R}{V}\)，\(\left(\dfrac{\partial T}{\partial V}\right)_P = \dfrac{P}{R}\)，\(\left(\dfrac{\partial V}{\partial P}\right)_T = -\dfrac{RT}{P^2}\)<br>
+相乘：\(\dfrac{R}{V}\cdot\dfrac{P}{R}\cdot\left(-\dfrac{RT}{P^2}\right) = -\dfrac{RT}{PV} = -1\) ✓</div>
+<p><b>實際怎麼用：</b>想求的偏導數不好算時，把式子移項：<br>
+\(\left(\dfrac{\partial P}{\partial T}\right)_V = -\dfrac{(\partial V/\partial T)_P}{(\partial V/\partial P)_T}\)：負號 × 分子分母各換成一個「好量」的偏導數。</p>
+</div>
+
+<div class="math" id="m10"><h3>M10　單位換算與科學記號</h3>
+<p>\(1\ \text{J} = 1\ \text{Pa}\cdot\text{m}^3\)：壓力乘體積就是能量，所以算 \(PV\) 或 \(V\alpha\,\Delta P\) 時，體積一定要用 m³、壓力用 Pa。<br>
+\(1\ \text{cm}^3 = 10^{-6}\ \text{m}^3\)；\(1\ \text{atm} = 1.01325\times10^5\ \text{Pa}\)；\(1\ \text{kJ} = 1000\ \text{J}\)。<br>
+科學記號相乘：數字乘數字、次方相加，例如 \((7\times10^{-6})(5\times10^{-5}) = 35\times10^{-11} = 3.5\times10^{-10}\)。</p>
+</div>
+
+<div id="mathquiz"></div>
+<div class="pager"><a href="index.html">目錄</a><a href="unit01.html">單元 1 →</a></div>
+<footer>材料熱力學練習簿 · 單元 0 先備：認識主角與數學工具箱 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "0 先備：認識主角與數學工具箱";
+const R = String.raw;
+const warmup = {id:"0-W", title:"數學工具箱小測驗（5 題）", items:[
+ {q:R`長方形面積 \(Z = xy\)，\(\left(\frac{\partial Z}{\partial y}\right)_x\) 是？`, opts:[R`\(x\)`,R`\(y\)`,R`\(xy\)`,R`1`], ans:0, ex:R`固定 \(x\)，\(y\) 每多 1，面積多一條長 \(x\)。`},
+ {q:R`\(d(PV)\) 等於？`, opts:[R`\(P\,dV + V\,dP\)`,R`\(P\,dV\)`,R`\(dP\,dV\)`,R`\(V\,dP\)`], ans:0, ex:"乘積規則：兩個都在變，各貢獻一項。"},
+ {q:R`\(\displaystyle\int_{P_1}^{P_2}\frac{dP}{P}\) 等於？`, opts:[R`\(\ln\frac{P_2}{P_1}\)`,R`\(P_2 - P_1\)`,R`\(\frac{1}{P_1} - \frac{1}{P_2}\)`,R`\(\ln(P_2 - P_1)\)`], ans:0, ex:R`\(d(\ln P) = dP/P\)，所以加起來是 \(\ln P_2 - \ln P_1\)。`},
+ {q:R`\(\left(\frac{\partial V}{\partial T}\right)_P\) 的下標 \(P\) 是什麼意思？`, opts:["壓力保持固定","對壓力微分","壓力等於零","乘上壓力"], ans:0, ex:"下標就是被固定不動的那個變數。"},
+ {q:R`7.11 cm³ 換成 m³ 是？`, opts:[R`\(7.11\times10^{-6}\ \text{m}^3\)`,R`\(7.11\times10^{-3}\ \text{m}^3\)`,R`\(7.11\times10^{-2}\ \text{m}^3\)`,R`\(7.11\times10^{6}\ \text{m}^3\)`], ans:0, ex:R`1 m = 100 cm，所以 1 m³ = 10⁶ cm³。`}
+]};
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

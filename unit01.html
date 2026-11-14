@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 1 第一定律</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 1</div>
+  <h1>第一定律</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：能量不會憑空出現，也不會憑空消失</h3>
+<p>把系統想成一個<b>存錢筒</b>，內能 \(U\) 是裡面的錢。錢只有兩種進出方式：</p>
+<ul>
+<li><b>熱 \(q\)</b>：因為溫度不同，自己流進來的能量（系統吸熱，\(q > 0\)）。</li>
+<li><b>功 \(w\)</b>：系統推動外界花掉的能量（系統對外作功，\(w > 0\)）。</li>
+</ul>
+<p>所以存錢筒的變化 ＝ 收到的 − 花掉的：</p>
+<p style="text-align:center;font-size:18px">\(\Delta U = q - w \qquad\) 微分形式：\(dU = \delta q - \delta w\)</p>
+
+<h3>狀態函數 vs. 路徑函數</h3>
+<p>爬山的例子：從山腳到山頂，<b>高度差</b>只看起點和終點（狀態函數）；但<b>走了多少路</b>要看你走哪條路（路徑函數）。</p>
+<table>
+<tr><th></th><th>只看起點終點（狀態函數）</th><th>要看怎麼走（路徑函數）</th></tr>
+<tr><td>例子</td><td>\(U,\ H,\ T,\ P,\ V\)（之後還有 \(S,\ G\)）</td><td>\(q,\ w\)</td></tr>
+<tr><td>小變化寫成</td><td>\(dU\)（恰當微分）</td><td>\(\delta q,\ \delta w\)（用 δ 提醒你它不是狀態函數）</td></tr>
+</table>
+
+<h3>可逆過程</h3>
+<p>「非常非常慢、每一刻都幾乎平衡、隨時可以倒回去」的理想過程。例如活塞外的壓力每次只比裡面小一點點，氣體慢慢推出去。可逆膨脹時系統對外作的功最大：\(\delta w_{rev} = P\,dV\)。</p>
+
+<h3>焓與熱容</h3>
+<table>
+<tr><th>量</th><th>定義</th><th>白話</th></tr>
+<tr><td>焓 \(H\)</td><td>\(H = U + PV\)</td><td>定壓下吸的熱，剛好等於 \(H\) 的增加</td></tr>
+<tr><td>\(C_V\)</td><td>\(\left(\dfrac{\partial U}{\partial T}\right)_V\)</td><td>體積固定時，升溫 1 K 要的熱</td></tr>
+<tr><td>\(C_P\)</td><td>\(\left(\dfrac{\partial H}{\partial T}\right)_P\)</td><td>壓力固定時，升溫 1 K 要的熱</td></tr>
+<tr><td>\(\gamma\)</td><td>\(C_P/C_V\)</td><td>單原子理想氣體 \(C_V = \tfrac{3}{2}R\)，\(\gamma = \tfrac{5}{3}\)</td></tr>
+</table>
+
+<h3>理想氣體的四種基本過程（1 mol）</h3>
+<table>
+<tr><th>過程</th><th>條件</th><th>功 \(w\)</th><th>熱 \(q\)</th><th>\(\Delta U\)</th></tr>
+<tr><td>定容</td><td>\(V\) 不變</td><td>0</td><td>\(C_V\Delta T\)</td><td>\(C_V\Delta T\)</td></tr>
+<tr><td>定壓</td><td>\(P\) 不變</td><td>\(P\Delta V = R\Delta T\)</td><td>\(C_P\Delta T\)</td><td>\(C_V\Delta T\)</td></tr>
+<tr><td>可逆等溫</td><td>\(T\) 不變</td><td>\(RT\ln\dfrac{V_2}{V_1}\)</td><td>\(= w\)</td><td>0</td></tr>
+<tr><td>可逆絕熱</td><td>\(q = 0\)</td><td>\(C_V(T_1 - T_2)\)</td><td>0</td><td>\(C_V\Delta T\)</td></tr>
+</table>
+<div class="tip"><b>記住一件事</b>：理想氣體的 \(U\) 和 \(H\) 只跟溫度有關，所以溫度沒變（等溫），\(\Delta U = 0\)、\(\Delta H = 0\)。（單元 5 的習題會證明這件事。）</div>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit00.html">← 單元 0</a><a href="index.html">目錄</a><a href="unit02.html">單元 2 →</a></div>
+<footer>材料熱力學練習簿 · 單元 1 第一定律 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "1 第一定律";
+const R = String.raw;
+const derivations = [
+{
+  id:"1-D1", math:["m1","m5"], title:"定容的熱 = ΔU，定壓的熱 = ΔH",
+  goal:R`\(q_V = \Delta U \qquad q_P = \Delta H\)`,
+  from:R`第一定律 \(dU = \delta q - \delta w\)、\(H = U + PV\)，只有 \(P\)–\(V\) 功`,
+  steps:[
+    {w:"先看體積固定時有沒有功。", q:"體積固定時，系統能不能推動活塞作功？",
+     hint:R`功 \(= P\,dV\)，體積不變代表 \(dV = 0\)。`,
+     a:R`\(dV = 0 \Rightarrow \delta w = 0 \Rightarrow dU = \delta q_V\)，積分得 \(q_V = \Delta U\)`},
+    {w:"再看壓力固定的情況，先把功寫出來。", q:"壓力固定時，把功寫成 P dV，代入第一定律。",
+     hint:R`\(\delta q = dU + \delta w = dU + P\,dV\)。`,
+     a:R`\(\delta q_P = dU + P\,dV\)`},
+    {w:"準備把 P dV 湊成一個完整的微分。", q:"壓力固定時，d(PV) 等於什麼？",
+     hint:R`乘積規則 \(d(PV) = P\,dV + V\,dP\)，而定壓時 \(dP = 0\)。`,
+     a:R`\(d(PV) = P\,dV\)（因為 \(dP = 0\)）`},
+    {w:"把兩步合起來，就變成焓的變化。", q:"把上面兩步合起來，用 H 表示。",
+     hint:R`\(dU + P\,dV = dU + d(PV) = d(U + PV)\)。`,
+     a:R`\(\delta q_P = d(U + PV) = dH \Rightarrow q_P = \Delta H\)`}
+  ],
+  meaning:R`熱本來是路徑函數，但只要指定「定容」或「定壓」，熱就等於某個狀態函數的變化。這就是發明焓的原因：大部分實驗在大氣壓下（定壓）進行，量到的熱就是 \(\Delta H\)。`,
+  checks:[
+    {q:"在大氣中打開蓋子加熱一杯水，水吸收的熱等於？",
+     opts:[R`\(\Delta H\)`,R`\(\Delta U\)`,R`\(w\)`,"0"], ans:0, ex:"打開蓋子＝壓力固定（大氣壓），所以吸的熱等於焓的增加。"},
+    {q:"為什麼體積固定時 δw = 0？",
+     opts:["體積沒變，就沒有推動外界","溫度沒變","沒有吸熱","壓力等於零"], ans:0, ex:R`只有 \(P\)–\(V\) 功時 \(\delta w = P\,dV\)，\(dV = 0\) 就沒有功。`}
+  ]
+},
+{
+  id:"1-D2", math:["m2","m5"], title:R`理想氣體 \(C_P - C_V = R\)`,
+  goal:R`\(C_P - C_V = R\)（1 mol 理想氣體）`,
+  from:R`\(H = U + PV\)、\(PV = RT\)、理想氣體的 \(U\) 只跟 \(T\) 有關`,
+  steps:[
+    {w:"把 PV 換成溫度，讓 H 和 U 只差一個 RT。", q:"把 PV = RT 代入焓的定義。",
+     hint:"1 mol 理想氣體，PV 可以直接換成 RT。",
+     a:R`\(H = U + RT\)`},
+    {w:"看溫度變一點點時，兩邊各變多少。", q:"兩邊對 T 微分。",
+     hint:R`理想氣體的 \(U\)、\(H\) 只和 \(T\) 有關，所以用 \(d/dT\) 即可；\(d(RT)/dT = R\)。`,
+     a:R`\(\dfrac{dH}{dT} = \dfrac{dU}{dT} + R\)`},
+    {w:"把導數認出來，就是熱容。", q:"認出這兩個導數是什麼。",
+     hint:R`\(C_P = (\partial H/\partial T)_P\)，\(C_V = (\partial U/\partial T)_V\)；理想氣體時下標不影響結果。`,
+     a:R`\(C_P = C_V + R \Rightarrow C_P - C_V = R\)`}
+  ],
+  meaning:R`定壓加熱時，氣體會膨脹、推開外界，要多付一份功，所以 \(C_P\) 比 \(C_V\) 大。1 mol 理想氣體每升溫 1 K，多付的功剛好是 \(P\,\Delta V = R\)。一般物質的公式在單元 5 推導。`,
+  checks:[
+    {q:R`單原子理想氣體 \(C_V = \tfrac{3}{2}R\)，則 \(C_P\) 是？`,
+     opts:[R`\(\tfrac{5}{2}R\)`,R`\(\tfrac{3}{2}R\)`,R`\(\tfrac{1}{2}R\)`,R`\(3R\)`], ans:0, ex:R`\(C_P = C_V + R = \tfrac{5}{2}R\)，\(\gamma = 5/3\)。`},
+    {q:R`為什麼 \(C_P > C_V\)？`,
+     opts:["定壓加熱時氣體膨脹要對外作功","定壓時分子跑得比較快","定容時會漏熱","兩者其實一樣大"], ans:0, ex:"多出來的就是推開外界的功。"}
+  ]
+},
+{
+  id:"1-D3", math:["m6","m7"], title:"可逆等溫膨脹的功",
+  goal:R`\(w = RT\ln\dfrac{V_2}{V_1} = RT\ln\dfrac{P_1}{P_2}\)，且 \(q = w\)`,
+  from:R`\(\delta w_{rev} = P\,dV\)、\(PV = RT\)`,
+  steps:[
+    {w:"寫出每一小步推活塞的功。", q:"寫出可逆膨脹每一小步的功，並用 PV = RT 換掉 P。",
+     hint:R`溫度固定，所以 \(P = RT/V\) 中只有 \(V\) 在變。`,
+     a:R`\(\delta w = P\,dV = \dfrac{RT}{V}dV\)`},
+    {w:"把每一小步的功加起來。", q:"從 V₁ 積分到 V₂。",
+     hint:R`\(RT\) 是常數可以提出來，\(\int dV/V = \ln(V_2/V_1)\)。`,
+     a:R`\(w = RT\displaystyle\int_{V_1}^{V_2}\dfrac{dV}{V} = RT\ln\dfrac{V_2}{V_1}\)`},
+    {w:"換成用壓力表示，比較好用。", q:"改用壓力表示。",
+     hint:R`等溫時 \(P_1V_1 = P_2V_2\)，所以 \(V_2/V_1 = P_1/P_2\)。`,
+     a:R`\(w = RT\ln\dfrac{P_1}{P_2}\)`},
+    {w:"用第一定律算熱。", q:"吸了多少熱？",
+     hint:R`理想氣體等溫 \(\Delta U = 0\)，再用第一定律。`,
+     a:R`\(\Delta U = 0 = q - w \Rightarrow q = w = RT\ln\dfrac{V_2}{V_1}\)`}
+  ],
+  meaning:R`等溫膨脹時，氣體一邊對外作功、一邊從外界吸等量的熱，內能不變。吸進來的熱全部變成功。`,
+  checks:[
+    {q:"理想氣體可逆等溫膨脹時，ΔU 是？",
+     opts:["0","q","w","RT"], ans:0, ex:"理想氣體的 U 只跟溫度有關，溫度不變 ΔU = 0。"},
+    {q:R`等溫下體積變成 2 倍，\(w\) 等於？`,
+     opts:[R`\(RT\ln 2\)`,R`\(2RT\)`,R`\(RT/2\)`,R`\(R\ln 2\)`], ans:0, ex:R`\(\ln(V_2/V_1) = \ln 2 \approx 0.693\)。`}
+  ]
+},
+{
+  id:"1-D4", math:["m5","m6","m7"], title:R`可逆絕熱過程 \(PV^\gamma = \)常數`,
+  goal:R`\(TV^{\gamma-1} = \)常數，\(PV^\gamma = \)常數`,
+  from:R`第一定律、\(dU = C_V\,dT\)、\(PV = RT\)、\(C_P - C_V = R\)`,
+  steps:[
+    {w:"絕熱代表沒有熱進出，先寫第一定律。", q:"絕熱代表 δq = 0，寫出第一定律。",
+     hint:"沒有熱進出，內能的變化全來自功。",
+     a:R`\(dU = -\delta w \Rightarrow C_V\,dT = -P\,dV\)`},
+    {w:"把 T 和 V 分開到等號兩邊，才能積分。", q:"用 P = RT/V 換掉 P，並把 T 和 V 分到等號兩邊。",
+     hint:R`兩邊同除以 \(T\)。`,
+     a:R`\(C_V\dfrac{dT}{T} = -R\dfrac{dV}{V}\)`},
+    {w:"把每一小段加起來。", q:"兩邊積分。",
+     hint:R`\(\int dx/x = \ln x\)。`,
+     a:R`\(C_V\ln\dfrac{T_2}{T_1} = -R\ln\dfrac{V_2}{V_1}\)`},
+    {w:"把常數整理成 γ，得到 T 和 V 的關係。", q:R`把 \(R/C_V\) 寫成 γ − 1，整理成「某個量 = 常數」。`,
+     hint:R`\(R/C_V = (C_P - C_V)/C_V = \gamma - 1\)；再用 \(\ln a^n = n\ln a\)。`,
+     a:R`\(\ln\dfrac{T_2}{T_1} = -(\gamma-1)\ln\dfrac{V_2}{V_1} \Rightarrow T_1V_1^{\gamma-1} = T_2V_2^{\gamma-1}\)`},
+    {w:"把 T 換成 P 和 V，得到最常見的形式。", q:"用 T = PV/R 換掉 T。",
+     hint:R`\(\dfrac{PV}{R}V^{\gamma-1} = \dfrac{1}{R}PV^\gamma\)，\(R\) 是常數。`,
+     a:R`\(PV^\gamma = \)常數。改寫成 \(T\) 與 \(P\)：\(\dfrac{T_2}{T_1} = \left(\dfrac{P_2}{P_1}\right)^{(\gamma-1)/\gamma}\)`}
+  ],
+  meaning:R`絕熱膨脹時沒有熱補充，對外作的功只能從內能拿，所以氣體會變冷。打氣筒打完會變熱、噴霧罐噴久了變冰，就是這個道理（雖然實際上不是完全可逆）。`,
+  checks:[
+    {q:"理想氣體可逆絕熱膨脹後，溫度會？",
+     opts:["降低","升高","不變","看氣體種類"], ans:0, ex:"對外作功消耗內能，而理想氣體的內能只跟溫度有關。"},
+    {q:R`推導中 \(R/C_V\) 等於？`,
+     opts:[R`\(\gamma - 1\)`,R`\(\gamma\)`,R`\(1/\gamma\)`,R`\(\gamma + 1\)`], ans:0, ex:R`\((C_P - C_V)/C_V = \gamma - 1\)。`}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"1-P1", kind:"mc", title:"哪個是狀態函數？",
+  text:"一杯水先加熱再冷卻，最後回到原來的溫度和壓力。下列哪一個量的總變化一定是 0？",
+  opts:[R`內能 \(U\)`,R`吸收的熱 \(q\)`,R`作的功 \(w\)`,"以上都是"], ans:0,
+  hint:"回到起點時，哪些量「只看狀態」？",
+  sol:R`\(U\) 是狀態函數，回到原狀態 \(\Delta U = 0\)。\(q\) 和 \(w\) 是路徑函數，整圈下來不一定是 0（但兩者會相等：\(q = w\)）。`
+},
+{
+  id:"1-P2", kind:"num", title:"可逆等溫膨脹的功",
+  text:R`1 mol 理想氣體在 300 K 下，從 10 atm 可逆等溫膨脹到 1 atm。求系統對外作的功 \(w\)，單位 J。（\(R = 8.314\ \text{J/(mol·K)}\)）`,
+  answer:5743, tol:0.01, unit:"J",
+  hint:R`用 \(w = RT\ln(P_1/P_2)\)。`,
+  sol:R`\(w = (8.314)(300)\ln 10 = 2494.2 \times 2.303 \approx 5743\ \text{J}\)。<br>等溫 \(\Delta U = 0\)，所以氣體同時吸了 5743 J 的熱。`
+},
+{
+  id:"1-P3", kind:"num", title:"可逆絕熱膨脹後的溫度",
+  text:R`1 mol 單原子理想氣體（\(C_V = \tfrac{3}{2}R\)）在 300 K、10 atm，可逆絕熱膨脹到 1 atm。求最後溫度，單位 K。`,
+  answer:119.4, tol:0.01, unit:"K",
+  hint:R`\(\gamma = 5/3\)，\((\gamma-1)/\gamma = 0.4\)；用 \(T_2/T_1 = (P_2/P_1)^{(\gamma-1)/\gamma}\)。`,
+  sol:R`\(T_2 = 300\times(0.1)^{0.4} = 300\times0.398 \approx 119.4\ \text{K}\)。<br>和 P2 對照：同樣從 10 atm 膨脹到 1 atm，等溫時溫度不變，絕熱時氣體冷到 119 K。`
+},
+{
+  id:"1-P4", kind:"num", title:"絕熱膨脹作的功",
+  text:R`接續 P3，求系統對外作的功 \(w\)，單位 J。`,
+  answer:2252, tol:0.01, unit:"J",
+  hint:R`絕熱 \(q = 0\)，所以 \(w = -\Delta U = C_V(T_1 - T_2)\)。`,
+  sol:R`\(w = \tfrac{3}{2}(8.314)(300 - 119.4) \approx 2252\ \text{J}\)。<br>比等溫膨脹（5743 J）少，因為絕熱時沒有熱補充，只能花內能，氣體越來越冷、壓力掉得更快。`
+},
+{
+  id:"1-P5", kind:"mc", title:"定壓加熱",
+  text:R`1 mol 理想氣體在定壓下從 300 K 加熱到 400 K（\(C_P = \tfrac{5}{2}R\)）。下列何者正確？`,
+  opts:[R`\(q = \Delta H = \tfrac{5}{2}R\times100\)，\(w = R\times100\)`,R`\(q = \Delta U\)`,R`\(w = 0\)`,R`\(\Delta H = 0\)`], ans:0,
+  hint:R`定壓 \(q = \Delta H = C_P\Delta T\)，功 \(= P\Delta V = R\Delta T\)。`,
+  sol:R`\(q = \Delta H = 2078.5\ \text{J}\)，\(w = P\Delta V = R\Delta T = 831.4\ \text{J}\)，\(\Delta U = q - w = 1247.1\ \text{J} = C_V\Delta T\) ✓`
+}
+];
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

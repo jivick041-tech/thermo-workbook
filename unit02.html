@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 2 第二定律與熵</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 2</div>
+  <h1>第二定律與熵</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：有些事情只會往一個方向發生</h3>
+<p>熱湯會自己變涼，但涼湯不會自己變熱；墨水滴進水裡會散開，但不會自己聚回一滴。第一定律只說能量守恆，沒說「哪個方向會發生」。<b>第二定律</b>就是在回答方向的問題。</p>
+<table>
+<tr><th>名詞</th><th>白話</th></tr>
+<tr><td>自發過程</td><td>不用外力幫忙，自己就會發生（熱從高溫流到低溫）。</td></tr>
+<tr><td>可逆過程</td><td>慢到每一刻都在平衡、隨時能倒回去的理想過程。真實世界只能接近。</td></tr>
+<tr><td>熵 \(S\)</td><td>「亂」的程度、能量被分散的程度。定義：\(dS = \dfrac{\delta q_{rev}}{T}\)。</td></tr>
+</table>
+
+<h3>熱機與卡諾效率</h3>
+<p>水車的比喻：水從高處流到低處時，可以順便推動水車。熱機也一樣，熱從高溫 \(T_1\) 流到低溫 \(T_2\) 時，可以順便作功。但一定有一部分熱要排到低溫處，不可能全部變成功。最好的情況（可逆的卡諾熱機）：</p>
+<p style="text-align:center;font-size:18px">\(\eta = \dfrac{w}{q_1} = 1 - \dfrac{T_2}{T_1}\)</p>
+
+<h3>第二定律的三種說法</h3>
+<ul>
+<li>熱不會自己從低溫流到高溫。</li>
+<li>不可能有一個循環，把吸的熱全部變成功。</li>
+<li><b>孤立系統的熵不會減少</b>：\(\Delta S \ge 0\)（可逆時等號成立）。</li>
+</ul>
+<div class="tip"><b>Clausius 不等式</b>：\(dS \ge \dfrac{\delta q}{T}\)。可逆時取等號；不可逆時，熵增加得比 \(\delta q/T\) 還多，多出來的就是「不可逆產生的熵」。</div>
+
+<h3>常用的熵變公式</h3>
+<table>
+<tr><th>情況</th><th>\(\Delta S\)</th></tr>
+<tr><td>定溫下吸熱 \(q_{rev}\)（如熔化、沸騰）</td><td>\(\dfrac{q_{rev}}{T} = \dfrac{\Delta H}{T}\)</td></tr>
+<tr><td>理想氣體（1 mol）</td><td>\(C_V\ln\dfrac{T_2}{T_1} + R\ln\dfrac{V_2}{V_1}\)</td></tr>
+<tr><td>定壓加熱</td><td>\(\displaystyle\int\dfrac{C_P}{T}dT = C_P\ln\dfrac{T_2}{T_1}\)（\(C_P\) 為常數時）</td></tr>
+</table>
+<p>重點：\(S\) 是狀態函數。真實過程不可逆時，就<b>找一條可逆路徑</b>連接同樣的起點和終點，用那條路徑算 \(\Delta S\)。</p>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit01.html">← 單元 1</a><a href="index.html">目錄</a><a href="unit03.html">單元 3 →</a></div>
+<footer>材料熱力學練習簿 · 單元 2 第二定律與熵 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "2 第二定律與熵";
+const R = String.raw;
+const derivations = [
+{
+  id:"2-D1", math:["m6","m7"], title:"卡諾循環的效率",
+  goal:R`\(\eta = 1 - \dfrac{T_2}{T_1}\)`,
+  from:R`單元 1：可逆等溫功 \(RT\ln(V_2/V_1)\)、可逆絕熱 \(TV^{\gamma-1} = \)常數`,
+  steps:[
+    {w:"第 1 段：高溫下慢慢膨脹，從熱源吸熱。", q:"第 1 段：在高溫 T₁ 下，從 V₁ 可逆等溫膨脹到 V₂。吸了多少熱 q₁？",
+     hint:R`理想氣體等溫 \(\Delta U = 0\)，所以 \(q = w\)。`,
+     a:R`\(q_1 = RT_1\ln\dfrac{V_2}{V_1}\)（> 0，吸熱）`},
+    {w:"第 2 段：絕熱膨脹，氣體自己變冷。", q:"第 2 段：可逆絕熱膨脹，V₂ → V₃，溫度從 T₁ 降到 T₂。寫出 T 和 V 的關係。",
+     hint:R`絕熱：\(TV^{\gamma-1} = \)常數。`,
+     a:R`\(T_1V_2^{\gamma-1} = T_2V_3^{\gamma-1}\)`},
+    {w:"第 3 段：低溫下壓縮，把熱排給冷源。", q:"第 3 段：在低溫 T₂ 下，從 V₃ 等溫壓縮到 V₄。吸了多少熱 q₂？",
+     hint:"和第 1 段一樣的公式，只是體積變小。",
+     a:R`\(q_2 = RT_2\ln\dfrac{V_4}{V_3}\)（< 0，放熱）`},
+    {w:"第 4 段：絕熱壓縮回到起點；找出四個體積之間的關係。", q:"第 4 段：絕熱壓縮 V₄ → V₁ 回到起點。把第 2、4 段的式子相除，找出體積比的關係。",
+     hint:R`第 4 段：\(T_2V_4^{\gamma-1} = T_1V_1^{\gamma-1}\)。兩式相除後 \(T\) 會消掉。`,
+     a:R`\(\left(\dfrac{V_2}{V_1}\right)^{\gamma-1} = \left(\dfrac{V_3}{V_4}\right)^{\gamma-1} \Rightarrow \dfrac{V_2}{V_1} = \dfrac{V_3}{V_4}\)`},
+    {w:"算一整圈作了多少功，再除以吸的熱。", q:"一整圈 ΔU = 0，所以淨功 w = q₁ + q₂。算效率 η = w / q₁。",
+     hint:R`\(\ln(V_4/V_3) = -\ln(V_3/V_4) = -\ln(V_2/V_1)\)。`,
+     a:R`\(\eta = \dfrac{q_1 + q_2}{q_1} = \dfrac{RT_1\ln(V_2/V_1) - RT_2\ln(V_2/V_1)}{RT_1\ln(V_2/V_1)} = 1 - \dfrac{T_2}{T_1}\)`}
+  ],
+  meaning:R`效率只跟兩個溫度有關，跟工作物質無關。低溫端不可能是 0 K，所以效率永遠小於 1：熱不可能全部變成功。火力發電廠要把高溫做得很高，就是為了提高效率。`,
+  checks:[
+    {q:"要提高卡諾熱機的效率，應該？",
+     opts:["提高高溫端溫度或降低低溫端溫度","換一種氣體","讓循環跑快一點","增加氣體的量"], ans:0, ex:R`\(\eta = 1 - T_2/T_1\) 只跟溫度有關。`},
+    {q:"一整個循環後，氣體的 ΔU 是？",
+     opts:["0","q₁","w","q₂"], ans:0, ex:"回到起點，狀態函數的變化都是 0。"}
+  ]
+},
+{
+  id:"2-D2", math:["m6"], title:"熵是狀態函數",
+  goal:R`\(\displaystyle\oint\dfrac{\delta q_{rev}}{T} = 0\)，所以 \(dS = \dfrac{\delta q_{rev}}{T}\) 定義了一個狀態函數`,
+  from:"D1 的卡諾循環",
+  steps:[
+    {w:"把效率式改寫成 q 和 T 的關係。", q:"由 D1 的效率式，寫出 q₁、q₂、T₁、T₂ 的關係。",
+     hint:R`\(\dfrac{q_1 + q_2}{q_1} = 1 - \dfrac{T_2}{T_1}\)，整理一下。`,
+     a:R`\(\dfrac{q_2}{q_1} = -\dfrac{T_2}{T_1} \Rightarrow \dfrac{q_1}{T_1} + \dfrac{q_2}{T_2} = 0\)`},
+    {w:"把四段的 q/T 全部加起來。", q:"絕熱段沒有熱。所以整個卡諾循環的 Σ(q/T) 是多少？",
+     hint:"四段加起來，只有兩段等溫有熱。",
+     a:R`\(\displaystyle\sum\dfrac{q_{rev}}{T} = \dfrac{q_1}{T_1} + 0 + \dfrac{q_2}{T_2} + 0 = 0\)`},
+    {w:"從「繞一圈等於零」得到結論。", q:"任何可逆循環都可以切成很多很小的卡諾循環。這代表什麼？",
+     hint:"一圈加起來是 0 的量，就是狀態函數的特徵（像爬山一圈回到原點，高度變化是 0）。",
+     a:R`\(\displaystyle\oint\dfrac{\delta q_{rev}}{T} = 0\)，所以 \(\dfrac{\delta q_{rev}}{T}\) 是某個狀態函數的微分，定義為 \(dS\)。`}
+  ],
+  meaning:R`\(q\) 本身不是狀態函數，但除以 \(T\) 之後就變成了。這個新的狀態函數就是熵。所以算 \(\Delta S\) 時，只要找一條可逆路徑就行，不管真實過程是不是可逆。`,
+  checks:[
+    {q:"一個量繞一圈回到原點變化為 0，代表它是？",
+     opts:["狀態函數","路徑函數","常數","熱"], ans:0, ex:"像高度：繞一圈回到原點，高度差是 0。"},
+    {q:"真實過程不可逆時，要怎麼算 ΔS？",
+     opts:["找一條連接同樣起點和終點的可逆路徑來算","直接用 q/T","ΔS 一定是 0","無法計算"], ans:0, ex:"S 是狀態函數，只看起點終點。"}
+  ]
+},
+{
+  id:"2-D3", math:["m1"], title:"Clausius 不等式與熵增原理",
+  goal:R`\(dS \ge \dfrac{\delta q}{T}\)；孤立系統 \(dS \ge 0\)`,
+  from:"第一定律、可逆功最大",
+  steps:[
+    {w:"先確認：同樣的起點終點，內能變化一樣。", q:"同樣的狀態變化，走可逆路徑和不可逆路徑，dU 一樣嗎？",
+     hint:"U 是狀態函數。",
+     a:R`一樣：\(dU = \delta q_{rev} - \delta w_{rev} = \delta q - \delta w\)`},
+    {w:"比較兩種路徑對外作的功。", q:"可逆膨脹時系統對外作的功最大（外壓幾乎等於內壓）。所以 δw 和 δw_rev 誰大？",
+     hint:"不可逆膨脹時外壓比內壓小，推的力比較小，作的功也比較少。",
+     a:R`\(\delta w \le \delta w_{rev}\)`},
+    {w:"由功的大小推出熱的大小。", q:"由前兩步比較 δq 和 δq_rev。",
+     hint:R`\(\delta q = dU + \delta w\)。`,
+     a:R`\(\delta q = dU + \delta w \le dU + \delta w_{rev} = \delta q_{rev} = T\,dS\)`},
+    {w:"整理成不等式，再看孤立系統。", q:"整理成 Clausius 不等式，再套用到孤立系統。",
+     hint:R`孤立系統和外界沒有熱交換：\(\delta q = 0\)。`,
+     a:R`\(dS \ge \dfrac{\delta q}{T}\)；孤立系統 \(\delta q = 0 \Rightarrow dS \ge 0\)`}
+  ],
+  meaning:R`把「系統＋外界」當成一個大的孤立系統（宇宙），任何真實過程都會讓宇宙的熵增加，可逆時才不變。這就是「時間的方向」：熵增加的方向就是事情自然發生的方向。`,
+  checks:[
+    {q:"可逆過程中，宇宙（系統＋外界）的總熵變是？",
+     opts:["0","大於 0","小於 0","無法判斷"], ans:0, ex:"可逆時等號成立。"},
+    {q:R`系統的熵可以減少嗎？`,
+     opts:["可以，只要外界的熵增加得更多","不行，熵永遠不減少","只有可逆時可以","只有絕熱時可以"], ans:0, ex:"例如水結冰，水的熵減少，但放出的熱讓外界熵增加更多。只有孤立系統的熵不能減少。"}
+  ]
+},
+{
+  id:"2-D4", math:["m4","m6","m7"], title:"理想氣體的熵變",
+  goal:R`\(\Delta S = C_V\ln\dfrac{T_2}{T_1} + R\ln\dfrac{V_2}{V_1}\)（1 mol）`,
+  from:R`\(dS = \delta q_{rev}/T\)、第一定律、\(dU = C_V\,dT\)、\(PV = RT\)`,
+  steps:[
+    {w:"先用第一定律寫出可逆吸的熱。", q:"可逆過程中，用第一定律寫出 δq_rev。",
+     hint:R`\(\delta q_{rev} = dU + \delta w_{rev}\)，可逆功 \(= P\,dV\)。`,
+     a:R`\(\delta q_{rev} = C_V\,dT + P\,dV\)`},
+    {w:"除以溫度，變成熵的微分。", q:"除以 T 得到 dS，並用 P/T = R/V。",
+     hint:"理想氣體 PV = RT。",
+     a:R`\(dS = C_V\dfrac{dT}{T} + R\dfrac{dV}{V}\)`},
+    {w:"把每一小段加起來。", q:"積分（C_V 為常數）。",
+     hint:R`\(\int dx/x = \ln(x_2/x_1)\)。`,
+     a:R`\(\Delta S = C_V\ln\dfrac{T_2}{T_1} + R\ln\dfrac{V_2}{V_1}\)`}
+  ],
+  meaning:R`溫度升高（粒子跑得更激烈）或體積變大（粒子有更多空間可以跑）都會讓熵增加，符合「亂度」的直覺。`,
+  checks:[
+    {q:"理想氣體等溫下體積變成 2 倍，ΔS 是？",
+     opts:[R`\(R\ln 2\)`,"0",R`\(2R\)`,R`\(-R\ln 2\)`], ans:0, ex:R`等溫第一項為 0，第二項 \(R\ln 2 \approx 5.76\ \text{J/K}\)。`},
+    {q:"推導中把 P/T 換成什麼？",
+     opts:["R/V","V/R","RT","1/V"], ans:0, ex:"由 PV = RT。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"2-P1", kind:"num", title:"卡諾效率",
+  text:"一部可逆熱機在 1000 K 與 300 K 之間運轉。它的最大效率是多少？（請輸入小數，例如 0.5）",
+  answer:0.70, tol:0.01, unit:"",
+  hint:R`\(\eta = 1 - T_2/T_1\)。`,
+  sol:R`\(\eta = 1 - 300/1000 = 0.70\)。從高溫吸 100 J 熱，最多只能變成 70 J 的功，另外 30 J 一定要排到低溫端。`
+},
+{
+  id:"2-P2", kind:"num", title:"自由膨脹的熵變",
+  text:R`1 mol 理想氣體在絕熱的容器裡，打開隔板讓它衝進真空，體積變成原來的 2 倍（溫度不變）。求氣體的 \(\Delta S\)，單位 J/K。`,
+  answer:5.76, tol:0.01, unit:"J/K",
+  hint:R`這個過程不可逆，\(q = 0\)，但不能用 \(q/T\) 算！找一條同樣起點終點的可逆路徑（可逆等溫膨脹）。`,
+  sol:R`可逆等溫路徑：\(\Delta S = R\ln 2 = 8.314\times0.693 \approx 5.76\ \text{J/K}\)。<br>真實過程 \(q = 0\)，外界沒有變化，\(\Delta S_{外界} = 0\)，所以宇宙熵增加 5.76 J/K > 0：自由膨脹是自發的。`
+},
+{
+  id:"2-P3", kind:"num", title:"熱從高溫流到低溫",
+  text:"1000 J 的熱從 500 K 的大熱源流到 300 K 的大熱源（兩個熱源溫度都不變）。求兩個熱源的總熵變，單位 J/K。",
+  answer:1.333, tol:0.01, unit:"J/K",
+  hint:R`高溫熱源失去熱：\(-q/T_{高}\)；低溫熱源得到熱：\(+q/T_{低}\)。`,
+  sol:R`\(\Delta S = -\dfrac{1000}{500} + \dfrac{1000}{300} = -2.000 + 3.333 = 1.333\ \text{J/K} > 0\)。<br>反過來（熱從低溫流到高溫）總熵變會是負的，違反第二定律，所以不會自己發生。`
+},
+{
+  id:"2-P4", kind:"num", title:"冰熔化的熵變",
+  text:R`冰在 273 K 熔化，熔化熱 \(\Delta H_m = 6008\ \text{J/mol}\)。求 1 mol 冰熔化的 \(\Delta S\)，單位 J/(mol·K)。`,
+  answer:22.0, tol:0.01, unit:"J/(mol·K)",
+  hint:R`在熔點熔化是可逆的定溫過程：\(\Delta S = q_{rev}/T = \Delta H/T\)。`,
+  sol:R`\(\Delta S = 6008/273 \approx 22.0\ \text{J/(mol·K)}\)。液體比固體亂，所以熔化時熵增加。`
+},
+{
+  id:"2-P5", kind:"mc", title:"判斷正誤",
+  text:"下列敘述何者正確？",
+  opts:["任何真實的自發過程都會讓宇宙的熵增加","系統的熵永遠不會減少","絕熱過程的 ΔS 一定是 0","熱機效率可以達到 100%"], ans:0,
+  hint:"注意「系統」和「孤立系統（宇宙）」的差別，以及「絕熱」和「可逆絕熱」的差別。",
+  sol:R`只有孤立系統的熵不會減少；系統本身可以減少（如結冰）。只有<b>可逆</b>絕熱才是 \(\Delta S = 0\)，不可逆絕熱（如 P2 的自由膨脹）\(\Delta S > 0\)。熱機效率最高是卡諾效率，小於 1。`
+}
+];
+
+</script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>
