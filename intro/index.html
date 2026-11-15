@@ -1,0 +1,1614 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-family:system-ui,-apple-system,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>材料科學與工程導論講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: periodic-table cell rail for chapters on the left; course-notes column on the right with a sticky step strip (stacks on phone) */
+:root{
+  --bg:#f3f5f6; --paper:#ffffff; --ink:#18232b; --muted:#5b6b75; --line:#d5dde2;
+  --accent:#b4531f; --accent-soft:#f6e4d9; --steel:#2f5d78; --steel-soft:#e1ecf2; --dblk:#e7eaec;
+  --ok:#2c7a4b; --ok-soft:#e1f2e7; --bad:#b3261e; --bad-soft:#fbe5e3;
+  --f-display:"IBM Plex Sans","Noto Sans TC",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11181d; --paper:#18222a; --ink:#e3eaee; --muted:#93a4ae; --line:#2c3a44;
+  --accent:#e58a52; --accent-soft:#3a2518; --steel:#7fb2d0; --steel-soft:#1c2f3b; --dblk:#25313a;
+  --ok:#6cc58f; --ok-soft:#173326; --bad:#f08a80; --bad-soft:#3a1d1b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11181d; --paper:#18222a; --ink:#e3eaee; --muted:#93a4ae; --line:#2c3a44;
+  --accent:#e58a52; --accent-soft:#3a2518; --steel:#7fb2d0; --steel-soft:#1c2f3b; --dblk:#25313a;
+  --ok:#6cc58f; --ok-soft:#173326; --bad:#f08a80; --bad-soft:#3a1d1b; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1140px;margin:0 auto;padding-block:32px 72px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:36px}
+
+header.top{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:16px 24px;border-bottom:2px solid var(--ink);padding-bottom:18px}
+.course{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+header.top h1{font-family:var(--f-display);font-weight:900;font-size:clamp(1.8rem,4.4vw,2.7rem);line-height:1.15;margin:4px 0 2px;text-wrap:balance}
+header.top .subt{font-family:var(--f-display);font-size:1.1rem;font-weight:500;margin:0}
+.byline{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:10px;font-size:.9rem;color:var(--muted)}
+.byline b{color:var(--ink);font-weight:700}
+.overall{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);text-align:right}
+.overall b{color:var(--ink);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);overflow:hidden;margin-top:6px;width:180px;max-width:100%}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cell{all:unset;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:1;max-width:100%;border:1.5px solid var(--line);background:var(--paper);padding:8px 9px;position:relative}
+.cell:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cell .z{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.cell .sym{font-family:var(--f-display);font-weight:700;font-size:1.55rem;line-height:1}
+.cell .nm{font-size:.7rem;line-height:1.3;color:var(--muted)}
+.cell .sc{position:absolute;top:7px;right:8px;font-family:var(--f-mono);font-size:.66rem;color:var(--muted)}
+.cell[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.cell[aria-current="true"] .sym{color:var(--accent)}
+.cell[disabled]{cursor:default;border-style:dashed;background:transparent;opacity:.7}
+
+main{min-width:0}
+.strip{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding-block:10px;margin-bottom:8px;border-bottom:1px solid var(--line);scrollbar-width:thin;align-items:center}
+.chip{all:unset;cursor:pointer;flex:none;font-size:.82rem;padding:3px 10px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+.chip b{font-family:var(--f-mono);color:var(--accent);margin-right:4px}
+.chip.mini{padding:3px 8px;font-family:var(--f-mono);font-weight:600;color:var(--steel)}
+.chip:hover{border-color:var(--steel)}
+.chip:focus-visible{outline:2px solid var(--accent)}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+main h2{font-family:var(--f-display);font-weight:900;font-size:clamp(1.5rem,3.4vw,2rem);margin:6px 0 2px;line-height:1.25;text-wrap:balance}
+.en{font-family:var(--f-display);color:var(--muted);font-size:.95rem;margin:0}
+.lead{max-width:65ch;margin:14px 0 8px}
+.guide{font-size:.9rem;color:var(--muted);max-width:68ch;margin:0 0 10px}
+
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:20px 0 4px;border:1.5px solid var(--ink)}
+.route button{all:unset;cursor:pointer;padding:10px 12px;border-right:1px solid var(--line);min-width:0}
+.route button:last-child{border-right:0}
+.route button:hover{background:var(--steel-soft)}
+.route button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.route .n{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);display:block}
+.route .t{font-weight:700;font-size:.92rem;display:block}
+.route .d{font-size:.76rem;color:var(--muted);display:block;line-height:1.45}
+
+.step{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 64px);margin-top:52px}
+.stephead{display:flex;align-items:baseline;gap:14px;border-bottom:3px solid var(--ink);padding-bottom:8px}
+.stephead .sn{font-family:var(--f-mono);font-weight:600;font-size:.85rem;color:var(--paper);background:var(--ink);padding:1px 8px}
+.stephead h3{font-family:var(--f-display);font-weight:900;font-size:1.4rem;margin:0}
+.stephead .ref{margin-left:auto;font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.goals{counter-reset:g;list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;max-width:70ch}
+.goals li{counter-increment:g;display:flex;gap:12px}
+.goals li::before{content:counter(g);font-family:var(--f-mono);font-weight:600;color:var(--accent);flex:none;width:1.4em}
+
+section.zone{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 64px);padding-top:28px;margin-top:28px;border-top:1px solid var(--line)}
+section.zone:first-of-type{border-top:0;margin-top:8px}
+.zh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.zh .code{font-family:var(--f-mono);font-weight:600;font-size:1.05rem;color:var(--accent)}
+.zh h4{font-family:var(--f-display);font-size:1.28rem;margin:0;text-wrap:balance}
+.zh .ref{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.zsc{margin-left:auto;font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.zsc.full{color:var(--ok);font-weight:600}
+.zone .zen{font-size:.85rem;color:var(--muted);margin:0 0 14px;font-family:var(--f-display)}
+.lab-h{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:20px 0 8px;display:flex;align-items:center;gap:10px}
+.lab-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.zterms{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.zt{background:var(--paper);border:1px solid var(--line);padding:8px 12px;min-width:0}
+.zt .te{font-family:var(--f-display);font-weight:700;font-size:.92rem}
+.zt .tz{color:var(--accent);font-weight:700;font-size:.92rem;margin-left:6px}
+.zt p{margin:2px 0 0;font-size:.86rem;line-height:1.6;color:var(--ink)}
+
+figure.fig{margin:0}
+.qfig{margin:12px 0 4px}
+.figbox{overflow-x:auto;background:var(--paper);border:1px solid var(--line);padding:12px}
+.figbox svg{display:block;width:100%;min-width:520px;max-width:720px;height:auto;margin:0 auto;color:var(--ink)}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:8px;max-width:72ch;line-height:1.6}
+figcaption b{color:var(--ink);font-family:var(--f-mono);margin-right:6px}
+svg text{fill:currentColor;font-family:var(--f-body);font-size:13px}
+svg .sm{font-size:11px} svg .lg{font-size:15px;font-weight:700} svg .b{font-weight:700}
+svg .mut{fill:var(--muted)} svg .ta{fill:var(--accent)} svg .ts{fill:var(--steel)}
+svg .ln{stroke:currentColor;fill:none;stroke-width:1.5}
+svg .lnm{stroke:var(--muted);fill:none;stroke-width:1.2}
+svg .lna{stroke:var(--accent);fill:none;stroke-width:2.5}
+svg .lns{stroke:var(--steel);fill:none;stroke-width:2}
+svg .dash{stroke-dasharray:5 4}
+svg .dot{stroke-dasharray:2 4;stroke-linecap:round}
+svg .fa{fill:var(--accent)} svg .fas{fill:var(--accent-soft)} svg .fs{fill:var(--steel)} svg .fss{fill:var(--steel-soft)}
+svg .fp{fill:var(--paper)} svg .fd{fill:var(--dblk)} svg .fl{fill:var(--line)}
+svg .st{stroke:currentColor;stroke-width:1.2} svg .sts{stroke:var(--steel);stroke-width:1.2} svg .sta{stroke:var(--accent);stroke-width:1.2} svg .stl{stroke:var(--line);stroke-width:1}
+
+.points{display:grid;gap:12px;max-width:72ch}
+.pt{border-left:3px solid var(--steel);padding:1px 0 1px 14px}
+.pt h5{margin:0;font-size:.98rem}
+.pt p{margin:2px 0 0}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.fx{background:var(--steel-soft);padding:10px 14px;min-width:0}
+.fx .eq{font-family:var(--f-mono);font-size:.98rem;font-weight:600;color:var(--steel);overflow-x:auto;white-space:nowrap}
+.fx .what{font-size:.84rem;color:var(--muted);line-height:1.55;margin-top:2px}
+
+.q{background:var(--paper);border:1px solid var(--line);padding:16px 18px;margin-bottom:12px}
+.q.solved{border-color:var(--ok)}
+.qh{display:flex;gap:10px;align-items:baseline}
+.qh .no{font-family:var(--f-mono);font-weight:600;color:var(--accent);flex:none}
+.qh .stem{margin:0;flex:1;min-width:0}
+.tags{display:flex;gap:4px;flex:none}
+.tag{font-family:var(--f-mono);font-size:.68rem;border:1px solid var(--line);padding:0 6px;color:var(--muted);white-space:nowrap}
+.tag.book{border-color:var(--accent);color:var(--accent)}
+.opts{display:grid;gap:6px;margin:10px 0 0}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);cursor:pointer;line-height:1.55}
+.opt:hover{border-color:var(--steel)}
+.opt input{margin-top:5px;accent-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:8px;margin-top:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.row .lab{min-width:7.5em;font-size:.93rem}
+.row input,.row select,textarea{font:inherit;font-size:.95rem;padding:6px 10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);max-width:100%}
+.row input{font-family:var(--f-mono);width:190px}
+.row input:focus,.row select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.row .unit{font-family:var(--f-mono);color:var(--muted);font-size:.9rem}
+.row .mk{font-family:var(--f-mono);font-weight:600;width:1.2em}
+.row.good input,.row.good select{border-color:var(--ok)} .row.good .mk{color:var(--ok)}
+.row.badr input,.row.badr select{border-color:var(--bad)} .row.badr .mk{color:var(--bad)}
+textarea{width:100%;min-height:84px;margin-top:10px;resize:vertical;line-height:1.6}
+.fmt{font-size:.8rem;color:var(--muted);margin-top:6px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+a.b{display:inline-block;text-decoration:none;line-height:1.5}
+button.b,a.b{font:inherit;font-size:.86rem;font-weight:500;padding:5px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper)}
+button.b.ghost,a.b.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button.b.okb{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+button.b:hover,a.b:hover{opacity:.88}
+button.b:focus-visible,a.b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fb{margin-top:12px;padding:10px 14px;font-size:.93rem;line-height:1.65}
+.fb.ok{background:var(--ok-soft);border-left:3px solid var(--ok)}
+.fb.no{background:var(--bad-soft);border-left:3px solid var(--bad)}
+.fb.hint{background:var(--steel-soft);border-left:3px solid var(--steel)}
+.fb strong{display:block;margin-bottom:2px}
+.sol{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;margin:6px 0 0;overflow-x:auto}
+
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 12px}
+.seg{display:inline-flex;border:1.5px solid var(--ink)}
+.seg button{all:unset;cursor:pointer;font-size:.84rem;padding:4px 12px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.vcount{font-family:var(--f-mono);font-size:.82rem;color:var(--muted);margin-left:auto}
+.tscroll{overflow-x:auto}
+table.vocab{border-collapse:collapse;width:100%;min-width:460px;font-size:.93rem}
+table.vocab th{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);font-weight:600;text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--ink)}
+table.vocab td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.vocab tr.grp td{font-family:var(--f-display);font-weight:700;color:var(--steel);padding-top:18px;border-bottom:1.5px solid var(--steel)}
+table.vocab .w{font-family:var(--f-display);font-weight:600}
+table.vocab .pos{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+span[data-col].mask{display:inline-block;min-width:6em}
+.mask{cursor:pointer;background:var(--line);color:transparent!important;user-select:none}
+.mask:focus-visible{outline:2px solid var(--accent)}
+.star{all:unset;cursor:pointer;font-size:.8rem;padding:1px 8px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.star[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.star:focus-visible{outline:2px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 28px}
+.term{padding:12px 0;border-bottom:1px solid var(--line);min-width:0}
+.term .t{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.term .te{font-family:var(--f-display);font-weight:700}
+.term .tz{color:var(--accent);font-weight:700}
+.term .zone-tag{font-family:var(--f-mono);font-size:.68rem;color:var(--steel);border:1px solid var(--line);padding:0 5px}
+.term .badge{font-family:var(--f-mono);font-size:.65rem;color:var(--muted);border:1px solid var(--line);padding:0 5px}
+.term p{margin:3px 0 0;font-size:.92rem}
+.must{font-family:var(--f-mono);font-size:.66rem;font-weight:600;color:var(--paper);background:var(--accent);padding:0 5px;margin-left:8px;vertical-align:2px}
+table.vocab tr[data-must="1"] .w [data-col]{font-weight:700}
+table.vocab.onlymust tr[data-must="0"]{display:none}
+table.data{border-collapse:collapse;font-size:.92rem;min-width:440px;background:var(--paper)}
+table.data th,table.data td{border-bottom:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+table.data thead th{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);font-weight:600;border-bottom:1.5px solid var(--ink)}
+table.data tbody th{font-weight:700}
+.syncbox{margin:18px 0 0;padding:12px 14px;background:var(--paper);border:1px solid var(--line);font-size:.88rem;display:grid;gap:10px}
+.syncst{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.pill{font-family:var(--f-mono);font-size:.75rem;font-weight:600;color:var(--steel)}
+.pill.ok{color:var(--ok)} .pill.warn{color:var(--accent)}
+.idrow{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.idrow label{font-size:.82rem;color:var(--muted)}
+.idrow input{font:inherit;font-size:.88rem;padding:4px 8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:9em;max-width:100%}
+.idrow input:focus{outline:none;border-color:var(--accent)}
+#sumtxt{min-height:120px;font-family:var(--f-mono);font-size:.82rem}
+.selfbox{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:16px;padding:10px 14px;background:var(--steel-soft)}
+.selfbox .sl{font-size:.9rem;font-weight:500;margin-right:4px}
+.sb{all:unset;cursor:pointer;font-size:.86rem;padding:3px 12px;border:1.5px solid var(--line);background:var(--paper)}
+.sb:focus-visible{outline:2px solid var(--accent)}
+.sb-ok[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.sb-part[aria-pressed="true"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.sb-no[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:var(--paper)}
+.rate{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1.5px solid var(--ink);max-width:560px}
+.rate button{all:unset;cursor:pointer;text-align:center;padding:8px 4px;border-right:1px solid var(--line);font-family:var(--f-mono);font-weight:600}
+.rate button:last-child{border-right:0}
+.rate button small{display:block;font-family:var(--f-body);font-weight:400;font-size:.72rem;color:var(--muted)}
+.rate button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.rate button[aria-pressed="true"] small{color:var(--paper)}
+.rate button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+#fbtext{margin-top:6px}
+.tcell{border-color:var(--steel)}
+.tcell .sym{color:var(--steel)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 4px}
+.tile{background:var(--paper);border:1px solid var(--line);padding:10px 14px}
+.tile .tl{display:block;font-size:.78rem;color:var(--muted)}
+.tile .tv{display:block;font-family:var(--f-mono);font-size:1.4rem;font-weight:600;font-variant-numeric:tabular-nums}
+table.dash td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.dash td.cm{max-width:22em;font-size:.86rem}
+table.dash .code{font-family:var(--f-mono);color:var(--accent)}
+.sbar{display:flex;height:10px;width:180px;max-width:100%;background:var(--line);margin-bottom:3px}
+.sbar i{display:block;height:100%}
+.sbar .b-ok{background:var(--ok)} .sbar .b-part{background:var(--steel)} .sbar .b-no{background:var(--bad)}
+.mini{display:inline-block;min-width:1.8em;text-align:center;font-family:var(--f-mono);font-size:.78rem;margin-right:3px;padding:0 4px;color:var(--paper)}
+.mini.ok{background:var(--ok)} .mini.part{background:var(--steel)} .mini.no{background:var(--bad)}
+.empty{padding:14px 16px;background:var(--accent-soft);margin:12px 0}
+.fblist{list-style:none;padding:0;margin:0;display:grid;gap:10px;max-width:72ch}
+.fblist li{background:var(--paper);border-left:3px solid var(--steel);padding:8px 14px}
+.fblist p{margin:4px 0 0}
+.subbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:2px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.subin{max-width:1140px;margin:0 auto;padding-block:8px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between}
+.subinfo{font-size:.86rem;font-variant-numeric:tabular-nums;min-width:0}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+.overlay{position:fixed;inset:0;z-index:30;background:color-mix(in srgb,var(--ink) 45%,transparent);display:flex;align-items:center;justify-content:center;padding:16px}
+.overlay .card{background:var(--paper);border:2px solid var(--ink);padding:22px 24px;max-width:440px;width:100%}
+.overlay h3{font-family:var(--f-display);font-size:1.3rem;margin:4px 0 6px}
+.overlay .row input{width:100%;max-width:240px}
+.remind{margin-top:18px;padding:14px 16px;background:var(--accent-soft);border-left:3px solid var(--accent);max-width:72ch;font-size:.93rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
+.reset{font:inherit;font-size:.85rem;background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+.confirm{font-size:.85rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+@media (max-width:820px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:16px}
+  header.top{grid-template-columns:minmax(0,1fr)}
+  nav.rail{position:static;display:flex;overflow-x:auto;gap:6px}
+  .cell{flex:none;width:96px;aspect-ratio:auto;height:84px}
+  .overall{text-align:left}
+  .row .lab{min-width:0;width:100%}
+  .route{grid-template-columns:minmax(0,1fr)}
+  .route button{border-right:0;border-bottom:1px solid var(--line)}
+  .route button:last-child{border-bottom:0}
+  .stephead{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="course">Introduction to Materials Science and Engineering</p>
+      <h1>材料科學與工程導論</h1>
+      <p class="subt">觀念解析與習題演練</p>
+      <div class="byline"><span>編撰　<b>明志科技大學 材料工程系　黃裕清 老師</b></span><span>對照教材　Callister &amp; Rethwisch, <i>Materials Science and Engineering: An Introduction</i></span></div>
+    </div>
+    <div class="overall">
+      <div>本章進度 <b id="ovNum">0</b> / <span id="ovTot">0</span> 題</div>
+      <div class="bar"><i id="ovBar" style="width:0%"></i></div>
+    </div>
+  </header>
+  <nav class="rail" id="rail" aria-label="章節"></nav>
+  <main id="main"></main>
+</div>
+
+<script>
+/* ================= Figures (hand-built inline SVG) ================= */
+const T=(x,y,s,cls="",a="middle")=>`<text x="${x}" y="${y}" text-anchor="${a}" class="${cls}">${s}</text>`;
+const C=(x,y,r,cls)=>`<circle cx="${x}" cy="${y}" r="${r}" class="${cls}"/>`;
+const L=(x1,y1,x2,y2,cls)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${cls}"/>`;
+function rng(seed){let s=seed;return()=>{s=(s*1103515245+12345)%2147483648;return s/2147483648}}
+function nucleus(cx,cy,p,n,r=5){
+  const N=p+n,kinds=[];let pi=0,ni=0;
+  for(let k=0;k<N;k++){if((pi/p)<=(ni/n)&&pi<p){kinds.push("p");pi++}else if(ni<n){kinds.push("n");ni++}else{kinds.push("p");pi++}}
+  let out="";for(let k=N-1;k>=0;k--){const ang=k*2.39996,rad=r*1.05*Math.sqrt(k);out+=C((cx+rad*Math.cos(ang)).toFixed(1),(cy+rad*Math.sin(ang)).toFixed(1),r,kinds[k]==="p"?"fa":"fss st")}
+  return out;
+}
+const ARROW=id=>`<defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>`;
+const svg=(w,h,label,body)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+
+const FIG={
+ atom(){
+  let b=ARROW("arA");
+  b+=C(150,135,100,"fss")+C(150,135,100,"lnm dash");
+  b+=nucleus(150,135,6,6,5.5);
+  const r=rng(7);[[0.4,62],[1.5,80],[2.4,48],[3.4,88],[4.4,70],[5.5,55]].forEach(([a,d])=>{b+=C((150+d*Math.cos(a)).toFixed(1),(135+d*Math.sin(a)).toFixed(1),4.5,"fs")});
+  b+=L(170,124,266,72,"lnm");
+  b+=T(272,66,"原子核（質子＋中子）","","start")+T(272,82,"直徑約 10⁻¹⁴ m","sm mut","start");
+  b+=L(200,180,270,206,"lnm")+T(274,210,"電子 e⁻ 在原子核外運動","","start");
+  b+=T(150,258,"原子直徑約 10⁻¹⁰ m","sm mut");
+  b+=L(400,40,400,250,"stl");
+  b+=T(530,40,"同位素：Z 相同、N 不同","b");
+  b+=nucleus(470,130,6,6,6)+nucleus(590,130,6,7,6);
+  b+=T(470,190,"¹²C","lg")+T(470,210,"6 p⁺ ＋ 6 n⁰","sm")+T(590,190,"¹³C","lg")+T(590,210,"6 p⁺ ＋ 7 n⁰","sm");
+  b+=C(440,245,5,"fa")+T(450,249,"質子 p⁺","sm","start")+C(530,245,5,"fss st")+T(540,249,"中子 n⁰","sm","start");
+  return svg(640,270,"原子由原子核與電子組成；同位素質子數相同、中子數不同",b);
+ },
+ models(){
+  let b="";
+  const panel=(x0,title,bohr)=>{
+   let s=T(x0+140,22,title,"b");
+   const cx=x0+140,cy=92;
+   if(bohr){[22,40,58].forEach(rr=>{s+=C(cx,cy,rr,"lnm")});s+=C(cx,cy,5,"fa");[[22,0.6],[40,2.2],[40,4.8],[58,1.2],[58,3.3],[58,5.4]].forEach(([rr,a])=>{s+=C((cx+rr*Math.cos(a)).toFixed(1),(cy+rr*Math.sin(a)).toFixed(1),4,"fs")});s+=T(cx+72,cy-48,"電子沿固定軌道","sm mut","start")}
+   else{const r=rng(11);for(let i=0;i<260;i++){const d=12*(-Math.log((r()+1e-6)*(r()+1e-6)*(r()+1e-6)))/1.0,a=r()*6.283;if(d<62)s+=C((cx+d*Math.cos(a)).toFixed(1),(cy+d*Math.sin(a)).toFixed(1),1.4,"fs")}s+=C(cx,cy,5,"fa");s+=T(cx+72,cy-48,"電子雲：出現機率","sm mut","start")}
+   const px=x0+30,py=272,pw=230,ph=90,a=px+85;
+   s+=L(px,py,px+pw,py,"ln")+L(px,py,px,py-ph-8,"ln");
+   s+=T(px+pw/2,py+20,"與原子核的距離 r","sm mut")+`<text x="${px-10}" y="${py-ph/2}" text-anchor="middle" class="sm mut" transform="rotate(-90 ${px-10} ${py-ph/2})">機率</text>`;
+   if(bohr){s+=L(a,py,a,py-ph,"lna")}
+   else{let pts=[];for(let i=0;i<=100;i++){const r=i/100*pw,x=r/85;const v=x*x*Math.exp(2-2*x);pts.push(`${(px+r).toFixed(1)},${(py-v*ph).toFixed(1)}`)}s+=`<polyline points="${pts.join(" ")}" class="lna"/>`}
+   s+=L(a,py,a,py-ph-4,"lnm dash")+T(a,py+36,"a₀","sm");
+   return s;
+  };
+  b+=panel(0,"(a) 波耳模型",true)+panel(330,"(b) 波動力學模型",false)+L(320,10,320,300,"stl");
+  return svg(640,316,"波耳模型中電子位於固定距離；波動力學模型中電子位置是機率分布",b);
+ },
+ levels(){
+  let b=ARROW("arL");
+  const Y=E=>305-E*68,col={0:110,1:260,2:440};
+  const lv=[["1s",0,0,2],["2s",0,1,2],["2p",1,1.4,6],["3s",0,2.2,2],["3p",1,2.6,6],["4s",0,3.2,2],["3d",2,3.5,6],["4p",1,3.9,0]];
+  b+=`<line x1="34" y1="318" x2="34" y2="22" class="ln" marker-end="url(#arL)"/>`+`<text x="24" y="170" text-anchor="middle" class="sm mut" transform="rotate(-90 24 170)">能量</text>`;
+  lv.forEach(([nm,l,E,e])=>{
+   const m=2*l+1,w=24,x0=col[l]-m*w/2,y=Y(E);
+   b+=T(x0-8,y+5,nm,"b","end");
+   for(let i=0;i<m;i++){const up=i<Math.min(e,m),dn=i<e-m;b+=`<rect x="${x0+i*w}" y="${y-10}" width="${w-2}" height="20" class="${e?"fss":"fp"} sts"/>`;const s=(up?"↑":"")+(dn?"↓":"");if(s)b+=T(x0+i*w+11,y+5,s,"sm b")}
+  });
+  b+=`<path d="M 140 ${Y(3.2)} C 220 ${Y(3.2)+6}, 330 ${Y(3.5)+28}, 372 ${Y(3.5)+12}" class="lnm dash" marker-end="url(#arL)"/>`;
+  b+=T(250,Y(3.2)+15,"4s 能量比 3d 低，先填 4s","sm ta");
+  b+=T(600,250,"Fe（Z = 26）","b","end")+T(600,270,"[Ar] 3d⁶ 4s²","","end")+T(600,290,"每格一個軌域，最多兩個電子","sm mut","end");
+  b+=T(col[0],334,"s（1 軌域）","sm mut")+T(col[1],334,"p（3 軌域）","sm mut")+T(col[2],334,"d（5 軌域）","sm mut");
+  return svg(640,344,"電子由低能階往高能階填入，以鐵為例，4s 先於 3d 填滿",b);
+ },
+ ptable(){
+  let b=ARROW("arP");const x0=56,y0=46,p=28,s=26;
+  const block=c=>c<=2?"fas":c>=13?"fss":"fd";
+  const has=(r,c)=>r===1?(c===1||c===18):r<=3?(c<=2||c>=13):true;
+  const sym={"1-1":"H","1-18":"He","2-14":"C","2-16":"O","2-17":"F","3-1":"Na","3-14":"Si","3-17":"Cl","4-8":"Fe","4-11":"Cu","6-3":"*","7-3":"**"};
+  for(let r=1;r<=7;r++)for(let c=1;c<=18;c++)if(has(r,c)){const x=x0+(c-1)*p,y=y0+(r-1)*p;b+=`<rect x="${x}" y="${y}" width="${s}" height="${s}" class="${r===1&&c===18?"fas":block(c)} stl"/>`;const k=r+"-"+c;if(sym[k])b+=T(x+s/2,y+17,sym[k],"sm b")}
+  for(let f=0;f<2;f++)for(let i=0;i<15;i++){const x=x0+(i+2)*p,y=y0+7*p+12+f*p;b+=`<rect x="${x}" y="${y}" width="${s}" height="${s}" class="fp sts"/>`}
+  b+=T(x0+2*p-6,y0+7*p+12+18,"* 鑭系 4f","sm","end")+T(x0+2*p-6,y0+8*p+12+18,"** 錒系 5f","sm","end");
+  [["IA",1],["IIA",2],["IIIA",13],["IVA",14],["VA",15],["VIA",16],["VIIA",17],["0",18]].forEach(([g,c])=>{b+=T(x0+(c-1)*p+s/2,y0-8,g,"sm b")});
+  b+=T(x0+7*p,y0+p+16,"d 區：過渡金屬（IIIB–IIB）","sm mut");
+  const ax=x0+18*p+16;b+=`<line x1="${ax}" y1="${y0+7*p}" x2="${ax}" y2="${y0}" class="lna" marker-end="url(#arP)"/>`+`<text x="${ax+16}" y="${y0+3.5*p}" text-anchor="middle" class="sm ta" transform="rotate(-90 ${ax+16} ${y0+3.5*p})">電負度增加</text>`;
+  const ay=y0+9*p+30;b+=`<line x1="${x0}" y1="${ay}" x2="${x0+18*p-2}" y2="${ay}" class="lna" marker-end="url(#arP)"/>`+T(x0+9*p,ay+18,"電負度增加（由左至右）","sm ta");
+  return svg(640,370,"週期表分為 s、p、d、f 區；電負度由左下往右上增加",b);
+ },
+ curves(){
+  const A=1.436,B=7.32e-6,n=8,r0=Math.pow(n*B/A,1/(n-1)),E0=-A/r0+B/Math.pow(r0,n);
+  const X0=78,X1=610,rmin=0.2,rmax=1.0,xr=r=>X0+(r-rmin)/(rmax-rmin)*(X1-X0);
+  let b=`<defs><clipPath id="cpF"><rect x="${X0}" y="26" width="${X1-X0}" height="160"/></clipPath><clipPath id="cpE"><rect x="${X0}" y="226" width="${X1-X0}" height="160"/></clipPath></defs>`;
+  const panel=(top,lim,clip,fns,yl,title,unit)=>{
+   const yv=v=>top+80-v/lim*80;let s=T(X0,top-6,title,"b","start");
+   s+=`<rect x="${X0}" y="${top}" width="${X1-X0}" height="160" class="fp stl"/>`+L(X0,yv(0),X1,yv(0),"ln");
+   [-lim,-lim/2,lim/2,lim].forEach(v=>{s+=L(X0-4,yv(v),X0,yv(v),"ln")+T(X0-8,yv(v)+4,String(v),"sm","end")});s+=T(X0-8,yv(0)+4,"0","sm","end");
+   s+=`<text x="${X0-46}" y="${top+80}" text-anchor="middle" class="sm mut" transform="rotate(-90 ${X0-46} ${top+80})">${yl}</text>`;
+   fns.forEach(([f,cls])=>{const pts=[];for(let i=0;i<=320;i++){const r=rmin+(rmax-rmin)*i/320;let v=f(r);v=Math.max(-lim*3,Math.min(lim*3,v));pts.push(`${xr(r).toFixed(1)},${yv(v).toFixed(1)}`)}s+=`<polyline points="${pts.join(" ")}" class="${cls}" clip-path="url(#${clip})"/>`});
+   return [s,yv];
+  };
+  const [pf,yf]=panel(26,40,"cpF",[[r=>A/r/r,"lns dash"],[r=>-n*B/Math.pow(r,n+1),"lnm dash"],[r=>A/r/r-n*B/Math.pow(r,n+1),"lna"]],"力 F (eV/nm)","(a) 力 vs. 原子間距","");
+  const [pe,ye]=panel(226,8,"cpE",[[r=>-A/r,"lns dash"],[r=>B/Math.pow(r,n),"lnm dash"],[r=>-A/r+B/Math.pow(r,n),"lna"]],"位能 E (eV)","(b) 位能 vs. 原子間距","");
+  b+=pf+pe;
+  b+=T(xr(0.34),yf(24),"吸引力 F_A","sm ts","start")+T(xr(0.275),yf(-22),"排斥力 F_R","sm mut","start")+T(xr(0.56),yf(10),"淨力 F_N","sm ta","start");
+  b+=T(xr(0.215),ye(3.6),"排斥能 E_R","sm mut","start")+T(xr(0.3),ye(-7.2),"吸引能 E_A","sm ts","start")+T(xr(0.5),ye(-1.4),"淨位能 E_N","sm ta","start");
+  b+=L(xr(r0),26,xr(r0),386,"lnm dash")+C(xr(r0),yf(0),4,"fa")+C(xr(r0),ye(E0),4,"fa");
+  b+=L(X0,ye(E0),xr(r0),ye(E0),"lnm dot")+T(xr(r0)+70,ye(E0)+4,"E₀ ≈ "+E0.toFixed(1).replace("-","−")+" eV（鍵結能）","sm ta","start");
+  b+=T(xr(r0)+8,yf(0)-8,"F_N = 0","sm ta","start");
+  [0.2,0.4,0.6,0.8,1.0].forEach(r=>{b+=L(xr(r),386,xr(r),390,"ln")+T(xr(r),404,r.toFixed(1),"sm")});
+  b+=T(xr(r0)+6,44,"r₀ ≈ "+r0.toFixed(2)+" nm","sm ta b","start")+T((X0+X1)/2+120,420,"原子間距 r (nm)","sm mut");
+  return svg(640,430,"以 NaCl 數據繪製：淨力為零處即平衡間距 r0，對應淨位能最低點 E0",b);
+ },
+ bonds(){
+  let b=ARROW("arB");
+  b+=T(105,22,"離子鍵","lg")+T(330,22,"共價鍵","lg")+T(555,22,"金屬鍵","lg");
+  b+=C(60,110,22,"fas sta")+T(60,115,"Na⁺","b")+C(150,110,34,"fss sts")+T(150,115,"Cl⁻","b");
+  b+=`<path d="M 62 80 C 80 46, 130 46, 146 70" class="ln" marker-end="url(#arB)"/>`+C(104,52,4,"fs")+T(104,42,"e⁻ 轉移","sm","middle");
+  b+=T(105,178,"電子由金屬轉移到非金屬","sm")+T(105,196,"庫侖吸引・無方向性","sm mut");
+  b+=L(220,40,220,200,"stl")+L(440,40,440,200,"stl");
+  b+=C(300,110,34,"fss sts")+C(360,110,34,"fss sts")+`<ellipse cx="330" cy="110" rx="12" ry="22" class="fas sta"/>`+C(330,101,4,"fs")+C(330,119,4,"fs");
+  b+=T(300,114,"Cl","b")+T(360,114,"Cl","b")+L(330,140,330,156,"lnm")+T(330,168,"共用電子對","sm");
+  b+=T(330,188,"共用價電子・有方向性","sm mut");
+  b+=`<rect x="458" y="44" width="194" height="120" class="fss"/>`;
+  const r=rng(5);for(let i=0;i<46;i++)b+=C((462+r()*186).toFixed(1),(48+r()*112).toFixed(1),2.2,"fs");
+  for(let i=0;i<4;i++)for(let j=0;j<3;j++){const x=482+i*48,y=68+j*36;b+=C(x,y,13,"fas sta")+T(x,y+5,"+","b")}
+  b+=T(555,184,"離子核浸在價電子形成的電子海中","sm")+T(555,202,"無方向性・導電導熱佳","sm mut");
+  return svg(660,212,"三種主鍵的電子行為：離子鍵轉移電子、共價鍵共用電子、金屬鍵形成電子海",b);
+ },
+ secondary(){
+  let b=ARROW("arS");
+  b+=T(150,22,"(a) 偶極之間的吸引","b")+T(470,22,"(b) HF 分子間的氫鍵","b");
+  const dip=(x,y)=>`<rect x="${x}" y="${y}" width="44" height="34" class="fas sta"/><rect x="${x+44}" y="${y}" width="44" height="34" class="fss sts"/>`+T(x+22,y+22,"δ+","b")+T(x+66,y+22,"δ−","b");
+  b+=dip(36,80)+dip(176,80)+`<line x1="128" y1="97" x2="172" y2="97" class="lna dot"/>`;
+  b+=T(150,70,"吸引","sm ta")+T(150,150,"一端帶部分正電、一端帶部分負電","sm")+T(150,170,"異號端互相吸引 → 凡得瓦力","sm mut");
+  b+=L(310,40,310,190,"stl");
+  const hf=(x,y)=>C(x,y,9,"fp st")+T(x,y+4,"H","sm b")+L(x+9,y,x+31,y,"ln")+C(x+50,y,18,"fss sts")+T(x+50,y+5,"F","b")+T(x,y-16,"δ+","sm ta")+T(x+50,y-24,"δ−","sm ts");
+  b+=hf(342,104)+hf(462,104)+`<line x1="410" y1="104" x2="451" y2="104" class="lna dot"/>`+`<line x1="530" y1="104" x2="571" y2="104" class="lna dot"/>`+C(580,104,9,"fp st")+T(580,108,"H","sm b");
+  b+=L(362,112,372,140,"lnm")+T(372,154,"共價鍵 H–F","sm")+L(431,112,441,140,"lnm")+T(462,154,"氫鍵（點線）","sm ta","start");
+  b+=T(470,180,"H 端幾乎是裸露的質子，吸引鄰近分子的 F","sm mut");
+  return svg(640,196,"次級鍵來自偶極之間的吸引；氫鍵是 H 與鄰近分子負電端之間的強偶極吸引",b);
+ },
+ tetra(){
+  const V={c:[300,46],m:[78,250],i:[330,308],v:[560,196]};
+  let b="";
+  [["c","v"],["m","v"],["i","v"]].forEach(([a,c])=>{b+=L(...V[a],...V[c],"lnm dash")});
+  [["c","m"],["m","i"],["i","c"]].forEach(([a,c])=>{b+=L(...V[a],...V[c],"ln")});
+  Object.values(V).forEach(([x,y])=>{b+=C(x,y,5,"fp st")});
+  b+=T(300,30,"共價鍵","lg")+T(68,246,"金屬鍵","lg","end")+T(330,334,"離子鍵","lg")+T(572,192,"凡得瓦鍵","lg","start");
+  b+=T(172,140,"共價–金屬","sm mut","end")+T(196,302,"金屬–離子","sm mut")+T(326,184,"共價–離子","sm mut","start");
+  const M=(x,y,s,a="start")=>C(x-(a==="start"?8:-8),y-4,3,"fa")+T(x,y,s,"sm ta b",a);
+  b+=M(346,62,"高分子")+M(332,116,"半導體")+M(332,256,"陶瓷")+M(214,168,"類金屬")+M(214,264,"介金屬化合物")+M(68,268,"金屬","end")+M(580,214,"分子固體");
+  return svg(640,346,"鍵結四面體：四頂點為四種極端鍵結，邊為混合鍵結；橘色標示各類材料的位置",b);
+ }
+};
+
+/* ================= Chapter 2 content ================= */
+const TERMS={
+ "atomic mass unit (amu)":["原子質量單位","¹²C 原子質量的 1/12，用來表示原子質量。1 amu = 1.66×10⁻²⁴ g。",1],
+ "atomic number (Z)":["原子序","原子核中的質子數，決定元素種類。",1],
+ "atomic weight (A)":["原子量","元素各天然同位素原子質量的加權平均，單位 amu/atom 或 g/mol。",1],
+ "isotope":["同位素","原子序相同、中子數不同的原子。",1],
+ "mole":["莫耳","6.022×10²³ 個原子或分子的量。以克為單位時，數值等於原子量。",1],
+ "quantum mechanics":["量子力學","描述原子與次原子尺度粒子行為的物理理論，核心觀念是能量量子化。",1],
+ "Bohr atomic model":["波耳原子模型","把電子看成沿固定軌道繞原子核運動的粒子，能量量子化成殼層。",1],
+ "wave-mechanical model":["波動力學模型","電子兼具波動與粒子性，位置以機率分布描述，並以四個量子數描述電子。",1],
+ "quantum number":["量子數","描述電子狀態的一組數字：n、l、mₗ、mₛ。",1],
+ "electron state":["電子狀態","電子可以佔據的能階，由量子數決定。",1],
+ "Pauli exclusion principle":["包立不相容原理","每個電子狀態最多容納兩個電子，且自旋相反。",1],
+ "ground state":["基態","原子中所有電子都佔據最低可能能量狀態的情形。",1],
+ "electron configuration":["電子組態","電子在各殼層與副殼層的分布方式，例如 1s²2s²2p⁶。",1],
+ "valence electron":["價電子","最外層殼層中的電子，參與鍵結。",1],
+ "periodic table":["週期表","依原子序排列元素的表格，同一族元素的價電子組態相似。",1],
+ "electropositive":["正電性的","容易放出價電子而形成陽離子的性質，多為金屬元素。",1],
+ "electronegative":["負電性的","容易接受電子而形成陰離子的性質，多為非金屬元素。",1],
+ "electronegativity":["電負度","原子吸引電子的能力，數值約 0.7–4.0。",0],
+ "coulombic force":["庫侖力","帶電粒子之間的靜電力，異號相吸、同號相斥，與距離平方成反比。",1],
+ "bonding energy":["鍵結能","把兩個原子從平衡間距分開到無窮遠所需的能量，等於位能曲線最低點 E₀ 的大小。",1],
+ "equilibrium spacing (r₀)":["平衡間距","兩原子之間淨力為零、位能最低時的距離。",0],
+ "primary bond":["主鍵","離子鍵、共價鍵與金屬鍵，鍵結能高，涉及價電子的轉移或共用。",1],
+ "ionic bond":["離子鍵","價電子由一原子轉移到另一原子形成陰陽離子，靠庫侖力結合的鍵。",1],
+ "covalent bond":["共價鍵","相鄰原子共用價電子所形成的鍵，有方向性。",1],
+ "metallic bond":["金屬鍵","價電子形成電子海、包圍並黏結離子核的鍵，無方向性。",1],
+ "hybridization":["混成","原子中不同副殼層的軌域混合成新的混成軌域，例如 sp³、sp²。",0],
+ "secondary bond":["次級鍵","由電偶極吸引產生的弱鍵，包括凡得瓦鍵與氫鍵。",1],
+ "van der Waals bond":["凡得瓦鍵","分子或原子之間由偶極吸引產生的次級鍵。",1],
+ "dipole (electric)":["電偶極","一對大小相等、符號相反、相隔一段距離的電荷。",1],
+ "polar molecule":["極性分子","正負電荷分布不對稱、具有永久偶極的分子。",1],
+ "hydrogen bond":["氫鍵","H 與 F、O、N 共價鍵結後，與鄰近分子負端之間的強次級鍵。",1],
+ "percent ionic character (%IC)":["離子性百分比","以電負度差估算一個鍵的離子性比例。",0],
+ "bonding tetrahedron":["鍵結四面體","以四面體頂點代表四種極端鍵結、邊代表混合鍵結的示意圖。",0],
+ "metalloid (semi-metal)":["類金屬（半金屬）","鍵結為金屬與共價混合、性質介於金屬與非金屬之間的元素，如 Si、Ge。",0],
+ "intermetallic compound":["介金屬化合物","由兩種以上金屬以固定比例組成的化合物，常帶有金屬–離子混合鍵。",0]
+};
+
+const CH2 = {
+ num:2, sym:"Ab", name:"原子結構與原子間鍵結", en:"Atomic Structure and Interatomic Bonding",
+ lead:"材料的許多性質，追根究柢都來自原子之間如何結合。本章先複習原子與電子的結構，再比較離子鍵、共價鍵、金屬鍵與次級鍵，最後把鍵結種類和材料分類連起來。",
+ goals:[
+  "說出兩種原子模型（波耳模型、波動力學模型），並比較兩者的差異。",
+  "描述與電子能量有關的重要量子力學原理：能量量子化、四個量子數與包立不相容原理。",
+  "畫出兩原子（或離子）間吸引能、排斥能與淨位能對原子間距的示意圖，並在圖上標出平衡間距與鍵結能。",
+  "簡述離子鍵、共價鍵、金屬鍵、氫鍵與凡得瓦鍵，並舉出具有各種鍵結的材料。",
+  "用電負度差計算離子性百分比，並以鍵結種類解釋材料的分類與性質。"],
+ zones:[
+ {code:"2-A",title:"原子的基本組成",en:"Fundamental Concepts",ref:"§2.2",
+  terms:["atomic number (Z)","isotope","atomic weight (A)","atomic mass unit (amu)","mole"],
+  fig:"atom",cap:"原子由原子核與核外電子組成。原子核集中了幾乎全部質量，尺寸卻只有原子的萬分之一左右（圖中未依比例）。¹²C 與 ¹³C 都有 6 個質子，是同一元素；中子數不同，所以是同位素。",
+  points:[
+   ["原子 = 原子核 + 電子","原子核由質子與中子組成。質子與電子的電荷大小都是 1.602×10⁻¹⁹ C，一正一負；中子不帶電。質子與中子的質量約 1.67×10⁻²⁷ kg，電子只有 9.11×10⁻³¹ kg。"],
+   ["原子序 Z","原子核內的質子數，決定這是哪一種元素。電中性原子的電子數也等於 Z。"],
+   ["原子質量與同位素","原子質量 A ≈ 質子數 Z + 中子數 N。同一元素（Z 相同）而中子數不同的原子稱為同位素。"],
+   ["原子量 vs. 原子質量","原子質量是「單一原子」的質量；原子量是該元素各天然同位素原子質量的「加權平均」，週期表上的數字就是原子量。"],
+   ["amu 與莫耳","1 amu 定義為 ¹²C 原子質量的 1/12。1 莫耳含 6.022×10²³ 個原子（亞佛加厥數）。因此 1 amu/atom = 1 g/mol，原子量可以直接當作每莫耳的克數使用。"]],
+  formulas:[["A_M = Σ fᵢ·Aᵢ","平均原子量；fᵢ 為同位素 i 的天然豐度（小數）"],["1 amu = 1.66×10⁻²⁴ g","= 1 / N_A"],["原子數 = (m / A) × N_A","m 為質量 (g)，A 為原子量 (g/mol)"]],
+  qs:[
+   {t:"mc",s:"同一元素的兩種同位素，差別在於：",o:["質子數不同","中子數不同","電子數不同","原子序不同"],a:1,e:"同位素的原子序（質子數）相同，所以是同一元素；中子數不同，因此原子質量不同。"},
+   {t:"num",s:"Cu 有兩種天然同位素：⁶³Cu 豐度 69.15%、原子質量 62.9296 amu；⁶⁵Cu 豐度 30.85%、原子質量 64.9278 amu。計算 Cu 的平均原子量。",u:"amu",a:63.55,tol:0.1,h:"把百分比換成小數，乘上各自的原子質量後相加。",sol:"A_Cu = (0.6915)(62.9296) + (0.3085)(64.9278)\n     = 43.516 + 20.030\n     = 63.55 amu"},
+   {t:"num",s:"10.0 g 的銅（A = 63.55 g/mol）含有多少個 Cu 原子？",u:"個",a:9.48e22,tol:1,sci:true,h:"先算莫耳數 m/A，再乘亞佛加厥數。",sol:"n = 10.0 / 63.55 = 0.1574 mol\nN = 0.1574 × 6.022×10²³ = 9.48×10²² 個"}
+  ]},
+ {code:"2-B",title:"原子模型與量子數",en:"Electrons in Atoms: Atomic Models and Quantum Numbers",ref:"§2.3",
+  terms:["quantum mechanics","Bohr atomic model","wave-mechanical model","quantum number","electron state","Pauli exclusion principle"],
+  fig:"models",cap:"上排是兩種模型對電子位置的想像，下排是電子出現機率對距離的關係。波耳模型中，電子只會在固定距離 a₀ 出現；波動力學模型中，電子在各距離都有機會出現，只是在 a₀ 附近機率最大。",
+  points:[
+   ["量子力學與能量量子化","在原子尺度下，電子的能量是量子化的，只能具有某些特定值。電子在能階之間跳躍時，會吸收或放出對應的能量。"],
+   ["波耳原子模型","把電子視為粒子，沿著固定、分立的軌道繞原子核運動；能量量子化成殼層。"],
+   ["波動力學模型","電子同時具有波動性與粒子性，位置以「機率分布」（電子雲）描述，而不是固定軌道。這個模型再把殼層細分成副殼層。"],
+   ["四個量子數","n（主量子數）：殼層 K、L、M、N…，決定軌域大小與能量。l（角量子數）：副殼層 s、p、d、f，決定軌域形狀，l = 0 到 n−1。mₗ（磁量子數）：該副殼層有幾個軌域，−l 到 +l。mₛ（自旋量子數）：+½ 或 −½。"],
+   ["包立不相容原理","每個電子狀態（軌域）最多只能容納兩個電子，而且兩者自旋必須相反。因此 s、p、d、f 副殼層最多分別容納 2、6、10、14 個電子。"]],
+  formulas:[["l = 0, 1, …, n−1","s(0)、p(1)、d(2)、f(3)"],["mₗ = −l, …, 0, …, +l","軌域數 = 2l + 1"],["殼層最大電子數 = 2n²","K:2、L:8、M:18、N:32"]],
+  qs:[
+   {t:"mc",s:"主量子數 n = 3 時，角量子數 l 可能有哪些值？",o:["只有 3","1、2、3","0、1、2","0、1、2、3"],a:2,e:"l 的範圍是 0 到 n−1，所以 n = 3 時 l = 0、1、2，分別對應 3s、3p、3d。"},
+   {t:"num",s:"M 殼層（n = 3）最多可容納多少個電子？",u:"個",a:18,tol:0,h:"把 3s、3p、3d 的容量相加，或直接用 2n²。",sol:"3s: 2 + 3p: 6 + 3d: 10 = 18\n或 2n² = 2 × 3² = 18"},
+   {t:"mc",s:"下列哪一組量子數 (n, l, mₗ, mₛ) 是「不可能」存在的？",o:["(2, 1, −1, +½)","(3, 2, 2, −½)","(2, 2, 0, +½)","(1, 0, 0, −½)"],a:2,e:"l 最大只能到 n−1。n = 2 時 l 只能是 0 或 1，所以 l = 2 不可能。"}
+  ]},
+ {code:"2-C",title:"電子組態與價電子",en:"Electron Configurations and Valence Electrons",ref:"§2.3",
+  terms:["ground state","electron configuration","valence electron"],
+  fig:"levels",cap:"能階圖中越上方能量越高，每一格代表一個軌域。基態時電子由下往上填，每格最多兩個自旋相反的電子。以鐵為例：4s 比 3d 低，所以先填滿 4s²，剩下 6 個電子再進入 3d。",
+  points:[
+   ["基態填法","基態時電子由最低能階開始往上填：1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f…。要注意 4s 的能量比 3d 低，所以先填 4s。"],
+   ["價電子","最外層殼層的電子。價電子參與鍵結，決定元素的物理與化學性質。"],
+   ["穩定電子組態","最外層 s 與 p 副殼層全滿（共 8 個電子），例如 Ne、Ar 等惰性氣體，化學性質很不活潑。"],
+   ["離子的電子組態","金屬失去價電子形成陽離子；過渡金屬先失去 4s 電子，再失去 3d 電子。非金屬得到電子形成陰離子，通常會達到相鄰惰性氣體的組態。"],
+   ["值得記住的例外","Cr 是 3d⁵4s¹，Cu 是 3d¹⁰4s¹，因為半滿或全滿的 d 副殼層比較穩定。"]],
+  formulas:[["Fe：1s²2s²2p⁶3s²3p⁶3d⁶4s²","可簡寫 [Ar]3d⁶4s²"],["Fe²⁺：[Ar]3d⁶　Fe³⁺：[Ar]3d⁵","先拿走 4s，再拿 3d"]],
+  qs:[
+   {t:"mc",s:"Cu⁺ 離子的電子組態為：",o:["[Ar]3d⁹4s¹","[Ar]3d¹⁰","[Ar]3d⁸4s²","[Ar]3d¹⁰4s¹"],a:1,e:"Cu 原子是 [Ar]3d¹⁰4s¹，失去一個電子時先失去 4s 電子，剩下 [Ar]3d¹⁰。"},
+   {t:"mc",s:"Na⁺ 與 Cl⁻ 的電子組態分別和哪一種惰性氣體相同？",o:["Ne、Ar","Ar、Ne","He、Ne","Ne、Kr"],a:0,e:"Na（Z = 11）失去 3s 電子後剩 10 個電子，與 Ne 相同；Cl（Z = 17）得到一個電子後有 18 個電子，與 Ar 相同。"},
+   {t:"mc",s:"Si（Z = 14）有幾個價電子？",o:["2","4","6","14"],a:1,e:"Si 為 1s²2s²2p⁶3s²3p²，最外層 n = 3 有 3s² 與 3p² 共 4 個價電子，所以 Si 位於 IVA 族。"}
+  ]},
+ {code:"2-D",title:"週期表與電負度",en:"The Periodic Table",ref:"§2.4",
+  terms:["periodic table","electropositive","electronegative","electronegativity"],
+  fig:"ptable",cap:"週期表依最後填入的副殼層分區：淺橘為 s 區（IA、IIA），淺藍為 p 區（IIIA 到 0 族），灰色為 d 區過渡金屬，下方兩列為 f 區的鑭系與錒系。電負度由左下往右上增加，F 最大。",
+  points:[
+   ["排列原則","元素依原子序排列。同一族（直行）的元素價電子組態相似，化學與物理性質相近；同一週期（橫列）的性質逐漸變化。"],
+   ["重要族群","0 族惰性氣體：殼層全滿。IA 鹼金屬：比全滿多一個 s 電子。IIA 鹼土金屬：兩個 s 電子。VIIA 鹵素：差一個電子就全滿（有 5 個 p 電子）。VIA：差兩個電子。"],
+   ["過渡金屬與稀土","IIIB 到 IIB 為過渡金屬，d 副殼層部分填滿。稀土（鑭系）填 4f，錒系填 5f。"],
+   ["正電性與負電性","正電性元素容易放出價電子成為陽離子，多為週期表左側的金屬。負電性元素容易接受電子成為陰離子，多在右側。"],
+   ["電負度","原子接受電子的傾向，數值約 0.7 到 4.0。由左往右、由下往上遞增，F 最大。"]],
+  formulas:[["電負度：左下 → 右上 遞增","Cs 約 0.7，F 為 4.0"]],
+  qs:[
+   {t:"mc",s:"電子組態 1s²2s²2p⁶3s¹ 的元素屬於：",o:["惰性氣體","鹼金屬","鹼土金屬","鹵素"],a:1,e:"Ne 全滿殼層之外多一個 s 電子，是 IA 族鹼金屬的特徵（這是 Na）。"},
+   {t:"mc",s:"下列元素中，電負度最大的是：",o:["Na","K","S","O"],a:3,e:"電負度由左往右、由下往上增加。O 在 S 的上方，又比 Na、K 位置更右，所以最大。"},
+   {t:"mc",s:"稀土元素（鑭系）在週期表上逐漸填入的是哪一個副殼層？",o:["3d","4d","4f","5f"],a:2,e:"鑭系填 4f 副殼層，錒系則填 5f。"}
+  ]},
+ {code:"2-E",title:"鍵結力與鍵結能",en:"Bonding Forces and Energies",ref:"§2.5",
+  terms:["coulombic force","equilibrium spacing (r₀)","bonding energy"],
+  fig:"curves",cap:"以 Na⁺Cl⁻ 離子對的參數繪製（E_A = −1.436/r、E_R = 7.32×10⁻⁶/r⁸，即課本習題 2.11）。(a) 吸引力與排斥力相加為淨力，淨力為零的位置就是平衡間距 r₀。(b) 同一個 r₀ 對應淨位能曲線的最低點，最低點的深度就是鍵結能 E₀。",
+  points:[
+   ["吸引力與排斥力","兩原子靠近時同時有吸引力 F_A 與排斥力 F_R。排斥力來自電子雲重疊，距離很近時快速增大。淨力 F_N = F_A + F_R。"],
+   ["平衡間距 r₀","淨力 F_N = 0 的位置，原子在此保持平衡。很多原子的 r₀ 約為 0.3 nm。"],
+   ["力與位能的關係","E = ∫F dr，F = dE/dr。淨位能 E_N = E_A + E_R 在 r₀ 處有最小值。"],
+   ["鍵結能 E₀","位能曲線最低點的大小，也就是把兩個原子從 r₀ 分開到無窮遠所需的能量。"],
+   ["鍵結能與性質","E₀ 越大，熔點越高。r₀ 附近的曲線越陡（dF/dr 越大），彈性模數越大。位能井越深越窄，熱膨脹係數越小。"]],
+  formulas:[["F = dE/dr","力是位能對距離的微分"],["E_N = −A/r + B/rⁿ","離子對的淨位能，n 約為 8"],["F_A = (2.31×10⁻²⁸ N·m²)|Z₁||Z₂| / r²","兩離子間的庫侖吸引力（課本式 2.14）"],["r₀ = r_C + r_A","兩離子剛好接觸時的平衡間距（式 2.15）"],["r₀ = (A / nB)^(1/(1−n))","由 dE_N/dr = 0 求得"]],
+  qs:[
+   {t:"mc",s:"兩原子位於平衡間距 r₀ 時，下列何者正確？",o:["淨力最大，位能為零","淨力為零，位能最低","淨力為零，位能最高","吸引力與排斥力都為零"],a:1,e:"r₀ 處吸引力與排斥力大小相等、方向相反，淨力為零；這也是位能曲線的最低點。吸引力與排斥力本身都不為零。"},
+   {t:"num",s:"Na⁺ 與 Cl⁻ 的中心距離為 0.282 nm，計算兩者間的庫侖吸引力大小。",u:"N",a:2.90e-9,tol:2,sci:true,h:"Z₁ = +1、Z₂ = −1，距離要換成公尺。",sol:"F_A = (1)(1)(1.602×10⁻¹⁹)² / [4π(8.85×10⁻¹²)(0.282×10⁻⁹)²]\n    = 2.566×10⁻³⁸ / 8.84×10⁻²⁹\n    ≈ 2.90×10⁻⁹ N"},
+   {t:"mc",s:"W 的鍵結能約 850 kJ/mol，Hg 約 62 kJ/mol。由此最合理的推論是：",o:["W 的熔點比 Hg 高很多","兩者熔點差不多","Hg 的彈性模數比 W 大","鍵結能和熔點沒有關係"],a:0,e:"鍵結能越大，打斷鍵結所需的能量越多，熔點越高。W 熔點 3414 °C，Hg 只有 −39 °C，室溫下是液體。"}
+  ]},
+ {code:"2-F",title:"主鍵：離子鍵、共價鍵、金屬鍵",en:"Primary Interatomic Bonds",ref:"§2.6",
+  terms:["primary bond","ionic bond","covalent bond","metallic bond","hybridization"],
+  fig:"bonds",cap:"三種主鍵的差別在於價電子的去向。離子鍵：電子從 Na 轉移到 Cl，形成的離子互相吸引。共價鍵：兩個 Cl 原子各拿出一個電子共用。金屬鍵：價電子離開原子，形成在離子核之間自由移動的電子海。",
+  points:[
+   ["離子鍵","金屬與非金屬之間，價電子從金屬轉移到非金屬，形成陽離子與陰離子，靠庫侖力結合。無方向性。鍵結能大（約 600–1500 kJ/mol），所以陶瓷熔點高、硬而脆、電與熱的絕緣體。"],
+   ["共價鍵","相鄰原子共用價電子，達到穩定組態。有方向性。一個原子最多可形成 8 − N′ 個共價鍵（N′ 為價電子數）。強度範圍很大：鑽石熔點超過 3550 °C，Bi 只有約 270 °C。"],
+   ["混成軌域","C 的 2s 與 2p 軌域可以混成。sp³：四個軌域指向正四面體頂點，夾角 109.5°（鑽石、CH₄）。sp²：三個軌域在同一平面，夾角 120°（石墨）。"],
+   ["金屬鍵","價電子不屬於特定原子，形成遍布整個固體的「電子海」，把帶正電的離子核黏在一起。無方向性。鍵結能從 62 kJ/mol（Hg）到 850 kJ/mol（W）。自由電子使金屬導電導熱良好，也容易塑性變形。"]],
+  formulas:[["共價鍵數 = 8 − N′","N′：價電子數"],["sp³ → 109.5°　sp² → 120°","鑽石 / 石墨"]],
+  qs:[
+   {t:"mc",s:"三種主鍵中，哪一種具有方向性？",o:["離子鍵","共價鍵","金屬鍵","三者都有"],a:1,e:"共價鍵是特定兩原子之間共用電子，鍵的方向由軌域決定，所以有方向性。離子鍵與金屬鍵在各方向都相同。"},
+   {t:"num",s:"As 位於 VA 族（價電子組態 4s²4p³）。一個 As 原子最多可形成幾個共價鍵？",u:"個",a:3,tol:0,h:"用 8 − N′。",sol:"N′ = 2 + 3 = 5\n共價鍵數 = 8 − 5 = 3"},
+   {t:"mc",s:"鑽石中每個碳原子的混成方式與鍵角為：",o:["sp，180°","sp²，120°","sp³，109.5°","sp³，90°"],a:2,e:"鑽石中每個 C 以 sp³ 混成軌域與四個 C 相連，排成正四面體，鍵角 109.5°。石墨才是 sp²。"}
+  ]},
+ {code:"2-G",title:"次級鍵（凡得瓦鍵）與氫鍵",en:"Secondary Bonding or van der Waals Bonding",ref:"§2.7",
+  terms:["secondary bond","van der Waals bond","dipole (electric)","polar molecule","hydrogen bond"],
+  fig:"secondary",cap:"(a) 偶極的一端帶部分正電 δ+、另一端帶部分負電 δ−，相鄰偶極的異號端互相吸引，就是凡得瓦力。(b) HF 分子內是 H–F 共價鍵（實線），分子之間 H 與鄰近分子的 F 互相吸引形成氫鍵（點線），比一般凡得瓦力強。",
+  points:[
+   ["次級鍵的來源","由電偶極之間的吸引產生，鍵結能通常約 10 kJ/mol，比主鍵弱很多。所有原子與分子之間都存在，但只有在沒有主鍵時才明顯。"],
+   ["電偶極","正負電荷中心分開的狀態。分成三種組合：波動誘發偶極（最弱，例如惰性氣體、H₂、Cl₂）、誘發偶極與永久偶極、永久偶極之間。"],
+   ["極性分子","分子內正負電荷分布不對稱，因而有永久偶極，例如 HCl、H₂O。"],
+   ["氫鍵","最強的次級鍵。H 與 F、O、N 形成共價鍵時，H 那一端幾乎是裸露的質子，會吸引鄰近分子的負端。例：HF、H₂O、NH₃。"],
+   ["水結冰會膨脹","冰中的氫鍵使水分子排成較開放的結構，所以冰的密度比液態水小，結冰時體積約增加 9%。"]],
+  formulas:[["鍵能：氫鍵 > 永久偶極 > 誘發偶極","都比主鍵小一到兩個數量級"]],
+  qs:[
+   {t:"mc",s:"下列哪一個是極性分子？",o:["Cl₂","CH₄","HCl","Ar"],a:2,e:"H 與 Cl 電負度不同，HCl 分子正負電荷中心不重合，有永久偶極。Cl₂ 與 CH₄ 分子對稱，Ar 是單原子，都沒有永久偶極。"},
+   {t:"mc",s:"氬氣在極低溫下可以凝固成固體，原子間靠的是：",o:["離子鍵","共價鍵","波動誘發偶極間的凡得瓦力","氫鍵"],a:2,e:"Ar 是惰性氣體，不形成主鍵。電子雲瞬間的不對稱會產生暫時偶極，並誘發鄰近原子產生偶極，兩者互相吸引。"},
+   {t:"mc",s:"冰的密度比液態水小，主要原因是：",o:["冰中的 O–H 共價鍵變長","氫鍵使冰形成較開放的結構","冰中有很多孔洞缺陷","水分子結冰時質量變小"],a:1,e:"氫鍵有方向性，使冰中的水分子排成較疏鬆的結構，因此冰浮在水上，結冰時體積膨脹。"}
+  ]},
+ {code:"2-H",title:"混合鍵結與材料分類",en:"Mixed Bonding, Molecules, and Material Classification",ref:"§2.8–2.10",
+  terms:["percent ionic character (%IC)","bonding tetrahedron","metalloid (semi-metal)","intermetallic compound"],
+  fig:"tetra",cap:"鍵結四面體的四個頂點是四種極端鍵結，實線邊是三種混合鍵結（凡得瓦鍵在後方，以虛線相連）。橘點標出各類材料在四面體上的大致位置：例如陶瓷落在離子與共價之間，類金屬落在共價與金屬之間。",
+  points:[
+   ["鍵結四面體","四個頂點分別是離子、共價、金屬、凡得瓦四種極端鍵結；邊上是混合鍵：共價–離子、共價–金屬、金屬–離子。真實材料大多是混合鍵。"],
+   ["離子性百分比 %IC","兩元素電負度差越大，鍵的離子性越高；差越小，共價性越高。用 %IC 公式估算。"],
+   ["類金屬（半金屬）","B、Si、Ge、As、Sb、Te、Po、At 的鍵結是金屬與共價的混合。IVA 族由上往下從 C（純共價）漸變到 Sn、Pb（主要金屬鍵）。"],
+   ["介金屬化合物","由兩種金屬組成，若電負度差大就帶有金屬–離子混合性。TiAl₃ 中兩者電負度都約 1.5，幾乎沒有離子性；AuCu₃ 的離子性較明顯。"],
+   ["分子材料","分子內是強共價鍵，分子之間只有弱次級鍵，所以熔點與沸點低。小分子多為氣體；高分子的分子很大，常溫下是固體。"],
+   ["鍵結與材料分類","高分子：共價。金屬：金屬鍵。陶瓷：離子或離子–共價混合。分子固體：凡得瓦。類金屬：共價–金屬混合。介金屬：金屬–離子混合。半導體：以共價為主。"]],
+  formulas:[["%IC = {1 − exp[−0.25(X_A − X_B)²]} × 100","X_A 為電負度較大者"]],
+  qs:[
+   {t:"num",s:"O 的電負度 3.5，Mg 為 1.2。計算 MgO 鍵的離子性百分比。",u:"%",a:73.4,tol:1,h:"代入 %IC 公式，ΔX = 2.3。",sol:"0.25 × (3.5 − 1.2)² = 0.25 × 5.29 = 1.3225\nexp(−1.3225) = 0.266\n%IC = (1 − 0.266) × 100 ≈ 73.4%"},
+   {t:"mc",s:"甲烷（CH₄）在室溫下是氣體，最主要的原因是：",o:["C–H 共價鍵很弱","分子之間只有很弱的次級鍵","CH₄ 是離子化合物","CH₄ 分子量很大"],a:1,e:"C–H 鍵本身是強共價鍵，但沸騰只需克服分子之間的凡得瓦力，而 CH₄ 分子之間的作用力很弱，所以沸點很低。"},
+   {t:"mc",s:"依鍵結四面體，介金屬化合物（例如 AuCu₃）屬於哪一種混合鍵？",o:["共價–離子","共價–金屬","金屬–離子","凡得瓦–共價"],a:2,e:"介金屬化合物由兩種金屬組成，主體是金屬鍵；兩者電負度差使部分電子轉移，帶有離子性。"}
+  ]}
+ ],
+ vocab:[
+  ["原子結構",[["nucleus","n.","原子核",1],["proton","n.","質子",1],["neutron","n.","中子",1],["electron","n.","電子",1],["atomic number","n.","原子序",1],["atomic mass","n.","原子質量"],["atomic weight","n.","原子量",1],["isotope","n.","同位素",1],["mole","n.","莫耳",1],["Avogadro's number","n.","亞佛加厥數"]]],
+  ["電子與週期表",[["quantized","adj.","量子化的"],["orbital","n.","軌域",1],["shell","n.","殼層",1],["subshell","n.","副殼層",1],["spin","n.","自旋"],["probability distribution","n.","機率分布"],["ground state","n.","基態"],["valence electron","n.","價電子",1],["electron configuration","n.","電子組態",1],["inert gas","n.","惰性氣體",1],["alkali metal","n.","鹼金屬"],["alkaline earth metal","n.","鹼土金屬"],["halogen","n.","鹵素"],["transition metal","n.","過渡金屬",1],["rare earth","n.","稀土元素"],["electronegativity","n.","電負度",1],["electropositive","adj.","正電性的"],["electronegative","adj.","負電性的"]]],
+  ["鍵結力與能量",[["attractive force","n.","吸引力"],["repulsive force","n.","排斥力"],["net force","n.","淨力"],["potential energy","n.","位能",1],["equilibrium spacing","n.","平衡間距",1],["bonding energy","n.","鍵結能",1],["coulombic force","n.","庫侖力"],["interatomic","adj.","原子間的"],["separation","n.","間距、分離"]]],
+  ["鍵結種類",[["ionic bond","n.","離子鍵",1],["covalent bond","n.","共價鍵",1],["metallic bond","n.","金屬鍵",1],["cation","n.","陽離子",1],["anion","n.","陰離子",1],["ion core","n.","離子核"],["hybridization","n.","混成"],["tetrahedral","adj.","四面體的"],["directional","adj.","有方向性的"],["nondirectional","adj.","無方向性的"],["primary bond","n.","主鍵",1],["secondary bond","n.","次級鍵",1],["van der Waals bond","n.","凡得瓦鍵",1],["hydrogen bond","n.","氫鍵",1],["dipole","n.","偶極",1],["induced dipole","n.","誘發偶極"],["permanent dipole","n.","永久偶極"],["fluctuating","adj.","波動的、變動的"],["polar molecule","n.","極性分子",1]]],
+  ["材料類別與性質",[["metal","n.","金屬"],["ceramic","n.","陶瓷",1],["polymer","n.","高分子",1],["semiconductor","n.","半導體",1],["metalloid","n.","類金屬"],["intermetallic compound","n.","介金屬化合物"],["molecule","n.","分子"],["melting temperature","n.","熔點",1],["boiling temperature","n.","沸點"],["brittle","adj.","脆的"],["ductile","adj.","有延展性的"],["conductor","n.","導體"],["insulator","n.","絕緣體"],["coefficient of thermal expansion","n.","熱膨脹係數"],["modulus of elasticity","n.","彈性模數"]]]
+ ],
+ practice:[
+  {ref:"2.2",t:"num",s:"Cr 有四種天然同位素：⁵⁰Cr 4.34%（49.9460 amu）、⁵²Cr 83.79%（51.9405 amu）、⁵³Cr 9.50%（52.9407 amu）、⁵⁴Cr 2.37%（53.9389 amu）。計算 Cr 的平均原子量。",u:"amu",a:51.9963,tol:0.02,h:"四項「豐度 × 原子質量」相加。",sol:"A_Cr = (0.0434)(49.9460) + (0.8379)(51.9405)\n     + (0.0950)(52.9407) + (0.0237)(53.9389)\n     = 51.9963 amu"},
+  {ref:"2.3",t:"num",s:"1 amu 相當於多少公克？",u:"g",a:1.66e-24,tol:1,sci:true,h:"1 amu/atom = 1 g/mol，再除以每莫耳的原子數。",sol:"#g/amu = (1 mol / 6.022×10²³ atoms) × (1 g/mol ÷ 1 amu/atom)\n       = 1.66×10⁻²⁴ g/amu"},
+  {ref:"2.6",t:"multi",s:"寫出 L 殼層與 M 殼層所有電子的四個量子數 (n l mₗ mₛ)。先回答：這兩個殼層各有幾個電子狀態？",parts:[["L 殼層 (n = 2)","個",8,0],["M 殼層 (n = 3)","個",18,0]],h:"n = 2 時 l = 0、1；n = 3 時 l = 0、1、2。每個 (l, mₗ) 組合都有 mₛ = ±½ 兩種。",sol:"L 殼層 (n = 2)，共 8 個：\n 2s：2 0 0 (+½)、2 0 0 (−½)\n 2p：2 1 0 (±½)、2 1 1 (±½)、2 1 −1 (±½)\n\nM 殼層 (n = 3)，共 18 個：\n 3s：3 0 0 (±½)\n 3p：3 1 0 (±½)、3 1 1 (±½)、3 1 −1 (±½)\n 3d：3 2 0 (±½)、3 2 1 (±½)、3 2 −1 (±½)、\n     3 2 2 (±½)、3 2 −2 (±½)"},
+  {ref:"2.7",t:"open",s:"寫出下列離子的電子組態：Fe²⁺、Al³⁺、Cu⁺、Ba²⁺、Br⁻、O²⁻、Fe³⁺、S²⁻。",h:"先寫出中性原子的組態。陽離子從最外層拿走電子（過渡金屬先拿 4s），陰離子把電子加到未滿的 p 副殼層。",ans:"Fe²⁺：1s²2s²2p⁶3s²3p⁶3d⁶（失去兩個 4s）\nAl³⁺：1s²2s²2p⁶（失去 3s² 與 3p¹）\nCu⁺：1s²2s²2p⁶3s²3p⁶3d¹⁰（失去 4s¹）\nBa²⁺：1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁶4d¹⁰5s²5p⁶（失去 6s²）\nBr⁻：1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁶（多一個 4p）\nO²⁻：1s²2s²2p⁶（多兩個 2p）\nFe³⁺：1s²2s²2p⁶3s²3p⁶3d⁵（失去兩個 4s 與一個 3d）\nS²⁻：1s²2s²2p⁶3s²3p⁶（多兩個 3p）"},
+  {ref:"2.11",t:"match",s:"不查週期表，判斷下列電子組態分別屬於哪一類元素。",opts:["惰性氣體","鹵素","鹼金屬","鹼土金屬","過渡金屬"],items:[["(a) 1s²2s²2p⁶3s²3p⁶3d⁷4s²",4],["(b) 1s²2s²2p⁶3s²3p⁶",0],["(c) 1s²2s²2p⁵",1],["(d) 1s²2s²2p⁶3s²",3],["(e) 1s²2s²2p⁶3s²3p⁶3d²4s²",4],["(f) 1s²2s²2p⁶3s²3p⁶4s¹",2]],h:"看最外層：全滿？差一個？多一個或兩個 s 電子？d 副殼層沒填滿？",sol:"(a) 過渡金屬：d 副殼層未滿\n(b) 惰性氣體：3s、3p 全滿\n(c) 鹵素：差一個電子就填滿 L 殼層\n(d) 鹼土金屬：最外層兩個 s 電子\n(e) 過渡金屬：d 副殼層未滿\n(f) 鹼金屬：最外層一個 s 電子"},
+  {ref:"2.10",t:"mc",s:"原子序 114 的元素應屬於週期表的哪一族？",o:["IIA","IVA","VIA","VIIIB"],a:1,e:"Ds（110）在 Pt 下方、VIII 族最右欄；往右數四欄到 114，位於 Pb 正下方，屬於 IVA 族。"},
+  {ref:"2.13",t:"num",s:"計算中心相距 1.6 nm 的 K⁺ 與 O²⁻ 離子之間的吸引力大小。",u:"N",a:1.80e-10,tol:2,sci:true,h:"F_A = (|Z₁|e)(|Z₂|e) / (4πε₀r²)，Z₁ = 1、Z₂ = 2。",sol:"F_A = (1)(2)(1.602×10⁻¹⁹ C)² / [(4π)(8.85×10⁻¹² F/m)(1.6×10⁻⁹ m)²]\n    = 1.80×10⁻¹⁰ N"},
+  {ref:"2.14",t:"open",s:"淨位能 E_N = −A/r + B/rⁿ。用以下步驟以 A、B、n 表示鍵結能 E₀：(1) 對 r 微分並令其為零；(2) 解出平衡間距 r₀；(3) 把 r₀ 代回 E_N 得到 E₀。",h:"d(−A/r)/dr = A/r²，d(B/rⁿ)/dr = −nB/rⁿ⁺¹。",ans:"(1) dE_N/dr = A/r² − nB/r⁽ⁿ⁺¹⁾ = 0\n(2) A/r₀² = nB/r₀⁽ⁿ⁺¹⁾  →  r₀ = (A / nB)^(1/(1−n))\n(3) E₀ = −A / (A/nB)^(1/(1−n)) + B / (A/nB)^(n/(1−n))"},
+  {ref:"2.15",t:"multi",s:"K⁺Cl⁻ 離子對的吸引能與排斥能為 E_A = −1.436/r、E_R = 5.8×10⁻⁶/r⁹（能量 eV、r 單位 nm）。利用 2.14 的結果，計算平衡間距 r₀ 與鍵結能 E₀。（可對照 2-E 的圖 (b)。）",parts:[["r₀","nm",0.279,1.5],["E₀","eV",-4.58,1.5]],h:"A = 1.436、B = 5.8×10⁻⁶、n = 9。E₀ 是負值。",sol:"r₀ = (A / nB)^(1/(1−n))\n   = [1.436 / (9 × 5.8×10⁻⁶)]^(1/(1−9))\n   = (27510)^(−1/8) ≈ 0.279 nm\n\nE₀ = −A/r₀ + B/r₀⁹\n   = −1.436/0.279 + 5.8×10⁻⁶/(0.279)⁹\n   = −5.15 + 0.57 ≈ −4.58 eV\n\n（作圖法讀出約 r₀ = 0.28 nm、E₀ = −4.6 eV）"},
+  {ref:"2.16",t:"multi",s:"假想的 X⁺–Y⁻ 離子對，平衡間距 0.38 nm、鍵結能 6.13 eV，n = 10。利用 2.14 的結果，求 E_A = −A/r 與 E_R = B/r¹⁰ 中的 A 與 B。",parts:[["A","eV·nm",2.59,1.5],["B","eV·nm¹⁰",4.28e-5,1.5,true]],h:"由 r₀ 的式子得 A = nB / r₀⁹，代入 E₀ 的式子可得 |E₀| = 9B / r₀¹⁰。",sol:"由 r₀ = (A/10B)^(−1/9)  →  A = 10B / r₀⁹\n代入 E₀ = −A/r₀ + B/r₀¹⁰ = −10B/r₀¹⁰ + B/r₀¹⁰ = −9B/r₀¹⁰\n\n6.13 = 9B / (0.38)¹⁰\nB = 6.13 × (0.38)¹⁰ / 9 = 4.28×10⁻⁵ eV·nm¹⁰\nA = 10 × 4.28×10⁻⁵ / (0.38)⁹ = 2.59 eV·nm\n\n所以 E_A = −2.59/r，E_R = 4.28×10⁻⁵/r¹⁰"},
+  {ref:"2.18",t:"open",s:"(a) 簡述離子鍵、共價鍵、金屬鍵的主要差別。(b) 敘述包立不相容原理。",h:"從「電子做了什麼」來比較：轉移、共用，還是形成電子海？",ans:"(a) 離子鍵：電子轉移形成帶相反電荷的離子，靠靜電吸引結合。\n共價鍵：相鄰原子共用電子，使各自達到穩定電子組態。\n金屬鍵：帶正電的離子核被價電子形成的電子海包圍，電子海遮蔽離子核間的排斥，並把它們黏在一起。\n(b) 每個電子狀態最多只能容納兩個電子，而且兩者自旋相反。"},
+  {ref:"2.20",t:"multi",s:"由價電子組態判斷下列元素的原子各可形成幾個共價鍵。",parts:[["Ge (4s²4p²)","個",4,0],["P (3s²3p³)","個",3,0],["Se (4s²4p⁴)","個",2,0],["Cl (3s²3p⁵)","個",1,0]],h:"共價鍵數 = 8 − N′。",sol:"Ge：N′ = 4 → 8 − 4 = 4\nP：N′ = 5 → 8 − 5 = 3\nSe：N′ = 6 → 8 − 6 = 2\nCl：N′ = 7 → 8 − 7 = 1"},
+  {ref:"2.21",t:"mc",s:"HF 的分子量比 HCl 小，沸點卻比較高（19.4 °C 對 −85 °C），原因是：",o:["H–F 共價鍵比 H–Cl 強","HF 分子間是氫鍵，HCl 分子間是較弱的凡得瓦力","HF 是離子化合物","HF 分子較大，凡得瓦力較強"],a:1,e:"沸騰時要克服的是分子之間的作用力。F 電負度很高，HF 分子之間形成氫鍵；HCl 之間只有較弱的偶極作用。氫鍵比一般凡得瓦力強，所以 HF 沸點較高。"},
+  {ref:"2.22",t:"multi",s:"計算下列化合物的離子性百分比。電負度：Ti 1.3、O 3.5、Zn 1.7、Te 2.0、Cs 0.9、Cl 2.9、In 1.5、Sb 1.8、Mg 1.3。",parts:[["TiO₂","%",70.2,1.5],["ZnTe","%",2.2,6],["CsCl","%",63.2,1.5],["InSb","%",2.2,6],["MgCl₂","%",47.3,1.5]],h:"%IC = {1 − exp[−0.25(X_A − X_B)²]} × 100。",sol:"TiO₂：ΔX = 2.2 → %IC = 70.2%\nZnTe：ΔX = 0.3 → %IC = 2.2%\nCsCl：ΔX = 2.0 → %IC = 63.2%\nInSb：ΔX = 0.3 → %IC = 2.2%\nMgCl₂：ΔX = 1.6 → %IC = 47.3%"},
+  {ref:"2.23",t:"match",s:"判斷下列材料主要的鍵結類型。",opts:["金屬鍵","離子鍵為主（略帶共價）","共價鍵為主（略帶離子）","共價鍵＋凡得瓦力","凡得瓦力"],items:[["黃銅（Cu–Zn 合金）",0],["橡膠",3],["硫化鋇 BaS",1],["固態氙 Xe",4],["青銅（Cu–Sn 合金）",0],["尼龍",3],["磷化鋁 AlP",2]],h:"合金看成分是不是都是金屬；高分子主鏈共價、鏈間凡得瓦；化合物看兩元素在週期表上距離多遠。",sol:"黃銅、青銅：金屬合金 → 金屬鍵\n橡膠、尼龍：以 C、H 為主的高分子 → 共價鍵，分子間有凡得瓦力\nBaS：Ba 與 S 在週期表上相距遠 → 離子鍵為主\n固態 Xe：惰性氣體 → 凡得瓦力\nAlP：Al 與 P 位置相近 → 共價鍵為主"}
+ ]
+};
+CH2.termsMap=TERMS;
+/* ================= Chapter 3 figures ================= */
+const BAR="̅";
+const ix=v=>v.map(n=>n<0?Math.abs(n)+BAR:String(n)).join("");
+const PJ=(o,s)=>(x,y,z)=>[+(o[0]+y*s-x*s*0.5).toFixed(1),+(o[1]-z*s+x*s*0.32).toFixed(1)];
+const EDGES=[[[0,0,0],[1,0,0]],[[0,0,0],[0,1,0]],[[0,0,0],[0,0,1]],[[1,0,0],[1,1,0]],[[1,0,0],[1,0,1]],[[0,1,0],[1,1,0]],[[0,1,0],[0,1,1]],[[0,0,1],[1,0,1]],[[0,0,1],[0,1,1]],[[1,1,0],[1,1,1]],[[1,0,1],[1,1,1]],[[0,1,1],[1,1,1]]];
+function cubeSVG(p,{axes=false,lab=true}={}){
+  let s="";
+  EDGES.forEach(([a,b])=>{const hid=(a.every(v=>v===0));const A=p(...a),B=p(...b);s+=L(A[0],A[1],B[0],B[1],hid?"lnm dash":"ln")});
+  if(axes){const O=p(0,0,0),X=p(1.45,0,0),Y=p(0,1.4,0),Z=p(0,0,1.4);
+    s+=`<line x1="${O[0]}" y1="${O[1]}" x2="${X[0]}" y2="${X[1]}" class="lnm" marker-end="url(#ar3)"/><line x1="${p(0,1,0)[0]}" y1="${p(0,1,0)[1]}" x2="${Y[0]}" y2="${Y[1]}" class="lnm" marker-end="url(#ar3)"/><line x1="${p(0,0,1)[0]}" y1="${p(0,0,1)[1]}" x2="${Z[0]}" y2="${Z[1]}" class="lnm" marker-end="url(#ar3)"/>`;
+    if(lab)s+=T(X[0]-6,X[1]+14,"x","sm b")+T(Y[0]+10,Y[1]+4,"y","sm b")+T(Z[0]+8,Z[1],"z","sm b");}
+  return s;
+}
+const AR3=`<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker><marker id="ar3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fa"/></marker></defs>`;
+function atoms(p,list,r){return list.slice().sort((a,b)=>(a[0]-b[0])||(a[1]-b[1])).map(([x,y,z,c])=>{const P=p(x,y,z);return C(P[0],P[1],r,c||"fss sts")}).join("")}
+const CORNERS=[];for(const x of[0,1])for(const y of[0,1])for(const z of[0,1])CORNERS.push([x,y,z]);
+const FACES=[[.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]];
+function planePoly(h,k,l){
+  const o=[h<0?1:0,k<0?1:0,l<0?1:0],f=q=>h*(q[0]-o[0])+k*(q[1]-o[1])+l*(q[2]-o[2])-1,pts=[];
+  EDGES.forEach(([a,b])=>{const fa=f(a),fb=f(b);if(Math.abs(fa)<1e-9)pts.push(a);if(Math.abs(fb)<1e-9)pts.push(b);if(fa*fb<0){const t=fa/(fa-fb);pts.push(a.map((v,i)=>v+(b[i]-v)*t))}});
+  const u=[];pts.forEach(q=>{if(!u.some(w=>w.every((v,i)=>Math.abs(v-q[i])<1e-6)))u.push(q)});return u;
+}
+function planeSVG(p,h,k,l,cls="fas sta"){
+  const pts=planePoly(h,k,l).map(q=>p(...q));if(pts.length<3)return "";
+  const cx=pts.reduce((s,q)=>s+q[0],0)/pts.length,cy=pts.reduce((s,q)=>s+q[1],0)/pts.length;
+  pts.sort((a,b)=>Math.atan2(a[1]-cy,a[0]-cx)-Math.atan2(b[1]-cy,b[0]-cx));
+  return `<polygon points="${pts.map(q=>q.join(",")).join(" ")}" class="${cls}" fill-opacity=".75"/>`;
+}
+function dirSVG(p,u,v,w){
+  const m=Math.max(Math.abs(u),Math.abs(v),Math.abs(w)),t=[u<0?1:0,v<0?1:0,w<0?1:0],hd=[t[0]+u/m,t[1]+v/m,t[2]+w/m];
+  const A=p(...t),B=p(...hd);return `<line x1="${A[0]}" y1="${A[1]}" x2="${B[0]}" y2="${B[1]}" class="lna" marker-end="url(#ar3a)"/>`+C(A[0],A[1],3,"fa");
+}
+
+Object.assign(FIG,{
+ crystal(){
+  let b=T(150,22,"(a) 結晶：長程有序","b")+T(470,22,"(b) 非結晶（非晶質）：只有短程有序","b");
+  for(let i=0;i<7;i++)for(let j=0;j<5;j++){b+=C(40+i*38,60+j*38,11,(i+j)%2?"fss sts":"fas sta")}
+  b+=`<rect x="40" y="60" width="76" height="76" class="lna" fill="none"/>`;
+  b+=L(40,262,116,262,"lna")+T(78,280,"單位晶胞：重複堆出整個晶體","sm ta");
+  const r=rng(23),pts=[];let tries=0;while(pts.length<34&&tries<4000){tries++;const x=360+r()*230,y=50+r()*170;if(pts.every(q=>Math.hypot(q[0]-x,q[1]-y)>27))pts.push([x,y])}
+  pts.forEach(([x,y],i)=>{b+=C(x.toFixed(1),y.toFixed(1),11,i%2?"fss sts":"fas sta")});
+  b+=T(470,262,"原子位置沒有長距離的重複規律","sm")+T(470,280,"例：玻璃、急冷的材料","sm mut");
+  b+=L(320,30,320,280,"stl");
+  return svg(640,292,"結晶材料的原子規則重複排列，可定義單位晶胞；非晶質材料的原子排列沒有長程規律",b);
+ },
+ cells(){
+  let b=AR3;
+  const p1=PJ([110,150],110);b+=cubeSVG(p1)+atoms(p1,CORNERS.map(c=>[...c,"fss sts"]).concat(FACES.map(f=>[...f,"fas sta"])),9);
+  const p2=PJ([330,150],110);b+=cubeSVG(p2)+atoms(p2,CORNERS.map(c=>[...c,"fss sts"]).concat([[.5,.5,.5,"fas sta"]]),9);
+  const hx=540,hb=150,ht=55,R=58,E=0.36,hp=(th,y)=>[+(hx+R*Math.cos(th)).toFixed(1),+(y+R*E*Math.sin(th)).toFixed(1)];
+  const ang=[0,1,2,3,4,5].map(k=>k*Math.PI/3);
+  ang.forEach((t,k)=>{const a=hp(t,hb),c=hp(ang[(k+1)%6],hb),d=hp(t,ht),e=hp(ang[(k+1)%6],ht);const back=Math.sin(t)<0&&Math.sin(ang[(k+1)%6])<=0;b+=L(a[0],a[1],c[0],c[1],back?"lnm dash":"ln")+L(d[0],d[1],e[0],e[1],"ln");const vback=Math.sin(t)<-0.1;b+=L(a[0],a[1],d[0],d[1],vback?"lnm dash":"ln")});
+  const mid=(hb+ht)/2,inner=[Math.PI/6,5*Math.PI/6,3*Math.PI/2].map(t=>[hx+R*0.577*Math.cos(t),mid+R*0.577*E*Math.sin(t)]);
+  const hatoms=[];ang.forEach(t=>{hatoms.push([...hp(t,hb),"fss sts"]);hatoms.push([...hp(t,ht),"fss sts"])});hatoms.push([hx,hb,"fss sts"],[hx,ht,"fss sts"]);inner.forEach(q=>hatoms.push([q[0],q[1],"fas sta"]));
+  hatoms.sort((a,c)=>a[1]-c[1]).forEach(q=>{b+=C(q[0].toFixed(1),q[1].toFixed(1),8.5,q[2])});
+  b+=L(hx,hb+30,hx+R,hb+30,"lnm")+T(hx+R/2,hb+44,"a","sm")+L(hx+R+16,ht,hx+R+16,hb,"lnm")+T(hx+R+26,(ht+hb)/2+4,"c","sm","start");
+  const info=[[85,"FCC 面心立方","a = 2R√2","每晶胞 4 個原子","配位數 12・APF 0.74","Cu、Al、Ni、γ-Fe"],[305,"BCC 體心立方","a = 4R/√3","每晶胞 2 個原子","配位數 8・APF 0.68","α-Fe、Cr、W"],[540,"HCP 六方最密堆積","c/a ≈ 1.633（理想值）","每晶胞 6 個原子","配位數 12・APF 0.74","Mg、Ti、Zn"]];
+  info.forEach(([x,t,a,n,c,e])=>{b+=T(x,224,t,"b")+T(x,244,a,"sm ta b")+T(x,262,n,"sm")+T(x,280,c,"sm")+T(x,298,e,"sm mut")});
+  b+=C(40,322,6,"fss sts")+T(52,326,"角落原子","sm","start")+C(140,322,6,"fas sta")+T(152,326,"面心／體心／內部原子","sm","start");
+  return svg(640,334,"FCC、BCC、HCP 三種常見金屬晶體結構的縮小球單位晶胞與其關鍵數據",b);
+ },
+ sharing(){
+  let b=AR3;const p=PJ([110,170],120);
+  b+=cubeSVG(p)+atoms(p,CORNERS.map(c=>[...c,"fss sts"]).concat(FACES.map(f=>[...f,"fas sta"])),10);
+  const P1=p(1,1,1),P2=p(1,.5,.5);b+=L(P1[0],P1[1],P1[0]+40,P1[1]-14,"lnm")+T(P1[0]+44,P1[1]-10,"角落：每個 1/8","sm","start");
+  b+=L(P2[0],P2[1],P2[0]+70,P2[1]+30,"lnm")+T(P2[0]+74,P2[1]+34,"面心：每個 1/2","sm","start");
+  b+=T(120,236,"FCC：8 × 1/8 + 6 × 1/2 = 4","sm ta b")+T(120,256,"BCC：8 × 1/8 + 1 = 2","sm ta b")+T(120,276,"ρ = nA / (V_C N_A)","sm");
+  b+=L(300,20,300,290,"stl");
+  const X0=360,X1=600,Y0=36,Y1=276,yt=t=>Y1-t/1750*(Y1-Y0);
+  b+=T(480,22,"純鐵的同素異形轉變（升溫）","b");
+  [[0,912,"α-Fe　BCC","fss"],[912,1394,"γ-Fe　FCC","fas"],[1394,1538,"δ-Fe　BCC","fss"],[1538,1750,"液態","fl"]].forEach(([a,c,lab,cls])=>{b+=`<rect x="${X0}" y="${yt(c)}" width="120" height="${(yt(a)-yt(c)).toFixed(1)}" class="${cls} stl"/>`;b+=T(X0+60,(yt(a)+yt(c))/2+5,lab,c-a<120?"sm b":"b")});
+  [0,912,1394,1538].forEach(t=>{b+=L(X0+120,yt(t),X0+130,yt(t),"ln")+T(X0+134,yt(t)+4,t+" °C","sm","start")});
+  b+=T(X0+60,Y1+20,"晶體結構隨溫度改變","sm mut");
+  return svg(640,306,"單位晶胞中各位置原子的分配比例，以及純鐵隨溫度發生的同素異形轉變",b);
+ },
+ lattice(){
+  let b=AR3;const p=PJ([200,210],150);
+  b+=cubeSVG(p,{axes:true});
+  const A=p(0.5,0,0),Bm=p(0,0.5,0),Cm=p(0,0,0.5);
+  b+=T(A[0]-12,A[1]+16,"a","b ts")+T(Bm[0],Bm[1]+18,"b","b ts")+T(Cm[0]-12,Cm[1],"c","b ts");
+  const O=p(0,0,0);
+  b+=`<path d="M ${p(0,.22,0).join(" ")} Q ${p(0,.18,.18).join(" ")} ${p(0,0,.22).join(" ")}" class="lna"/>`+T(p(0,.2,.2)[0]+6,p(0,.2,.2)[1]-2,"α","b ta","start");
+  b+=`<path d="M ${p(.3,0,0).join(" ")} Q ${p(.22,0,.22).join(" ")} ${p(0,0,.3).join(" ")}" class="lna"/>`+T(p(.25,0,.25)[0]-14,p(.25,0,.25)[1],"β","b ta","end");
+  b+=`<path d="M ${p(.3,0,0).join(" ")} Q ${p(.2,.2,0).join(" ")} ${p(0,.25,0).join(" ")}" class="lna"/>`+T(p(.22,.22,0)[0],p(.22,.22,0)[1]+16,"γ","b ta");
+  b+=T(450,90,"晶格參數 (lattice parameters)","b","start")+T(450,116,"三個邊長：a、b、c","sm","start")+T(450,138,"三個軸間夾角：α、β、γ","sm","start");
+  b+=T(450,170,"α：b 與 c 之間的夾角","sm mut","start")+T(450,190,"β：a 與 c 之間的夾角","sm mut","start")+T(450,210,"γ：a 與 b 之間的夾角","sm mut","start");
+  return svg(640,290,"單位晶胞的幾何由三個邊長 a、b、c 與三個軸間夾角 α、β、γ 決定",b);
+ },
+ points(){
+  let b=AR3;const p=PJ([150,215],150);
+  b+=cubeSVG(p,{axes:true})+atoms(p,CORNERS.map(c=>[...c,"fss sts"]).concat([[.5,.5,.5,"fas sta"]]),8);
+  const lab=(x,y,z,s,dx=10,dy=-8)=>{const P=p(x,y,z);return T(P[0]+dx,P[1]+dy,s,"sm b","start")};
+  b+=lab(0,0,0,"000",8,-10)+lab(1,0,0,"100",-34,18)+lab(0,1,0,"010",10,14)+lab(0,0,1,"001",-30,-8)+lab(1,1,1,"111",10,-4)+lab(.5,.5,.5,"½½½",10,-8);
+  b+=T(150,300,"BCC 單位晶胞的點座標 qrs","sm mut");
+  b+=L(320,30,320,280,"stl");
+  const q=PJ([460,215],150);b+=cubeSVG(q,{axes:true});
+  [[1,0,0],[1,1,0],[1,1,1]].forEach(d=>{b+=dirSVG(q,...d)});
+  const H=(x,y,z,s,dx,dy)=>{const P=q(x,y,z);return T(P[0]+dx,P[1]+dy,s,"sm b ta","start")};
+  b+=H(1,0,0,"[100]",-44,6)+H(1,1,0,"[110]",4,18)+H(1,1,1,"[111]",8,-6);
+  b+=T(470,300,"晶向：由尾端指向頭端的向量","sm mut");
+  return svg(640,312,"左圖：以晶格常數的分數表示點座標；右圖：立方晶胞中的 [100]、[110]、[111] 晶向",b);
+ },
+ planes(){
+  let b=AR3;
+  [[[0,0,1],70],[[1,1,0],285],[[1,1,1],500]].forEach(([hkl,x])=>{const p=PJ([x,200],140);b+=planeSVG(p,...hkl)+cubeSVG(p,{axes:true})+T(x+70,262,"("+ix(hkl)+")","lg ta")});
+  b+=T(140,288,"截距 ∞, ∞, 1","sm mut")+T(355,288,"截距 1, 1, ∞","sm mut")+T(570,288,"截距 1, 1, 1","sm mut");
+  return svg(660,300,"立方晶胞中的 (001)、(110)、(111) 晶面與其截距",b);
+ },
+ hexagonal(){
+  let b=AR3;
+  const hx=230,hb=225,ht=80,R=120,E=0.36,hp=(th,y)=>[+(hx+R*Math.cos(th)).toFixed(1),+(y+R*E*Math.sin(th)).toFixed(1)];
+  const ang=[0,1,2,3,4,5].map(k=>k*Math.PI/3);
+  b+=`<polygon points="${ang.map(t=>hp(t,ht).join(",")).join(" ")}" class="fas sta" fill-opacity=".8"/>`;
+  ang.forEach((t,k)=>{const n=ang[(k+1)%6],a=hp(t,hb),c=hp(n,hb),d=hp(t,ht),e=hp(n,ht);const back=Math.sin(t)<0&&Math.sin(n)<=0;b+=L(a[0],a[1],c[0],c[1],back?"lnm dash":"ln")+L(d[0],d[1],e[0],e[1],"ln")+L(a[0],a[1],d[0],d[1],Math.sin(t)<-0.1?"lnm dash":"ln")});
+  const ax=(th,lab,dx,dy)=>{const P=[hx+R*1.45*Math.cos(th),hb+R*1.45*E*Math.sin(th)];return `<line x1="${hx}" y1="${hb}" x2="${P[0].toFixed(1)}" y2="${P[1].toFixed(1)}" class="lns" marker-end="url(#ar3)"/>`+T(P[0]+dx,P[1]+dy,lab,"b ts")};
+  b+=ax(2*Math.PI/3,"a₁",-12,14)+ax(0,"a₂",16,4)+ax(4*Math.PI/3,"a₃",-10,-6);
+  b+=`<line x1="${hx}" y1="${hb}" x2="${hx}" y2="${ht-40}" class="lns" marker-end="url(#ar3)"/>`+T(hx+12,ht-36,"z","b ts","start");
+  b+=T(hx+R+20,ht+6,"(0001) 基面","sm ta b","start");
+  b+=T(450,130,"四軸座標：a₁、a₂、a₃ 互成 120°，","sm","start")+T(450,150,"z 軸垂直於基面。","sm","start")+T(450,180,"晶向 [uvtw]、晶面 (hkil)","sm b","start")+T(450,202,"t = −(u + v)　i = −(h + k)","sm ta","start");
+  return svg(680,280,"六方晶胞的四軸座標系統 a1、a2、a3、z，以及上方的 (0001) 基面",b);
+ },
+ stacking(){
+  let b="";const r=17,dx=2*r,dy=r*Math.sqrt(3),x0=40,y0=58;
+  for(let j=0;j<4;j++)for(let i=0;i<6;i++){const x=x0+i*dx+(j%2)*r,y=y0+j*dy;b+=C(x.toFixed(1),y.toFixed(1),r,"fss sts")+T(x.toFixed(1),(y+4).toFixed(1),"A","sm mut")}
+  for(let j=0;j<3;j++)for(let i=0;i<5;i++){
+    const bx=x0+i*dx+(j%2?2*r:r),by=y0+j*dy+dy/3,cx=x0+i*dx+(j%2?r:2*r),cy=y0+j*dy+2*dy/3;
+    b+=T(bx.toFixed(1),(by+4).toFixed(1),"B","sm b ta")+T(cx.toFixed(1),(cy+4).toFixed(1),"C","sm b ts");}
+  b+=T(140,24,"最密堆積面（俯視）","b");
+  b+=T(140,222,"A 原子之間有 B、C 兩種凹位","sm mut");
+  b+=L(300,20,300,232,"stl");
+  const col=(x,title,seq)=>{let s=T(x+60,24,title,"b");seq.forEach((L1,k)=>{const y=200-k*30,off=L1==="A"?0:L1==="B"?r:2*r;for(let i=0;i<3;i++)s+=C((x+off+i*dx).toFixed(1),y,r-3,L1==="A"?"fss sts":L1==="B"?"fas sta":"fp sts");s+=T(x-22,y+4,L1,"sm b","end")});return s};
+  b+=col(345,"HCP：ABAB…",["A","B","A","B","A","B"])+col(515,"FCC：ABCABC…",["A","B","C","A","B","C"]);
+  return svg(660,240,"最密堆積面的 A、B、C 位置；HCP 依 ABAB 堆疊，FCC 依 ABCABC 堆疊",b);
+ },
+ grains(){
+  let b="<defs>";
+  const P={a:[340,30],b:[450,30],c:[550,30],d:[630,30],e:[340,120],f:[430,110],g:[520,140],h:[630,115],i:[340,230],j:[460,230],k:[560,230],l:[630,230]};
+  const G=[["abfe",20],["bcgf",-35],["cdhg",65],["efji",-10],["fgkj",40],["ghlk",-60]];
+  G.forEach(([ks,_],gi)=>{b+=`<clipPath id="gr${gi}"><polygon points="${ks.split("").map(k=>P[k].join(",")).join(" ")}"/></clipPath>`});
+  b+=`<clipPath id="sc"><rect x="30" y="30" width="230" height="200"/></clipPath></defs>`;
+  const hatch=(cx,cy,ang,clip)=>{let s=`<g clip-path="url(#${clip})">`;const c=Math.cos(ang*Math.PI/180),sn=Math.sin(ang*Math.PI/180);for(let t=-200;t<=200;t+=11){const x1=cx+t*(-sn)-300*c,y1=cy+t*c-300*sn,x2=cx+t*(-sn)+300*c,y2=cy+t*c+300*sn;s+=L(x1.toFixed(1),y1.toFixed(1),x2.toFixed(1),y2.toFixed(1),"lns")}return s+"</g>"};
+  b+=`<rect x="30" y="30" width="230" height="200" class="fss"/>`+hatch(145,130,15,"sc")+`<rect x="30" y="30" width="230" height="200" class="ln" fill="none"/>`;
+  G.forEach(([ks,ang],gi)=>{const pts=ks.split("").map(k=>P[k]);const cx=pts.reduce((s,q)=>s+q[0],0)/4,cy=pts.reduce((s,q)=>s+q[1],0)/4;b+=`<polygon points="${pts.map(q=>q.join(",")).join(" ")}" class="fss"/>`+hatch(cx,cy,ang,"gr"+gi)});
+  G.forEach(([ks])=>{const pts=ks.split("").map(k=>P[k]);b+=`<polygon points="${pts.map(q=>q.join(",")).join(" ")}" class="lna" fill="none"/>`});
+  b+=T(145,20,"(a) 單晶：整塊方位一致","b")+T(485,20,"(b) 多晶：許多方位不同的晶粒","b");
+  b+=L(475,125,500,262,"lnm")+T(500,276,"晶界：方位不同的晶粒交界處","sm ta");
+  b+=T(145,256,"線條代表原子面的方向","sm mut");
+  return svg(660,286,"單晶中原子面方位一致；多晶由許多方位不同的晶粒組成，晶粒之間是晶界",b);
+ },
+ bragg(){
+  let b=AR3;const d=64,th=28*Math.PI/180,Py=110,Px=330,Q=[Px,Py+d],P=[Px,Py];
+  [Py,Py+d,Py+2*d].forEach((y,k)=>{b+=L(70,y,600,y,"lnm");for(let x=90;x<600;x+=48)b+=C(x,y,6,"fss sts");b+=T(608,y+4,k===0?"晶面 1":k===1?"晶面 2":"晶面 3","sm mut","start")});
+  const u=[Math.cos(th),Math.sin(th)],v=[Math.cos(th),-Math.sin(th)];
+  const ray=(pt,len1,len2,cls)=>`<line x1="${(pt[0]-u[0]*len1).toFixed(1)}" y1="${(pt[1]-u[1]*len1).toFixed(1)}" x2="${pt[0]}" y2="${pt[1]}" class="${cls}" marker-end="url(#ar3)"/><line x1="${pt[0]}" y1="${pt[1]}" x2="${(pt[0]+v[0]*len2).toFixed(1)}" y2="${(pt[1]+v[1]*len2).toFixed(1)}" class="${cls}" marker-end="url(#ar3)"/>`;
+  b+=ray(P,230,230,"ln")+ray(Q,300,300,"ln");
+  const S=[Q[0]-d*Math.sin(th)*u[0],Q[1]-d*Math.sin(th)*u[1]],Tt=[Q[0]+d*Math.sin(th)*v[0],Q[1]+d*Math.sin(th)*v[1]];
+  b+=L(P[0],P[1],S[0].toFixed(1),S[1].toFixed(1),"lnm dash")+L(P[0],P[1],Tt[0].toFixed(1),Tt[1].toFixed(1),"lnm dash");
+  b+=`<line x1="${S[0].toFixed(1)}" y1="${S[1].toFixed(1)}" x2="${Q[0]}" y2="${Q[1]}" class="lna" stroke-width="4"/><line x1="${Q[0]}" y1="${Q[1]}" x2="${Tt[0].toFixed(1)}" y2="${Tt[1].toFixed(1)}" class="lna" stroke-width="4"/>`;
+  b+=C(P[0],P[1],6,"fa")+C(Q[0],Q[1],6,"fa")+T(P[0]+10,P[1]-10,"P","sm b","start")+T(Q[0]+6,Q[1]+22,"Q","sm b","start")+T(S[0]-14,S[1]+4,"S","sm b","end")+T(Tt[0]+10,Tt[1]+4,"T","sm b","start");
+  b+=`<line x1="${Px+40}" y1="${Py}" x2="${Px+40}" y2="${Py+d}" class="ln" marker-start="url(#ar3)" marker-end="url(#ar3)"/>`+T(Px+48,Py+d/2+4,"d","b","start");
+  b+=`<path d="M ${Px-60} ${Py} A 60 60 0 0 1 ${(Px-60*Math.cos(th)).toFixed(1)} ${(Py-60*Math.sin(th)).toFixed(1)}" class="lna" fill="none"/>`+T(Px-72,Py-8,"θ","b ta","end");
+  b+=T(120,40,"入射 X 光","sm","middle")+T(540,40,"繞射 X 光","sm","middle");
+  b+=T(330,290,"兩道光的路徑差 SQ + QT = 2d sinθ","sm ta b")+T(330,310,"路徑差等於波長的整數倍時建設性干涉：nλ = 2d sinθ","sm");
+  return svg(660,320,"布拉格定律：相鄰晶面反射的 X 光路徑差為 2d sinθ，等於 nλ 時產生繞射",b);
+ },
+ dirs312(){
+  let b=AR3;const list=[[-1,1,0],[-1,-2,1],[0,-1,2],[1,-3,3],[-1,-1,1],[-1,2,2],[1,-2,3],[-1,0,3]],labs="abcdefgh";
+  list.forEach((d,i)=>{const x=60+(i%4)*165,y=130+Math.floor(i/4)*170,p=PJ([x,y],95);b+=cubeSVG(p,{axes:true,lab:false})+dirSVG(p,...d)+T(x+40,y+50,"("+labs[i]+") ["+ix(d)+"]","sm b")});
+  return svg(680,360,"習題 3.12 參考答案：八個晶向在立方晶胞中的位置，紅點為向量起點",b);
+ },
+ planes322(){
+  let b=AR3;const list=[[0,-1,-1],[1,1,-2],[1,0,-2],[1,-3,1],[-1,1,-1],[1,-2,-2],[-1,-2,3],[0,-1,-3]],labs="abcdefgh";
+  list.forEach((h,i)=>{const x=60+(i%4)*165,y=130+Math.floor(i/4)*170,p=PJ([x,y],95);b+=planeSVG(p,...h)+cubeSVG(p,{axes:true,lab:false})+T(x+40,y+50,"("+labs[i]+") ("+ix(h)+")","sm b")});
+  return svg(680,360,"習題 3.22 參考答案：八個晶面在立方晶胞中的位置（負指數時原點移到對面）",b);
+ }
+});
+
+/* ================= Chapter 3 content ================= */
+const TERMS3={
+ "crystalline":["結晶的","原子在長距離範圍內呈週期性重複排列（具有長程有序）的狀態。",1],
+ "noncrystalline":["非結晶的","原子沒有長程有序排列的固體狀態。",1],
+ "amorphous":["非晶質","非結晶的同義詞，字面意思是「沒有形狀」，結構類似過冷液體。",1],
+ "lattice":["晶格","與原子位置（球心）重合的三維點陣列。",1],
+ "unit cell":["單位晶胞","能藉由平移重複堆出整個晶體的最小結構單元。",1],
+ "crystal structure":["晶體結構","原子、離子或分子在結晶固體中的空間排列方式。",1],
+ "face-centered cubic (FCC)":["面心立方","立方晶胞的八個角落與六個面中心各有一個原子；每晶胞 4 個原子，配位數 12。",1],
+ "body-centered cubic (BCC)":["體心立方","立方晶胞的八個角落與體中心各有一個原子；每晶胞 2 個原子，配位數 8。",1],
+ "hexagonal close-packed (HCP)":["六方最密堆積","六方晶胞的最密堆積結構；每晶胞 6 個原子，配位數 12。",1],
+ "coordination number":["配位數","一個原子的最近鄰原子數。",1],
+ "atomic packing factor (APF)":["原子堆積因子","單位晶胞中原子（硬球）體積所佔的比例。",1],
+ "polymorphism":["多形性","同一種材料可以具有一種以上晶體結構的現象。",1],
+ "allotropy":["同素異形","元素固體的多形性，例如鐵、碳、錫。",1],
+ "lattice parameters":["晶格參數","描述單位晶胞幾何的三個邊長 a、b、c 與三個軸間夾角 α、β、γ。",1],
+ "crystal system":["晶系","依單位晶胞幾何分類晶體結構的方式，共七種。",1],
+ "point coordinates":["點座標","以晶格參數的分數 q、r、s 表示晶胞內某一位置。",0],
+ "Miller indices":["米勒指數","表示晶面方向的三個整數 (hkl)，由截距倒數化成最小整數而得。",1],
+ "family of planes / directions":["晶面族／晶向族","原子排列相同、性質等效的一組晶面 {hkl} 或晶向 ⟨uvw⟩。",0],
+ "Miller–Bravais indices":["米勒–布拉菲指數","六方晶系使用的四指數表示法，晶面 (hkil)、晶向 [uvtw]。",0],
+ "linear density (LD)":["線密度","中心位於某晶向向量上的原子數除以向量長度。",0],
+ "planar density (PD)":["面密度","中心位於某晶面上的原子數除以該晶面面積。",0],
+ "close-packed plane":["最密堆積面","原子排列最緊密的平面，FCC 為 {111}，HCP 為 (0001)。",0],
+ "stacking sequence":["堆疊順序","最密堆積面一層層堆疊的方式：HCP 為 ABAB…，FCC 為 ABCABC…。",0],
+ "single crystal":["單晶","整個試片中原子的週期排列都連續、沒有中斷的晶體。",1],
+ "polycrystalline":["多晶的","由許多方位不同的小晶體（晶粒）組成。",1],
+ "grain":["晶粒","多晶材料中的每一個小晶體。",1],
+ "grain boundary":["晶界","兩個晶粒之間原子排列不匹配的交界區域。",1],
+ "anisotropy":["異向性","性質隨量測的晶體方向而改變的特性。",1],
+ "isotropic":["等向性的","性質與量測方向無關。",1],
+ "texture":["織構（優選方位）","多晶材料中晶粒方位不是隨機分布、而偏向某些方向的狀態。",0],
+ "diffraction":["繞射","波遇到規則排列的散射體時，散射波彼此建設性干涉的現象。",1],
+ "Bragg's law":["布拉格定律","繞射的條件 nλ = 2d sinθ。",1],
+ "interplanar spacing (d_hkl)":["面間距","相鄰兩個平行 (hkl) 晶面之間的距離。",0]
+};
+
+const CH3={
+ num:3,sym:"Xs",name:"結晶固體的結構",en:"The Structure of Crystalline Solids",termsMap:TERMS3,
+ lead:"第二章談原子之間怎麼鍵結，本章往上一個層次，談原子在固體中如何排列。先認識單位晶胞與三種常見金屬結構，再學會用指數表示晶體中的點、方向與平面，最後了解單晶、多晶與 X 光繞射。",
+ goals:[
+  "說明結晶與非結晶材料在原子／分子結構上的差異。",
+  "畫出面心立方（FCC）、體心立方（BCC）與六方最密堆積（HCP）的單位晶胞。",
+  "推導 FCC 與 BCC 結構中晶胞邊長與原子半徑的關係。",
+  "已知單位晶胞尺寸，計算 FCC 與 BCC 金屬的密度。",
+  "已知三個晶向指數，在單位晶胞中畫出對應的晶向。",
+  "寫出單位晶胞中某一晶面的米勒指數。",
+  "說明 FCC 與 HCP 結構如何由最密堆積面堆疊而成。",
+  "區分單晶與多晶材料。",
+  "定義材料性質的等向性與異向性。"],
+ zones:[
+ {code:"3-A",title:"結晶、非結晶與單位晶胞",en:"Fundamental Concepts, Unit Cells, Noncrystalline Solids",ref:"§3.2–3.3, 3.17",
+  terms:["crystalline","noncrystalline","amorphous","lattice","unit cell","crystal structure"],
+  fig:"crystal",cap:"(a) 結晶材料的原子規則重複排列，可以框出一個單位晶胞（橘框），把它在三個方向重複堆疊就得到整個晶體。(b) 非結晶材料只有最近鄰的短程規律，找不到可以重複堆疊的單元。",
+  points:[
+   ["結晶與長程有序","結晶材料中，原子在長距離範圍內週期性重複排列，稱為長程有序。所有金屬、許多陶瓷和部分高分子在一般凝固條件下都會結晶。"],
+   ["硬球模型與晶格","描述晶體結構時，把原子看成直徑固定的硬球，最近鄰原子彼此接觸。晶格是指與原子中心重合的三維點陣列。"],
+   ["單位晶胞","晶體中可以重複堆出整體的最小單元，通常取平行六面體，三組平行面。單位晶胞是晶體結構的基本單位，用它的幾何和原子位置來描述整個晶體。"],
+   ["非結晶（非晶質）固體","原子沒有長程規律，結構類似液體，又稱過冷液體。例如無機玻璃。SiO₂ 可以是結晶（石英）也可以是非晶質（玻璃）。"],
+   ["什麼情況容易形成非晶質","結構複雜、不容易排整齊的材料，以及冷卻速度很快、原子來不及排列時。高分子常是部分結晶或完全非晶。"]],
+  qs:[
+   {t:"mc",s:"下列對「結晶材料」的描述，何者正確？",o:["原子只與最近鄰原子有固定關係","原子在長距離範圍內週期性重複排列","原子位置完全隨機","只有金屬才會結晶"],a:1,e:"結晶材料具有長程有序。只有短程規律的是非晶質；許多陶瓷與部分高分子也會結晶。"},
+   {t:"mc",s:"同一種材料從液態凝固時，下列哪一個條件最容易得到非晶質固體？",o:["極緩慢冷卻","非常快速冷卻","在熔點長時間持溫","加入大量晶種"],a:1,e:"快速冷卻讓原子沒有時間排列成有序結構，因此容易得到非晶質。"},
+   {t:"mc",s:"「晶格（lattice）」在描述晶體結構時是指：",o:["原子之間的化學鍵","與原子中心位置重合的三維點陣列","晶體表面的形狀","單位晶胞的體積"],a:1,e:"晶格是一組規則排列的點，代表原子（或硬球中心）的位置。"}
+  ]},
+ {code:"3-B",title:"金屬的晶體結構：FCC、BCC、HCP",en:"Metallic Crystal Structures",ref:"§3.4",
+  terms:["face-centered cubic (FCC)","body-centered cubic (BCC)","hexagonal close-packed (HCP)","coordination number","atomic packing factor (APF)"],
+  fig:"cells",cap:"三種結構都畫成縮小球的形式，方便看清原子位置；實際上原子是互相接觸的硬球。FCC 原子沿面對角線接觸，BCC 原子沿體對角線接觸，HCP 由上下兩個六方面與中間三個原子組成。",
+  points:[
+   ["面心立方 FCC","原子位於立方晶胞的 8 個角落與 6 個面中心。原子沿面對角線接觸：面對角線 = 4R，所以 a = 2R√2。每晶胞 4 個原子，配位數 12，APF = 0.74。例：Cu、Al、Ag、Au、Ni、Pb、γ-Fe。"],
+   ["體心立方 BCC","原子位於 8 個角落與立方體中心。原子沿體對角線接觸：體對角線 = 4R，所以 a = 4R/√3。每晶胞 2 個原子，配位數 8，APF = 0.68。例：α-Fe、Cr、Mo、W、Ta。"],
+   ["六方最密堆積 HCP","上下各一個六角形面，每面 6 個角落原子加 1 個面中心原子，中間層有 3 個原子。每晶胞 6 個原子，配位數 12，APF = 0.74。理想 c/a = 1.633，實際金屬會有偏差。例：Mg、Ti、Zn、Cd、Co。"],
+   ["配位數與原子堆積因子","配位數是最近鄰原子的數目。APF = 晶胞內原子硬球體積 / 晶胞體積。對同樣大小的硬球，0.74 是最緊密的堆積，FCC 與 HCP 都達到這個值。"],
+   ["簡單立方","只有角落原子，每晶胞 1 個原子，配位數 6，APF 約 0.52。因為堆積太鬆，金屬中只有 Po 是這種結構。"]],
+  formulas:[["FCC：a = 2R√2","面對角線 = 4R"],["BCC：a = 4R/√3","體對角線 = 4R"],["APF = V_S / V_C","V_S：晶胞內原子體積"],["HCP：V_C = 6R²c√3","以 a = 2R 代入"]],
+  qs:[
+   {t:"num",s:"α-Fe 為 BCC 結構，原子半徑 R = 0.124 nm。計算其晶格常數 a。",u:"nm",a:0.2864,tol:0.5,h:"BCC 原子沿體對角線接觸：√3·a = 4R。",sol:"a = 4R / √3 = 4(0.124) / 1.732\n  = 0.286 nm"},
+   {t:"match",s:"配對三種結構的配位數。",opts:["6","8","12"],items:[["FCC",2],["BCC",1],["HCP",2],["簡單立方",0]],h:"想想最近鄰原子：BCC 的體心原子碰到幾個角落原子？",sol:"FCC：12\nBCC：8（體心原子與 8 個角落原子接觸）\nHCP：12\n簡單立方：6"},
+   {t:"num",s:"計算簡單立方結構的原子堆積因子 APF。（課本 Concept Check 3.1）",u:"",a:0.52,tol:1.5,h:"簡單立方每晶胞 1 個原子，原子沿邊接觸，a = 2R。",sol:"V_S = (4/3)πR³\nV_C = a³ = (2R)³ = 8R³\nAPF = (4/3)π / 8 = π/6 ≈ 0.52"}
+  ]},
+ {code:"3-C",title:"密度計算與同素異形",en:"Density Computations; Polymorphism and Allotropy",ref:"§3.5–3.6",
+  terms:["polymorphism","allotropy"],
+  fig:"sharing",cap:"左：計算每晶胞原子數 n 時，角落原子由 8 個晶胞共用，每個只算 1/8；面心原子由 2 個晶胞共用，算 1/2；完全在晶胞內的原子算 1。右：純鐵在 912 °C 由 BCC 轉為 FCC，1394 °C 又回到 BCC，1538 °C 熔化。",
+  points:[
+   ["理論密度","知道晶體結構就能算出理論密度：ρ = nA / (V_C N_A)。n 為每晶胞原子數，A 為原子量，V_C 為晶胞體積，N_A = 6.022×10²³。"],
+   ["計算步驟","① 由結構決定 n 與 a–R 關係；② 算 V_C = a³（立方）；③ 單位換成 cm（1 nm = 10⁻⁷ cm）；④ 代入公式。以 Cu 為例算得 8.89 g/cm³，與實測 8.94 g/cm³ 非常接近。"],
+   ["多形性與同素異形","同一材料可以有一種以上的晶體結構，稱為多形性；發生在元素固體時稱為同素異形。哪一種結構穩定，取決於溫度與壓力。"],
+   ["常見例子","碳：常溫常壓穩定的是石墨，鑽石要在極高壓下形成。鐵：室溫為 BCC，912 °C 轉為 FCC。錫：白錫（體心正方）在 13.2 °C 以下會慢慢轉為灰錫（鑽石立方），體積增加 27%，使錫器碎裂，稱為「錫疫」。"],
+   ["轉變伴隨性質改變","多形轉變通常會造成密度與其他物理性質改變。"]],
+  formulas:[["ρ = nA / (V_C · N_A)","理論密度"],["n_FCC = 4，n_BCC = 2，n_HCP = 6","每晶胞原子數"]],
+  qs:[
+   {t:"num",s:"α-Fe 為 BCC，R = 0.124 nm，原子量 55.85 g/mol。計算其理論密度。",u:"g/cm³",a:7.90,tol:1,h:"n = 2，a = 4R/√3，記得把 nm 換成 cm。",sol:"a = 4(0.124)/√3 = 0.2864 nm = 2.864×10⁻⁸ cm\nV_C = a³ = 2.349×10⁻²³ cm³\nρ = (2)(55.85) / [(2.349×10⁻²³)(6.022×10²³)]\n  = 111.7 / 14.15 ≈ 7.90 g/cm³"},
+   {t:"mc",s:"計算 FCC 每晶胞原子數時，一個面心原子應算多少？",o:["1/8","1/4","1/2","1"],a:2,e:"面心原子位於兩個相鄰晶胞共用的面上，所以每個晶胞只分到 1/2。8 × 1/8 + 6 × 1/2 = 4。"},
+   {t:"mc",s:"純鐵從室溫加熱到 1000 °C，晶體結構的變化為：",o:["維持 BCC","BCC → FCC","FCC → BCC","FCC → HCP"],a:1,e:"室溫的 α-Fe 為 BCC，在 912 °C 轉變為 FCC 的 γ-Fe，所以 1000 °C 時是 FCC。"}
+  ]},
+ {code:"3-D",title:"晶系與晶格參數",en:"Crystal Systems",ref:"§3.7",
+  terms:["lattice parameters","crystal system"],
+  fig:"lattice",cap:"單位晶胞以原點為起點，三個邊分別沿 x、y、z 軸，長度 a、b、c。α 是 b 與 c 的夾角，β 是 a 與 c 的夾角，γ 是 a 與 b 的夾角。這六個數就是晶格參數。",
+  points:[
+   ["晶格參數","描述單位晶胞形狀的六個數：三個邊長 a、b、c 與三個軸間夾角 α、β、γ。"],
+   ["七大晶系","依晶格參數的關係，把所有晶體結構分成七個晶系：立方、六方、正方（四方）、菱方（三方）、斜方、單斜、三斜。"],
+   ["對稱性","立方晶系對稱性最高，三斜晶系最低。對稱性越低，性質的異向性通常越明顯。"],
+   ["金屬常見的晶系","FCC 與 BCC 屬於立方晶系，HCP 屬於六方晶系。"]],
+  table:{h:["晶系","軸長","軸間夾角"],r:[["立方 cubic","a = b = c","α = β = γ = 90°"],["六方 hexagonal","a = b ≠ c","α = β = 90°，γ = 120°"],["正方 tetragonal","a = b ≠ c","α = β = γ = 90°"],["菱方 rhombohedral（三方 trigonal）","a = b = c","α = β = γ ≠ 90°"],["斜方 orthorhombic","a ≠ b ≠ c","α = β = γ = 90°"],["單斜 monoclinic","a ≠ b ≠ c","α = γ = 90° ≠ β"],["三斜 triclinic","a ≠ b ≠ c","α ≠ β ≠ γ ≠ 90°"]]},
+  qs:[
+   {t:"mc",s:"某晶胞 a = b = 0.30 nm、c = 0.40 nm、α = β = γ = 90°，屬於哪一個晶系？",o:["立方","正方","斜方","六方"],a:1,e:"兩軸相等、第三軸不同，三個夾角都是 90°，是正方（四方）晶系。"},
+   {t:"mc",s:"對稱性最低的晶系是：",o:["立方","單斜","三斜","菱方"],a:2,e:"三斜晶系的三個邊長和三個夾角都不相等，對稱性最低。"},
+   {t:"mc",s:"六方晶系的晶格參數關係為：",o:["a = b = c，α = β = γ = 90°","a = b ≠ c，α = β = 90°，γ = 120°","a ≠ b ≠ c，α = β = γ = 90°","a = b = c，α = β = γ ≠ 90°"],a:1,e:"六方晶系底面兩軸等長、夾 120°，c 軸垂直於底面。"}
+  ]},
+ {code:"3-E",title:"點座標與晶向",en:"Point Coordinates; Crystallographic Directions",ref:"§3.8–3.9",
+  terms:["point coordinates","family of planes / directions"],
+  fig:"points",cap:"左：點座標以晶格參數的分數表示，例如 BCC 的體心是 ½½½。右：晶向是一個向量，[100] 沿 x 軸，[110] 是底面對角線，[111] 是體對角線；三者都從原點出發。",
+  points:[
+   ["點座標 qrs","晶胞內某點的位置用 q、r、s 表示，分別是沿 x、y、z 方向距原點為 a、b、c 的幾分之幾：P_x = qa、P_y = rb、P_z = sc。寫法不用逗號，例如 ½½½。"],
+   ["晶向的求法","① 找出向量頭與尾的座標；② 頭減尾；③ 各除以晶格參數 a、b、c；④ 乘或除一個共同因數化成最小整數；⑤ 寫成 [uvw]，不加逗號。"],
+   ["負號","負的指數在數字上方加一橫，例如 [1̄11]。把三個指數全部變號，得到方向相反（反平行）的晶向。"],
+   ["晶向族","立方晶系中，指數相同、只是順序或正負號不同的晶向是等效的，統稱晶向族，用 ⟨uvw⟩ 表示。例如 ⟨100⟩ 包含 [100]、[010]、[001] 與它們的反向，共 6 個。"],
+   ["非立方晶系要小心","正方晶系中 [100] 與 [010] 等效，但與 [001] 不等效，因為 c ≠ a。"]],
+  formulas:[["u = n(x₂ − x₁)/a","v、w 同理，n 為化成整數的因數"],["[uvw] 晶向　⟨uvw⟩ 晶向族","方括號與角括號"]],
+  qs:[
+   {t:"mc",s:"BCC 單位晶胞中心那個原子的點座標是：",o:["111","½½½","½½0","000"],a:1,e:"體心位在三個方向都是晶胞邊長一半的位置，座標為 ½½½。"},
+   {t:"mc",s:"某向量的尾端在 000、頭端在 ½10（立方晶胞）。它的晶向指數為：",o:["[½10]","[120]","[210]","[110]"],a:2,e:"頭減尾得 ½、1、0，乘以 2 化成最小整數：2、1、0，寫成 [210]。"},
+   {t:"num",s:"立方晶系的 ⟨100⟩ 晶向族共包含幾個晶向（正反方向分開計算）？",u:"個",a:6,tol:0,h:"沿 x、y、z 三軸，各有正反兩個方向。",sol:"[100]、[1̄00]、[010]、[01̄0]、[001]、[001̄]\n共 6 個"}
+  ]},
+ {code:"3-F",title:"晶面與米勒指數",en:"Crystallographic Planes",ref:"§3.10",
+  terms:["Miller indices"],
+  fig:"planes",cap:"三個常見的低指數晶面。(001) 平行 x、y 軸，只截 z 軸；(110) 平行 z 軸，截 x、y 軸於 1；(111) 在三軸上的截距都是 1。立方晶系中，[hkl] 晶向恰好垂直於 (hkl) 晶面。",
+  points:[
+   ["米勒指數的求法","① 若晶面通過原點，先平移晶面或另選原點；② 找出晶面與 x、y、z 軸的截距；③ 取倒數，平行某軸時截距為 ∞，倒數為 0；④ 乘以晶格參數做正規化；⑤ 化成最小整數；⑥ 寫成 (hkl)。"],
+   ["負截距","截距在原點負側時，該指數加上橫線，例如 (1̄11)。"],
+   ["平行的晶面等效","互相平行的晶面有相同的指數；把三個指數全部變號，代表在原點另一側、距離相同的平行面。"],
+   ["晶面族","原子排列完全相同的晶面屬於同一族，用 {hkl} 表示。立方晶系的 {111} 包含 (111)、(1̄11)、(11̄1)、(111̄) 等。"],
+   ["立方晶系特性","只有在立方晶系中，指數相同的晶向與晶面互相垂直，[hkl] ⊥ (hkl)。"]],
+  formulas:[["h = na/A，k = nb/B，l = nc/C","A、B、C 為截距"],["(hkl) 晶面　{hkl} 晶面族","圓括號與大括號"]],
+  qs:[
+   {t:"mc",s:"某晶面在 x、y、z 軸的截距為 a/2、b、∞（平行 z 軸），其米勒指數為：",o:["(120)","(210)","(½10)","(201)"],a:1,e:"截距 ½、1、∞ 的倒數為 2、1、0，所以是 (210)。"},
+   {t:"mc",s:"某晶面截距為 a、−b、c/2，其米勒指數為：",o:["(11̄2)","(1 1 ½)","(2̄21)","(11̄½)"],a:0,e:"截距 1、−1、½ 的倒數為 1、−1、2，寫成 (11̄2)。"},
+   {t:"mc",s:"在立方晶系中，[111] 晶向與 (111) 晶面的關係是：",o:["互相平行","互相垂直","夾 45°","沒有固定關係"],a:1,e:"立方晶系中 [hkl] ⊥ (hkl)。其他晶系沒有這種簡單的幾何關係。"}
+  ]},
+ {code:"3-G",title:"六方晶系的四指數表示法",en:"Hexagonal Crystals: Miller–Bravais Indices",ref:"§3.9–3.10",
+  terms:["Miller–Bravais indices"],
+  fig:"hexagonal",cap:"六方晶胞使用四個軸：底面上互成 120° 的 a₁、a₂、a₃，以及垂直底面的 z 軸。上方橘色的六角形面是基面 (0001)。用四個指數時，等效的晶面或晶向看起來也比較相似。",
+  points:[
+   ["為什麼用四個指數","六方晶系若用三軸表示，等效的晶面指數看起來不相似。改用 a₁、a₂、a₃、z 四軸的米勒–布拉菲表示法，等效晶面的指數會比較一致。"],
+   ["晶面 (hkil)","h、k、l 的求法和三指數相同（a₁、a₂、z 軸截距的倒數），第三個指數 i = −(h + k)。例：(010) 寫成 (011̄0)。"],
+   ["晶向 [uvtw]","由三指數 [UVW] 換算：u = (2U − V)/3、v = (2V − U)/3、t = −(u + v)、w = W，最後化成最小整數。例：[100] → [21̄1̄0]。"],
+   ["重要晶面","(0001) 是基面，也是 HCP 的最密堆積面。"]],
+  formulas:[["i = −(h + k)","晶面 (hkil)"],["u = (2U − V)/3，v = (2V − U)/3","t = −(u + v)，w = W"]],
+  qs:[
+   {t:"mc",s:"六方晶系晶面 (1 0 ? 0) 中的第三個指數 i 為：",o:["0","1","1̄（即 −1）","2"],a:2,e:"i = −(h + k) = −(1 + 0) = −1，晶面寫成 (101̄0)。"},
+   {t:"mc",s:"六方晶系的四個晶向指數 [uvtw] 中，必定成立的關係是：",o:["u + v + t = 0","u + v + w = 0","u = v","t = w"],a:0,e:"因為 a₃ = −(a₁ + a₂)，所以 t = −(u + v)，即 u + v + t = 0。"},
+   {t:"mc",s:"HCP 結構的基面（最密堆積面）是：",o:["(101̄0)","(112̄0)","(0001)","(101̄1)"],a:2,e:"(0001) 平行於六方晶胞的上下底面，是 HCP 的最密堆積面。"}
+  ]},
+ {code:"3-H",title:"線密度、面密度與最密堆積",en:"Linear and Planar Densities; Close-Packed Crystal Structures",ref:"§3.11–3.12",
+  terms:["linear density (LD)","planar density (PD)","close-packed plane","stacking sequence"],
+  fig:"stacking",cap:"左：最密堆積面上，每個 A 原子周圍有兩種凹位 B 與 C。下一層原子只能放在其中一種凹位上。右：HCP 每兩層重複一次（ABAB…），FCC 每三層重複一次（ABCABC…）。FCC 的最密堆積面是 {111}。",
+  points:[
+   ["線密度 LD","中心位於某晶向向量上的原子數除以向量長度，單位 nm⁻¹。例：FCC 的 [110] 方向上有 2 個原子、長度 4R，LD₁₁₀ = 1/(2R)。"],
+   ["面密度 PD","中心位於某晶面上的原子數除以該晶面面積，單位 nm⁻²。例：FCC 的 (110) 面上有 2 個原子、面積 8R²√2，PD₁₁₀ = 1/(4R²√2)。"],
+   ["等效與滑移","等效的晶向有相同的線密度，等效的晶面有相同的面密度。金屬塑性變形（滑移）通常發生在原子最密的晶面上、沿最密的方向進行（第七章會詳細說明）。"],
+   ["最密堆積","FCC 與 HCP 的 APF 都是 0.74，都可以看成最密堆積面一層層堆疊而成。差別只在堆疊順序：HCP 為 ABAB…，FCC 為 ABCABC…。"]],
+  formulas:[["LD = 晶向上原子數 / 晶向長度","單位 nm⁻¹"],["PD = 晶面上原子數 / 晶面面積","單位 nm⁻²"],["FCC：LD₁₁₀ = 1/(2R)，PD₁₁₀ = 1/(4R²√2)","課本式 3.16、3.18"]],
+  qs:[
+   {t:"num",s:"Cu 為 FCC，R = 0.128 nm。計算 [110] 方向的線密度。",u:"nm⁻¹",a:3.91,tol:1,h:"LD₁₁₀ = 1/(2R)。",sol:"LD₁₁₀ = 2 個原子 / 4R = 1/(2R)\n      = 1 / (2 × 0.128) = 3.91 nm⁻¹"},
+   {t:"mc",s:"FCC 結構最密堆積面的堆疊順序是：",o:["ABAB…","ABCABC…","AAAA…","ABBA…"],a:1,e:"FCC 每三層重複一次，為 ABCABC…；HCP 每兩層重複，為 ABAB…。"},
+   {t:"mc",s:"金屬滑移最常發生在哪一種晶面上？",o:["面密度最低的晶面","面密度最高的晶面","與表面平行的晶面","任何晶面機會都一樣"],a:1,e:"原子最密的晶面間距最大、彼此最容易相對滑動，所以滑移發生在最密的晶面上、沿最密的方向。"}
+  ]},
+ {code:"3-I",title:"單晶、多晶與異向性",en:"Single Crystals, Polycrystalline Materials, Anisotropy",ref:"§3.13–3.15",
+  terms:["single crystal","polycrystalline","grain","grain boundary","anisotropy","isotropic","texture"],
+  fig:"grains",cap:"線條代表原子面的方向。(a) 單晶中所有原子面方向一致。(b) 多晶由許多晶粒組成，每個晶粒內部是規則晶體，但晶粒之間方位不同；橘線是晶界，那裡的原子排列不匹配。",
+  points:[
+   ["單晶","原子的週期排列在整個試片中連續不中斷。在適當條件下可長成有平整晶面的規則外形。用途例如半導體矽晶圓、渦輪葉片。"],
+   ["多晶與晶粒","大多數結晶固體是多晶，由許多方位不同的小晶體（晶粒）組成。凝固時各處的晶核獨立長大，彼此相遇後形成晶粒。"],
+   ["晶界","兩個晶粒之間原子排列不匹配的區域（第四章會詳細討論）。"],
+   ["異向性與等向性","單晶的性質（如彈性模數、導電率、折射率）可能隨晶向不同，稱為異向性，原因是不同方向的原子間距不同。性質與方向無關稱為等向性。結構對稱性越低，異向性越明顯。"],
+   ["多晶通常是等向性","若晶粒方位完全隨機，即使每個晶粒都有異向性，整塊材料平均起來仍表現等向性。若晶粒有優選方位，稱為織構，例如變壓器鐵心用的矽鋼片。"]],
+  table:{h:["金屬","E [100] (GPa)","E [110] (GPa)","E [111] (GPa)"],r:[["Al","63.7","72.6","76.1"],["Cu","66.7","130.3","191.1"],["Fe","125.0","210.5","272.7"],["W","384.6","384.6","384.6"]],cap:"不同晶向的彈性模數（課本表 3.4）"},
+  qs:[
+   {t:"mc",s:"由表中數據判斷，哪一種金屬單晶的彈性模數是等向性的？",o:["Al","Cu","Fe","W"],a:3,e:"W 在三個方向的 E 都是 384.6 GPa，與方向無關，為等向性。Cu 的 [111] 方向幾乎是 [100] 的三倍，異向性最明顯。"},
+   {t:"mc",s:"多晶材料的性質通常是等向性的，主要原因是：",o:["每個晶粒本身都是等向性的","晶粒方位隨機分布，各方向平均後相同","晶界消除了異向性","多晶材料沒有晶體結構"],a:1,e:"單一晶粒可能有異向性，但大量晶粒方位隨機時，整體量到的是各方向的平均值，所以表現等向性。"},
+   {t:"mc",s:"「晶界」指的是：",o:["晶體與空氣接觸的表面","兩個方位不同的晶粒之間的交界區域","單位晶胞的邊界","原子最密堆積的平面"],a:1,e:"晶界是相鄰晶粒的交界，原子排列在那裡無法同時配合兩邊的方位。"}
+  ]},
+ {code:"3-J",title:"X 光繞射與布拉格定律",en:"X-Ray Diffraction: Determination of Crystal Structures",ref:"§3.16",
+  terms:["diffraction","Bragg's law","interplanar spacing (d_hkl)"],
+  fig:"bragg",cap:"兩道平行的 X 光分別被相鄰晶面上的原子 P、Q 反射。下方那道光多走了 SQ + QT = 2d sinθ。當這段路徑差剛好是波長的整數倍，兩道光同相疊加（建設性干涉），就在 2θ 方向出現繞射峰。",
+  points:[
+   ["繞射","波遇到一系列規則排列、間距與波長相近的散射體時，散射波在某些方向建設性干涉。X 光波長約 0.1 nm，與原子間距同等級，所以晶體能繞射 X 光。"],
+   ["布拉格定律","nλ = 2d sinθ。n 為繞射階數（整數），λ 為波長，d 為面間距，θ 為入射光與晶面的夾角。條件不滿足時散射波互相抵消。"],
+   ["立方晶系的面間距","d_hkl = a / √(h² + k² + l²)。結合布拉格定律，就能由繞射角求出晶格常數。"],
+   ["繞射儀","試片旋轉 θ、偵測器旋轉 2θ，記錄強度對 2θ 的圖譜。每一個繞射峰對應一組晶面，可以用來鑑定晶體結構與量測晶格常數。"]],
+  formulas:[["nλ = 2 d_hkl sinθ","布拉格定律"],["d_hkl = a / √(h² + k² + l²)","立方晶系面間距"],["繞射角 = 2θ","圖譜橫軸"]],
+  qs:[
+   {t:"num",s:"Cu 為 FCC，晶格常數 a = 0.3615 nm。計算 (111) 晶面的面間距。",u:"nm",a:0.2087,tol:1,h:"d = a / √(h² + k² + l²)。",sol:"d₁₁₁ = 0.3615 / √3 = 0.2087 nm"},
+   {t:"num",s:"承上題，以 λ = 0.1542 nm 的 X 光照射，(111) 的一階繞射峰出現在 2θ 等於多少度？",u:"°",a:43.36,tol:0.5,h:"sinθ = λ / 2d，最後答案要乘以 2。",sol:"sinθ = 0.1542 / (2 × 0.2087) = 0.3694\nθ = 21.68°\n2θ = 43.4°"},
+   {t:"mc",s:"布拉格定律中的 θ 是指：",o:["入射光與晶面法線的夾角","入射光與晶面的夾角","入射光與繞射光的夾角","偵測器轉動的角度"],a:1,e:"θ 是入射光與晶面之間的夾角；入射光與繞射光之間的夾角是 2θ，也就是繞射儀上讀到的角度。"}
+  ]}
+ ],
+ vocab:[
+  ["晶體與晶胞",[["crystalline","adj.","結晶的",1],["noncrystalline","adj.","非結晶的",1],["amorphous","adj.","非晶質的",1],["long-range order","n.","長程有序"],["lattice","n.","晶格",1],["unit cell","n.","單位晶胞",1],["crystal structure","n.","晶體結構",1],["hard-sphere model","n.","硬球模型"],["lattice parameter","n.","晶格參數",1],["crystal system","n.","晶系",1],["cubic","adj.","立方的",1],["tetragonal","adj.","正方的（四方的）"],["hexagonal","adj.","六方的",1],["orthorhombic","adj.","斜方的"],["rhombohedral","adj.","菱方的"],["monoclinic","adj.","單斜的"],["triclinic","adj.","三斜的"]]],
+  ["金屬晶體結構",[["face-centered cubic","n.","面心立方",1],["body-centered cubic","n.","體心立方",1],["hexagonal close-packed","n.","六方最密堆積",1],["simple cubic","n.","簡單立方"],["coordination number","n.","配位數",1],["atomic packing factor","n.","原子堆積因子",1],["atomic radius","n.","原子半徑",1],["edge length","n.","邊長"],["face diagonal","n.","面對角線"],["body diagonal","n.","體對角線"],["theoretical density","n.","理論密度",1],["polymorphism","n.","多形性",1],["allotropy","n.","同素異形",1]]],
+  ["晶向與晶面",[["point coordinates","n.","點座標"],["crystallographic direction","n.","晶向",1],["crystallographic plane","n.","晶面",1],["Miller indices","n.","米勒指數",1],["intercept","n.","截距",1],["reciprocal","n.","倒數",1],["family","n.","族"],["equivalent","adj.","等效的"],["parallel","adj.","平行的",1],["perpendicular","adj.","垂直的",1],["linear density","n.","線密度"],["planar density","n.","面密度"],["close-packed","adj.","最密堆積的",1],["stacking sequence","n.","堆疊順序"],["slip","n.","滑移"]]],
+  ["多晶與性質",[["single crystal","n.","單晶",1],["polycrystalline","adj.","多晶的",1],["grain","n.","晶粒",1],["grain boundary","n.","晶界",1],["anisotropy","n.","異向性",1],["isotropic","adj.","等向性的",1],["texture","n.","織構（優選方位）"],["orientation","n.","方位"]]],
+  ["X 光繞射",[["diffraction","n.","繞射",1],["wavelength","n.","波長",1],["constructive interference","n.","建設性干涉"],["interplanar spacing","n.","面間距",1],["diffraction angle","n.","繞射角"],["Bragg's law","n.","布拉格定律",1],["diffractometer","n.","繞射儀"]]]
+ ],
+ practice:[
+  {ref:"3.1",t:"open",s:"原子結構（atomic structure）與晶體結構（crystal structure）有什麼不同？",h:"一個談的是「單一原子內部」，另一個談的是「許多原子如何排列」。",ans:"原子結構：原子核中質子與中子的數目，以及核外電子的數目與機率分布。\n晶體結構：原子在結晶固體中的空間排列方式。"},
+  {ref:"3.2",t:"multi",s:"某假想金屬的單位晶胞 a = b = 0.30 nm、c = 0.40 nm、α = β = γ = 90°，角落與體心各有一個原子，原子量 145 g/mol。計算其密度。（此結構屬正方晶系，稱為體心正方。）",parts:[["每晶胞原子數 n","個",2,0],["密度 ρ","g/cm³",13.38,1]],h:"與 BCC 一樣 n = 2；V_C = a²c，記得換成 cm³。",sol:"n = 8 × 1/8 + 1 = 2\nV_C = a²c = (3.0×10⁻⁸ cm)²(4.0×10⁻⁸ cm)\n    = 3.60×10⁻²³ cm³\nρ = nA / (V_C N_A)\n  = (2)(145) / [(3.60×10⁻²³)(6.022×10²³)]\n  = 13.38 g/cm³"},
+  {ref:"例題 3.4",t:"num",s:"Cu 的原子半徑 0.128 nm、FCC 結構、原子量 63.5 g/mol。計算理論密度，並與實測值 8.94 g/cm³ 比較。",u:"g/cm³",a:8.89,tol:1,h:"FCC：n = 4，V_C = a³ = 16R³√2。",sol:"V_C = 16R³√2 = 16(1.28×10⁻⁸ cm)³√2\n    = 4.745×10⁻²³ cm³\nρ = (4)(63.5) / [(4.745×10⁻²³)(6.022×10²³)]\n  = 8.89 g/cm³\n與實測 8.94 g/cm³ 非常接近。"},
+  {ref:"例題 3.2",t:"open",s:"證明 FCC 結構的原子堆積因子為 0.74。",h:"先用 a = 2R√2 求 V_C，再算 4 個原子的體積。",ans:"V_S = 4 × (4/3)πR³ = (16/3)πR³\nV_C = a³ = (2R√2)³ = 16R³√2\nAPF = V_S / V_C = [(16/3)π] / (16√2) = π / (3√2) = 0.74"},
+  {ref:"3.4",t:"open",s:"列出 FCC 單位晶胞中所有原子位置的點座標。",h:"8 個角落加 6 個面中心，共 14 個位置。",ans:"角落（8 個）：000、100、110、010、001、101、111、011\n底面與頂面中心：½½0、½½1\n前後面中心：1½½、0½½\n左右面中心：½0½、½1½"},
+  {ref:"3.12",t:"open",fig:"dirs312",s:"在立方晶胞中畫出下列晶向：(a) [1̄10]　(b) [1̄2̄1]　(c) [01̄2]　(d) [13̄3]　(e) [1̄1̄1]　(f) [1̄22]　(g) [12̄3]　(h) [1̄03]",h:"把三個指數除以絕對值最大者，得到晶胞內的向量分量。負分量的方向，起點就放在該軸的 1 上。",ans:"作法：以 (f) [1̄22] 為例，除以 2 得 −½、1、1。x 分量為負，所以起點放在 100，向 x 負方向走 ½、y 正方向走 1、z 正方向走 1。各晶向見下圖。"},
+  {ref:"3.15",t:"open",s:"對正方晶系而言，寫出與下列晶向等效的晶向：(a) [001]　(b) [110]　(c) [010]",h:"正方晶系 a = b ≠ c，x、y 方向可以互換，但不能和 z 互換。",ans:"(a) [001]：只有 [001̄]\n(b) [110]：[1̄1̄0]、[1̄10]、[11̄0]\n(c) [010]：[01̄0]、[100]、[1̄00]"},
+  {ref:"3.16",t:"match",s:"把下列三指數晶向換成六方晶系的四指數 [uvtw]。",opts:["[21̄1̄0]","[112̄3]","[101̄0]","[112̄0]"],items:[["[100]",0],["[111]",1]],h:"u = (2U − V)/3，v = (2V − U)/3，t = −(u + v)，w = W，最後化成整數。",sol:"[100]：u = 2/3，v = −1/3，t = −1/3，w = 0\n  乘以 3 → [21̄1̄0]\n[111]：u = 1/3，v = 1/3，t = −2/3，w = 1\n  乘以 3 → [112̄3]"},
+  {ref:"3.22",t:"open",fig:"planes322",s:"在立方晶胞中畫出下列晶面：(a) (01̄1̄)　(b) (112̄)　(c) (102̄)　(d) (13̄1)　(e) (1̄11̄)　(f) (12̄2̄)　(g) (1̄2̄3)　(h) (01̄3̄)",h:"先取倒數得到截距。指數為負的軸，把原點移到該軸的另一端（座標 1）再量截距。",ans:"作法：以 (c) (102̄) 為例，倒數為 1、∞、−½。z 為負，把原點移到 001，晶面截 x 軸於 1、平行 y 軸、截 z 軸於原點下方 ½。各晶面見下圖。"},
+  {ref:"3.26",t:"match",s:"立方晶系中，求下列兩晶面交線的晶向。",opts:["[001]","[1̄10]","[010]","[111]"],items:[["(100) 與 (010)",0],["(111) 與 (111̄)",1],["(101̄) 與 (001)",2]],h:"交線同時在兩個面上；立方晶系可用兩晶面法向量的外積求得。",sol:"(a) (100) 與 (010) 交於 z 軸 → [001]（或 [001̄]）\n(b) (111) × (111̄) = (−2, 2, 0) → [1̄10]（或 [11̄0]）\n(c) (101̄) × (001) = (0, −1, 0) → [010]（或 [01̄0]）"},
+  {ref:"3.27",t:"match",s:"把下列晶面換成六方晶系的四指數 (hkil)。",opts:["(011̄0)","(101̄1)","(0001)","(1̄100)"],items:[["(010)",0],["(101)",1]],h:"i = −(h + k)。",sol:"(010)：i = −(0 + 1) = −1 → (011̄0)\n(101)：i = −(1 + 0) = −1 → (101̄1)"},
+  {ref:"例題 3.13",t:"multi",s:"BCC 鐵的晶格常數 0.2866 nm，以 λ = 0.1790 nm 的 X 光照射，一階繞射。計算 (220) 晶面的 (a) 面間距 (b) 繞射角 2θ。",parts:[["d₂₂₀","nm",0.1013,1],["2θ","°",124.1,0.5]],h:"d = a/√(h²+k²+l²)，再用 sinθ = λ/2d。",sol:"(a) d₂₂₀ = 0.2866 / √(4 + 4 + 0) = 0.1013 nm\n(b) sinθ = 0.1790 / (2 × 0.1013) = 0.884\n    θ = 62.1°，2θ = 124.2°"},
+  {ref:"例題 3.14",t:"multi",s:"Pb 的 X 光繞射圖譜（λ = 0.1542 nm）中，(111) 晶面的繞射峰在 2θ = 31.3°。計算面間距 d₁₁₁ 與晶格常數 a。",parts:[["d₁₁₁","nm",0.2858,1],["a","nm",0.4950,1]],h:"d = nλ / (2 sinθ)，θ 是 2θ 的一半；a = d√(h²+k²+l²)。",sol:"d₁₁₁ = (1)(0.1542) / [2 sin(15.65°)] = 0.2858 nm\na = d₁₁₁ √3 = 0.4950 nm"},
+  {ref:"3.30",t:"mc",s:"多晶材料的性質為什麼通常是等向性的？",o:["多晶材料的每個晶粒都是等向性的","晶粒方位隨機時，許多異向性晶粒平均起來表現等向性","晶界會吸收異向性","多晶材料沒有晶體結構"],a:1,e:"單一晶粒可能是異向性的，但若晶粒方位隨機，整塊材料表現的是各方向的平均，因此是等向性。"},
+  {ref:"3.31",t:"mc",s:"凝固時，以離子鍵為主的材料和共價鍵材料相比，形成非晶質固體的可能性如何？",o:["比較容易，因為離子鍵有方向性","比較不容易，因為離子鍵無方向性，原子容易排成有序結構","兩者一樣","比較容易，因為離子鍵較弱"],a:1,e:"共價鍵有方向性，原子較難調整到有序位置，所以共價材料比較容易形成非晶質；離子鍵無方向性，比較容易結晶。"}
+ ]
+};
+
+/* ================= Problem figures (10th ed.) ================= */
+const PJ3=(o,sx,sy,sz)=>(x,y,z)=>[+(o[0]+y*sy-x*sx*0.5).toFixed(1),+(o[1]-z*sz+x*sx*0.32).toFixed(1)];
+function boxSVG(p,B=[[0,1],[0,1],[0,1]],divs=[]){
+  const cs=[];for(const x of B[0])for(const y of B[1])for(const z of B[2])cs.push([x,y,z]);
+  const vis=(a,b)=>[0,1,2].some(i=>a[i]===B[i][1]&&b[i]===B[i][1]);
+  let s="";
+  for(let i=0;i<8;i++)for(let j=i+1;j<8;j++){const a=cs[i],b=cs[j];const diff=[0,1,2].filter(k=>a[k]!==b[k]);if(diff.length!==1)continue;const A=p(...a),Bp=p(...b);s+=L(A[0],A[1],Bp[0],Bp[1],vis(a,b)?"ln":"lnm dash")}
+  divs.forEach(([ax,v])=>{const o=[0,1,2].filter(k=>k!==ax);const r=[[B[o[0]][0],B[o[1]][0]],[B[o[0]][1],B[o[1]][0]],[B[o[0]][1],B[o[1]][1]],[B[o[0]][0],B[o[1]][1]]].map(([m,n])=>{const q=[0,0,0];q[ax]=v;q[o[0]]=m;q[o[1]]=n;return q});
+    for(let i=0;i<4;i++){const a=r[i],b=r[(i+1)%4];const A=p(...a),Bp=p(...b);s+=L(A[0],A[1],Bp[0],Bp[1],vis(a,b)?"ln":"lnm dash")}});
+  return s;
+}
+function polyBox(n,d,B=[[0,1],[0,1],[0,1]]){
+  const cs=[];for(const x of B[0])for(const y of B[1])for(const z of B[2])cs.push([x,y,z]);
+  const f=q=>n[0]*q[0]+n[1]*q[1]+n[2]*q[2]-d,pts=[];
+  for(let i=0;i<8;i++)for(let j=i+1;j<8;j++){const a=cs[i],b=cs[j];if([0,1,2].filter(k=>a[k]!==b[k]).length!==1)continue;const fa=f(a),fb=f(b);if(Math.abs(fa)<1e-9)pts.push(a);if(Math.abs(fb)<1e-9)pts.push(b);if(fa*fb<0){const t=fa/(fa-fb);pts.push(a.map((v,k)=>v+(b[k]-v)*t))}}
+  const u=[];pts.forEach(q=>{if(!u.some(w=>w.every((v,k)=>Math.abs(v-q[k])<1e-6)))u.push(q)});return u;
+}
+function polySVG(p,pts3,cls="fas sta",op=".75"){
+  const pts=pts3.map(q=>p(...q));if(pts.length<3)return "";
+  const cx=pts.reduce((s,q)=>s+q[0],0)/pts.length,cy=pts.reduce((s,q)=>s+q[1],0)/pts.length;
+  pts.sort((a,b)=>Math.atan2(a[1]-cy,a[0]-cx)-Math.atan2(b[1]-cy,b[0]-cx));
+  return `<polygon points="${pts.map(q=>q.join(",")).join(" ")}" class="${cls}" fill-opacity="${op}"/>`;
+}
+const vec=(p,t,h,cls="lna",mk="ar3a")=>{const A=p(...t),B=p(...h);return `<line x1="${A[0]}" y1="${A[1]}" x2="${B[0]}" y2="${B[1]}" class="${cls}" marker-end="url(#${mk})"/>`+C(A[0],A[1],3,cls==="lna"?"fa":"fs")};
+const axes3=(p,O,ends,labs=["x","y","z"])=>{let s="";ends.forEach((e,i)=>{const A=p(...O),B=p(...e);s+=`<line x1="${A[0]}" y1="${A[1]}" x2="${B[0]}" y2="${B[1]}" class="lnm" marker-end="url(#ar3)"/>`+T(B[0]+(i===0?-8:i===1?10:8),B[1]+(i===0?14:i===1?4:0),labs[i],"sm b")});return s};
+/* hexagonal helpers: (u,v,w) along a1, a2, c */
+const HX=(cx,cy,R,H,E=0.36)=>(u,v,w)=>{const x=-0.5*u+v,y=0.866*u;return [+(cx+R*x).toFixed(1),+(cy+R*E*y-H*w).toFixed(1)]};
+const HV=[0,1,2,3,4,5].map(k=>{const t=k*Math.PI/3,x=Math.cos(t),y=Math.sin(t),u=y/0.866;return {u,v:x+0.5*u,s:y}});
+function hexPrism(p){let s="";for(let k=0;k<6;k++){const a=HV[k],b=HV[(k+1)%6];const back=a.s+b.s<-0.01;
+  s+=L(...p(a.u,a.v,0),...p(b.u,b.v,0),back?"lnm dash":"ln")+L(...p(a.u,a.v,1),...p(b.u,b.v,1),"ln")+L(...p(a.u,a.v,0),...p(a.u,a.v,1),a.s<-0.1?"lnm dash":"ln")}return s}
+function hexAxes(p){const O=p(0,0,0);let s="";[[[1.55,0,0],"a₁",-12,14],[[0,1.55,0],"a₂",14,4],[[-1.55,-1.55,0],"a₃",-12,-4],[[0,0,1.45],"z",10,0]].forEach(([e,l,dx,dy])=>{const B=p(...e);s+=`<line x1="${O[0]}" y1="${O[1]}" x2="${B[0]}" y2="${B[1]}" class="lnm" marker-end="url(#ar3)"/>`+T(B[0]+dx,B[1]+dy,l,"sm b")});return s}
+function hexPoly(h,k,l,d=1){const f=q=>h*q[0]+k*q[1]+l*q[2]-d,E=[];
+  for(let i=0;i<6;i++){const a=HV[i],b=HV[(i+1)%6];E.push([[a.u,a.v,0],[b.u,b.v,0]],[[a.u,a.v,1],[b.u,b.v,1]],[[a.u,a.v,0],[a.u,a.v,1]])}
+  const pts=[];E.forEach(([a,b])=>{const fa=f(a),fb=f(b);if(Math.abs(fa)<1e-9)pts.push(a);if(Math.abs(fb)<1e-9)pts.push(b);if(fa*fb<0){const t=fa/(fa-fb);pts.push(a.map((v,j)=>v+(b[j]-v)*t))}});
+  const u=[];pts.forEach(q=>{if(!u.some(w=>w.every((v,j)=>Math.abs(v-q[j])<1e-6)))u.push(q)});return u}
+
+Object.assign(FIG,{
+ p2_12(){
+  let b="";const X0=80,X1=600,Y0=30,Y1=250,xt=t=>X0+(t+500)/4000*(X1-X0),ye=e=>Y1-e/1000*(Y1-Y0);
+  b+=`<rect x="${X0}" y="${Y0}" width="${X1-X0}" height="${Y1-Y0}" class="fp stl"/>`;
+  [0,250,500,750,1000].forEach(e=>{b+=L(X0,ye(e),X1,ye(e),"stl")+T(X0-8,ye(e)+4,e,"sm","end")});
+  [0,1000,2000,3000].forEach(t=>{b+=L(xt(t),Y0,xt(t),Y1,"stl")+T(xt(t),Y1+18,t,"sm")});
+  b+=T((X0+X1)/2,Y1+38,"熔點 (°C)","sm mut")+`<text x="30" y="${(Y0+Y1)/2}" text-anchor="middle" class="sm mut" transform="rotate(-90 30 ${(Y0+Y1)/2})">鍵結能 (kJ/mol)</text>`;
+  [["Hg",-39,62],["Al",660,330],["Ag",962,285],["W",3414,850]].forEach(([n,t,e])=>{b+=C(xt(t),ye(e),5,"fa")+T(xt(t)+8,ye(e)-8,n,"sm b","start")});
+  b+=L(xt(2617),Y0,xt(2617),Y1,"lna dash")+T(xt(2617)-6,Y0+16,"Mo 熔點 2617 °C","sm ta","end");
+  return svg(640,300,"課本表 2.3 中四種金屬的熔點與鍵結能",b);
+ },
+ p3_12(){
+  let b=AR3;const p=PJ3([210,220],100,140,180);
+  b+=boxSVG(p)+atoms(p,CORNERS.map(c=>[...c,"fss sts"]).concat([[.5,.5,.5,"fas sta"]]),9);
+  const O=p(0,0,0);b+=T(O[0]-10,O[1]-8,"O","b","end");
+  b+=axes3(p,[1,1,0],[],[]);
+  const A=p(1,0,0),Bp=p(1,1,0),Cc=p(1,1,1);
+  b+=T(Bp[0]+12,(Bp[1]+Cc[1])/2,"c = 0.45 nm","sm ts","start");
+  b+=T(450,68,"a = b = 0.35 nm","sm ts b","start")+T(450,90,"α = β = γ = 90°","sm","start")+T(450,112,"角落與中心各有一個原子","sm","start")+T(450,134,"原點位於標示 O 的原子","sm mut","start");
+  return svg(640,260,"習題 3.12 的單位晶胞：a = b = 0.35 nm、c = 0.45 nm，所有夾角 90°",b);
+ },
+ p3_14(){
+  let b=AR3;const p=PJ3([200,215],110,120,140);b+=boxSVG(p)+axes3(p,[0,0,0],[[1.5,0,0],[0,1.5,0],[0,0,1.3]]);
+  [[[1,.5,.5],"1½½",12,4],[[.5,.25,.5],"½¼½",-12,-6]].forEach(([q,l,dx,dy])=>{const P=p(...q);b+=C(P[0],P[1],5,"fa")+T(P[0]+dx,P[1]+dy,l,"b ta",dx>0?"start":"end")});
+  b+=T(470,110,"正方晶胞：a = b ≠ c","sm","start");
+  return svg(640,290,"習題 3.14 參考答案：正方晶胞中的點 1½½ 與 ½¼½",b);
+ },
+ p3_15(){
+  let b=AR3;const p=PJ3([180,200],150,170,110);b+=boxSVG(p)+axes3(p,[0,0,0],[[1.4,0,0],[0,1.35,0],[0,0,1.5]]);
+  b+=vec(p,[0,1,0],[1,.5,.5]);const H=p(1,.5,.5);b+=T(H[0]-8,H[1]+20,"[21̄1]","b ta","end");
+  b+=T(430,90,"斜方晶胞：a ≠ b ≠ c","sm","start")+T(430,114,"[21̄1] 除以 2 → 1、−½、½","sm","start")+T(430,138,"y 分量為負，起點放在 010","sm","start")+T(430,162,"頭端位於 1 ½ ½","sm","start");
+  return svg(640,295,"習題 3.15 參考答案：斜方晶胞中的 [21̄1] 晶向",b);
+ },
+ p3_16(){
+  let b=AR3;const B=[[0,1],[-1,0],[-1,1]];const p=PJ3([330,150],160,200,75);
+  b+=boxSVG(p,B,[[2,0]]);const cs=[];for(const x of[0,1])for(const y of[-1,0])for(const z of[-1,0,1])cs.push([x,y,z]);b+=atoms(p,cs.map(c=>[...c,"fss sts"]),5);
+  b+=vec(p,[0,0,0],[1,-.5,-1],"lna")+vec(p,[0,0,0],[.5,0,1],"lns","ar3");
+  const O=p(0,0,0);b+=T(O[0]+10,O[1]-6,"O（原點）","sm b","start");
+  b+=axes3(p,[0,0,0],[[1.6,0,0],[0,0.7,0],[0,0,1.7]],["+x","+y","+z"]);
+  const h1=p(1,-.5,-1),h2=p(.5,0,1);b+=T(h1[0]-8,h1[1]+18,"方向 1","sm b ta","end")+T(h2[0]+8,h2[1]-8,"方向 2","sm b ts","start");
+  b+=T(40,40,"a = 0.4 nm（x）","sm","start")+T(40,60,"b = 0.5 nm（y）","sm","start")+T(40,80,"c = 0.3 nm（z）","sm","start")+T(40,104,"兩向量的尾端都在原點 O","sm mut","start");
+  return svg(640,300,"習題 3.16：斜方晶胞（上下兩格）中的兩個晶向，尾端都在原點 O",b);
+ },
+ p3_17(){
+  let b=AR3;const L4=[[2,1,1],[3,-1,3],[-2,1,2],[3,0,1]],lb="abcd";
+  L4.forEach((d,i)=>{const x=55+i*160,p=PJ([x,180],100);b+=cubeSVG(p,{axes:true,lab:false})+dirSVG(p,...d)+T(x+40,232,"("+lb[i]+") ["+ix(d)+"]","sm b")});
+  return svg(680,250,"習題 3.17 參考答案：四個晶向在立方晶胞中的位置，紅點為起點",b);
+ },
+ p3_18(){
+  let b=AR3;const p=PJ([220,215],165);b+=cubeSVG(p,{axes:true});
+  [[0,.5,0],[0,.5,1],[1,.5,1],[.5,1,0],[1,0,.5],[.5,1,.5],[1,.5,0]].forEach(q=>{const P=p(...q);b+=C(P[0],P[1],2.5,"fs")});
+  const D=[["A",[1,0,1],[0,1,1],-4,-10],["B",[0,0,0],[.5,1,.5],8,-6],["C",[1,.5,1],[1,0,0],-14,10],["D",[.5,1,0],[1,0,.5],-14,6]];
+  D.forEach(([l,t,h,dx,dy])=>{b+=vec(p,t,h);const H=p(...h);b+=T(H[0]+dx,H[1]+dy,l,"lg ta",dx<0?"end":"start")});
+  b+=T(470,110,"立方晶胞","sm b","start")+T(470,134,"藍色小點標示各邊的中點（½）","sm mut","start")+T(470,158,"紅點為向量的尾端","sm mut","start");
+  return svg(640,300,"習題 3.18：立方晶胞中的晶向 A、B、C、D",b);
+ },
+ p3_22(){
+  let b=AR3;
+  [[150,"(a)",[0,0,0],[-1,-1,1]],[470,"(b)",[0,0,0],[1,.5,0]]].forEach(([cx,l,t,h])=>{const p=HX(cx,210,95,130);b+=hexPrism(p)+hexAxes(p)+vec(p,t,h);b+=T(cx,262,l,"b")});
+  return svg(640,275,"習題 3.22：兩個六方晶胞中的晶向，尾端都在底面中心",b);
+ },
+ p3_23(){
+  let b=AR3;const p=PJ3([190,200],150,170,110);
+  b+=polySVG(p,polyBox([0,2,-1],0))+boxSVG(p)+axes3(p,[0,0,0],[[1.4,0,0],[0,1.35,0],[0,0,1.5]]);
+  b+=T(430,90,"(021̄) 的截距：∞、b/2、−c","sm","start")+T(430,114,"z 為負，把原點移到 001","sm","start")+T(430,138,"晶面平行 x 軸，通過 y = b/2 的頂邊","sm","start");
+  return svg(640,295,"習題 3.23 參考答案：斜方晶胞中的 (021̄) 晶面",b);
+ },
+ p3_24(){
+  let b=AR3;const B=[[0,1],[-1,1],[0,1]];const p=PJ3([300,200],150,150,90);
+  b+=polySVG(p,polyBox([0,1,0],-.5,B),"fss sts")+polySVG(p,polyBox([2,1,1],1,[[0,1],[0,1],[0,1]]))+boxSVG(p,B,[[1,0]]);
+  b+=axes3(p,[0,0,0],[[1.6,0,0],[0,1.35,0],[0,0,1.5]],["+x","+y","+z"]);
+  const O=p(0,0,0);b+=T(O[0]-6,O[1]-6,"O","sm b","end");
+  const P1=p(.3,.35,.3),P2=p(.5,-.5,.75);b+=T(P1[0]+40,P1[1]-50,"晶面 1","sm b ta","start")+L(P1[0],P1[1],P1[0]+38,P1[1]-46,"lnm")+T(P2[0]-30,P2[1]-46,"晶面 2","sm b ts","end")+L(P2[0],P2[1],P2[0]-28,P2[1]-42,"lnm");
+  b+=T(420,262,"a = 0.4 nm、b = 0.4 nm、c = 0.2 nm","sm","start")+T(420,282,"原點 O 在兩個晶胞的交界","sm mut","start");
+  return svg(640,295,"習題 3.24：兩個並排的晶胞中，晶面 1 與晶面 2 的位置",b);
+ },
+ p3_25(){
+  let b=AR3;const L4=[[1,0,-1],[0,1,2],[-1,1,-1],[3,-1,2]],lb="abcd";
+  L4.forEach((h,i)=>{const x=55+i*160,p=PJ([x,180],100);b+=planeSVG(p,...h)+cubeSVG(p,{axes:true,lab:false})+T(x+40,232,"("+lb[i]+") ("+ix(h)+")","sm b")});
+  return svg(680,250,"習題 3.25 參考答案：四個晶面在立方晶胞中的位置（負指數時原點移到對面）",b);
+ },
+ p3_26(){
+  let b=AR3;const p=PJ([220,215],165);
+  b+=polySVG(p,polyBox([2,3,0],1),"fss sts")+polySVG(p,polyBox([1,1,-1],1))+cubeSVG(p,{axes:true});
+  const a=p(.5,0,1),c=p(0,1/3,1);b+=C(a[0],a[1],3,"fs")+T(a[0]-6,a[1]-6,"½","sm b","end")+C(c[0],c[1],3,"fs")+T(c[0],c[1]-8,"⅓","sm b");
+  const A=p(.75,.75,.5),Bq=p(.2,.12,.5);b+=T(A[0]+6,A[1]+4,"A","lg ta","start")+T(Bq[0]-4,Bq[1]+4,"B","lg ts","end");
+  b+=T(470,110,"晶面 A：橘色","sm","start")+T(470,134,"晶面 B：藍色，平行 z 軸","sm","start")+T(470,158,"頂面上標出 x 方向 ½、y 方向 ⅓","sm mut","start");
+  return svg(640,300,"習題 3.26：立方晶胞中的晶面 A 與 B",b);
+ },
+ p3_27(){
+  let b=AR3;const p=PJ([220,215],165);
+  b+=polySVG(p,polyBox([0,2,-1],0),"fss sts")+polySVG(p,polyBox([2,1,-1],0))+cubeSVG(p,{axes:true});
+  const a=p(.5,0,1),c=p(0,.5,1);b+=C(a[0],a[1],3,"fs")+T(a[0]-6,a[1]-6,"½","sm b","end")+C(c[0],c[1],3,"fs")+T(c[0],c[1]-8,"½","sm b");
+  const A=p(.2,.55,.7),Bq=p(.8,.2,.4);b+=T(A[0]+4,A[1]-4,"A","lg ta","start")+T(Bq[0]-6,Bq[1]+4,"B","lg ts","end");
+  b+=T(470,110,"兩個晶面都通過原點","sm","start")+T(470,134,"晶面 A：橘色","sm","start")+T(470,158,"晶面 B：藍色，平行 x 軸","sm","start");
+  return svg(640,300,"習題 3.27：立方晶胞中通過原點的晶面 A 與 B",b);
+ },
+ p3_28(){
+  let b=AR3;const p=PJ([150,200],150);
+  b+=polySVG(p,polyBox([1,1,1],1))+cubeSVG(p)+atoms(p,CORNERS.map(c=>[...c,"fss sts"]).concat([[.5,.5,.5,"fas sta"]]),8);
+  const P=p(.6,.2,.2);b+=T(40,40,"(111) 晶面（橘色）","sm b ta","start");
+  b+=L(330,30,330,250,"stl");
+  const r=11,sp=36,x0=400,y0=200;for(let j=0;j<4;j++)for(let i=0;i<5-j;i++){const x=x0+i*sp+j*sp/2,y=y0-j*sp*0.866;b+=C(x.toFixed(1),y.toFixed(1),r,"fss sts")}
+  b+=T(480,236,"(111) 面上的原子排列","sm b")+T(480,254,"原子不互相接觸（間距 a√2 = 3.27R）","sm mut");
+  return svg(640,270,"習題 3.28 參考答案：BCC 的 (111) 晶面只通過角落原子，原子呈三角形排列但互不接觸",b);
+ },
+ p3_30(){
+  let b="";const sc=300;
+  const R=(x,h,w,lab,hl,wl)=>{const H=h*sc,W=w*sc,y=40;let s=`<rect x="${x}" y="${y}" width="${W}" height="${H}" class="ln" fill="none"/>`;[[0,0],[W,0],[0,H],[W,H],[0,H/2],[W,H/2]].forEach(([dx,dy])=>{s+=C(x+dx,y+dy,10,"fss sts")});s+=T(x-14,y+H/2+4,hl,"sm","end")+T(x+W/2,y+H+26,wl,"sm")+T(x+W/2,y+H+46,lab,"b ta");return s};
+  b+=R(90,0.39,0.20,"(110)","0.39 nm","0.20 nm")+R(300,0.32,0.30,"(101)","0.32 nm","0.30 nm")+R(520,0.36,0.25,"(011)","0.36 nm","0.25 nm");
+  return svg(680,215,"習題 3.30：某金屬單位晶胞中三個晶面上的原子排列（圓圈代表原子）",b);
+ },
+ p3_32(){
+  let b=AR3;
+  [[150,"(a)",[0,-1,0]],[470,"(b)",[2,-1,0]]].forEach(([cx,l,h])=>{const p=HX(cx,210,95,130);b+=polySVG(p,hexPoly(...h))+hexPrism(p)+hexAxes(p)+T(cx,262,l,"b")});
+  return svg(640,275,"習題 3.32：兩個六方晶胞中的晶面",b);
+ },
+ p3_33(){
+  let b=AR3;const p=HX(220,210,95,130);b+=polySVG(p,hexPoly(0,1,1))+hexPrism(p)+hexAxes(p);
+  b+=T(400,100,"(011̄1)：h = 0、k = 1、l = 1","sm","start")+T(400,124,"平行 a₁ 軸","sm","start")+T(400,148,"截 a₂ 於 a、a₃ 於 −a、z 於 c","sm","start");
+  return svg(640,270,"習題 3.33 參考答案：六方晶胞中的 (011̄1) 晶面",b);
+ },
+ p3_41(){
+  let b="";const X0=70,X1=610,Y0=30,Y1=230,xt=t=>X0+t/110*(X1-X0);
+  b+=L(X0,Y1,X1,Y1,"ln")+L(X0,Y1,X0,Y0,"ln");[0,20,40,60,80,100].forEach(t=>{b+=L(xt(t),Y1,xt(t),Y1+5,"ln")+T(xt(t),Y1+20,t.toFixed(1),"sm")});
+  const pk=[[40.2,1],[58.4,.16],[73.3,.3],[87.0,.09],[100.7,.18]];const pts=[];
+  for(let i=0;i<=1100;i++){const t=i/10;let v=0.015;pk.forEach(([c,h])=>{v+=h*Math.exp(-Math.pow((t-c)/0.45,2))});pts.push(`${xt(t).toFixed(1)},${(Y1-v*(Y1-Y0-10)).toFixed(1)}`)}
+  b+=`<polyline points="${pts.join(" ")}" class="lna" stroke-width="1.6"/>`;
+  pk.forEach(([c,h],i)=>{b+=T(xt(c),Y1-h*(Y1-Y0-10)-8,c.toFixed(1)+"°","sm b")});
+  b+=T((X0+X1)/2,Y1+42,"繞射角 2θ (°)","sm mut")+`<text x="34" y="${(Y0+Y1)/2}" text-anchor="middle" class="sm mut" transform="rotate(-90 34 ${(Y0+Y1)/2})">強度</text>`;
+  return svg(640,285,"習題 3.41：鎢（BCC）的 X 光繞射圖譜前五個峰，λ = 0.1542 nm",b);
+ }
+});
+
+/* ================= Practice sets (10th ed.) ================= */
+const PR2=[
+ {grp:"原子的基本組成與電子",ref:"2.1",t:"open",s:"說明原子質量（atomic mass）與原子量（atomic weight）的差別。",h:"一個是單一原子，一個是平均值。",ans:"原子質量：單一個原子的質量。\n原子量：該元素各天然同位素原子質量的加權平均。"},
+ {ref:"2.2",t:"num",s:"鋅有五種天然同位素：⁶⁴Zn 48.63%（63.929 amu）、⁶⁶Zn 27.90%（65.926 amu）、⁶⁷Zn 4.10%（66.927 amu）、⁶⁸Zn 18.75%（67.925 amu）、⁷⁰Zn 0.62%（69.925 amu）。計算 Zn 的平均原子量。",u:"amu",a:65.40,tol:0.05,h:"五項「豐度 × 原子質量」相加。",sol:"A_Zn = (0.4863)(63.929) + (0.2790)(65.926)\n     + (0.0410)(66.927) + (0.1875)(67.925)\n     + (0.0062)(69.925)\n     = 65.40 amu"},
+ {ref:"2.3",t:"multi",s:"銦有兩種天然同位素：¹¹³In（112.904 amu）與 ¹¹⁵In（114.904 amu）。In 的平均原子量為 114.818 amu，計算兩種同位素的豐度（以小數表示）。",parts:[["f(¹¹³In)","",0.043,3],["f(¹¹⁵In)","",0.957,0.5]],h:"只有兩種同位素，兩個豐度相加等於 1。",sol:"114.818 = (1 − f₁₁₅)(112.904) + f₁₁₅(114.904)\n114.818 = 112.904 + 2.000 f₁₁₅\nf₁₁₅ = 0.957\nf₁₁₃ = 1 − 0.957 = 0.043"},
+ {ref:"2.4",t:"open",s:"(a) 說出與波耳原子模型有關的兩個重要量子力學觀念。(b) 說出波動力學模型帶來的兩項重要修正。",h:"想想電子的位置怎麼描述、能量怎麼量子化。",ans:"(a) ① 電子是在分立軌道上運動的粒子；② 電子能量量子化成殼層。\n(b) ① 電子位置以機率分布描述；② 電子能量量子化成殼層與副殼層，每個電子由四個量子數描述。"},
+ {ref:"2.5",t:"open",s:"寫出下列離子的電子組態：P⁵⁺、P³⁻、Sn⁴⁺、Se²⁻、I⁻、Ni²⁺。",h:"先寫中性原子的組態。陽離子從最外層拿走電子，陰離子把電子加到未滿的 p 副殼層。",ans:"P⁵⁺：1s²2s²2p⁶（失去 3s² 與 3p³）\nP³⁻：1s²2s²2p⁶3s²3p⁶（多三個 3p）\nSn⁴⁺：1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁶4d¹⁰（失去 5s² 與 5p²）\nSe²⁻：1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁶（多兩個 4p）\nI⁻：1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁶4d¹⁰5s²5p⁶（多一個 5p）\nNi²⁺：1s²2s²2p⁶3s²3p⁶3d⁸（失去 4s²）"},
+ {grp:"週期表",ref:"2.6",t:"mc",s:"原子序 112 的元素應屬於週期表的哪一族？",o:["IIA","IB","IIB","IVA"],a:2,e:"Ds（110）在 Pt 下方、VIII 族最右欄；往右兩欄到 112，位於 Hg 正下方，屬於 IIB 族。這個元素是人工合成的鎶（Cn）。"},
+ {ref:"2.7",t:"match",s:"不查週期表，判斷下列電子組態分別屬於哪一類元素。",opts:["惰性氣體","鹵素","鹼金屬","鹼土金屬","過渡金屬"],items:[["(a) 1s²2s²2p⁶3s²3p⁶3d⁷4s²",4],["(b) 1s²2s²2p⁶3s²3p⁶4s¹",2],["(c) 1s²2s²2p⁶3s²",3]],h:"看最外層：多一個或兩個 s 電子？d 副殼層沒填滿？",sol:"(a) 過渡金屬：d 副殼層未填滿\n(b) 鹼金屬：最外層只有一個 s 電子\n(c) 鹼土金屬：最外層兩個 s 電子"},
+ {grp:"鍵結力與鍵結能",ref:"2.8",t:"multi",s:"Mg²⁺ 與 F⁻ 的離子半徑分別為 0.072 與 0.133 nm。(a) 計算兩離子在平衡間距（剛好接觸）時的吸引力。(b) 此時的排斥力是多少？",parts:[["(a) F_A","N",1.10e-8,1.5,true],["(b) F_R","N",-1.10e-8,1.5,true]],h:"r₀ = r_Mg²⁺ + r_F⁻；F_A = (2.31×10⁻²⁸ N·m²)|Z₁||Z₂| / r²。平衡時淨力為零。",sol:"r₀ = 0.072 + 0.133 = 0.205 nm = 0.205×10⁻⁹ m\nF_A = (2.31×10⁻²⁸)(2)(1) / (0.205×10⁻⁹)²\n    = 1.10×10⁻⁸ N\n平衡時 F_A + F_R = 0，所以 F_R = −1.10×10⁻⁸ N"},
+ {ref:"2.9",t:"num",s:"一個二價陽離子與一個二價陰離子之間的吸引力為 1.67×10⁻⁸ N。若陽離子半徑為 0.080 nm，陰離子半徑是多少？",u:"nm",a:0.155,tol:1.5,h:"先由 F_A 反求 r₀，再用 r₀ = r_C + r_A。",sol:"r₀ = √[(2.31×10⁻²⁸)(2)(2) / 1.67×10⁻⁸]\n   = 0.235×10⁻⁹ m = 0.235 nm\nr_A = r₀ − r_C = 0.235 − 0.080 = 0.155 nm"},
+ {ref:"2.10",t:"open",s:"淨位能 E_N = −A/r + B/rⁿ。用以下步驟以 A、B、n 表示鍵結能 E₀：(1) 對 r 微分並令其為零；(2) 解出平衡間距 r₀；(3) 把 r₀ 代回 E_N 得到 E₀。",h:"d(−A/r)/dr = A/r²，d(B/rⁿ)/dr = −nB/rⁿ⁺¹。",ans:"(1) dE_N/dr = A/r² − nB/r⁽ⁿ⁺¹⁾ = 0\n(2) A/r₀² = nB/r₀⁽ⁿ⁺¹⁾  →  r₀ = (A / nB)^(1/(1−n))\n(3) E₀ = −A / (A/nB)^(1/(1−n)) + B / (A/nB)^(n/(1−n))"},
+ {ref:"2.11",t:"multi",s:"Na⁺–Cl⁻ 離子對的吸引能與排斥能為 E_A = −1.436/r、E_R = 7.32×10⁻⁶/r⁸（能量 eV、r 單位 nm）。(a) 在同一張圖上畫出 E_N、E_R、E_A 對 r 的曲線（到 1.0 nm）。(b) 由圖讀出 r₀ 與 E₀。(c) 用 2.10 的結果計算 r₀ 與 E₀。",parts:[["r₀","nm",0.236,1.5],["E₀","eV",-5.32,1.5]],h:"A = 1.436、B = 7.32×10⁻⁶、n = 8。E₀ 是負值。作圖可對照觀念區 2-E 的圖 (b)。",sol:"(b) 作圖讀出約 r₀ = 0.24 nm、E₀ = −5.3 eV（見觀念區 2-E 的圖）\n(c) r₀ = [1.436 / (8 × 7.32×10⁻⁶)]^(1/(1−8))\n      = (24522)^(−1/7) = 0.236 nm\n    E₀ = −1.436/0.236 + 7.32×10⁻⁶/(0.236)⁸\n       = −6.08 + 0.76 = −5.32 eV"},
+ {grp:"主鍵、次級鍵與混合鍵結",ref:"2.12",t:"num",sfig:"p2_12",s:"依課本表 2.3 畫出四種金屬的鍵結能對熔點圖（如下）。用這張圖估計鉬（Mo，熔點 2617 °C）的鍵結能。",u:"kJ/mol",a:680,tol:6,h:"在 Al、Ag、W 之間大致畫一條趨勢線，讀出 2617 °C 對應的值。",sol:"由圖的趨勢線讀出，熔點 2617 °C 對應約 680 kJ/mol。\nMo 的實驗值為 660 kJ/mol。"},
+ {ref:"2.13",t:"mc",s:"HF 的分子量比 HCl 小，沸點卻比較高（19.4 °C 對 −85 °C），原因是：",o:["H–F 共價鍵比 H–Cl 強","HF 分子間是氫鍵，HCl 分子間是較弱的凡得瓦力","HF 是離子化合物","HF 分子較大，凡得瓦力較強"],a:1,e:"沸騰時要克服的是分子之間的作用力。HF 分子之間形成氫鍵，HCl 之間只有較弱的凡得瓦力，所以 HF 沸點較高。（解答本誤寫為「熔點」，題目問的是沸點。）"},
+ {ref:"2.14",t:"num",s:"(a) 計算介金屬化合物 Al₆Mn 中原子間鍵的離子性百分比（電負度 Al 1.5、Mn 1.6）。(b) 依此結果，Al₆Mn 應以哪一種鍵結為主？（(b) 的答案見詳解）",u:"%",a:0.25,tol:4,h:"%IC = {1 − exp[−0.25(X_A − X_B)²]} × 100。",sol:"(a) %IC = {1 − exp[−0.25(1.6 − 1.5)²]} × 100 = 0.25%\n(b) 離子性極小，且由兩種金屬組成，鍵結完全是金屬鍵。"},
+ {ref:"2.15",t:"match",s:"判斷下列材料主要的鍵結類型。",opts:["金屬鍵","離子鍵為主（略帶共價）","共價鍵為主（略帶離子）","共價鍵＋凡得瓦力","凡得瓦力"],items:[["固態氙 Xe",4],["氟化鈣 CaF₂",1],["青銅（Cu–Sn 合金）",0],["碲化鎘 CdTe",2],["橡膠",3],["鎢 W",0]],h:"合金與金屬元素為金屬鍵；高分子主鏈共價、鏈間凡得瓦；化合物看兩元素在週期表上相距多遠。",sol:"固態 Xe：惰性氣體 → 凡得瓦力\nCaF₂：Ca 與 F 相距遠 → 離子鍵為主\n青銅：金屬合金 → 金屬鍵\nCdTe：Cd 與 Te 位置相近 → 共價鍵為主\n橡膠：以 C、H 為主的高分子 → 共價鍵＋凡得瓦力\n鎢：金屬元素 → 金屬鍵"}
+];
+
+const PR3=[
+ {grp:"基本觀念與金屬晶體結構",ref:"3.1",t:"open",s:"原子結構（atomic structure）與晶體結構（crystal structure）有什麼不同？",h:"一個談單一原子內部，一個談許多原子如何排列。",ans:"原子結構：原子核中質子與中子的數目，以及核外電子的數目與機率分布。\n晶體結構：原子在結晶固體中的空間排列方式。"},
+ {ref:"3.2",t:"num",s:"鉛（FCC）的原子半徑為 0.175 nm，計算其單位晶胞體積（以 m³ 表示）。",u:"m³",a:1.213e-28,tol:1,sci:true,h:"FCC：V_C = 16R³√2。",sol:"V_C = 16R³√2 = 16(0.1750×10⁻⁹ m)³(√2)\n    = 1.213×10⁻²⁸ m³"},
+ {ref:"3.3",t:"open",s:"證明 BCC 結構中晶胞邊長 a 與原子半徑 R 的關係為 a = 4R/√3。",h:"原子沿體對角線接觸，體對角線長 4R。先用底面對角線，再用直角三角形。",ans:"底面對角線：(NP)² = a² + a² = 2a²\n體對角線：(NQ)² = (QP)² + (NP)² = a² + 2a² = 3a²\n體對角線上原子接觸：NQ = 4R\n(4R)² = 3a²  →  a = 4R/√3"},
+ {ref:"3.4",t:"open",s:"證明 HCP 結構的原子堆積因子為 0.74。",h:"HCP 每晶胞 6 個原子；V_C = 6R²c√3，理想 c = 1.633a = 2R(1.633)。",ans:"V_S = 6 × (4/3)πR³ = 8πR³\nV_C = 6R²c√3，c = 1.633a = (2)(1.633)R\nV_C = (6R²√3)(2)(1.633)R = 12√3(1.633)R³\nAPF = 8πR³ / [12√3(1.633)R³] = 0.74"},
+ {grp:"密度計算",ref:"3.5",t:"num",s:"鍶（Sr）為 FCC 結構，原子半徑 0.215 nm，原子量 87.62 g/mol。計算 Sr 的理論密度。",u:"g/cm³",a:2.59,tol:1,h:"n = 4，a = 2R√2，記得把 nm 換成 cm。",sol:"V_C = (2R√2)³ = [(2)(0.215×10⁻⁷ cm)(√2)]³ = 2.249×10⁻²² cm³\nρ = (4)(87.62) / [(2.249×10⁻²²)(6.022×10²³)]\n  = 2.59 g/cm³（實驗值 2.54 g/cm³）"},
+ {ref:"3.6",t:"num",s:"鉭（Ta）為 BCC 結構，密度 16.6 g/cm³，原子量 180.9 g/mol。計算 Ta 的原子半徑。",u:"nm",a:0.143,tol:1.5,h:"把 V_C = (4R/√3)³ 代入 ρ = nA/(V_C N_A)，解出 R。",sol:"V_C = (4R/√3)³ = 64R³/(3√3)\nR = [3√3 nA / (64 ρ N_A)]^(1/3)\n  = [(3√3)(2)(180.9) / ((64)(16.6)(6.022×10²³))]^(1/3)\n  = 1.43×10⁻⁸ cm = 0.143 nm"},
+ {ref:"3.7",t:"num",s:"某假想金屬為簡單立方結構，原子量 74.5 g/mol，原子半徑 0.145 nm。計算其密度。",u:"g/cm³",a:5.07,tol:1,h:"簡單立方 n = 1，a = 2R。",sol:"V_C = (2R)³ = [(2)(1.45×10⁻⁸ cm)]³ = 2.439×10⁻²³ cm³\nρ = (1)(74.5) / [(2.439×10⁻²³)(6.022×10²³)]\n  = 5.07 g/cm³"},
+ {ref:"3.8",t:"multi",s:"鎂（Mg）為 HCP 結構，密度 1.74 g/cm³，原子量 24.3 g/mol。(a) 單位晶胞體積是多少？(b) 若 c/a = 1.624，求 c 與 a。",parts:[["(a) V_C","cm³",1.39e-22,1,true],["(b) a","nm",0.321,1],["(b) c","nm",0.521,1]],h:"(a) V_C = nA/(ρN_A)，HCP n = 6。(b) V_C = 3a²c√3/2，代入 c = 1.624a。",sol:"(a) V_C = (6)(24.3) / [(1.74)(6.022×10²³)]\n        = 1.39×10⁻²² cm³\n(b) V_C = 3√3(1.624)a³/2\n    a = [(2)(1.39×10⁻²²) / (3√3 × 1.624)]^(1/3)\n      = 3.21×10⁻⁸ cm = 0.321 nm\n    c = 1.624a = 0.521 nm"},
+ {ref:"3.9",t:"match",s:"三種假想合金的資料如下，判斷各為 FCC、BCC 或簡單立方結構。\nA：原子量 43.1 g/mol、密度 6.40 g/cm³、原子半徑 0.122 nm\nB：原子量 184.4 g/mol、密度 12.30 g/cm³、原子半徑 0.146 nm\nC：原子量 91.6 g/mol、密度 9.60 g/cm³、原子半徑 0.137 nm",opts:["FCC","BCC","簡單立方"],items:[["合金 A",1],["合金 B",2],["合金 C",1]],h:"對每一種合金，分別假設三種結構計算密度，看哪一個和題目給的密度相符。",sol:"以 ρ = nA/(V_C N_A) 試算：\nA：BCC 算得 6.40 g/cm³（簡單立方 4.93、FCC 6.97）→ BCC\nB：簡單立方算得 12.3 g/cm³（BCC 16.0、FCC 17.4）→ 簡單立方\nC：BCC 算得 9.60 g/cm³（簡單立方 7.39、FCC 10.5）→ BCC"},
+ {ref:"3.10",t:"multi",s:"銦（In）的單位晶胞為正方晶系，a = 0.459 nm、c = 0.495 nm。(a) 若原子堆積因子為 0.693、原子半徑 0.1625 nm，每個晶胞有幾個原子？(b) In 的原子量為 114.82 g/mol，計算理論密度。",parts:[["(a) n","個",4,3],["(b) ρ","g/cm³",7.31,1]],h:"(a) APF = n(4/3)πR³ / (a²c)，解出 n。(b) V_C = a²c。",sol:"(a) n = (APF)a²c / [(4/3)πR³]\n      = (0.693)(4.59)²(4.95)(10⁻²⁴) / [(4/3)π(1.625×10⁻⁸)³]\n      = 4.0 個原子\n(b) ρ = (4)(114.82) / [(4.59×10⁻⁸)²(4.95×10⁻⁸)(6.022×10²³)]\n      = 7.31 g/cm³"},
+ {ref:"3.11",t:"num",s:"鈷（Co）為 HCP 結構，原子半徑 0.1253 nm，c/a = 1.623。計算單位晶胞體積（以 nm³ 表示）。",u:"nm³",a:0.0664,tol:1,h:"V_C = 6R²c√3，其中 a = 2R、c = 1.623a。",sol:"V_C = 6R²c√3 = 6R²(1.623)(2R)√3 = (1.623)(12√3)R³\n    = (1.623)(12√3)(0.1253 nm)³\n    = 6.64×10⁻² nm³"},
+ {grp:"晶系",ref:"3.12",t:"mc",sfig:"p3_12",s:"下圖為某假想金屬的單位晶胞。(a) 它屬於哪一個晶系？(b) 這種晶體結構叫什麼？",o:["立方晶系；體心立方","正方晶系；體心正方","斜方晶系；體心斜方","正方晶系；面心正方"],a:1,e:"a = b = 0.35 nm、c = 0.45 nm、三個夾角都是 90°，屬於正方晶系；角落與中心各有原子，稱為體心正方。"},
+ {ref:"3.12",t:"num",s:"承上題的晶胞（a = b = 0.35 nm、c = 0.45 nm，角落與中心各有原子），原子量為 141 g/mol，計算密度。",u:"g/cm³",a:8.49,tol:1,h:"與 BCC 相同 n = 2；V_C = a²c。",sol:"V_C = (3.5×10⁻⁸ cm)²(4.5×10⁻⁸ cm) = 5.51×10⁻²³ cm³\nρ = (2)(141) / [(5.51×10⁻²³)(6.022×10²³)]\n  = 8.49 g/cm³"},
+ {grp:"點座標",ref:"3.13",t:"open",s:"列出 FCC 單位晶胞中所有原子位置的點座標。",h:"8 個角落加 6 個面中心，共 14 個位置。",ans:"角落（8 個）：000、100、110、010、001、101、111、011\n底面與頂面中心：½½0、½½1\n前後面中心：1½½、0½½\n左右面中心：½0½、½1½"},
+ {ref:"3.14",t:"open",fig:"p3_14",s:"畫出一個正方晶胞，並在其中標出點座標 1½½ 與 ½¼½ 的位置。",h:"正方晶胞 a = b ≠ c；點座標是 a、b、c 的分數。",ans:"1½½：在 x = a 的前面中心。\n½¼½：在晶胞中心高度，x 方向一半、y 方向四分之一處。"},
+ {grp:"晶向",ref:"3.15",t:"open",fig:"p3_15",s:"畫出一個斜方晶胞，並在其中畫出 [21̄1] 晶向。",h:"把指數除以 2 得到晶胞內的向量分量；y 分量為負，起點放在 y = b。",ans:"[21̄1] → 除以 2 得 1、−½、½。\n起點放在 010，向 +x 走 a、向 −y 走 b/2、向 +z 走 c/2。"},
+ {ref:"3.16",t:"match",sfig:"p3_16",s:"下圖中兩個向量的晶向指數為何？（a = 0.4 nm、b = 0.5 nm、c = 0.3 nm）",opts:["[21̄2̄]","[102]","[2̄12]","[201]"],items:[["方向 1",0],["方向 2",1]],h:"兩個向量的尾端都在原點。讀出頭端座標，各除以 a、b、c，再化成整數。",sol:"方向 1：頭端 (a, −b/2, −c)，取 n = 2 → u = 2、v = −1、w = −2 → [21̄2̄]\n方向 2：頭端 (a/2, 0, c)，取 n = 2 → u = 1、v = 0、w = 2 → [102]"},
+ {ref:"3.17",t:"open",fig:"p3_17",s:"在立方晶胞中畫出下列晶向：(a) [211]　(b) [31̄3]　(c) [2̄12]　(d) [301]",h:"把三個指數除以絕對值最大者，得到晶胞內的向量分量；負分量的起點放在該軸的 1 上。",ans:"(a) [211] → 1、½、½\n(b) [31̄3] → 1、−⅓、1，起點在 010\n(c) [2̄12] → −1、½、1，起點在 100\n(d) [301] → 1、0、⅓"},
+ {ref:"3.18",t:"match",sfig:"p3_18",s:"寫出下圖立方晶胞中晶向 A、B、C、D 的指數。",opts:["[1̄10]","[11̄0]","[121]","[01̄2̄]","[012]","[12̄1]"],items:[["A",0],["B",2],["C",3],["D",5]],h:"每個向量都是頭減尾。藍點代表邊的中點 ½。",sol:"A：尾 (1,0,1)、頭 (0,1,1) → −1、1、0 → [1̄10]\nB：尾 (0,0,0)、頭 (½,1,½) → 乘 2 → [121]\nC：尾 (1,½,1)、頭 (1,0,0) → 0、−½、−1 → 乘 2 → [01̄2̄]\nD：尾 (½,1,0)、頭 (1,0,½) → ½、−1、½ → 乘 2 → [12̄1]"},
+ {ref:"3.19",t:"mc",s:"(a) 立方晶胞中，由點 ¼0½ 指向點 ¾½½ 的向量，其晶向指數為何？(b) 若改成單斜晶胞呢？",o:["(a) [110]，(b) [110]","(a) [110]，(b) [101]","(a) [220]，(b) [110]","(a) [111]，(b) [110]"],a:0,e:"頭減尾：½、½、0，乘 2 → [110]。點座標是以 a、b、c 的分數表示，所以單斜晶胞算出的指數相同，也是 [110]。"},
+ {ref:"3.20",t:"open",s:"對正方晶系而言，寫出與 [011] 等效的所有晶向。",h:"正方晶系 a = b ≠ c：x、y 可以互換，但 z 只能變號。",ans:"與 [011] 長度相同的向量：w 只能是 ±1，u、v 中一個為 0、另一個為 ±1。\n共 7 個：[101]、[1̄01]、[1̄01̄]、[101̄]、[011̄]、[01̄1]、[01̄1̄]"},
+ {ref:"3.21",t:"mc",s:"把 [110] 晶向換成六方晶系的四指數 [uvtw]。",o:["[112̄0]","[11̄00]","[1100]","[21̄1̄0]"],a:0,e:"u = (2·1 − 1)/3 = 1/3，v = (2·1 − 1)/3 = 1/3，t = −2/3，w = 0；乘 3 → [112̄0]。"},
+ {ref:"3.22",t:"match",sfig:"p3_22",s:"寫出下圖兩個六方晶胞中晶向的四指數。",opts:["[1̄1̄23]","[101̄0]","[112̄3]","[011̄0]"],items:[["(a)",0],["(b)",1]],h:"先讀出頭端在 a₁、a₂、z 軸上的座標，得到三指數 [UVW]，再換成 [uvtw]。",sol:"(a) 頭端 a₁ = −a、a₂ = −a、z = c → [UVW] = [1̄1̄1]\n    u = −1/3，v = −1/3，t = 2/3，w = 1 → 乘 3 → [1̄1̄23]\n(b) 頭端 a₁ = a、a₂ = a/2、z = 0 → 乘 2 → [UVW] = [210]\n    u = 1，v = 0，t = −1，w = 0 → [101̄0]"},
+ {grp:"晶面",ref:"3.23",t:"open",fig:"p3_23",s:"畫出一個斜方晶胞，並在其中畫出 (021̄) 晶面。",h:"截距 = 1/指數：∞、½、−1。指數為負的軸，把原點移到另一端。",ans:"截距為 ∞a、b/2、−c：晶面平行 x 軸。\n把原點移到 001，晶面通過 y = b/2 的頂邊與原點所在的底邊。"},
+ {ref:"3.24",t:"match",sfig:"p3_24",s:"寫出下圖中兩個晶面的米勒指數。（a = 0.4 nm、b = 0.4 nm、c = 0.2 nm）",opts:["(211)","(02̄0)","(121)","(020)"],items:[["晶面 1",0],["晶面 2",1]],h:"讀出各晶面在 x、y、z 軸上的截距（相對於原點 O），取倒數。",sol:"晶面 1：截距 a/2、b、c → 倒數 2、1、1 → (211)\n晶面 2：平行 x、z 軸，截 y 軸於 −b/2 → 倒數 0、−2、0 → (02̄0)，與 (01̄0) 平行"},
+ {ref:"3.25",t:"open",fig:"p3_25",s:"在立方晶胞中畫出下列晶面：(a) (101̄)　(b) (012)　(c) (1̄11̄)　(d) (31̄2)",h:"先取倒數得到截距；指數為負的軸，把原點移到該軸的另一端（座標 1）。",ans:"(a) 截距 a、∞、−c\n(b) 截距 ∞、b、c/2\n(c) 截距 −a、b、−c\n(d) 截距 a/3、−b、c/2"},
+ {ref:"3.26",t:"match",sfig:"p3_26",s:"寫出下圖立方晶胞中晶面 A 與 B 的米勒指數。",opts:["(111̄)","(111)","(230)","(320)"],items:[["晶面 A",0],["晶面 B",2]],h:"晶面 A 往後延伸會在 z 軸負側相交；晶面 B 平行 z 軸。",sol:"晶面 A：截距 a、b、−c → 倒數 1、1、−1 → (111̄)\n晶面 B：截距 a/2、b/3、∞ → 倒數 2、3、0 → (230)"},
+ {ref:"3.27",t:"match",sfig:"p3_27",s:"寫出下圖立方晶胞中晶面 A 與 B 的米勒指數。",opts:["(211̄)","(021̄)","(211)","(012)"],items:[["晶面 A",0],["晶面 B",1]],h:"兩個晶面都通過原點，先把原點沿 z 軸往上移一格再讀截距。",sol:"把原點移到 001：\n晶面 A：截距 a/2、b、−c → (211̄)\n晶面 B：平行 x 軸，截距 ∞、b/2、−c → (021̄)"},
+ {ref:"3.28",t:"open",fig:"p3_28",s:"畫出 BCC 結構 (111) 晶面上的原子排列。",h:"(111) 晶面通過三個角落原子；體心原子在不在這個面上？",ans:"(111) 面只通過角落原子，體心原子不在面上。\n原子在面上排成三角形格子，間距為面對角線 a√2 = 3.27R，原子彼此不接觸。"},
+ {ref:"3.29",t:"mc",sfig:"p3_12",s:"以 3.12 的晶胞（體心正方，原點在 O）為準，下列哪一個敘述正確？",o:["(100)、(01̄0)、(001) 三者都等效","(100) 與 (01̄0) 等效，(001) 不等效；(111)、(11̄1)、(111̄)、(1̄11̄) 四者都等效","只有 (100) 與 (001) 等效","{111} 型的四個晶面中只有兩個等效"],a:1,e:"正方晶系 a = b ≠ c：(100) 與 (01̄0) 的原子排列都是 0.35 × 0.45 nm 的矩形，(001) 則是 0.35 × 0.35 nm 的正方形。四個 {111} 型晶面都是邊長 0.570、0.570、0.495 nm 的三角形排列，彼此等效。"},
+ {ref:"3.30",t:"mc",sfig:"p3_30",s:"下圖為某假想金屬單位晶胞中三個晶面上的原子排列。(a) 它屬於哪一個晶系？(b) 這種結構叫什麼？",o:["正方晶系；面心正方","斜方晶系；面心斜方","斜方晶系；體心斜方","立方晶系；面心立方"],a:1,e:"由三個晶面的尺寸推得 a = 0.25 nm、b = 0.30 nm、c = 0.20 nm，三軸互相垂直且不等長，屬於斜方晶系；角落與各面中心都有原子，稱為面心斜方。"},
+ {ref:"3.30",t:"num",s:"承上題（a = 0.25 nm、b = 0.30 nm、c = 0.20 nm 的面心斜方晶胞），若密度為 18.91 g/cm³，求原子量。",u:"g/mol",a:42.7,tol:1,h:"A = ρV_C N_A / n，面心結構 n = 4。",sol:"V_C = (0.25)(0.30)(0.20) nm³ = 1.5×10⁻²³ cm³\nA = (18.91)(1.5×10⁻²³)(6.022×10²³) / 4\n  = 42.7 g/mol"},
+ {ref:"3.31",t:"mc",s:"把 (01̄2) 晶面換成六方晶系的四指數 (hkil)。",o:["(01̄12)","(011̄2)","(01̄02)","(1̄012)"],a:0,e:"h = 0、k = −1、l = 2，i = −(h + k) = 1，所以是 (01̄12)。"},
+ {ref:"3.32",t:"match",sfig:"p3_32",s:"寫出下圖兩個六方晶胞中晶面的四指數。",opts:["(01̄10)","(21̄1̄0)","(101̄0)","(112̄0)"],items:[["(a)",0],["(b)",1]],h:"讀出晶面在 a₁、a₂、z 軸上的截距，取倒數得 h、k、l，再用 i = −(h + k)。",sol:"(a) 截距 ∞、−a、∞ → h = 0、k = −1、l = 0，i = 1 → (01̄10)\n(b) 截距 a/2、−a、∞ → h = 2、k = −1、l = 0，i = −1 → (21̄1̄0)"},
+ {ref:"3.33",t:"open",fig:"p3_33",s:"在六方晶胞中畫出 (011̄1) 晶面。",h:"h = 0、k = 1、l = 1：平行 a₁ 軸，截 a₂ 於 a、z 於 c。",ans:"截距：a₁ 為 ∞、a₂ 為 a、a₃ 為 −a、z 為 c。\n晶面平行 a₁ 軸，由底面 a₂ 端的邊向上傾斜到頂面中心線。"},
+ {grp:"線密度與面密度",ref:"3.34",t:"multi",s:"(a) 推導 FCC 中 [100] 與 [111] 晶向的線密度（以原子半徑 R 表示）。(b) 計算並比較 Cu（R = 0.128 nm）在這兩個方向的線密度。",parts:[["LD₁₀₀","nm⁻¹",2.76,1],["LD₁₁₁","nm⁻¹",1.59,1]],h:"[100]：向量長 a = 2R√2，上面等效 1 個原子。[111]：向量長 √3·a = 2R√6，也是 1 個原子。",sol:"(a) LD₁₀₀ = 1 / (2R√2)\n    LD₁₁₁ = 1 / (2R√6)（體對角線只通過兩端角落原子）\n(b) LD₁₀₀ = 1 / [(2)(0.128)√2] = 2.76 nm⁻¹\n    LD₁₁₁ = 1 / [(2)(0.128)√6] = 1.59 nm⁻¹\n    [100] 方向的原子排得比 [111] 密。"},
+ {ref:"3.35",t:"multi",s:"(a) 推導 BCC 中 (100) 與 (110) 晶面的面密度（以 R 表示）。(b) 計算並比較 Mo（R = 0.136 nm）這兩個晶面的面密度。",parts:[["PD₁₀₀","nm⁻²",10.14,1],["PD₁₁₀","nm⁻²",14.34,1]],h:"(100)：正方形邊長 4R/√3，等效 1 個原子。(110)：矩形 (4R/√3)(4R√2/√3)，等效 2 個原子。",sol:"(a) PD₁₀₀ = 1 / (4R/√3)² = 3 / (16R²)\n    PD₁₁₀ = 2 / [(4R/√3)(4R√2/√3)] = 3 / (8R²√2)\n(b) PD₁₀₀ = 3 / [16(0.136)²] = 10.14 nm⁻²\n    PD₁₁₀ = 3 / [8(0.136)²√2] = 14.34 nm⁻²\n    (110) 是 BCC 中原子最密的晶面。"},
+ {grp:"多晶材料",ref:"3.36",t:"mc",s:"多晶材料的性質為什麼通常是等向性的？",o:["多晶材料的每個晶粒都是等向性的","晶粒方位隨機時，許多異向性晶粒平均起來表現等向性","晶界會吸收異向性","多晶材料沒有晶體結構"],a:1,e:"單一晶粒可能是異向性的，但若晶粒方位隨機，整塊材料表現的是各方向的平均，因此是等向性。"},
+ {grp:"X 光繞射",ref:"3.37",t:"multi",s:"利用課本表 3.1 中 α-鐵的資料（BCC，R = 0.1241 nm），計算 (111) 與 (211) 晶面的面間距。",parts:[["d₁₁₁","nm",0.1655,1],["d₂₁₁","nm",0.1170,1]],h:"先用 a = 4R/√3 求晶格常數，再用 d = a/√(h²+k²+l²)。",sol:"a = 4R/√3 = (4)(0.1241)/√3 = 0.2866 nm\nd₁₁₁ = 0.2866/√3 = 0.1655 nm\nd₂₁₁ = 0.2866/√6 = 0.1170 nm"},
+ {ref:"3.38",t:"num",s:"FCC 鎳（R = 0.1246 nm）以 λ = 0.1937 nm 的 X 光照射，(111) 晶面的一階繞射角 2θ 為多少？",u:"°",a:56.84,tol:0.5,h:"a = 2R√2 → d₁₁₁ = a/√3 → sinθ = λ/2d。",sol:"a = 2R√2 = 0.3524 nm\nd₁₁₁ = 0.3524/√3 = 0.2035 nm\nsinθ = 0.1937 / (2 × 0.2035) = 0.476\nθ = 28.42°，2θ = 56.84°"},
+ {ref:"3.39",t:"multi",s:"FCC 銠（Rh）以 λ = 0.0711 nm 的 X 光照射，(311) 晶面的一階繞射角為 36.12°。計算 (a) 這組晶面的面間距 (b) Rh 的原子半徑。",parts:[["(a) d₃₁₁","nm",0.1147,1],["(b) R","nm",0.1345,1]],h:"36.12° 是 2θ。a = d√(h²+k²+l²)，FCC 的 R = a/(2√2)。",sol:"(a) d₃₁₁ = 0.0711 / [2 sin(18.06°)] = 0.1147 nm\n(b) a = d₃₁₁√11 = 0.3804 nm\n    R = a / (2√2) = 0.1345 nm"},
+ {ref:"3.40",t:"mc",s:"FCC 鎳（R = 0.1246 nm）以 λ = 0.1542 nm 的 X 光照射，一階繞射峰出現在 2θ = 44.53°。這是哪一組晶面造成的？",o:["(110)","(111)","(200)","(220)"],a:1,e:"d = 0.1542/(2 sin 22.27°) = 0.2035 nm。h² + k² + l² = (a/d)² = (2R√2/d)² = 3.0，只有 1、1、1 符合，所以是 (111) 晶面。"},
+ {ref:"3.41",t:"match",sfig:"p3_41",s:"鎢（W，BCC）的 X 光繞射圖譜如下（λ = 0.1542 nm）。(a) 標定前五個峰的晶面指數。",opts:["(110)","(111)","(200)","(211)","(220)","(310)"],items:[["40.2°",0],["58.4°",2],["73.3°",3],["87.0°",4],["100.7°",5]],h:"BCC 只在 h + k + l 為偶數時出現繞射峰：h² + k² + l² = 2、4、6、8、10…",sol:"BCC 的繞射峰依序為 (110)、(200)、(211)、(220)、(310)\n（h² + k² + l² = 2、4、6、8、10）"},
+ {ref:"3.41",t:"multi",s:"承上題，(b) 計算第一個峰（2θ = 40.2°）的面間距；(c) 由此計算 W 的原子半徑，並與表 3.1 的 0.1371 nm 比較。",parts:[["(b) d₁₁₀","nm",0.2244,1],["(c) R","nm",0.1374,1]],h:"BCC：a = d√(h²+k²+l²)，R = a√3/4。",sol:"(b) d₁₁₀ = 0.1542 / [2 sin(20.1°)] = 0.2244 nm\n(c) R = d√3√(h²+k²+l²)/4 = (0.2244)(√3)(√2)/4 = 0.1374 nm\n\n其他峰：\n(200) 58.4°：d = 0.1580 nm，R = 0.1369 nm\n(211) 73.3°：d = 0.1292 nm，R = 0.1370 nm\n(220) 87.0°：d = 0.1120 nm，R = 0.1371 nm\n(310) 100.7°：d = 0.1001 nm，R = 0.1371 nm\n與表 3.1 的 0.1371 nm 一致。"},
+ {ref:"3.42",t:"multi",s:"鉑（Pt，FCC）以 λ = 0.0711 nm 的 X 光繞射，前四個峰為：(111) 18.06°、(200) 20.88°、(220) 29.72°、(311) 34.93°。(a) 計算各峰的面間距；(b) 由 (111) 峰計算 Pt 的原子半徑，並與表 3.1 的 0.1387 nm 比較。（註：題目原印 (220) 26.66°、(311) 31.37°，與解答不符；依這兩個值算出的半徑為 0.154 nm，與表值矛盾，此處採用解答中的正確角度。）",parts:[["d₁₁₁","nm",0.2265,1],["d₂₀₀","nm",0.1962,1],["d₂₂₀","nm",0.1386,1],["d₃₁₁","nm",0.1185,1],["R","nm",0.1387,1]],h:"d = λ / (2 sinθ)，θ 是表中角度的一半。FCC：R = d√(h²+k²+l²) / (2√2)。",sol:"(a) d₁₁₁ = 0.0711 / [2 sin(9.03°)] = 0.2265 nm\n    d₂₀₀ = 0.1962 nm\n    d₂₂₀ = 0.1386 nm\n    d₃₁₁ = 0.1185 nm\n(b) R = d₁₁₁√3 / (2√2) = 0.1387 nm\n    其他峰算得 0.1387、0.1386、0.1390 nm，與表值一致。"},
+ {ref:"3.43",t:"mc",s:"某金屬的前三個一階繞射峰為 2θ = 18.27°、25.96°、31.92°（λ = 0.0711 nm）。(a) 它是 FCC、BCC 或兩者皆非？(b) 若為 FCC 或 BCC，對照課本表 3.1 是哪一種金屬？",o:["FCC；Pt","BCC；W","BCC；Fe","兩者皆非"],a:1,e:"三個峰的 d 為 0.2239、0.1583、0.1293 nm。以 BCC 的 (110)、(200)、(211) 計算，a 都是 0.3166 nm，彼此一致，所以是 BCC。R = a√3/4 = 0.1371 nm，對照表 3.1 為鎢 W（Mo 的半徑也很接近）。"},
+ {ref:"3.43",t:"num",s:"承上題，以 BCC 的 (110) 峰（2θ = 18.27°）計算晶格常數 a。",u:"nm",a:0.3166,tol:1,h:"d = λ/(2 sinθ)，a = d√2。",sol:"d₁₁₀ = 0.0711 / [2 sin(9.135°)] = 0.2239 nm\na = d₁₁₀√2 = 0.3166 nm"},
+ {grp:"非晶質固體",ref:"3.44",t:"mc",s:"凝固時，以離子鍵為主的材料和共價鍵材料相比，形成非晶質固體的可能性如何？",o:["比較容易，因為離子鍵有方向性","比較不容易，因為離子鍵無方向性，原子容易排成有序結構","兩者一樣","比較容易，因為離子鍵較弱"],a:1,e:"共價鍵有方向性，原子較難調整到有序位置，所以共價材料比較容易形成非晶質；離子鍵無方向性，比較容易結晶。"}
+];
+CH2.practice=PR2;CH3.practice=PR3;
+
+const CHAPTERS=[CH2,CH3];
+
+/* ================= State & helpers ================= */
+const KEY="matsci-wb-v4";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+state.q=state.q||{};state.star=state.star||{};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=id=>document.getElementById(id);
+const smooth=()=>matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth";
+function allQs(ch){const out=[];ch.zones.forEach((z,zi)=>z.qs.forEach((q,qi)=>out.push(["z"+zi+"-"+qi,q])));ch.practice.forEach(q=>out.push([q.pk,q]));return out}
+const K=(ch,k)=>"c"+ch.num+"-"+k;
+
+function parseNum(raw){
+  const sup={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"-"};
+  let s=String(raw).trim().replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]/g,c=>sup[c]).replace(/[−–—]/g,"-").replace(/[\s,]/g,"").replace(/[()]/g,"");
+  s=s.replace(/^([+-]?[\d.]+)[×xX*]10\^?([+-]?\d+)$/,"$1e$2").replace(/^10\^?([+-]?\d+)$/,"1e$1");
+  if(s===""||!/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s))return NaN;
+  return Number(s);
+}
+const within=(x,a,tol)=>tol===0?Math.abs(x-a)<1e-9:Math.abs(x-a)<=Math.abs(a)*tol/100;
+function fmtAns(a,sci){if(!sci)return String(a);const e=Math.floor(Math.log10(Math.abs(a)));const m=(a/10**e).toFixed(2);return m+"×10"+String(e).replace("-","⁻").replace(/\d/g,d=>"⁰¹²³⁴⁵⁶⁷⁸⁹"[d])}
+
+/* ================= Questions ================= */
+function qHTML(ch,key,no,q){
+  const id=K(ch,key),map={mc:"選擇",num:"計算",multi:"計算",open:"問答",match:"配對"};let body="";
+  if(q.t==="mc")body=`<div class="opts">${q.o.map((o,oi)=>`<label class="opt" id="o-${id}-${oi}"><input type="radio" name="r-${id}" id="r-${id}-${oi}" value="${oi}"><span>(${"ABCD"[oi]}) ${o}</span></label>`).join("")}</div>`;
+  else if(q.t==="num")body=`<div class="rows"><div class="row" id="w-${id}-0"><input id="i-${id}-0" inputmode="decimal" autocomplete="off" aria-label="答案"><span class="unit">${q.u}</span><span class="mk"></span></div></div>${q.sci?'<div class="fmt">科學記號可輸入 1.8e-10 或 1.8×10^-10</div>':""}`;
+  else if(q.t==="multi")body=`<div class="rows">${q.parts.map((p,pi)=>`<div class="row" id="w-${id}-${pi}"><span class="lab">${p[0]}</span><input id="i-${id}-${pi}" inputmode="decimal" autocomplete="off" aria-label="${esc(p[0])}"><span class="unit">${p[1]}</span><span class="mk"></span></div>`).join("")}</div>${q.parts.some(p=>p[4])?'<div class="fmt">科學記號可輸入 4.28e-5 或 4.28×10^-5</div>':""}`;
+  else if(q.t==="match")body=`<div class="rows">${q.items.map((it,ii)=>`<div class="row" id="w-${id}-${ii}"><span class="lab">${it[0]}</span><select id="i-${id}-${ii}" aria-label="${esc(it[0])}"><option value="">選擇…</option>${q.opts.map((o,oi)=>`<option value="${oi}">${o}</option>`).join("")}</select><span class="mk"></span></div>`).join("")}</div>`;
+  else body=`<textarea id="i-${id}-0" placeholder="先寫下你的答案，再按「看參考答案」對照。" aria-label="你的答案"></textarea>`;
+  const btns=q.t==="open"?`<button class="b" data-act="reveal">看參考答案</button>${q.h?'<button class="b ghost" data-act="hint">提示</button>':""}`:`<button class="b" data-act="check">檢查答案</button>${q.h?'<button class="b ghost" data-act="hint">提示</button>':""}<button class="b ghost" data-act="show">看詳解</button>`;
+  return `<div class="q" id="q-${id}"><div class="qh"><span class="no">${no}</span><p class="stem">${q.s.replace(/\n/g,"<br>")}</p><span class="tags">${q.ref?`<span class="tag book">課本 ${q.ref}</span>`:""}<span class="tag">${map[q.t]}</span></span></div>${q.sfig?`<figure class="fig qfig"><div class="figbox">${FIG[q.sfig]()}</div></figure>`:""}${body}<div class="acts">${btns}</div><div class="fbz" aria-live="polite"></div></div>`;
+}
+function solText(q){
+  if(q.t==="mc")return `正確答案：(${"ABCD"[q.a]}) ${q.o[q.a]}<br>${q.e}`;
+  if(q.t==="num")return `正確答案：${fmtAns(q.a,q.sci)} ${q.u}<div class="sol">${esc(q.sol)}</div>`;
+  if(q.t==="open")return `<div class="sol">${esc(q.ans)}</div>${q.fig?`<div class="figbox" style="margin-top:10px">${FIG[q.fig]()}</div>`:""}`;
+  return `<div class="sol">${esc(q.sol)}</div>`;
+}
+function act(ch,k,q,a,silent){
+  const id=K(ch,k),el=$("q-"+id),fb=el.querySelector(".fbz");
+  if(a==="hint"){fb.innerHTML=`<div class="fb hint"><strong>提示</strong>${q.h}</div>`;return}
+  if(a==="show"){fb.innerHTML=`<div class="fb hint"><strong>詳解</strong>${solText(q)}</div>`;return}
+  const prev=state.q[id]||{};
+  if(q.t==="open"){
+    if(a!=="reveal")return;
+    const v=$(`i-${id}-0`).value;state.q[id]={...prev,v,rev:true};save();
+    fb.innerHTML=`<div class="fb hint"><strong>參考答案</strong>${solText(q)}<div class="acts"><button class="b okb" data-self="1">我答對了</button><button class="b ghost" data-self="0">還要再練</button></div><div class="fmt" id="sm-${id}">${prev.ok?"已標記為答對":""}</div></div>`;
+    fb.querySelectorAll("[data-self]").forEach(b=>b.onclick=()=>{const good=b.dataset.self==="1";state.q[id]={...state.q[id],v:$(`i-${id}-0`).value,ok:good};save();trRecord(ch,k,good);$(`sm-${id}`).textContent=good?"已標記為答對":"已標記為還要再練";el.classList.toggle("solved",good);updScores(ch)});
+    el.classList.toggle("solved",!!prev.ok);return;
+  }
+  let v,ok,badParse=false,someEmpty=false;
+  if(q.t==="mc"){
+    const sel=el.querySelector("input:checked");
+    if(!sel){if(!silent)fb.innerHTML=`<div class="fb hint">請先選一個選項。</div>`;return}
+    v=+sel.value;ok=v===q.a;
+    el.querySelectorAll(".opt").forEach((o,oi)=>{o.classList.remove("right","wrong");if(oi===v)o.classList.add(ok?"right":"wrong")});
+  }else{
+    const n=q.t==="num"?1:(q.t==="multi"?q.parts.length:q.items.length);v=[];let allOk=true;
+    for(let i=0;i<n;i++){
+      const inp=$(`i-${id}-${i}`),row=$(`w-${id}-${i}`),raw=inp.value;v.push(raw);let good=false;
+      if(raw==="")someEmpty=true;
+      else if(q.t==="match")good=+raw===q.items[i][1];
+      else{const x=parseNum(raw);if(isNaN(x))badParse=true;else{const [a2,tol]=q.t==="num"?[q.a,q.tol]:[q.parts[i][2],q.parts[i][3]];good=within(x,a2,tol)}}
+      allOk=allOk&&good;
+      row.classList.remove("good","badr");row.querySelector(".mk").textContent="";
+      if(raw!==""){row.classList.add(good?"good":"badr");row.querySelector(".mk").textContent=good?"✓":"✗"}
+    }
+    if(v.every(x=>x==="")){if(!silent)fb.innerHTML=`<div class="fb hint">${q.t==="match"?"請先替每一項選擇答案。":"請先輸入數值。"}</div>`;return}
+    ok=allOk;
+  }
+  state.q[id]={v,ok:ok||!!prev.ok};save();if(!silent)trRecord(ch,k,ok);
+  el.classList.toggle("solved",state.q[id].ok);
+  let msg;
+  if(ok)msg=`<div class="fb ok"><strong>答對了</strong>${q.t==="mc"?q.e:solText(q)}</div>`;
+  else if(badParse)msg=`<div class="fb hint">有一格無法辨識的數字。請輸入像 0.279、-4.58 或 1.8e-10 的格式。</div>`;
+  else if(someEmpty)msg=`<div class="fb hint">還有空格沒填，填完再檢查。</div>`;
+  else msg=`<div class="fb no"><strong>再想想</strong>${q.t==="mc"?"這個選項不對。可以先看提示，或回到上方重點與圖再讀一次。":q.t==="match"?"標 ✗ 的項目不對，再判斷一次。":"標 ✗ 的數值不在容許誤差內。檢查單位換算、指數與正負號。"}</div>`;
+  fb.innerHTML=msg;
+  if(!silent)updScores(ch);
+}
+function restore(ch,k,q){
+  const id=K(ch,k),r=state.q[id];if(!r)return;
+  if(q.t==="mc"&&r.v!=null){const i=$(`r-${id}-${r.v}`);if(i)i.checked=true}
+  if(Array.isArray(r.v))r.v.forEach((v,i)=>{const el=$(`i-${id}-${i}`);if(el)el.value=v});
+  if(q.t==="open"){if(r.v)$(`i-${id}-0`).value=r.v;if(r.rev)act(ch,k,q,"reveal",true)}
+  else act(ch,k,q,"check",true);
+}
+
+/* ================= Page ================= */
+function render(ci){
+  const ch=CHAPTERS[ci];
+  const vTotal=ch.vocab.reduce((s,g)=>s+g[1].length,0);
+  const termList=Object.keys(ch.termsMap);
+  const zoneOf={};ch.zones.forEach(z=>z.terms.forEach(t=>zoneOf[t]=z.code));
+  const steps=[["goals","學習目標","先知道要學會什麼"],["vocab","單字預習",`${vTotal} 個原文用字`],["concepts","觀念講解",`${ch.zones.length} 個觀念區＋觀念驗證`],["practice","實力加強",`${ch.practice.length} 題課本習題`],["review","名詞總複習",`${termList.length} 個名詞自我測驗`]];
+  let h=`<div class="strip" role="navigation" aria-label="本章段落">${steps.map((s,i)=>i===2?`<button class="chip" data-go="${s[0]}"><b>${i+1}</b>${s[1]}</button>`+ch.zones.map((z,zi)=>`<button class="chip mini" data-go="z${zi}" title="${z.title}">${z.code.slice(2)}</button>`).join(""):`<button class="chip" data-go="${s[0]}"><b>${i+1}</b>${s[1]}</button>`).join("")}</div>
+   <div class="eyebrow">Chapter ${ch.num}</div><h2>第 ${ch.num} 章　${ch.name}</h2><p class="en">${ch.en}</p>
+   <p class="lead">${ch.lead}</p>
+   <div class="route" aria-label="建議學習順序">${steps.map((s,i)=>`<button data-go="${s[0]}"><span class="n">STEP ${i+1}</span><span class="t">${s[1]}</span><span class="d">${s[2]}</span></button>`).join("")}</div><div class="syncbox" id="syncbox"></div>`;
+
+  h+=`<section class="step" id="sec-goals"><div class="stephead"><span class="sn">STEP 1</span><h3>學習目標</h3><span class="ref">Learning Objectives</span></div>
+    <p class="guide" style="margin-top:12px">讀完本章後，你應該能夠：</p><ol class="goals">${ch.goals.map(g=>`<li>${g}</li>`).join("")}</ol></section>`;
+
+  h+=`<section class="step" id="sec-vocab"><div class="stephead"><span class="sn">STEP 2</span><h3>單字預習</h3><span class="ref">共 ${vTotal} 個</span></div>
+    <p class="guide" style="margin-top:12px">讀原文課本前先熟悉這些用字。標「必背」的是考試與後續章節一定會用到的單字，請優先記熟；可以切換成「只看必背」。可以遮住中文或英文自我測驗，點一下灰色格子就會顯示答案；記熟的單字按「已熟記」做記號。</p>
+    <div class="tools"><div class="seg" role="group" aria-label="顯示範圍"><button data-vf="all" aria-pressed="true">全部單字</button><button data-vf="must" aria-pressed="false">只看必背（${ch.vocab.reduce((s,g)=>s+g[1].filter(w=>w[3]).length,0)}）</button></div><div class="seg" role="group" aria-label="遮蓋模式"><button data-mask="none" aria-pressed="true">全部顯示</button><button data-mask="zh" aria-pressed="false">遮中文</button><button data-mask="en" aria-pressed="false">遮英文</button></div><span class="vcount" id="vcount"></span></div>
+    <div class="tscroll"><table class="vocab" id="vtab"><thead><tr><th>English</th><th>詞性</th><th>中文</th><th></th></tr></thead><tbody>
+    ${ch.vocab.map(([g,ws])=>`<tr class="grp"><td colspan="4">${g}</td></tr>`+ws.map(([w,p,z,m])=>{const sk="c"+ch.num+"-"+w;return `<tr data-must="${m?1:0}"><td class="w"><span data-col="en">${w}</span>${m?'<span class="must">必背</span>':""}</td><td class="pos">${p}</td><td data-col="zh">${z}</td><td><button class="star" data-star="${esc(sk)}" aria-pressed="${!!state.star[sk]}">${state.star[sk]?"已熟記 ✓":"已熟記"}</button></td></tr>`}).join("")).join("")}
+    </tbody></table></div></section>`;
+
+  h+=`<section class="step" id="sec-concepts"><div class="stephead"><span class="sn">STEP 3</span><h3>觀念講解</h3><span class="ref">名詞 → 圖解 → 重點 → 公式 → 觀念驗證</span></div>`;
+  ch.zones.forEach((z,zi)=>{
+    h+=`<section class="zone" id="sec-z${zi}"><div class="zh"><span class="code">${z.code}</span><h4>${z.title}</h4><span class="ref">課本 ${z.ref}</span><span class="zsc" id="zs-${zi}"></span></div>
+     <p class="zen">${z.en}</p>
+     <div class="lab-h">本區名詞</div><div class="zterms">${z.terms.map(t=>`<div class="zt"><span class="te">${t}</span><span class="tz">${ch.termsMap[t][0]}</span><p>${ch.termsMap[t][1]}</p></div>`).join("")}</div>
+     <div class="lab-h">圖解</div><figure class="fig"><div class="figbox">${FIG[z.fig]()}</div><figcaption><b>圖 ${z.code}</b>${z.cap}</figcaption></figure>
+     <div class="lab-h">重點整理</div><div class="points">${z.points.map(([t,p])=>`<div class="pt"><h5>${t}</h5><p>${p}</p></div>`).join("")}</div>
+     ${z.formulas?`<div class="lab-h">重要公式</div><div class="formulas">${z.formulas.map(([e,w])=>`<div class="fx"><div class="eq">${e}</div><div class="what">${w}</div></div>`).join("")}</div>`:""}
+     ${z.table?`<div class="lab-h">${z.table.cap||"整理表"}</div><div class="tscroll"><table class="data"><thead><tr>${z.table.h.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${z.table.r.map(r=>`<tr>${r.map((x,i)=>i?`<td>${x}</td>`:`<th scope="row">${x}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`:""}
+     <div class="lab-h">觀念驗證</div>${z.qs.map((q,qi)=>qHTML(ch,"z"+zi+"-"+qi,z.code+"."+(qi+1),q)).join("")}${selfHTML(ch,z)}</section>`;
+  });
+  h+=`</section>`;
+
+  h+=`<section class="step" id="sec-practice"><div class="stephead"><span class="sn">STEP 4</span><h3>實力加強</h3><span class="ref">課本章末習題（第十版題號）</span><span class="zsc" id="zs-p"></span></div>
+    <p class="guide" style="margin-top:12px">精選本章最重要的課本習題（第十版題號），完成所有觀念驗證後再做。計算、選擇與配對題會自動批改；問答與作圖題請先自己寫或畫，再對照參考答案自行評分。想多練習的同學，可以做課本 ${ch.moreRange} 的其他習題。</p>
+    ${ch.practice.map((q,pi)=>(q.grp?`<div class="lab-h">${q.grp}</div>`:"")+qHTML(ch,q.pk,"P"+(pi+1),q)).join("")}</section>`+feedbackHTML(ch);
+
+  h+=`<section class="step" id="sec-review"><div class="stephead"><span class="sn">STEP 5</span><h3>名詞總複習</h3><span class="ref">標「課本」者為課本 Important Terms and Concepts</span></div>
+    <p class="guide" style="margin-top:12px">考前把本章名詞集中複習一次。選「遮定義」後先說出每個名詞的意思，再點灰色格子對照；標籤顯示這個名詞出自哪個觀念區。</p>
+    <div class="tools"><div class="seg" role="group" aria-label="名詞遮蓋模式"><button data-tmask="none" aria-pressed="true">全部顯示</button><button data-tmask="def" aria-pressed="false">遮定義</button><button data-tmask="zh" aria-pressed="false">遮中文與定義</button></div></div>
+    <div class="terms">${termList.map(e=>{const [z,d,b]=ch.termsMap[e];return `<div class="term"><div class="t"><span class="te">${e}</span><span class="tz" data-tcol="zh">${z}</span>${zoneOf[e]?`<span class="zone-tag">${zoneOf[e]}</span>`:""}${b?'<span class="badge">課本</span>':""}</div><p data-tcol="def">${d}</p></div>`}).join("")}</div></section>
+    <div class="foot"><span class="guide" style="margin:0">作答紀錄只存在這台裝置的瀏覽器中。</span><span id="resetZone"><button class="reset" id="resetBtn">清除本章作答紀錄</button></span></div>`;
+  $("main").innerHTML=h;
+
+  document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{const el=$("sec-"+b.dataset.go);if(el)el.scrollIntoView({behavior:smooth()})});
+  allQs(ch).forEach(([k,q])=>{
+    const el=$("q-"+K(ch,k));
+    el.querySelectorAll("button[data-act]").forEach(b=>b.onclick=()=>act(ch,k,q,b.dataset.act));
+    el.querySelectorAll("input:not([type=radio])").forEach(inp=>inp.addEventListener("keydown",e=>{if(e.key==="Enter")act(ch,k,q,"check")}));
+    restore(ch,k,q);
+  });
+  setupMasks();wireFeedback(ch);trBadge();
+  $("resetBtn").onclick=()=>askReset(ci);
+  updScores(ch);
+}
+
+function maskable(sel,attr,attrMode){
+  let mode="none";
+  const cells=()=>document.querySelectorAll(sel);
+  const apply=()=>cells().forEach(td=>{const c=td.dataset[attr];const m=attrMode(mode,c);td.classList.toggle("mask",m);m?td.setAttribute("tabindex","0"):td.removeAttribute("tabindex")});
+  return {set(m){mode=m;apply()}};
+}
+function setupMasks(){
+  const reveal=td=>{if(td.classList.contains("mask")){td.classList.remove("mask");td.removeAttribute("tabindex")}};
+  const v=maskable("[data-col]","col",(m,c)=>m===c);
+  document.querySelectorAll("[data-mask]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-mask]").forEach(x=>x.setAttribute("aria-pressed",x===b));v.set(b.dataset.mask)});
+  const t=maskable("[data-tcol]","tcol",(m,c)=>m==="def"?c==="def":m==="zh");
+  document.querySelectorAll("[data-tmask]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-tmask]").forEach(x=>x.setAttribute("aria-pressed",x===b));t.set(b.dataset.tmask)});
+  document.querySelectorAll("[data-col],[data-tcol]").forEach(td=>{td.onclick=()=>reveal(td);td.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();reveal(td)}}});
+  document.querySelectorAll("[data-vf]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-vf]").forEach(x=>x.setAttribute("aria-pressed",x===b));$("vtab").classList.toggle("onlymust",b.dataset.vf==="must")});
+  const cnt=()=>{const all=[...document.querySelectorAll("[data-star]")];const mu=all.filter(b=>b.closest("tr").dataset.must==="1");$("vcount").textContent=`必背已熟記 ${mu.filter(b=>state.star[b.dataset.star]).length} / ${mu.length}・全部 ${all.filter(b=>state.star[b.dataset.star]).length} / ${all.length}`};
+  document.querySelectorAll("[data-star]").forEach(b=>b.onclick=()=>{const k=b.dataset.star;state.star[k]=!state.star[k];save();b.setAttribute("aria-pressed",state.star[k]);b.textContent=state.star[k]?"已熟記 ✓":"已熟記";cnt()});
+  cnt();
+}
+
+function updScores(ch){
+  const qs=allQs(ch),isOk=k=>state.q[K(ch,k)]&&state.q[K(ch,k)].ok;
+  const ok=qs.filter(([k])=>isOk(k)).length;
+  $("ovNum").textContent=ok;$("ovTot").textContent=qs.length;$("ovBar").style.width=(ok/qs.length*100)+"%";
+  ch.zones.forEach((z,zi)=>{const n=z.qs.filter((_,qi)=>isOk("z"+zi+"-"+qi)).length;const el=$("zs-"+zi);if(el){el.textContent=`${n} / ${z.qs.length}`;el.classList.toggle("full",n===z.qs.length)}});
+  const pn=ch.practice.filter(q=>isOk(q.pk)).length;const pe=$("zs-p");if(pe){pe.textContent=`${pn} / ${ch.practice.length}`;pe.classList.toggle("full",pn===ch.practice.length)}
+  renderRail();
+}
+let cur=0;
+function chapterScore(c){const qs=allQs(c);return [qs.filter(([k])=>state.q[K(c,k)]&&state.q[K(c,k)].ok).length,qs.length]}
+function renderRail(){
+  $("rail").innerHTML=CHAPTERS.map((c,i)=>{const [o,t]=chapterScore(c);return `<button class="cell" data-ch="${i}" aria-current="${i===cur}"><span class="z">${c.num}</span><span class="sc">${o}/${t}</span><span class="sym">${c.sym}</span><span class="nm">${c.name}</span></button>`}).join("")+(TR.owner?`<button class="cell tcell" id="tcell" aria-current="${cur===-1}"><span class="z">T</span><span class="sym">師</span><span class="nm">教師後台</span></button>`:"");
+  if($("tcell"))$("tcell").onclick=()=>openDash();
+  document.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{if(+b.dataset.ch!==cur||TR.dash)go(+b.dataset.ch)});
+}
+function go(i){TR.dash=false;cur=i;try{history.replaceState(null,"","#ch"+CHAPTERS[i].num)}catch(e){}render(i);window.scrollTo({top:0,behavior:"auto"})}
+function askReset(ci){
+  const ch=CHAPTERS[ci],z=$("resetZone");
+  z.innerHTML=`<span class="confirm">確定清除本章所有作答與單字記號？<button class="b" id="yes">清除</button><button class="b ghost" id="no">取消</button></span>`;
+  $("yes").onclick=()=>{const p="c"+ch.num+"-";Object.keys(state.q).forEach(k=>{if(k.startsWith(p))delete state.q[k]});Object.keys(state.star).forEach(k=>{if(k.startsWith(p))delete state.star[k]});save();render(ci)};
+  $("no").onclick=()=>{z.innerHTML='<button class="reset" id="resetBtn">清除本章作答紀錄</button>';$("resetBtn").onclick=()=>askReset(ci)};
+}
+/* ================= Practice selection (精選重點題) ================= */
+function pickPractice(all,plan){
+  const out=[],used={};
+  plan.forEach(([ref,grp,nth])=>{const cands=all.filter(q=>q.ref===ref);const q={...cands[nth||0]};delete q.grp;if(grp)q.grp=grp;used[ref]=(used[ref]||0)+1;q.pk="p_"+ref.replace(/\./g,"_")+(nth?"_"+nth:"");out.push(q)});
+  return out;
+}
+CH2.practice=pickPractice(PR2,[["2.2","原子與電子組態"],["2.5"],["2.7"],["2.8","鍵結力與鍵結能"],["2.11"],["2.13","鍵結種類與材料"],["2.14"],["2.15"]]);
+CH3.practice=pickPractice(PR3,[["3.3","晶體結構與密度"],["3.5"],["3.9"],["3.12","晶系",0],["3.12","",1],["3.18","晶向與晶面"],["3.25"],["3.26"],["3.35","面密度"],["3.38","X 光繞射"],["3.41"]]);
+CH2.moreRange="2.1–2.15";CH3.moreRange="3.1–3.44";
+
+/* ================= Learning record ================= */
+/* 放在 Google Apps Script 網頁應用程式時：自動存到老師的試算表。
+   其他環境（直接開檔、Claude 講義）：改用 Google 表單提交。 */
+const FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLSeB6-_ocPZ8cGv5qTZoLXAIbbKl_kclTcyQsOEeuZjzVPGFeQ/viewform";
+const FORM_ENTRY=["1041562590","1777146445","311955074","1246895001","1940953259","893698881","1417300181","1129001409","1190528188"];
+const SAVE_URL="https://script.google.com/macros/s/AKfycbxdty7M2R94i6-U_0SKF-ca8I1tQ-ROGE60gInag7uyXEYP-uLg_hzRAgEi5BRMfxsYjg/exec";
+/* 放在 Apps Script 時用 google.script.run；放在 GitHub Pages 等一般網站時，直接把紀錄傳到上面的 Apps Script 網址 */
+const SRV=(typeof google!=="undefined"&&google.script&&google.script.run)?google.script.run:(SAVE_URL&&/^https?:$/.test(location.protocol)?(()=>{
+  const call=(fn)=>{const h={};const o={withSuccessHandler(f){h.s=f;return o},withFailureHandler(f){h.f=f;return o},
+    saveProgress(p){fetch(SAVE_URL,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)}).then(()=>h.s&&h.s(true),()=>h.f&&h.f())},
+    loadProgress(sid){fetch(SAVE_URL+"?action=load&sid="+encodeURIComponent(sid)).then(r=>r.ok?r.text():Promise.reject()).then(t=>h.s&&h.s(t),()=>h.f&&h.f())}};return o};
+  return {withSuccessHandler(f){return call().withSuccessHandler(f)},withFailureHandler(f){return call().withFailureHandler(f)}};
+})():null);
+const TR={owner:false,dash:false,lastAct:Date.now(),dirty:false,saving:false,saved:0,err:false,loadedFor:"",timer:0};
+function openDash(){}
+state.prog=state.prog||{sid:"",sname:"",first:Date.now(),last:Date.now(),visits:0,ch:{}};
+state.prog.sub=state.prog.sub||{};
+state.prog.visits=(state.prog.visits||0)+1;state.prog.last=Date.now();save();
+function chp(n){const k=String(n);const c=state.prog.ch[k]=state.prog.ch[k]||{time:0,qs:{},self:{},rating:0,comment:"",first:Date.now(),changed:0};return c}
+function trSummary(ch){const c=chp(ch.num),qs=allQs(ch);c.total=qs.length;c.done=qs.filter(([k])=>c.qs[k]).length;c.correct=qs.filter(([k])=>c.qs[k]&&c.qs[k].ok).length}
+function trChanged(n){const c=chp(n);c.changed=Date.now();state.prog.last=Date.now();save();TR.dirty=true;clearTimeout(TR.timer);TR.timer=setTimeout(srvSave,3000);updSubmit()}
+function trRecord(ch,key,ok){const c=chp(ch.num),r=c.qs[key]||{ok:false,tries:0};r.tries=(r.tries||0)+1;r.ok=!!(r.ok||ok);c.qs[key]=r;trSummary(ch);trChanged(ch.num)}
+setInterval(()=>{const ch=CHAPTERS[cur];if(ch&&document.visibilityState==="visible"&&Date.now()-TR.lastAct<120000){chp(ch.num).time=(chp(ch.num).time||0)+5;TR.dirty=true;if(Math.random()<0.25){save();updSubmit()}}},5000);
+setInterval(srvSave,60000);
+["pointerdown","keydown","scroll","input"].forEach(ev=>addEventListener(ev,()=>{TR.lastAct=Date.now()},{passive:true}));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){save();srvSave()}});
+
+const SELF=[["ok","懂了"],["part","大概懂"],["no","還不懂"]];
+function rowVals(ch){
+  trSummary(ch);const c=chp(ch.num),p=state.prog;
+  const selfTxt=ch.zones.filter(z=>c.self[z.code]).map(z=>z.code+" "+(SELF.find(s=>s[0]===c.self[z.code])||["",""])[1]).join("、")||"（未填）";
+  return [p.sid,p.sname,`第 ${ch.num} 章 ${ch.name}`,`${c.done} / ${c.total}`,String(c.correct),String(Math.round((c.time||0)/60)),selfTxt,c.rating?String(c.rating):"（未填）",c.comment||""];
+}
+function formLink(ch){const vals=rowVals(ch);return FORM_URL+"?usp=pp_url&"+FORM_ENTRY.map((e,i)=>"entry."+e+"="+encodeURIComponent(vals[i])).join("&")}
+
+/* ---- automatic save (Apps Script) ---- */
+function srvSave(){
+  const p=state.prog;
+  if(!SRV||!p.sid||!p.sname||TR.saving||!TR.dirty||TR.loadedFor!==p.sid)return;
+  TR.saving=true;TR.dirty=false;
+  const rows=CHAPTERS.filter(ch=>{const c=chp(ch.num);trSummary(ch);return c.done||c.time>=30||Object.keys(c.self).length||c.rating||c.comment}).map(ch=>{const v=rowVals(ch);return {ch:ch.num,vals:v}});
+  const data=JSON.stringify({prog:p,q:state.q});
+  SRV.withSuccessHandler(()=>{TR.saving=false;TR.err=false;TR.saved=Date.now();updSubmit()})
+     .withFailureHandler(()=>{TR.saving=false;TR.err=true;TR.dirty=true;updSubmit()})
+     .saveProgress({sid:p.sid,sname:p.sname,visits:p.visits||1,rows,data});
+  updSubmit();
+}
+function srvLoad(){
+  const p=state.prog;if(!SRV||!p.sid)return;
+  const sid=p.sid;
+  SRV.withSuccessHandler(json=>{
+      if(json){try{mergeRemote(JSON.parse(json))}catch(e){}}
+      TR.loadedFor=sid;TR.dirty=true;save();render(cur);srvSave();
+    })
+    .withFailureHandler(()=>{TR.loadedFor=sid;TR.err=true;TR.dirty=true;updSubmit()})
+    .loadProgress(sid);
+}
+function mergeRemote(r){
+  const rp=r&&r.prog,p=state.prog;if(!rp)return;
+  p.first=Math.min(p.first||Date.now(),rp.first||Date.now());p.visits=Math.max(p.visits||0,(rp.visits||0)+1);
+  Object.entries(rp.ch||{}).forEach(([n,rc])=>{const c=chp(n);c.time=Math.max(c.time||0,rc.time||0);
+    Object.entries(rc.qs||{}).forEach(([k,v])=>{const l=c.qs[k];c.qs[k]=l?{ok:l.ok||v.ok,tries:Math.max(l.tries||0,v.tries||0)}:v});
+    c.self={...(rc.self||{}),...(c.self||{})};c.rating=c.rating||rc.rating||0;c.comment=c.comment||rc.comment||"";c.changed=Math.max(c.changed||0,rc.changed||0)});
+  Object.entries((r&&r.q)||{}).forEach(([k,v])=>{if(!state.q[k])state.q[k]=v});
+}
+
+function pending(ch){const c=chp(ch.num),s=state.prog.sub[ch.num]||0;return (c.changed||0)>s}
+function submitHTML(ch,cls){
+  if(!state.prog.sid||!state.prog.sname)return `<button class="b ${cls||""}" data-needid="1">填寫學號${SRV?"後自動儲存":"後提交"}</button>`;
+  if(SRV)return "";
+  return `<a class="b sublink ${cls||""}" data-subch="${ch.num}" href="${esc(formLink(ch))}" target="_blank" rel="noopener">提交第 ${ch.num} 章練習紀錄</a>`;
+}
+function wireSubmit(root){
+  (root||document).querySelectorAll("[data-subch]").forEach(a=>{a.onclick=()=>{state.prog.sub[a.dataset.subch]=Date.now();save();setTimeout(()=>{updSubmit();trBadge()},400)}});
+  (root||document).querySelectorAll("[data-needid]").forEach(b=>b.onclick=()=>showLogin());
+}
+function updSubmit(){
+  const bar=$("subbar"),ch=CHAPTERS[cur];if(!bar||!ch)return;
+  trSummary(ch);const c=chp(ch.num),p=state.prog;let st;
+  if(SRV){
+    const hm=t=>new Date(t).toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"});
+    if(!p.sid||!p.sname)st=`<span class="pill warn">● 尚未填學號，紀錄不會傳給老師</span>`;
+    else if(TR.err)st=`<span class="pill warn">● 暫時無法連線，稍後會自動重試</span>`;
+    else if(TR.saving||TR.loadedFor!==p.sid)st=`<span class="pill">● 儲存中…</span>`;
+    else if(TR.saved)st=`<span class="pill ok">● 已自動儲存（${hm(TR.saved)}）</span>`;
+    else st=`<span class="pill ok">● 會自動儲存給老師</span>`;
+  }else{
+    const pend=pending(ch),sub=p.sub[ch.num];
+    st=pend?`<span class="pill warn">● 有新進度尚未提交</span>`:sub?`<span class="pill ok">● 已提交（${new Date(sub).toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"})}）</span>`:`<span class="pill">● 尚未開始作答</span>`;
+  }
+  bar.innerHTML=`<div class="subin"><div class="subinfo"><b>第 ${ch.num} 章</b>　已作答 ${c.done}/${c.total}・答對 ${c.correct}・練習 ${Math.round((c.time||0)/60)} 分鐘　${st}</div>${submitHTML(ch,!SRV&&pending(ch)?"":"ghost")}</div>`;
+  wireSubmit(bar);
+  document.querySelectorAll("a[data-subch]").forEach(a=>{if(a.closest("#subbar"))return;a.href=formLink(CHAPTERS.find(x=>String(x.num)===a.dataset.subch)||ch)});
+}
+function trBadge(){
+  const el=$("syncbox");if(!el)return;const p=state.prog;
+  el.innerHTML=`<div class="idrow"><span class="pill">練習者</span><label for="sid">學號</label><input id="sid" value="${esc(p.sid||"")}" autocomplete="off"><label for="sname">姓名</label><input id="sname" value="${esc(p.sname||"")}" autocomplete="off"><button class="b ghost" id="saveid">儲存</button><span class="fmt" id="idmsg"></span></div>
+   <div class="fmt">${SRV?"練習時間、作答結果、自評與回饋會自動儲存並傳給老師，不需要另外提交。換一台裝置時，輸入同一個學號就能接續進度。":"練習時間、作答結果、自評與回饋會自動記錄在這台裝置。練習結束時，請按畫面底部的「提交練習紀錄」，在開啟的 Google 表單中直接按「提交」，老師才收得到。可以多次提交，以最新一次為準。"}</div>`;
+  $("saveid").onclick=()=>{const old=p.sid;p.sid=$("sid").value.trim().slice(0,30);p.sname=$("sname").value.trim().slice(0,30);save();$("idmsg").textContent=p.sid&&p.sname?"已儲存":"請填寫學號與姓名";if(p.sid&&p.sid!==old)srvLoad();else{TR.dirty=true;srvSave()}updSubmit();refreshInline()};
+}
+function refreshInline(){document.querySelectorAll(".subslot").forEach(s=>{const ch=CHAPTERS.find(x=>String(x.num)===s.dataset.ch);if(ch){s.innerHTML=submitHTML(ch);wireSubmit(s)}})}
+function showLogin(){
+  if($("login"))return;const p=state.prog;
+  const d=document.createElement("div");d.id="login";d.className="overlay";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","logintitle");
+  d.innerHTML=`<div class="card"><div class="eyebrow">開始練習</div><h3 id="logintitle">請輸入學號與姓名</h3><p class="guide">${SRV?"你的練習紀錄會依學號自動儲存給老師。換裝置時輸入同一個學號，就能接續之前的進度。":"提交練習紀錄給老師時，會自動帶入這些資料。資料只存在你的裝置與老師的表單中。"}</p>
+   <div class="rows"><div class="row"><label class="lab" for="lsid">學號</label><input id="lsid" value="${esc(p.sid||"")}" autocomplete="off"></div><div class="row"><label class="lab" for="lsname">姓名</label><input id="lsname" value="${esc(p.sname||"")}" autocomplete="off"></div></div>
+   <div class="fmt" id="lmsg"></div><div class="acts"><button class="b" id="lok">開始練習</button><button class="b ghost" id="llater">稍後再填</button></div></div>`;
+  document.body.appendChild(d);setTimeout(()=>$("lsid").focus(),50);
+  const ok=()=>{const a=$("lsid").value.trim(),b=$("lsname").value.trim();if(!a||!b){$("lmsg").textContent="請填寫學號與姓名。";return}const old=p.sid;p.sid=a.slice(0,30);p.sname=b.slice(0,30);save();d.remove();trBadge();updSubmit();refreshInline();if(SRV&&(p.sid!==old||TR.loadedFor!==p.sid))srvLoad()};
+  $("lok").onclick=ok;d.addEventListener("keydown",e=>{if(e.key==="Enter")ok();if(e.key==="Escape")d.remove()});$("llater").onclick=()=>d.remove();
+}
+
+function selfHTML(ch,z){const v=chp(ch.num).self[z.code]||"";return `<div class="selfbox" data-zone="${z.code}"><span class="sl">讀完這一區，你覺得自己：</span>${SELF.map(([k,l])=>`<button class="sb sb-${k}" data-self="${k}" aria-pressed="${v===k}">${l}</button>`).join("")}</div>`}
+function feedbackHTML(ch){const c=chp(ch.num);return `<section class="step" id="sec-feedback"><div class="stephead"><span class="sn">回饋</span><h3>本章學習回饋${SRV?"":"與提交"}</h3><span class="ref">老師會看到你的回饋</span></div>
+  <p class="guide" style="margin-top:12px">整體來說，你對第 ${ch.num} 章的理解程度：</p>
+  <div class="rate" role="group" aria-label="理解程度">${[1,2,3,4,5].map(n=>`<button data-rate="${n}" aria-pressed="${c.rating===n}">${n}<small>${["","很不懂","不太懂","普通","大致了解","完全了解"][n]}</small></button>`).join("")}</div>
+  <label class="guide" for="fbtext" style="display:block;margin-top:14px">還有哪些地方不清楚，或想請老師上課再講一次？</label>
+  <textarea id="fbtext" maxlength="500" placeholder="例如：米勒指數負號的原點移動還不太懂">${esc(c.comment||"")}</textarea>
+  ${SRV?`<div class="remind"><b>你的回饋會自動傳給老師。</b>不需要另外按提交，畫面底部會顯示儲存狀態。<div class="acts subslot" data-ch="${ch.num}">${submitHTML(ch)}</div></div>`
+       :`<div class="remind"><b>練習結束了嗎？記得提交。</b>按下按鈕會開啟老師的 Google 表單，資料已自動填好，確認後按表單最下方的「提交」即可。<div class="acts subslot" data-ch="${ch.num}">${submitHTML(ch)}</div></div>`}</section>`}
+function wireFeedback(ch){
+  document.querySelectorAll(".selfbox").forEach(box=>box.querySelectorAll("[data-self]").forEach(b=>b.onclick=()=>{chp(ch.num).self[box.dataset.zone]=b.dataset.self;box.querySelectorAll("[data-self]").forEach(x=>x.setAttribute("aria-pressed",x===b));trChanged(ch.num)}));
+  document.querySelectorAll("[data-rate]").forEach(b=>b.onclick=()=>{chp(ch.num).rating=+b.dataset.rate;document.querySelectorAll("[data-rate]").forEach(x=>x.setAttribute("aria-pressed",x===b));trChanged(ch.num)});
+  if($("fbtext"))$("fbtext").addEventListener("input",()=>{chp(ch.num).comment=$("fbtext").value.trim().slice(0,500);trChanged(ch.num)});
+  wireSubmit();
+  if(!$("subbar")){const b=document.createElement("div");b.id="subbar";b.className="subbar";document.body.appendChild(b)}
+  updSubmit();
+  if(!state.prog.sid||!state.prog.sname){if(!TR.asked){TR.asked=true;setTimeout(showLogin,300)}}
+  else if(SRV&&TR.loadedFor!==state.prog.sid&&!TR.loading){TR.loading=true;srvLoad()}
+}
+
+{const m=location.hash.match(/^#ch(\d+)$/);let qch="";try{qch=new URLSearchParams(location.search).get("ch")||""}catch(e){}const want=window.__CH?+window.__CH:(qch?+qch:(m?+m[1]:0));const i=want?CHAPTERS.findIndex(c=>c.num===want):-1;cur=i>=0?i:0;render(cur);}
+</script>
+
+</body>
+</html>
