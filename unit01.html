@@ -76,7 +76,7 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
 <div id="problemList"></div>
 <div class="pager"><a href="unit00.html">← 單元 0</a><a href="index.html">目錄</a><a href="unit02.html">單元 2 →</a></div>
 <footer>材料熱力學練習簿 · 單元 1 第一定律 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
@@ -289,7 +289,22 @@ const problems = [
   opts:[R`\(q = \Delta H = \tfrac{5}{2}R\times100\)，\(w = R\times100\)`,R`\(q = \Delta U\)`,R`\(w = 0\)`,R`\(\Delta H = 0\)`], ans:0,
   hint:R`定壓 \(q = \Delta H = C_P\Delta T\)，功 \(= P\Delta V = R\Delta T\)。`,
   sol:R`\(q = \Delta H = 2078.5\ \text{J}\)，\(w = P\Delta V = R\Delta T = 831.4\ \text{J}\)，\(\Delta U = q - w = 1247.1\ \text{J} = C_V\Delta T\) ✓`
-}
+},
+{ id:"1-A1", kind:"num", tag:"應用", title:"為什麼打氣筒會發燙？",
+  text:R`用打氣筒快速把空氣從 1 atm、300 K 壓縮到 3 atm。動作很快，熱來不及散出去，可以當成可逆絕熱過程。空氣是雙原子氣體（\(\gamma = 1.4\)）。壓縮後空氣的溫度是多少 K？`,
+  answer:410.6, tol:0.01, unit:"K",
+  hint:R`\(T_2 = T_1(P_2/P_1)^{(\gamma-1)/\gamma}\)，指數 \(= 0.4/1.4 \approx 0.286\)。`,
+  sol:R`\(T_2 = 300\times3^{0.286} \approx 410.6\ \text{K}\)（約 138 °C）。外界對氣體作功，絕熱時這些功全部變成內能，溫度就升高。打氣筒底部摸起來會燙，就是這個原因。` },
+{ id:"1-A2", kind:"num", tag:"應用", title:"柴油引擎為什麼不用火星塞？",
+  text:R`柴油引擎的壓縮比 \(V_1/V_2 = 16\)。進氣是 300 K 的空氣（\(\gamma = 1.4\)），假設壓縮是可逆絕熱。壓縮後空氣溫度是多少 K？`,
+  answer:909, tol:0.01, unit:"K",
+  hint:R`用 \(TV^{\gamma-1} = \)常數：\(T_2 = T_1(V_1/V_2)^{\gamma-1}\)。`,
+  sol:R`\(T_2 = 300\times16^{0.4} \approx 909\ \text{K}\)（約 636 °C），高於柴油的自燃溫度（約 210 °C），所以噴入柴油就會自己點燃，不需要火星塞。` },
+{ id:"1-A3", kind:"num", tag:"應用", title:"熱處理爐要給多少熱？",
+  text:R`把 50 kg 的鋼件在大氣中從 25 °C 加熱到 900 °C 做沃斯田鐵化。假設鋼的比熱為定值 0.46 J/(g·K)，且不考慮相變熱。需要提供多少熱，單位 MJ？`,
+  answer:20.13, tol:0.01, unit:"MJ",
+  hint:R`大氣中＝定壓：\(q_P = \Delta H = mc\Delta T\)。`,
+  sol:R`\(q = 50{,}000\ \text{g}\times0.46\times875 \approx 2.01\times10^7\ \text{J} = 20.1\ \text{MJ}\)。實際上爐子還要加熱爐體、補償散熱，而且鋼在約 727 °C 有相變熱，所以耗能更多。` }
 ];
 
 </script>

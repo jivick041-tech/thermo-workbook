@@ -114,3 +114,4 @@
   .tsq{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;text-align:left}
   .tsq .fig{max-width:330px}
   .tsq-panel{flex:1 1 240px;max-width:360px}
+  details.item>summary .tag.app{background:#fff4e0;border-color:#e0b46a;color:#8a5a00;font-weight:600}

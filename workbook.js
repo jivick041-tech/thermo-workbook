@@ -214,8 +214,8 @@ if(typeof derivations!=="undefined") derivations.forEach((d,di)=>{
 const pWrap = document.getElementById("problemList");
 if(typeof problems!=="undefined") problems.forEach(p=>{
   const det = el("details",{class:"item",id:p.id});
-  const tag = {self:"證明",mc:"選擇",num:"計算"}[p.kind];
-  det.innerHTML = `<summary><span>${p.id.split("-")[1]}　${p.title}</span><span class="tag">${tag}</span></summary>`;
+  const tag = p.tag || {self:"證明",mc:"選擇",num:"計算"}[p.kind];
+  det.innerHTML = `<summary><span>${p.id.split("-")[1]}　${p.title}</span><span class="tag${p.tag?" app":""}">${tag}</span></summary>`;
   det.addEventListener("toggle",()=>{ if(det.open){ const s=st(p.id); if(!s.start) s.start=Date.now(); }});
   const body = el("div",{class:"body"});
   body.appendChild(el("p",{},p.text));

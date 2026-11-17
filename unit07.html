@@ -55,7 +55,7 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
 <div id="problemList"></div>
 <div class="pager"><a href="unit06.html">← 單元 6</a><a href="index.html">目錄</a></div>
 <footer>材料熱力學練習簿 · 單元 7 單成分相平衡 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
@@ -257,7 +257,22 @@ const problems = [
   opts:["直接昇華成氣體","先熔化成液體再沸騰","不會有任何變化","變成另一種固相"], ans:0,
   hint:"液態 CO₂ 只存在於三相點壓力以上。",
   sol:"1 atm 低於三相點壓力 5.1 atm，相圖上這條水平線不經過液相區，所以固體直接變成氣體（昇華）。這就是乾冰不會弄濕東西、被叫做「乾」冰的原因。"
-}
+},
+{ id:"7-A1", kind:"num", tag:"應用", title:"溜冰真的是靠壓力把冰融化嗎？",
+  text:R`要讓 −5 °C（268.15 K）的冰在壓力下熔化，壓力要比 1 atm 多加多少 atm？冰的熔化熱 6008 J/mol，熔化時 \(\Delta V = V_水 - V_冰 = 18.02 - 19.65 = -1.63\ \text{cm}^3/\text{mol}\)，正常熔點 273.15 K。`,
+  answer:672, tol:0.02, unit:"atm",
+  hint:R`Clapeyron 積分：\(\Delta P = \dfrac{\Delta H}{\Delta V}\ln\dfrac{T_2}{T_1}\)，\(T_2 = 268.15\)、\(T_1 = 273.15\)。`,
+  sol:R`\(\Delta P = \dfrac{6008}{-1.63\times10^{-6}}\ln\dfrac{268.15}{273.15} \approx 6.81\times10^7\ \text{Pa} \approx 672\ \text{atm}\)。一個人站在冰刀上，壓力大約只有幾十 atm，遠遠不夠。所以溜冰時的潤滑主要不是靠「壓力熔冰」，而是冰表面本來就有一層類似液體的薄層，加上摩擦生熱。` },
+{ id:"7-A2", kind:"num", tag:"應用", title:"壓力鍋裡的水幾度沸騰？",
+  text:R`壓力鍋讓鍋內維持約 2 atm。水在 1 atm 下 373 K 沸騰，蒸發熱 40.7 kJ/mol（視為常數）。鍋內的水大約在多少 K 沸騰？`,
+  answer:393.8, tol:0.005, unit:"K",
+  hint:R`Clausius–Clapeyron：\(\dfrac{1}{T_2} = \dfrac{1}{T_1} - \dfrac{R}{\Delta H}\ln\dfrac{P_2}{P_1}\)。`,
+  sol:R`\(\dfrac{1}{T_2} = \dfrac{1}{373} - \dfrac{8.314\times\ln2}{40700} \Rightarrow T_2 \approx 393.8\ \text{K}\)（約 121 °C）。沸點提高約 20 °C，食物熟得快；這也是高壓滅菌釜（121 °C）的原理。` },
+{ id:"7-A3", kind:"num", tag:"應用", title:"玉山頂上煮開水只有幾度？",
+  text:R`玉山主峰（約 3952 m）的大氣壓約 0.62 atm。用同樣的數據（1 atm 沸點 373 K、蒸發熱 40.7 kJ/mol），水在山頂大約幾 K 沸騰？`,
+  answer:359.9, tol:0.005, unit:"K",
+  hint:R`和上一題一樣，\(P_2/P_1 = 0.62\)，\(\ln0.62 \approx -0.478\)。`,
+  sol:R`\(\dfrac{1}{T_2} = \dfrac{1}{373} + \dfrac{8.314\times0.478}{40700} \Rightarrow T_2 \approx 359.9\ \text{K}\)（約 87 °C）。水 87 °C 就滾了，泡麵泡不熟，所以登山要用壓力鍋或煮久一點。` }
 ];
 
 </script>

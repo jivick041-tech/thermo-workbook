@@ -56,7 +56,7 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
 <div id="problemList"></div>
 <div class="pager"><a href="unit03.html">← 單元 3</a><a href="index.html">目錄</a><a href="unit05.html">單元 5 →</a></div>
 <footer>材料熱力學練習簿 · 單元 4 熱力勢與平衡判據 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
@@ -244,7 +244,22 @@ const problems = [
   opts:["任何溫度都會自己發生","只有高溫會發生","只有低溫會發生","任何溫度都不會發生"], ans:0,
   hint:R`\(\Delta G = \Delta H - T\Delta S\)，兩項各是什麼正負號？`,
   sol:R`\(\Delta H < 0\)，\(-T\Delta S < 0\)，兩隊都往同一邊拉，\(\Delta G\) 永遠是負的。`
-}
+},
+{ id:"4-A1", kind:"num", tag:"應用", title:"錫疫：寒冬裡錫器為什麼會碎掉？",
+  text:R`白錫（β-Sn，金屬）會轉變成灰錫（α-Sn，脆的粉末）。白錫 → 灰錫：\(\Delta H = -2090\ \text{J/mol}\)、\(\Delta S = -7.32\ \text{J/(mol·K)}\)。低於多少 K 時這個轉變會自發進行？`,
+  answer:285.5, tol:0.01, unit:"K",
+  hint:R`\(\Delta G = \Delta H - T\Delta S = 0\) 的溫度；\(\Delta H < 0\)、\(\Delta S < 0\) 是「低溫才會發生」的類型。`,
+  sol:R`\(T_{eq} = -2090/(-7.32) \approx 285.5\ \text{K}\)（約 12 °C）。低於這個溫度 \(\Delta G < 0\)，例如 −20 °C 時 \(\Delta G = -2090 + 253\times7.32 \approx -238\ \text{J/mol}\)。但這個轉變很慢，要在很冷的地方放很久才會發生；傳說寒冬裡錫製鈕扣、管風琴管碎成粉末，就是「錫疫」。現在的無鉛銲錫也要注意這個問題。` },
+{ id:"4-A2", kind:"num", tag:"應用", title:"人造鑽石要加多大的壓力？",
+  text:R`298 K 時，石墨 → 鑽石：\(\Delta G = +2900\ \text{J/mol}\)，所以常壓下石墨比較穩定。石墨與鑽石的莫耳體積分別是 5.31 與 3.42 cm³/mol（視為不隨壓力改變）。在 298 K 下，壓力要加到多少 GPa 以上，鑽石才會比石墨穩定？`,
+  answer:1.53, tol:0.02, unit:"GPa",
+  hint:R`\((\partial\Delta G/\partial P)_T = \Delta V\)：\(\Delta G(P) = 2900 + \Delta V\,(P - P_0)\)，令它等於 0。\(\Delta V = -1.89\times10^{-6}\ \text{m}^3\text{/mol}\)。`,
+  sol:R`\(P \approx \dfrac{2900}{1.89\times10^{-6}} \approx 1.53\times10^9\ \text{Pa} = 1.53\ \text{GPa}\)（約 15,000 atm）。鑽石比較緻密（體積小），加壓對它有利。熱力學上這個壓力就夠了，但室溫下反應極慢，所以工業上用約 5 GPa、1500 °C 加催化劑來合成鑽石。` },
+{ id:"4-A3", kind:"num", tag:"應用", title:"氧化銀加熱會分解嗎？",
+  text:R`2Ag(s) + ½O₂(g) → Ag₂O(s)：\(\Delta H = -31.1\ \text{kJ}\)、\(\Delta S = -66.4\ \text{J/K}\)（1 atm O₂，假設不隨溫度改變）。在空氣中把 Ag₂O 加熱，大約高於多少 K 會分解成銀和氧氣？`,
+  answer:468.7, tol:0.02, unit:"K",
+  hint:R`分解是逆反應；找 \(\Delta G = 0\) 的溫度。（嚴格來說空氣中 O₂ 分壓只有 0.21 atm，這裡先忽略。）`,
+  sol:R`\(T = 31100/66.4 \approx 469\ \text{K}\)（約 196 °C）。高於這個溫度 \(T\Delta S\) 贏過 \(\Delta H\)，氧化物分解；實際上 Ag₂O 在約 200 °C 開始分解，吻合。大部分金屬（Fe、Al）的氧化物 \(\Delta H\) 負很多，要到幾千度才會分解，所以冶煉時要用碳等還原劑（單元 11 的 Ellingham 圖）。` }
 ];
 
 </script>
