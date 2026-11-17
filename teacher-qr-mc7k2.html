@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿</title>
+<meta name="robots" content="noindex"><link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header><div class="kicker">明志科大材料系 黃裕清老師</div><h1>教師用：各單元 QR code</h1><p class="stats">此頁不在目錄中出現，請勿分享此網址給學生。</p></header>
+<div class="item">
+<div class="body">
+<p class="stats">QR code 會指向下面這個網址底下的各單元頁面。把整個練習簿放上你的網站後，在網站上打開這一頁，網址會自動帶入；也可以手動修改後按「產生」。學生掃描後會先被要求輸入學號、姓名才能開始。</p>
+<div class="numrow"><input id="qbase" type="text" style="width:100%;max-width:520px"><button class="primary" id="qgo">產生</button></div>
+<div class="qrgrid" id="qrgrid"></div>
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const QUNITS=[[0,"認識主角與數學工具箱"],[1,"第一定律"],[2,"第二定律與熵"],[3,"熵的統計詮釋"],[4,"熱力勢與平衡判據"],[5,"熱力學關係式"],[6,"熱容量與第三定律"],[7,"單成分相平衡"]];
+const qb=document.getElementById("qbase");
+qb.value = location.href.replace(/[#?].*$/,"").replace(/[^/]*$/,"");
+function makeQR(){
+  const g=document.getElementById("qrgrid"); g.innerHTML="";
+  let base=qb.value.trim(); if(base && !base.endsWith("/")) base+="/";
+  QUNITS.forEach(([n,t])=>{
+    const url=base+"unit"+String(n).padStart(2,"0")+".html";
+    const c=document.createElement("div"); c.className="qrcard";
+    c.innerHTML=`<b>單元 ${n}</b><br>${t}<div class="qr"></div><div class="stats" style="word-break:break-all">${url}</div>`;
+    g.appendChild(c);
+    try{ new QRCode(c.querySelector(".qr"),{text:url,width:280,height:280,correctLevel:QRCode.CorrectLevel.M}); }catch(e){ c.querySelector(".qr").textContent="QR code 載入失敗"; }
+  });
+}
+document.getElementById("qgo").onclick=makeQR;
+window.addEventListener("load",makeQR);
+</script>
+<footer>右鍵或長按 QR code 圖片即可另存</footer></div></body></html>
