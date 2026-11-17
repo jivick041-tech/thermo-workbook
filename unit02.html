@@ -7,7 +7,7 @@
   <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 2</div>
   <h1>第二定律與熵</h1>
   <div class="byline">明志科大材料系 黃裕清老師</div>
-  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
 </header>
 <div class="card userbar" id="userbar"></div>
 <div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
@@ -60,8 +60,12 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
 <div class="pager"><a href="unit01.html">← 單元 1</a><a href="index.html">目錄</a><a href="unit03.html">單元 3 →</a></div>
 <footer>材料熱力學練習簿 · 單元 2 第二定律與熵 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
@@ -70,7 +74,7 @@ const UNIT = "2 第二定律與熵";
 const R = String.raw;
 const derivations = [
 {
-  id:"2-D1", math:["m6","m7"], title:"卡諾循環的效率",
+  id:"2-D1", apps:["2-A1", "2-A2"], math:["m6","m7"], title:"卡諾循環的效率",
   goal:R`\(\eta = 1 - \dfrac{T_2}{T_1}\)`,
   from:R`單元 1：可逆等溫功 \(RT\ln(V_2/V_1)\)、可逆絕熱 \(TV^{\gamma-1} = \)常數`,
   steps:[
@@ -99,7 +103,7 @@ const derivations = [
   ]
 },
 {
-  id:"2-D2", math:["m6"], title:"熵是狀態函數",
+  id:"2-D2", apps:["2-A4"], math:["m6"], title:"熵是狀態函數",
   goal:R`\(\displaystyle\oint\dfrac{\delta q_{rev}}{T} = 0\)，所以 \(dS = \dfrac{\delta q_{rev}}{T}\) 定義了一個狀態函數`,
   from:"D1 的卡諾循環",
   steps:[
@@ -122,7 +126,7 @@ const derivations = [
   ]
 },
 {
-  id:"2-D3", math:["m1"], title:"Clausius 不等式與熵增原理",
+  id:"2-D3", apps:["2-A3"], math:["m1"], title:"Clausius 不等式與熵增原理",
   goal:R`\(dS \ge \dfrac{\delta q}{T}\)；孤立系統 \(dS \ge 0\)`,
   from:"第一定律、可逆功最大",
   steps:[
@@ -253,22 +257,26 @@ const problems = [
   sol:R`\(\Delta S = 2\times2.5\times8.314\times\ln\dfrac{279.7}{400} - 2\times8.314\times\ln\dfrac{5}{20} = -14.87 + 23.05 \approx 8.18\ \text{J/K}\)。<br>絕熱、外界沒有熵變，所以宇宙熵增加 8.18 J/K > 0，確認這是自發、不可逆的過程。`
 }
 ,
-{ id:"2-A1", kind:"num", tag:"應用", title:"火力發電廠的效率上限",
+{ id:"2-A1", kind:"num", tag:"應用",
+  formula:R`卡諾效率：\(\eta = 1 - T_{低}/T_{高}\)`, title:"火力發電廠的效率上限",
   text:R`火力發電廠的蒸汽溫度約 550 °C（823 K），冷卻水（河水）約 27 °C（300 K）。這座電廠的理論最高效率是多少？（請輸入小數）`,
   answer:0.635, tol:0.01, unit:"",
   hint:R`卡諾效率 \(\eta = 1 - T_{低}/T_{高}\)，溫度要用 K。`,
   sol:R`\(\eta = 1 - 300/823 \approx 0.635\)。實際電廠約 0.35–0.45，因為過程不可逆、有摩擦和散熱。要提高效率，就要把蒸汽溫度做得更高，這需要能耐高溫、高壓的鍋爐鋼材，這正是材料工程師的工作。` },
-{ id:"2-A2", kind:"num", tag:"應用", title:"冷凍庫的性能係數",
+{ id:"2-A2", kind:"num", tag:"應用",
+  formula:R`卡諾冷凍機：\(\text{COP} = T_{低}/(T_{高} - T_{低})\)`, title:"冷凍庫的性能係數",
   text:R`冷凍庫內部維持 −5 °C（268 K），房間 25 °C（298 K）。理想（卡諾）冷凍機每消耗 1 J 的電功，最多能從冷凍庫搬走多少 J 的熱？`,
   answer:8.93, tol:0.01, unit:"J",
   hint:R`冷凍機的性能係數 \(\text{COP} = \dfrac{q_{低}}{w} = \dfrac{T_{低}}{T_{高} - T_{低}}\)。`,
   sol:R`\(\text{COP} = 268/(298 - 268) \approx 8.93\)。內外溫差越大，COP 越小，越耗電；這也是第二定律：熱不會自己從低溫流到高溫，一定要花功。` },
-{ id:"2-A3", kind:"num", tag:"應用", title:"淬火產生多少熵？",
+{ id:"2-A3", kind:"num", tag:"應用",
+  formula:R`\(\Delta S = mc\ln(T_2/T_1)\)、熱源 \(\Delta S = q/T\)、\(\Delta S_{total} > 0\)`, title:"淬火產生多少熵？",
   text:R`1 kg 鋼件從 1100 K 丟進大水槽淬火，水槽很大、溫度一直維持 300 K。鋼的比熱視為定值 0.50 J/(g·K)。求鋼＋水槽的總熵變，單位 J/K。`,
   answer:683.7, tol:0.01, unit:"J/K",
   hint:R`鋼：\(\Delta S = mc\ln(T_2/T_1)\)；水槽：收到的熱 \(q = mc(1100 - 300)\)，\(\Delta S = q/300\)。`,
   sol:R`\(\Delta S_{鋼} = 500\ln\frac{300}{1100} \approx -649.6\ \text{J/K}\)；\(\Delta S_{水} = \frac{500\times800}{300} \approx 1333.3\ \text{J/K}\)；總和 \(\approx 683.7\ \text{J/K} > 0\)。淬火是高度不可逆的過程：熱在很大的溫差下流動，產生大量的熵。` },
-{ id:"2-A4", kind:"num", tag:"應用", title:"熔化鋁錠的熵變",
+{ id:"2-A4", kind:"num", tag:"應用",
+  formula:R`相變：\(\Delta S = \Delta H_m/T_m\)`, title:"熔化鋁錠的熵變",
   text:R`在熔點 933 K 熔化 1 kg 的鋁。鋁的莫耳質量 26.98 g/mol、熔化熱 10.7 kJ/mol。鋁的熵增加多少 J/K？`,
   answer:425.1, tol:0.01, unit:"J/K",
   hint:R`先算莫耳數；熔點熔化是可逆定溫過程，\(\Delta S = n\Delta H_m/T_m\)。`,

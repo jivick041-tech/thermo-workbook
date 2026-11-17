@@ -7,7 +7,7 @@
   <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 1</div>
   <h1>第一定律</h1>
   <div class="byline">明志科大材料系 黃裕清老師</div>
-  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
 </header>
 <div class="card userbar" id="userbar"></div>
 <div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
@@ -76,8 +76,12 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
 <div class="pager"><a href="unit00.html">← 單元 0</a><a href="index.html">目錄</a><a href="unit02.html">單元 2 →</a></div>
 <footer>材料熱力學練習簿 · 單元 1 第一定律 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
@@ -86,7 +90,7 @@ const UNIT = "1 第一定律";
 const R = String.raw;
 const derivations = [
 {
-  id:"1-D1", math:["m1","m5"], title:"定容的熱 = ΔU，定壓的熱 = ΔH",
+  id:"1-D1", apps:["1-A3", "1-A4"], math:["m1","m5"], title:"定容的熱 = ΔU，定壓的熱 = ΔH",
   goal:R`\(q_V = \Delta U \qquad q_P = \Delta H\)`,
   from:R`第一定律 \(dU = \delta q - \delta w\)、\(H = U + PV\)，只有 \(P\)–\(V\) 功`,
   steps:[
@@ -112,7 +116,7 @@ const derivations = [
   ]
 },
 {
-  id:"1-D2", math:["m2","m5"], title:R`理想氣體 \(C_P - C_V = R\)`,
+  id:"1-D2", apps:["1-A4"], math:["m2","m5"], title:R`理想氣體 \(C_P - C_V = R\)`,
   goal:R`\(C_P - C_V = R\)（1 mol 理想氣體）`,
   from:R`\(H = U + PV\)、\(PV = RT\)、理想氣體的 \(U\) 只跟 \(T\) 有關`,
   steps:[
@@ -161,7 +165,7 @@ const derivations = [
   ]
 },
 {
-  id:"1-D4", math:["m5","m6","m7"], title:R`可逆絕熱過程 \(PV^\gamma = \)常數`,
+  id:"1-D4", apps:["1-A1", "1-A2"], math:["m5","m6","m7"], title:R`可逆絕熱過程 \(PV^\gamma = \)常數`,
   goal:R`\(TV^{\gamma-1} = \)常數，\(PV^\gamma = \)常數`,
   from:R`第一定律、\(dU = C_V\,dT\)、\(PV = RT\)、\(C_P - C_V = R\)`,
   steps:[
@@ -220,7 +224,7 @@ const derivations = [
   ]
 },
 {
-  id:"1-D6", math:["m5"], title:"可逆絕熱過程的功",
+  id:"1-D6", apps:["1-A1"], math:["m5"], title:"可逆絕熱過程的功",
   goal:R`\(w = n c_V (T_1 - T_2) = \dfrac{P_1V_1 - P_2V_2}{\gamma - 1}\)`,
   from:R`第一定律、\(c_P - c_V = R\)、\(\gamma = c_P/c_V\)、\(PV = nRT\)`,
   steps:[
@@ -290,21 +294,30 @@ const problems = [
   hint:R`定壓 \(q = \Delta H = C_P\Delta T\)，功 \(= P\Delta V = R\Delta T\)。`,
   sol:R`\(q = \Delta H = 2078.5\ \text{J}\)，\(w = P\Delta V = R\Delta T = 831.4\ \text{J}\)，\(\Delta U = q - w = 1247.1\ \text{J} = C_V\Delta T\) ✓`
 },
-{ id:"1-A1", kind:"num", tag:"應用", title:"為什麼打氣筒會發燙？",
+{ id:"1-A1", kind:"num", tag:"應用",
+  formula:R`可逆絕熱：\(T_2 = T_1(P_2/P_1)^{(\gamma-1)/\gamma}\)`, title:"為什麼打氣筒會發燙？",
   text:R`用打氣筒快速把空氣從 1 atm、300 K 壓縮到 3 atm。動作很快，熱來不及散出去，可以當成可逆絕熱過程。空氣是雙原子氣體（\(\gamma = 1.4\)）。壓縮後空氣的溫度是多少 K？`,
   answer:410.6, tol:0.01, unit:"K",
   hint:R`\(T_2 = T_1(P_2/P_1)^{(\gamma-1)/\gamma}\)，指數 \(= 0.4/1.4 \approx 0.286\)。`,
   sol:R`\(T_2 = 300\times3^{0.286} \approx 410.6\ \text{K}\)（約 138 °C）。外界對氣體作功，絕熱時這些功全部變成內能，溫度就升高。打氣筒底部摸起來會燙，就是這個原因。` },
-{ id:"1-A2", kind:"num", tag:"應用", title:"柴油引擎為什麼不用火星塞？",
+{ id:"1-A2", kind:"num", tag:"應用",
+  formula:R`可逆絕熱：\(TV^{\gamma-1} = \)常數`, title:"柴油引擎為什麼不用火星塞？",
   text:R`柴油引擎的壓縮比 \(V_1/V_2 = 16\)。進氣是 300 K 的空氣（\(\gamma = 1.4\)），假設壓縮是可逆絕熱。壓縮後空氣溫度是多少 K？`,
   answer:909, tol:0.01, unit:"K",
   hint:R`用 \(TV^{\gamma-1} = \)常數：\(T_2 = T_1(V_1/V_2)^{\gamma-1}\)。`,
   sol:R`\(T_2 = 300\times16^{0.4} \approx 909\ \text{K}\)（約 636 °C），高於柴油的自燃溫度（約 210 °C），所以噴入柴油就會自己點燃，不需要火星塞。` },
-{ id:"1-A3", kind:"num", tag:"應用", title:"熱處理爐要給多少熱？",
+{ id:"1-A3", kind:"num", tag:"應用",
+  formula:R`定壓：\(q_P = \Delta H = mc_P\Delta T\)`, title:"熱處理爐要給多少熱？",
   text:R`把 50 kg 的鋼件在大氣中從 25 °C 加熱到 900 °C 做沃斯田鐵化。假設鋼的比熱為定值 0.46 J/(g·K)，且不考慮相變熱。需要提供多少熱，單位 MJ？`,
   answer:20.13, tol:0.01, unit:"MJ",
   hint:R`大氣中＝定壓：\(q_P = \Delta H = mc\Delta T\)。`,
-  sol:R`\(q = 50{,}000\ \text{g}\times0.46\times875 \approx 2.01\times10^7\ \text{J} = 20.1\ \text{MJ}\)。實際上爐子還要加熱爐體、補償散熱，而且鋼在約 727 °C 有相變熱，所以耗能更多。` }
+  sol:R`\(q = 50{,}000\ \text{g}\times0.46\times875 \approx 2.01\times10^7\ \text{J} = 20.1\ \text{MJ}\)。實際上爐子還要加熱爐體、補償散熱，而且鋼在約 727 °C 有相變熱，所以耗能更多。` },
+{ id:"1-A4", kind:"num", tag:"應用", title:"密閉鋼瓶 vs. 有活塞的容器：加熱要多少熱？",
+  formula:R`\(q_V = nc_V\Delta T\)、\(q_P = nc_P\Delta T\)、\(c_P - c_V = R\)`,
+  text:R`實驗室要把 2 mol 氬氣（單原子理想氣體）從 300 K 加熱到 400 K。(a) 裝在密閉鋼瓶裡（體積固定）；(b) 裝在可以自由推動的活塞汽缸裡（壓力固定）。(b) 比 (a) 多花多少 J 的熱？`,
+  answer:1663, tol:0.01, unit:"J",
+  hint:R`\(q_P - q_V = n(c_P - c_V)\Delta T = nR\Delta T\)。`,
+  sol:R`\(q_V = 2\times1.5R\times100 = 2494\ \text{J}\)、\(q_P = 2\times2.5R\times100 = 4157\ \text{J}\)，差 \(nR\Delta T = 1663\ \text{J}\)。多出來的熱用來推動活塞（對外作功 \(P\Delta V\)）。熱處理時用密閉爐還是開放爐，耗能就不一樣。` }
 ];
 
 </script>

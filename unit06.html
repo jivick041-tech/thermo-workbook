@@ -7,7 +7,7 @@
   <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 6</div>
   <h1>熱容量與第三定律</h1>
   <div class="byline">明志科大材料系 黃裕清老師</div>
-  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
 </header>
 <div class="card userbar" id="userbar"></div>
 <div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
@@ -53,8 +53,12 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
 <div class="pager"><a href="unit05.html">← 單元 5</a><a href="index.html">目錄</a><a href="unit07.html">單元 7 →</a></div>
 <footer>材料熱力學練習簿 · 單元 6 熱容量與第三定律 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
@@ -63,7 +67,7 @@ const UNIT = "6 熱容量與第三定律";
 const R = String.raw;
 const derivations = [
 {
-  id:"6-D1", math:["m6"], title:"反應熱隨溫度的變化（Kirchhoff）",
+  id:"6-D1", apps:["6-A1", "6-A2", "6-A3"], math:["m6"], title:"反應熱隨溫度的變化（Kirchhoff）",
   goal:R`\(\Delta H_{T_2} = \Delta H_{T_1} + \displaystyle\int_{T_1}^{T_2}\Delta c_P\,dT\)，\(\Delta c_P = c_P(\text{產物}) - c_P(\text{反應物})\)`,
   from:R`\(H\) 是狀態函數、定壓下 \(dH = c_P\,dT\)`,
   steps:[
@@ -175,7 +179,7 @@ const derivations = [
   ]
 },
 {
-  id:"6-D5", math:["m6","m7"], title:"過冷液體凝固產生的熵",
+  id:"6-D5", apps:["6-A4"], math:["m6","m7"], title:"過冷液體凝固產生的熵",
   goal:R`\(\Delta S_{irr} = \Delta S_{系統} + \Delta S_{外界} > 0\)`,
   from:R`熵是狀態函數、\(\Delta S_{外界} = -\Delta H_{系統}/T\)`,
   steps:[
@@ -258,16 +262,30 @@ const problems = [
   hint:"第三定律講的是「處在完全內部平衡的純物質」。",
   sol:"玻璃的原子排列是被「凍結」的無序狀態，不是平衡態，0 K 時仍有很多種排法，留有殘餘熵。完美晶體 0 K 時只有一種排法，S = k ln 1 = 0。"
 },
-{ id:"6-A1", kind:"num", tag:"應用", title:"把鋁錠加熱到 900 K 要多少熱？",
+{ id:"6-A1", kind:"num", tag:"應用",
+  formula:R`\(\Delta H = \int c_P\,dT\)，\(c_P = a + bT\)`, title:"把鋁錠加熱到 900 K 要多少熱？",
   text:R`1 kg 的鋁從 298 K 加熱到 900 K（還沒熔化）。固態鋁 \(c_P = 20.67 + 12.38\times10^{-3}T\ \text{J/(mol·K)}\)，莫耳質量 26.98 g/mol。需要多少熱，單位 kJ？`,
   answer:626.7, tol:0.01, unit:"kJ",
   hint:R`每莫耳 \(\int_{298}^{900}c_P\,dT = 20.67(900 - 298) + \tfrac{12.38\times10^{-3}}{2}(900^2 - 298^2)\)，再乘以莫耳數 37.06。`,
   sol:R`每莫耳 \(= 12{,}443 + 4{,}464 = 16{,}907\ \text{J}\)；\(\times37.06 \approx 626.7\ \text{kJ}\)。若繼續加熱到熔點 933 K 並完全熔化，還要再加約 \(37.06\times10.7 \approx 397\ \text{kJ}\) 的熔化熱，熔化熱大約是加熱熱量的六成。` },
-{ id:"6-A2", kind:"num", tag:"應用", title:"鋁熱反應（Thermite）能燒到多熱？",
+{ id:"6-A2", kind:"num", tag:"應用",
+  formula:R`絕熱：反應熱 = 產物升溫所吸的熱`, title:"鋁熱反應（Thermite）能燒到多熱？",
   text:R`鐵軌現場焊接用的鋁熱反應：2Al + Fe₂O₃ → Al₂O₃ + 2Fe，298 K 時 \(\Delta H = -851.5\ \text{kJ}\)。反應很快，熱都留在產物裡（絕熱）。粗略估計：產物（1 mol Al₂O₃ + 2 mol Fe）的總熱容視為定值 200 J/K，並忽略相變。產物最高能到多少 K？`,
   answer:4556, tol:0.01, unit:"K",
   hint:R`絕熱：反應放出的熱全部用來加熱產物，\(851{,}500 = 200\times(T - 298)\)。`,
-  sol:R`\(T = 298 + 851{,}500/200 \approx 4556\ \text{K}\)。實際上鐵和氧化鋁會熔化（吸收潛熱）、熱容也會變大，真實溫度大約 2800–3000 °C，但仍遠高於鐵的熔點（1538 °C），所以產生的鐵水可以直接灌進鐵軌接縫焊接。` }
+  sol:R`\(T = 298 + 851{,}500/200 \approx 4556\ \text{K}\)。實際上鐵和氧化鋁會熔化（吸收潛熱）、熱容也會變大，真實溫度大約 2800–3000 °C，但仍遠高於鐵的熔點（1538 °C），所以產生的鐵水可以直接灌進鐵軌接縫焊接。` },
+{ id:"6-A3", kind:"num", tag:"應用", title:"鋼在高溫氧化放多少熱？",
+  formula:R`Kirchhoff：\(\Delta H_T = \Delta H_{298} + \int_{298}^{T}\Delta c_P\,dT\)`,
+  text:R`鋼在 1000 K 的爐中表面氧化：Fe + ½O₂ → FeO，\(\Delta H_{298} = -272\ \text{kJ}\)。這個溫度範圍內 \(\Delta c_P \approx -3.6\ \text{J/K}\)（視為常數）。求 1000 K 的反應熱，單位 kJ。`,
+  answer:-274.5, tol:0.005, unit:"kJ",
+  hint:R`\(\Delta H_{1000} = -272{,}000 + (-3.6)\times(1000 - 298)\)。`,
+  sol:R`\(\Delta H_{1000} = -272{,}000 - 2527 \approx -274.5\ \text{kJ}\)，只差約 1%。所以很多估算直接用 298 K 的值；但 \(\Delta c_P\) 大、或中間有相變時（像講義的 Zr、Pb），就一定要用 Kirchhoff 修正。` },
+{ id:"6-A4", kind:"num", tag:"應用", title:"雲裡的過冷水滴、凍雨",
+  formula:R`絕熱：\(\Delta H = 0\)；結冰放熱 \(x\Delta H_m\) = 把水滴加熱回 0 °C 的熱`,
+  text:R`雲裡的水滴可以過冷到 −10 °C 還不結冰。一旦受到擾動（例如碰到飛機機翼），會突然開始結冰，放出的熱讓水滴升溫到 0 °C 就停止。液態水 \(c_P = 75.3\ \text{J/(mol·K)}\)、熔化熱 6008 J/mol。瞬間結冰的比例大約是多少？（請輸入小數）`,
+  answer:0.125, tol:0.02, unit:"",
+  hint:R`和習題 P6（過冷 Sn）一樣：\(x\Delta H_m = c_P\times10\)。`,
+  sol:R`\(x = 75.3\times10/6008 \approx 0.125\)，約 1/8 瞬間結冰，其餘仍是 0 °C 的水，會在機翼上慢慢流開再凍住，形成危險的透明積冰。凍雨打在地面瞬間結冰也是同樣的道理。` }
 ];
 
 </script>

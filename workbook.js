@@ -205,6 +205,10 @@ if(typeof derivations!=="undefined") derivations.forEach((d,di)=>{
     btns.append(hb,ab); step.append(btns,hint,ans); body.appendChild(step);
   });
   body.appendChild(el("div",{class:"meaning"},`<span class="lbl">物理意義　</span>${d.meaning}`));
+  if(d.apps && typeof problems!=="undefined"){
+    const links=d.apps.map(id=>{const p=problems.find(q=>q.id===id);return p?`<a href="#${id}" data-open="${id}">${id.split("-")[1]} ${p.title}</a>`:"";}).filter(Boolean).join("　");
+    if(links) body.appendChild(el("div",{class:"uses"},`<span class="lbl">這個公式用在哪裡？</span>${links}`));
+  }
   d.checks.forEach((c,ci)=> body.appendChild(mcBlock(d.id,c.q,c.opts,c.ans,c.ex,"檢查點 "+(ci+1))));
   body.appendChild(recordBlock(d.id,"derive"));
   det.appendChild(body); dWrap.appendChild(det);
@@ -218,6 +222,7 @@ if(typeof problems!=="undefined") problems.forEach(p=>{
   det.innerHTML = `<summary><span>${p.id.split("-")[1]}　${p.title}</span><span class="tag${p.tag?" app":""}">${tag}</span></summary>`;
   det.addEventListener("toggle",()=>{ if(det.open){ const s=st(p.id); if(!s.start) s.start=Date.now(); }});
   const body = el("div",{class:"body"});
+  if(p.formula) body.appendChild(el("div",{class:"goal"},`<span class="lbl">這題用到的公式</span>${p.formula}`));
   body.appendChild(el("p",{},p.text));
   const s0 = st(p.id);
   if(p.kind==="mc"){
@@ -255,7 +260,7 @@ if(typeof problems!=="undefined") problems.forEach(p=>{
   sb.onclick=()=>{ sol.classList.add("shown"); };
   btns.append(hb,sb); body.append(btns,hint,sol);
   body.appendChild(recordBlock(p.id,p.kind));
-  det.appendChild(body); pWrap.appendChild(det);
+  det.appendChild(body); ((p.tag && document.getElementById("appList")) || pWrap).appendChild(det);
 });
 
 function typeset(node){ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([node]).catch(()=>{}); }
@@ -268,3 +273,6 @@ if(window.GAME){
   GAME.retroCount = () => Object.values(HIST).filter(h=>h.ok).length;
   GAME.init({mount:document.getElementById("userbar"), weak:weakZone()});
 }
+
+/* 點「用在哪裡」連結時自動展開該題 */
+document.addEventListener("click",e=>{const a=e.target.closest("[data-open]"); if(!a) return; const d=document.getElementById(a.dataset.open); if(d){ d.open=true; }});

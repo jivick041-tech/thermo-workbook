@@ -7,7 +7,7 @@
   <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 5</div>
   <h1>熱力學關係式</h1>
   <div class="byline">明志科大材料系 黃裕清老師</div>
-  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
 </header>
 <div class="card userbar" id="userbar"></div>
 <div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
@@ -101,8 +101,12 @@ show("G");
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
 <div class="pager"><a href="unit04.html">← 單元 4</a><a href="index.html">目錄</a><a href="unit06.html">單元 6 →</a></div>
 <footer>材料熱力學練習簿 · 單元 5 熱力學關係式 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
@@ -202,7 +206,7 @@ const derivations = [
   ]
 },
 {
-  id:"5-D4", math:["m3", "m4"], title:R`熵的全微分 \(dS(T,V)\) 與 \(dS(T,P)\)`,
+  id:"5-D4", apps:["5-A1"], math:["m3", "m4"], title:R`熵的全微分 \(dS(T,V)\) 與 \(dS(T,P)\)`,
   goal:R`\(dS = \dfrac{C_V}{T}dT + \dfrac{\alpha}{\beta}dV \qquad dS = \dfrac{C_P}{T}dT - V\alpha\,dP\)`,
   from:R`熱容的定義、Maxwell 關係式`,
   steps:[
@@ -230,7 +234,7 @@ const derivations = [
   ]
 },
 {
-  id:"5-D5", math:["m3", "m4"], title:R`\(C_P - C_V\) 的一般式`,
+  id:"5-D5", apps:["5-A4"], math:["m3", "m4"], title:R`\(C_P - C_V\) 的一般式`,
   goal:R`\(C_P - C_V = \dfrac{TV\alpha^2}{\beta}\)`,
   from:"D4 的兩條 dS 式子",
   steps:[
@@ -258,7 +262,7 @@ const derivations = [
   ]
 },
 {
-  id:"5-D6", math:["m5"], title:"Gibbs–Helmholtz 方程",
+  id:"5-D6", apps:["5-A3"], math:["m5"], title:"Gibbs–Helmholtz 方程",
   goal:R`\(\left[\dfrac{\partial (G/T)}{\partial T}\right]_P = -\dfrac{H}{T^2}\)`,
   from:R`\(dG = -S\,dT + V\,dP\)、\(G = H - TS\)`,
   steps:[
@@ -289,7 +293,7 @@ const derivations = [
   ]
 },
 {
-  id:"5-D7", math:["m3", "m9"], title:"Joule–Thomson 係數",
+  id:"5-D7", apps:["5-A2"], math:["m3", "m9"], title:"Joule–Thomson 係數",
   goal:R`\(\mu_{JT} \equiv \left(\dfrac{\partial T}{\partial P}\right)_H = \dfrac{V}{C_P}(T\alpha - 1)\)`,
   from:R`第一定律、\(dH = T\,dS + V\,dP\)、循環關係、Maxwell 關係式`,
   steps:[
@@ -406,16 +410,30 @@ const problems = [
   理想氣體 \(P = RT/V\)，\((\partial P/\partial T)_V = R/V\)，再微一次為 0，所以 \(c_V\) 不隨體積改變。`
 }
 ,
-{ id:"5-A1", kind:"num", tag:"應用", title:"快速壓縮金屬會升溫多少？",
+{ id:"5-A1", kind:"num", tag:"應用",
+  formula:R`\((\partial T/\partial P)_S = TV\alpha/c_P\)（習題 P7）`, title:"快速壓縮金屬會升溫多少？",
   text:R`銅在 298 K 下被快速（絕熱、可逆）加壓 1 GPa，例如高壓實驗或衝擊加工。銅的數據：\(V = 7.11\ \text{cm}^3/\text{mol}\)、\(\alpha = 4.95\times10^{-5}\ \text{K}^{-1}\)、\(c_P = 24.4\ \text{J/(mol·K)}\)。溫度大約升高多少 K？`,
   answer:4.30, tol:0.02, unit:"K",
   hint:R`用習題 P7 的結果 \(\left(\dfrac{\partial T}{\partial P}\right)_S = \dfrac{TV\alpha}{c_P}\)，近似成 \(\Delta T \approx \dfrac{TV\alpha}{c_P}\Delta P\)。`,
   sol:R`\(\Delta T \approx \dfrac{298\times7.11\times10^{-6}\times4.95\times10^{-5}}{24.4}\times10^9 \approx 4.3\ \text{K}\)。固體的 \(V\alpha\) 很小，所以 1 萬大氣壓也只升溫幾度；氣體做同樣的事會熱很多（單元 1 的打氣筒）。` },
-{ id:"5-A2", kind:"num", tag:"應用", title:"液化氮氣：節流降溫",
+{ id:"5-A2", kind:"num", tag:"應用",
+  formula:R`Joule–Thomson：\(\Delta T \approx \mu_{JT}\Delta P\)，\(\mu_{JT} = \frac{V}{c_P}(T\alpha - 1)\)`, title:"液化氮氣：節流降溫",
   text:R`室溫附近氮氣的 Joule–Thomson 係數約 \(\mu_{JT} = 0.22\ \text{K/atm}\)。高壓氮氣從 200 atm 經節流閥降到 1 atm，溫度大約下降多少 K？`,
   answer:43.8, tol:0.02, unit:"K",
   hint:R`\(\Delta T \approx \mu_{JT}\Delta P\)，\(\Delta P = 1 - 200 = -199\ \text{atm}\)。`,
-  sol:R`\(\Delta T \approx 0.22\times(-199) \approx -43.8\ \text{K}\)，降溫約 44 K。一次節流不夠冷，工業上（Linde 液化法）用冷卻後的氣體去預冷下一批高壓氣體，反覆循環到 77 K，氮氣就液化了。\(\mu_{JT} > 0\) 的條件就是推導 D7 的 \(T\alpha > 1\)。` }
+  sol:R`\(\Delta T \approx 0.22\times(-199) \approx -43.8\ \text{K}\)，降溫約 44 K。一次節流不夠冷，工業上（Linde 液化法）用冷卻後的氣體去預冷下一批高壓氣體，反覆循環到 77 K，氮氣就液化了。\(\mu_{JT} > 0\) 的條件就是推導 D7 的 \(T\alpha > 1\)。` },
+{ id:"5-A3", kind:"num", tag:"應用", title:"從兩個溫度的 ΔG 求反應熱",
+  formula:R`Gibbs–Helmholtz；\(\Delta H\)、\(\Delta S\) 為常數時 \(\Delta G = \Delta H - T\Delta S\)（直線）`,
+  text:R`用高溫電化學實驗量到某氧化反應：800 K 時 \(\Delta G = -200\ \text{kJ}\)，1000 K 時 \(\Delta G = -170\ \text{kJ}\)。假設 \(\Delta H\)、\(\Delta S\) 不隨溫度改變，求 \(\Delta H\)，單位 kJ。`,
+  answer:-320, tol:0.01, unit:"kJ",
+  hint:R`斜率 \(d\Delta G/dT = -\Delta S\)；再用 \(\Delta H = \Delta G + T\Delta S\)。`,
+  sol:R`\(-\Delta S = \dfrac{-170 - (-200)}{1000 - 800} = 0.15\ \text{kJ/K} \Rightarrow \Delta S = -150\ \text{J/K}\)；\(\Delta H = -200 + 800\times(-0.15) = -320\ \text{kJ}\)。實驗上「量 \(\Delta G\)（電動勢、平衡常數）求 \(\Delta H\)」常常比直接量熱還準，這就是 Gibbs–Helmholtz 方程的用途。` },
+{ id:"5-A4", kind:"num", tag:"應用", title:"高溫時 c_P 和 c_V 還能當成一樣嗎？",
+  formula:R`\(c_P - c_V = \dfrac{TV\alpha^2}{\beta}\)`,
+  text:R`鋁：\(V = 10.0\ \text{cm}^3/\text{mol}\)、\(\alpha = 6.9\times10^{-5}\ \text{K}^{-1}\)、\(\beta = 1.33\times10^{-11}\ \text{Pa}^{-1}\)（假設不隨溫度改變）。求 800 K 時的 \(c_P - c_V\)，單位 J/(mol·K)。`,
+  answer:2.86, tol:0.02, unit:"J/(mol·K)",
+  hint:R`\(V\) 換成 \(10^{-5}\ \text{m}^3\)，直接代入。`,
+  sol:R`\(c_P - c_V = \dfrac{800\times10^{-5}\times(6.9\times10^{-5})^2}{1.33\times10^{-11}} \approx 2.86\ \text{J/(mol·K)}\)。298 K 時只有 1.07，800 K 已經是 \(c_P\)（約 30）的一成。理論算出的 \(c_V\)（Einstein、Debye，單元 6）要和實驗量的 \(c_P\) 比較時，高溫一定要做這個修正。` }
 ];
 
 </script>

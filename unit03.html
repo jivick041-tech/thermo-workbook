@@ -7,7 +7,7 @@
   <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 3</div>
   <h1>熵的統計詮釋</h1>
   <div class="byline">明志科大材料系 黃裕清老師</div>
-  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
 </header>
 <div class="card userbar" id="userbar"></div>
 <div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
@@ -49,8 +49,12 @@
 <div id="derivations"></div>
 <div class="partlbl">第三部分</div>
 <h2 id="problems">習題</h2>
-<p>數值題請輸入答案後按「檢查」，可以重複作答。標著「應用」的是生活或材料工程裡的真實情境題，用的都是前面推導出來的式子。</p>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
 <div class="pager"><a href="unit02.html">← 單元 2</a><a href="index.html">目錄</a><a href="unit04.html">單元 4 →</a></div>
 <footer>材料熱力學練習簿 · 單元 3 熵的統計詮釋 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
@@ -137,7 +141,7 @@ const derivations = [
   ]
 },
 {
-  id:"3-D4", math:["m7"], title:"理想混合熵",
+  id:"3-D4", apps:["3-A1", "3-A2", "3-A3"], math:["m7"], title:"理想混合熵",
   goal:R`\(\Delta S_{mix} = -R\,(X_A\ln X_A + X_B\ln X_B)\)（每莫耳）`,
   from:R`\(S = k\ln\Omega\)、D2 的 \(\Omega\)、D3 的 Stirling 近似、\(k N_A = R\)`,
   steps:[
@@ -197,7 +201,7 @@ const derivations = [
   ]
 },
 {
-  id:"3-D6", math:["m4","m7"], title:"（進階）Boltzmann 分布與 S = k ln Ω",
+  id:"3-D6", apps:["3-A4"], math:["m4","m7"], title:"（進階）Boltzmann 分布與 S = k ln Ω",
   goal:R`最可能的分布 \(n_i = \dfrac{n\,e^{-\varepsilon_i/kT}}{P}\)（\(P = \sum e^{-\varepsilon_i/kT}\) 為配分函數），並由此得到 \(S = k\ln\Omega\)`,
   from:R`\(\ln\Omega = \ln n! - \sum\ln n_i!\)、Stirling 近似、粒子數與總能量固定`,
   steps:[
@@ -290,16 +294,30 @@ const problems = [
   \(\Delta S_{total} = 23.05 + 7.18 - 5.57 \approx 24.66\ \text{J/K}\)。`
 }
 ,
-{ id:"3-A1", kind:"num", tag:"應用", title:"高熵合金的「高熵」有多高？",
+{ id:"3-A1", kind:"num", tag:"應用",
+  formula:R`組態熵：\(\Delta S_{conf} = -R\sum X_i\ln X_i\)`, title:"高熵合金的「高熵」有多高？",
   text:R`高熵合金是由 5 種以上元素、接近等莫耳混合的合金，例如 CoCrFeMnNi（Cantor 合金）。假設 5 種元素完全隨機排在晶格上，1 mol 合金的組態熵是多少 J/(mol·K)？`,
   answer:13.38, tol:0.01, unit:"J/(mol·K)",
   hint:R`\(\Delta S_{conf} = -R\sum X_i\ln X_i\)，每個 \(X_i = 0.2\)。`,
   sol:R`\(\Delta S = -R\times5\times0.2\ln0.2 = R\ln5 \approx 13.38\ \text{J/(mol·K)}\)，約 \(1.61R\)。一般把 \(\Delta S_{conf} \ge 1.5R\) 的合金叫高熵合金。高溫時 \(-T\Delta S\) 很大，能讓單一固溶體相比金屬間化合物更穩定，這是這類材料的設計概念。` },
-{ id:"3-A2", kind:"num", tag:"應用", title:"為什麼晶體裡一定有空位？",
+{ id:"3-A2", kind:"num", tag:"應用",
+  formula:R`組態熵：\(\Delta S_{conf} = -R[X_v\ln X_v + (1 - X_v)\ln(1 - X_v)]\)`, title:"為什麼晶體裡一定有空位？",
   text:R`一塊金屬中，晶格位置有 0.01%（莫耳分率 \(X_v = 10^{-4}\)）是空位。把空位和原子當成兩種「粒子」隨機分布，求每莫耳晶格位置的組態熵，單位 J/(mol·K)。`,
   answer:0.00849, tol:0.02, unit:"J/(mol·K)",
   hint:R`\(\Delta S = -R[X_v\ln X_v + (1 - X_v)\ln(1 - X_v)]\)，\(\ln10^{-4} \approx -9.21\)。`,
-  sol:R`\(\Delta S = -8.314\times[10^{-4}\times(-9.21) + 0.9999\times(-1.0\times10^{-4})] \approx 8.5\times10^{-3}\ \text{J/(mol·K)}\)。造空位要花能量（\(\Delta H > 0\)），但很少的空位就能帶來組態熵，而且 \(-R\ln X_v\) 在 \(X_v \to 0\) 時趨近無限大，所以 \(G\) 的最低點一定落在「有一些空位」的地方。這就是晶體在任何溫度下都有平衡空位的原因。` }
+  sol:R`\(\Delta S = -8.314\times[10^{-4}\times(-9.21) + 0.9999\times(-1.0\times10^{-4})] \approx 8.5\times10^{-3}\ \text{J/(mol·K)}\)。造空位要花能量（\(\Delta H > 0\)），但很少的空位就能帶來組態熵，而且 \(-R\ln X_v\) 在 \(X_v \to 0\) 時趨近無限大，所以 \(G\) 的最低點一定落在「有一些空位」的地方。這就是晶體在任何溫度下都有平衡空位的原因。` },
+{ id:"3-A3", kind:"num", tag:"應用", title:"Cu–Ni 合金為什麼能任意比例互溶？",
+  formula:R`理想溶液：\(\Delta H_{mix} = 0\)，\(\Delta G_{mix} = -T\Delta S_{mix} = RT(X_A\ln X_A + X_B\ln X_B)\)`,
+  text:R`Cu 和 Ni 原子大小、結構都很接近，混合時幾乎不吸熱也不放熱，可以近似成理想溶液。求 1000 K 時，1 mol Cu₅₀Ni₅₀ 合金的混合自由能 \(\Delta G_{mix}\)，單位 J/mol。`,
+  answer:-5763, tol:0.01, unit:"J/mol",
+  hint:R`\(\Delta G_{mix} = -T\Delta S_{mix} = RT\ln0.5\)。`,
+  sol:R`\(\Delta G_{mix} = 8.314\times1000\times\ln0.5 \approx -5763\ \text{J/mol} < 0\)，所以混合是自發的。只要 \(\Delta H_{mix} \approx 0\)，熵就會讓任何比例都能互溶，這就是 Cu–Ni 相圖是「全互溶」的原因（單元 9、10 會再看到）。` },
+{ id:"3-A4", kind:"num", tag:"應用", title:"為什麼擴散、熱處理都要高溫？",
+  formula:R`Boltzmann 分布：能量 \(E\) 以上的原子比例 \(\propto e^{-E/kT}\)`,
+  text:R`原子要跳到隔壁空位，需要越過約 \(E = 1\ \text{eV}\) 的能障（\(E/k \approx 11{,}605\ \text{K}\)）。1000 K 時能跳的原子比例，大約是 300 K 時的 10 的幾次方倍？（請輸入次方數，例如 5.2）`,
+  answer:11.76, tol:0.01, unit:"",
+  hint:R`比例比 \(= \exp\!\left[\dfrac{E}{k}\left(\dfrac{1}{300} - \dfrac{1}{1000}\right)\right]\)，再取 \(\log_{10}\)（\(\ln x = 2.303\log_{10}x\)）。`,
+  sol:R`指數 \(= 11605\times(0.003333 - 0.001) = 27.08\)，\(\log_{10} = 27.08/2.303 \approx 11.8\)，約 \(6\times10^{11}\) 倍。溫度只升高 3 倍多，能跳的原子卻多了上千億倍，所以退火、滲碳、燒結都要在高溫做，室溫下金屬的原子幾乎不動。` }
 ];
 
 </script>
