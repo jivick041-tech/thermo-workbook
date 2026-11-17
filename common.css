@@ -107,3 +107,10 @@
   .qrcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:14px}
   .qrcard .qr{display:flex;justify-content:center;margin:6px 0}
   .qrcard .qr img,.qrcard .qr canvas{width:140px;height:140px}
+
+  .figbox{margin:16px auto;text-align:center}
+  .figbox .fig{width:100%;max-width:540px;height:auto;display:block;margin:0 auto}
+  .figbox figcaption{font-size:13.5px;color:var(--muted);margin-top:4px}
+  .tsq{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;text-align:left}
+  .tsq .fig{max-width:330px}
+  .tsq-panel{flex:1 1 240px;max-width:360px}

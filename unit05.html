@@ -29,6 +29,38 @@
 <div class="tip"><b>熱力學方塊（講義的記法）</b><br>
 畫一個正方形：四個邊放能量函數 \(U, H, G, A\)，四個角放變數 \(S, P, T, V\)（例如邊上依序 \(A\)、\(G\)、\(H\)、\(U\)；角落 \(V, T\) 在 \(A\) 兩側、\(T, P\) 在 \(G\) 兩側、\(P, S\) 在 \(H\) 兩側、\(S, V\) 在 \(U\) 兩側）。<br>
 兩條對角線各畫一個箭頭：從 \(S\) 指向 \(T\)、從 \(P\) 指向 \(V\)。<br>原則：能量函數兩旁的兩個角是「微分項」，各自斜對面的角是「係數」；從微分項到係數順著箭頭為「＋」，逆著為「－」。<br>例：\(G\) 兩旁是 \(T\)、\(P\)；\(T\) 的對角是 \(S\)（\(T\to S\) 逆箭頭，\(-S\,dT\)），\(P\) 的對角是 \(V\)（\(P\to V\) 順箭頭，\(+V\,dP\)），所以 \(dG = -S\,dT + V\,dP\)。</div>
+<figure class="figbox"><div class="tsq"><svg viewBox="0 0 360 360" class="fig" style="max-width:340px" role="img" aria-label="熱力學方塊"><style>.ax{font:italic 17px "Times New Roman",serif;fill:#1f2328}.lb{font:14px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#1f2328}.lbs{font:12.5px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#5f6670}.it{font:italic 15px "Times New Roman",serif}</style><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+<marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d5c8f"/></marker>
+<marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+</defs>
+<rect x="70" y="70" width="220" height="220" fill="none" stroke="#8a8f96" stroke-width="2"/>
+<line x1="88" y1="272" x2="272" y2="88" stroke="#1f2328" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="272" y1="272" x2="88" y2="88" stroke="#1f2328" stroke-width="2" marker-end="url(#ah)"/><g class="tsq-c" data-k="V"><circle cx="70" cy="70" r="22" fill="#fff" stroke="#1f2328" stroke-width="1.5"/><text x="70" y="77" text-anchor="middle" style="font:italic 22px Times New Roman,serif">V</text></g><g class="tsq-c" data-k="T"><circle cx="290" cy="70" r="22" fill="#fff" stroke="#1f2328" stroke-width="1.5"/><text x="290" y="77" text-anchor="middle" style="font:italic 22px Times New Roman,serif">T</text></g><g class="tsq-c" data-k="S"><circle cx="70" cy="290" r="22" fill="#fff" stroke="#1f2328" stroke-width="1.5"/><text x="70" y="297" text-anchor="middle" style="font:italic 22px Times New Roman,serif">S</text></g><g class="tsq-c" data-k="P"><circle cx="290" cy="290" r="22" fill="#fff" stroke="#1f2328" stroke-width="1.5"/><text x="290" y="297" text-anchor="middle" style="font:italic 22px Times New Roman,serif">P</text></g><g class="tsq-e" data-k="A" style="cursor:pointer"><rect x="156" y="50" width="48" height="40" rx="8" fill="#e8f0f7" stroke="#1d5c8f" stroke-width="1.5"/><text x="180" y="78" text-anchor="middle" style="font:bold italic 22px Times New Roman,serif;fill:#1d5c8f">A</text></g><g class="tsq-e" data-k="G" style="cursor:pointer"><rect x="266" y="160" width="48" height="40" rx="8" fill="#e8f0f7" stroke="#1d5c8f" stroke-width="1.5"/><text x="290" y="188" text-anchor="middle" style="font:bold italic 22px Times New Roman,serif;fill:#1d5c8f">G</text></g><g class="tsq-e" data-k="H" style="cursor:pointer"><rect x="156" y="270" width="48" height="40" rx="8" fill="#e8f0f7" stroke="#1d5c8f" stroke-width="1.5"/><text x="180" y="298" text-anchor="middle" style="font:bold italic 22px Times New Roman,serif;fill:#1d5c8f">H</text></g><g class="tsq-e" data-k="U" style="cursor:pointer"><rect x="46" y="160" width="48" height="40" rx="8" fill="#e8f0f7" stroke="#1d5c8f" stroke-width="1.5"/><text x="70" y="188" text-anchor="middle" style="font:bold italic 22px Times New Roman,serif;fill:#1d5c8f">U</text></g><text x="180" y="345" text-anchor="middle" class="lbs">口訣（從 V 開始順時針繞一圈）：V A T G P H S U</text></svg><div class="tsq-panel"><div class="lbs" style="margin-bottom:6px">點方塊邊上的 U、H、A、G 看怎麼讀：</div>
+<div class="btns"><button data-k="U">dU</button><button data-k="H">dH</button><button data-k="A">dA</button><button data-k="G">dG</button></div>
+<div class="tsq-out"></div></div></div>
+<script>
+(function(){
+const box=document.currentScript.previousElementSibling;
+const D={U:["S","V","T","P"],H:["S","P","T","V"],A:["T","V","S","P"],G:["T","P","S","V"]};
+const ARW={"S":"T","P":"V"};
+const sign=(d,c)=>ARW[d]===c?"+":"−";
+function show(k){
+  const [d1,d2,c1,c2]=D[k];
+  box.querySelectorAll(".tsq-c circle").forEach(c=>{const kk=c.parentNode.dataset.k;c.setAttribute("fill",kk===d1||kk===d2?"#d4f0de":(kk===c1||kk===c2?"#fbe3c4":"#fff"));});
+  box.querySelectorAll(".tsq-e rect").forEach(r=>r.setAttribute("fill",r.parentNode.dataset.k===k?"#bcd6ec":"#e8f0f7"));
+  const s1=sign(d1,c1),s2=sign(d2,c2);
+  const term=(s,c,d,first)=>(first?(s==="−"?"−":""):(" "+s+" "))+c+" d"+d;
+  box.querySelector(".tsq-out").innerHTML=
+   `<div style="font:italic 22px 'Times New Roman',serif;margin:8px 0">d${k} = ${term(s1,c1,d1,true)}${term(s2,c2,d2,false)}</div>
+    <div class="lbs">① ${k} 兩旁的角 <b style="color:#1f7a4a">${d1}、${d2}</b>（綠色）是微分項 d${d1}、d${d2}。<br>
+    ② 各自的斜對角 <b style="color:#b9770e">${c1}、${c2}</b>（橘色）是係數。<br>
+    ③ ${d1} → ${c1} ${s1==="+"?"順著":"逆著"}箭頭，取「${s1}」；${d2} → ${c2} ${s2==="+"?"順著":"逆著"}箭頭，取「${s2}」。</div>`;
+}
+box.querySelectorAll("button[data-k],.tsq-e").forEach(b=>b.addEventListener("click",()=>show(b.dataset.k)));
+show("G");
+})();
+</script><figcaption>點 U、H、A、G 試試看：綠色是微分項、橘色是係數</figcaption></figure>
 
 <h3>2. Maxwell 關係式</h3>
 <p>四個基本方程都是恰當微分，交叉偏導數相等，得到四條 Maxwell 關係式。式子裡沒有 \(U, H, A, G\)，只剩 \(T, S, P, V\)：</p>

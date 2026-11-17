@@ -112,6 +112,19 @@
 \(dZ = \left(\dfrac{\partial Z}{\partial x}\right)_y dx + \left(\dfrac{\partial Z}{\partial y}\right)_x dy\)</div>
 <div class="ex">例：長方形 \(Z = xy\)，長多了 \(dx\)、寬多了 \(dy\)：\(dZ = y\,dx + x\,dy\)。<br>
 想像畫圖：原本的長方形右邊多了一條（面積 \(y\,dx\)），上面多了一條（面積 \(x\,dy\)）；角落那一小塊 \(dx\,dy\) 小到可以忽略。</div>
+<figure class="figbox"><svg viewBox="0 0 360 230" class="fig" style="max-width:360px" role="img" aria-label="長方形變大的示意圖">
+<style>.ax{font:italic 16px "Times New Roman",serif}.lb{font:13px "Noto Sans TC","Microsoft JhengHei",sans-serif}</style>
+<rect x="40" y="60" width="200" height="120" fill="#e8f0f7" stroke="#1f2328" stroke-width="1.5"/>
+<rect x="240" y="60" width="40" height="120" fill="#fbe3c4" stroke="#b9770e"/>
+<rect x="40" y="30" width="200" height="30" fill="#d4f0de" stroke="#1f7a4a"/>
+<rect x="240" y="30" width="40" height="30" fill="#eee" stroke="#8a8f96" stroke-dasharray="3 3"/>
+<text x="140" y="125" text-anchor="middle" class="lb">原本面積 Z = xy</text>
+<text x="140" y="200" text-anchor="middle" class="ax">x</text><text x="22" y="125" class="ax">y</text>
+<text x="260" y="200" text-anchor="middle" class="ax">dx</text><text x="292" y="49" class="ax">dy</text>
+<text x="300" y="125" class="lb" style="fill:#b9770e">y dx</text>
+<text x="140" y="50" text-anchor="middle" class="lb" style="fill:#1f7a4a">x dy</text>
+<text x="262" y="22" text-anchor="middle" class="lb" style="fill:#8a8f96">dx dy（小到忽略）</text>
+</svg><figcaption>長和寬都多一點點：多出來的面積 dZ = y dx + x dy</figcaption></figure>
 <div class="ex">熱力學例：把熵看成溫度和體積的函數 \(S(T,V)\)：\(dS = \left(\dfrac{\partial S}{\partial T}\right)_V dT + \left(\dfrac{\partial S}{\partial V}\right)_T dV\)。</div>
 </div>
 
