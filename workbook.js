@@ -22,6 +22,35 @@ function sendRecord(rec, useBeacon){
   return fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body}).then(()=>"ok");
 }
 
+/* ===== 遊戲（game.js）用的作答歷史 ===== */
+const UNIT_NO = String(UNIT).split(" ")[0];
+const UNIT_NAMES={"0":"單元 0 認識主角與數學","1":"單元 1 第一定律","2":"單元 2 第二定律與熵","3":"單元 3 熵的統計詮釋","4":"單元 4 熱力勢與平衡判據","5":"單元 5 熱力學關係式"};
+let HIST={};
+function loadHist(){ try{ HIST=JSON.parse(localStorage.getItem("thermo-hist-"+(LOGIN.sid||""))||"{}")||{}; }catch(e){ HIST={}; } }
+function saveHist(){ try{ localStorage.setItem("thermo-hist-"+(LOGIN.sid||""),JSON.stringify(HIST)); }catch(e){} }
+loadHist();
+function weakZone(){
+  const t={};
+  for(const k in HIST){ const u=k.split("-")[0]; t[u]=t[u]||{ok:0,n:0}; t[u].n++; if(HIST[k].ok) t[u].ok++; }
+  let best=null;
+  for(const u in t){ const f=t[u].ok/t[u].n; if(t[u].ok<t[u].n && (!best||f<best.f)) best={f,key:"u"+u,label:UNIT_NAMES[u]||("單元 "+u)}; }
+  return best?{key:best.key,label:best.label}:null;
+}
+function gameAnswer(key, ok, opts){
+  opts=opts||{};
+  const h=HIST[key]||{tries:0,ok:false}; const prevTries=h.tries, wasOk=h.ok;
+  h.tries++; if(ok) h.ok=true; HIST[key]=h; saveHist();
+  if(!window.GAME||!LOGIN.sid) return;
+  if(ok && !wasOk){
+    GAME.answer({id:key, ok:true, first:prevTries===0, practice:!!opts.practice, wasWrong:prevTries>0,
+      kind:opts.kind||"auto", nohint:!!opts.nohint, zone:{key:"u"+UNIT_NO, label:UNIT_NAMES[UNIT_NO]||UNIT}});
+    GAME.setWeak(weakZone());
+  } else if(!ok && !wasOk && opts.kind!=="open") GAME.wrong({id:key});
+}
+let lastAct=Date.now();
+["click","keydown","scroll","touchstart"].forEach(ev=>addEventListener(ev,()=>{lastAct=Date.now()},{passive:true}));
+setInterval(()=>{ if(window.GAME && LOGIN.sid && document.visibilityState==="visible" && Date.now()-lastAct<120000) GAME.time(5); },5000);
+
 function showGate(){
   document.body.style.overflow="hidden";
   const ov = el("div",{class:"gate"});
@@ -43,6 +72,8 @@ function showGate(){
     try{ localStorage.setItem("thermo_sid",sid); localStorage.setItem("thermo_name",name); sessionStorage.setItem("thermo_in_"+UNIT,"1"); }catch(e){}
     ov.remove(); document.body.style.overflow="";
     renderUserBar();
+    loadHist();
+    if(window.GAME){ GAME.refreshUser(); GAME.setWeak(weakZone()); }
     sendRecord({event:"進入單元"});
   };
   ov.querySelector("#g-go").onclick=go;
@@ -79,6 +110,7 @@ function mcBlock(id, q, opts, ans, ex, countKey){
     const ok = +sel.value===ans;
     if(!counted){ s.total++; if(ok) s.correct++; counted=true; }
     sendRecord({event:"作答", itemId:id, type:itemType(id), result:(countKey+"："+(ok?"對":"錯"))});
+    gameAnswer(id+"|"+countKey, ok, {practice:id.includes("-P"), nohint:(s.hints===0&&s.revealed===0)});
     fb.className = "fb "+(ok?"ok":"bad");
     fb.innerHTML = (ok?"答對了。":"再想想。")+(ok?" "+ex:"");
     typeset(fb);
@@ -118,6 +150,7 @@ function submitRecord(id, kind, box){
   if(!rating){ status.textContent="請選擇理解程度。"; return; }
   const rec = Object.assign(summarize(id,kind), {event:"完成自評", rating:rating.value, feedback:box.querySelector("textarea").value.trim()});
   s.submitted = true;
+  if(window.GAME){ GAME.self(id); if(rec.feedback) GAME.rate(id); }
   status.textContent="儲存中…";
   sendRecord(rec).then(r=>{
     if(r==="preview"){
@@ -201,6 +234,7 @@ if(typeof problems!=="undefined") problems.forEach(p=>{
       const ok = Math.abs(v-p.answer) <= Math.abs(p.answer)*p.tol;
       s.total++; if(ok) s.correct=1;
       sendRecord({event:"作答", itemId:p.id, type:"習題", result:"輸入 "+v+"："+(ok?"對":"錯")});
+      gameAnswer(p.id, ok, {practice:true, nohint:s.hints===0});
       fb.className="fb "+(ok?"ok":"bad");
       fb.textContent = ok ? "答對了！可以展開詳解對照。" : (Math.sign(v)!==Math.sign(p.answer) ? "正負號不對，再檢查一次。" : "數值不對，檢查單位換算與代入的數字。");
     };
@@ -209,7 +243,7 @@ if(typeof problems!=="undefined") problems.forEach(p=>{
     const row = el("div",{class:"btns"});
     const ok=el("button",{},"我做對了"), bad=el("button",{},"我做錯了／沒做出來");
     const fb = el("div",{class:"fb"});
-    ok.onclick=()=>{ s0.done=true; s0.selfWrong=false; if(!s0.start) s0.start=Date.now(); fb.className="fb ok"; fb.textContent="很好！"; sendRecord({event:"作答", itemId:p.id, type:"習題", result:"自評：做對"}); };
+    ok.onclick=()=>{ s0.done=true; s0.selfWrong=false; if(!s0.start) s0.start=Date.now(); fb.className="fb ok"; fb.textContent="很好！"; sendRecord({event:"作答", itemId:p.id, type:"習題", result:"自評：做對"}); gameAnswer(p.id, true, {practice:true, kind:"open"}); };
     bad.onclick=()=>{ s0.done=false; s0.selfWrong=true; if(!s0.start) s0.start=Date.now(); fb.className="fb bad"; fb.textContent="對照詳解，找出卡住的地方，寫在下面的回饋裡。"; sendRecord({event:"作答", itemId:p.id, type:"習題", result:"自評：做錯"}); };
     body.appendChild(el("div",{class:"stats"},"先在紙上寫出證明，對照詳解後自評："));
     row.append(ok,bad); body.append(row,fb);
@@ -226,3 +260,11 @@ if(typeof problems!=="undefined") problems.forEach(p=>{
 
 function typeset(node){ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([node]).catch(()=>{}); }
 window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };
+
+/* ===== 啟動遊戲 ===== */
+if(window.GAME){
+  GAME.onLoginRequest = showGate;
+  GAME.onGuide = z => { const n=(z.key||"").replace(/^u/,""); if(n!==UNIT_NO) location.href="unit"+n.padStart(2,"0")+".html"; else document.getElementById(n==="0"?"mathquiz":"derive").scrollIntoView({behavior:"smooth"}); };
+  GAME.retroCount = () => Object.values(HIST).filter(h=>h.ok).length;
+  GAME.init({mount:document.getElementById("userbar"), weak:weakZone()});
+}

@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="common.css"></head><body><div class="wrap">
 <header><div class="kicker">明志科大材料系 黃裕清老師</div><h1>材料熱力學練習簿</h1>
 <div class="byline">每個單元：觀念摘要（白話說明）→ 推導練習（逐步提示）→ 相關習題 → 自評紀錄</div></header>
+<div id="gmount"></div>
+<p>練習時答對題目會累積「能量」、突破境界；不練功的話「熵」會增加（就像第二定律）。點上方的 ❓ 看詳細玩法。</p>
 <p>第一次使用請從 <b>單元 0</b> 開始，先認識每個符號的意思和會用到的數學。</p>
 <div class="units"><a class="unit" href="unit00.html"><span class="no">0</span><span><b>先備：認識主角與數學工具箱</b><br><span class="stats">每個符號在說什麼（白話＋生活比喻）、會用到的數學</span></span></a>
 <a class="unit" href="unit01.html"><span class="no">1</span><span><b>第一定律</b><br><span class="stats">能量守恆、狀態函數、可逆過程、理想氣體的四種過程</span></span></a>
@@ -47,4 +49,11 @@ document.getElementById("qgo").onclick=makeQR;
 window.addEventListener("load",makeQR);
 </script>
 <footer>材料熱力學練習簿 · 右鍵或長按 QR code 圖片即可另存</footer></div><script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script></body></html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script src="game.js"></script>
+<script>
+if(window.GAME){
+  GAME.onGuide = z => { const n=(z.key||"").replace(/^u/,""); location.href="unit"+n.padStart(2,"0")+".html"; };
+  GAME.init({mount:document.getElementById("gmount")});
+}
+</script>
+</body></html>
