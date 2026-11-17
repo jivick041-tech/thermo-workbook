@@ -14,7 +14,18 @@
 <div class="partlbl">第一部分</div>
 <h2 id="summary">觀念摘要</h2>
 <div class="card">
-<h3 style="margin-top:4px">白話說：能量不會憑空出現，也不會憑空消失</h3>
+<h3 style="margin-top:4px">先講名詞：系統、外界、性質</h3>
+<table>
+<tr><th>系統種類</th><th>能交換什麼</th><th>例子</th></tr>
+<tr><td>開放系統</td><td>物質和能量都可以</td><td>沒蓋子的熱水壺</td></tr>
+<tr><td>封閉系統</td><td>只有能量（熱、功）</td><td>有活塞、不漏氣的汽缸</td></tr>
+<tr><td>孤立系統</td><td>什麼都不交換</td><td>理想的保溫瓶</td></tr>
+</table>
+<p><b>外延性質</b>（extensive）跟系統大小有關：體積、質量、莫耳數，兩杯水倒在一起會變兩倍。<b>內涵性質</b>（intensive）跟大小無關：溫度、壓力，兩杯 25 °C 的水倒在一起還是 25 °C。外延 ÷ 外延 = 內涵，例如莫耳體積 = 體積 ÷ 莫耳數。</p>
+<p><b>單位要小心</b>：\(1\ 	ext{L·atm} = 101.325\ 	ext{J}\)，所以 \(R = 0.082057\ 	ext{L·atm/(mol·K)} = 8.314\ 	ext{J/(mol·K)}\)。用 L、atm 算出來的功，要乘 101.325 才是焦耳。</p>
+<p><b>平衡</b>：外界想讓系統改變的傾向，和系統抵抗改變的傾向剛好打平，例如活塞內外壓力相等 \(P_{ext} = P_{in}\)。</p>
+
+<h3>白話說：能量不會憑空出現，也不會憑空消失</h3>
 <p>把系統想成一個<b>存錢筒</b>，內能 \(U\) 是裡面的錢。錢只有兩種進出方式：</p>
 <ul>
 <li><b>熱 \(q\)</b>：因為溫度不同，自己流進來的能量（系統吸熱，\(q > 0\)）。</li>
@@ -172,6 +183,62 @@ const derivations = [
     {q:R`推導中 \(R/C_V\) 等於？`,
      opts:[R`\(\gamma - 1\)`,R`\(\gamma\)`,R`\(1/\gamma\)`,R`\(\gamma + 1\)`], ans:0, ex:R`\((C_P - C_V)/C_V = \gamma - 1\)。`}
   ]
+},
+{
+  id:"1-D5", math:["m3","m4"], title:R`一般物質的 \(C_P - C_V\)（Joule 實驗）`,
+  goal:R`\(c_P - c_V = \left[P + \left(\dfrac{\partial U}{\partial V}\right)_T\right]\left(\dfrac{\partial V}{\partial T}\right)_P\)；理想氣體時 \(= R\)`,
+  from:R`\(H = U + PV\)、把 \(U\) 看成 \(T, V\) 的函數`,
+  steps:[
+    {w:"從定義出發，把 c_P 寫成 U 和 PV 兩部分。",
+     q:R`由 \(c_P = (\partial H/\partial T)_P\) 與 \(H = U + PV\) 展開。`,
+     hint:R`定壓時 \(P\) 是常數，\((\partial (PV)/\partial T)_P = P(\partial V/\partial T)_P\)。`,
+     a:R`\(c_P = \left(\dfrac{\partial U}{\partial T}\right)_P + P\left(\dfrac{\partial V}{\partial T}\right)_P\)`},
+    {w:R`\((\partial U/\partial T)_P\) 不好處理，把 \(U\) 換成 \(T, V\) 的函數。`,
+     q:R`寫出 \(U(T,V)\) 的全微分，再在定壓下除以 \(dT\)。`,
+     hint:R`\(dU = (\partial U/\partial T)_V dT + (\partial U/\partial V)_T dV\)，而 \((\partial U/\partial T)_V = c_V\)。`,
+     a:R`\(\left(\dfrac{\partial U}{\partial T}\right)_P = c_V + \left(\dfrac{\partial U}{\partial V}\right)_T\left(\dfrac{\partial V}{\partial T}\right)_P\)`},
+    {w:"代回去，整理出 c_P − c_V。",
+     q:"把第 2 步代入第 1 步。",
+     hint:R`兩項都有 \((\partial V/\partial T)_P\)，可以提出來。`,
+     a:R`\(c_P - c_V = \left[P + \left(\dfrac{\partial U}{\partial V}\right)_T\right]\left(\dfrac{\partial V}{\partial T}\right)_P\)`},
+    {w:R`用 Joule 實驗決定理想氣體的 \((\partial U/\partial V)_T\)。`,
+     q:R`Joule 讓氣體向真空自由膨脹（絕熱、不作功），量不到溫度變化。由此 \((\partial U/\partial V)_T\) 等於多少？`,
+     hint:R`\(\delta q = 0\)、\(\delta w = 0\)，所以 \(dU = 0\)；又 \(dT = 0\)，但 \(dV \neq 0\)。`,
+     a:R`\(dU = c_V\,dT + \left(\dfrac{\partial U}{\partial V}\right)_T dV = 0\)，\(dT = 0\)、\(dV \neq 0\) \(\Rightarrow \left(\dfrac{\partial U}{\partial V}\right)_T = 0\)；理想氣體 \((\partial V/\partial T)_P = R/P\)，得 \(c_P - c_V = P\cdot\dfrac{R}{P} = R\)`}
+  ],
+  meaning:R`\(c_P - c_V\) 有兩部分：\(P(\partial V/\partial T)_P\) 是膨脹時推開外界大氣的功；\((\partial U/\partial V)_T(\partial V/\partial T)_P\) 是膨脹時對抗粒子之間吸引力的功。理想氣體粒子之間沒有作用力，第二項為 0；固體、液體的第二項反而遠大於第一項。（Joule 原本的實驗其實量不準：銅容器熱容太大，氣體的溫度變化小到測不出來；之後 Joule–Thomson 實驗才量到真實氣體的 \(dT \neq 0\)。）`,
+  checks:[
+    {q:R`理想氣體的 \(\left(\frac{\partial U}{\partial V}\right)_T\) 是？`,
+     opts:["0",R`\(P\)`,R`\(R/V\)`,R`\(c_V\)`], ans:0, ex:"理想氣體粒子之間沒有交互作用，拉開距離不需要能量。"},
+    {q:R`對固體而言，\(c_P - c_V\) 中哪一項比較大？`,
+     opts:[R`對抗粒子間吸引力的 \((\partial U/\partial V)_T(\partial V/\partial T)_P\)`,R`推開大氣的 \(P(\partial V/\partial T)_P\)`,"兩項一樣大","兩項都是 0"], ans:0, ex:"固體原子間作用力很強，這一項遠大於推開大氣的功。"}
+  ]
+},
+{
+  id:"1-D6", math:["m5"], title:"可逆絕熱過程的功",
+  goal:R`\(w = n c_V (T_1 - T_2) = \dfrac{P_1V_1 - P_2V_2}{\gamma - 1}\)`,
+  from:R`第一定律、\(c_P - c_V = R\)、\(\gamma = c_P/c_V\)、\(PV = nRT\)`,
+  steps:[
+    {w:"絕熱沒有熱，功全部來自內能。",
+     q:"寫出絕熱時 w 和 ΔU 的關係。",
+     hint:R`\(q = 0\)，\(\Delta U = -w\)；理想氣體 \(\Delta U = n c_V \Delta T\)。`,
+     a:R`\(w = -\Delta U = n c_V (T_1 - T_2)\)`},
+    {w:R`把 \(c_V\) 用 \(\gamma\) 表示。`,
+     q:R`由 \(c_P - c_V = R\) 與 \(\gamma = c_P/c_V\)，解出 \(c_V\)。`,
+     hint:R`\(\gamma c_V - c_V = R\)。`,
+     a:R`\(c_V = \dfrac{R}{\gamma - 1}\)`},
+    {w:"把 nRT 換成 PV。",
+     q:R`代入並用 \(nRT = PV\)。`,
+     hint:R`\(n c_V (T_1 - T_2) = \dfrac{nR(T_1 - T_2)}{\gamma - 1}\)。`,
+     a:R`\(w = \dfrac{nRT_1 - nRT_2}{\gamma - 1} = \dfrac{P_1V_1 - P_2V_2}{\gamma - 1}\)`}
+  ],
+  meaning:R`這條式子不必先算溫度，只要有始末的 \(P\)、\(V\) 就能算功（注意單位：L·atm 要乘 101.325 才是 J）。從同一點膨脹到同一個壓力，等溫膨脹作的功一定比絕熱膨脹多，因為等溫時一直有熱補充進來。`,
+  checks:[
+    {q:"從同一個狀態可逆膨脹到同一個壓力，哪個過程作的功比較多？",
+     opts:["等溫","絕熱","一樣多","看氣體種類"], ans:0, ex:"等溫時外界一直補熱；絕熱只能用自己的內能，壓力掉得比較快。"},
+    {q:"1 L·atm 等於多少 J？",
+     opts:["101.325 J","8.314 J","1 J","0.082 J"], ans:0, ex:R`\(1\ \text{L·atm} = 10^{-3}\ \text{m}^3 \times 101325\ \text{Pa} = 101.325\ \text{J}\)。`}
+  ]
 }
 ];
 
@@ -184,28 +251,35 @@ const problems = [
   sol:R`\(U\) 是狀態函數，回到原狀態 \(\Delta U = 0\)。\(q\) 和 \(w\) 是路徑函數，整圈下來不一定是 0（但兩者會相等：\(q = w\)）。`
 },
 {
-  id:"1-P2", kind:"num", title:"可逆等溫膨脹的功",
-  text:R`1 mol 理想氣體在 300 K 下，從 10 atm 可逆等溫膨脹到 1 atm。求系統對外作的功 \(w\)，單位 J。（\(R = 8.314\ \text{J/(mol·K)}\)）`,
-  answer:5743, tol:0.01, unit:"J",
-  hint:R`用 \(w = RT\ln(P_1/P_2)\)。`,
-  sol:R`\(w = (8.314)(300)\ln 10 = 2494.2 \times 2.303 \approx 5743\ \text{J}\)。<br>等溫 \(\Delta U = 0\)，所以氣體同時吸了 5743 J 的熱。`
+  id:"1-P2", kind:"num", title:"可逆等溫膨脹（講義例題型）",
+  text:R`20 L 的單原子理想氣體，在 300 K、5 atm，可逆等溫膨脹到 1 atm。求系統對外作的功 \(w\)，單位 J。（先求莫耳數；\(R = 0.082057\ \text{L·atm/(mol·K)} = 8.314\ \text{J/(mol·K)}\)）`,
+  answer:16307, tol:0.01, unit:"J",
+  hint:R`\(n = PV/RT\)，用 L·atm 的 \(R\)；\(w = nRT\ln(P_1/P_2)\)，用 J 的 \(R\)。`,
+  sol:R`\(n = \dfrac{5\times20}{0.082057\times300} = 4.06\ \text{mol}\)，\(w = 4.06\times8.314\times300\times\ln5 \approx 16{,}307\ \text{J} = 16.3\ \text{kJ}\)。<br>等溫：\(\Delta U = \Delta H = 0\)，\(q = w = 16.3\ \text{kJ}\)。`
 },
 {
-  id:"1-P3", kind:"num", title:"可逆絕熱膨脹後的溫度",
-  text:R`1 mol 單原子理想氣體（\(C_V = \tfrac{3}{2}R\)）在 300 K、10 atm，可逆絕熱膨脹到 1 atm。求最後溫度，單位 K。`,
-  answer:119.4, tol:0.01, unit:"K",
-  hint:R`\(\gamma = 5/3\)，\((\gamma-1)/\gamma = 0.4\)；用 \(T_2/T_1 = (P_2/P_1)^{(\gamma-1)/\gamma}\)。`,
-  sol:R`\(T_2 = 300\times(0.1)^{0.4} = 300\times0.398 \approx 119.4\ \text{K}\)。<br>和 P2 對照：同樣從 10 atm 膨脹到 1 atm，等溫時溫度不變，絕熱時氣體冷到 119 K。`
+  id:"1-P3", kind:"num", title:"可逆絕熱膨脹：最後溫度",
+  text:R`同一份氣體（4.06 mol 單原子理想氣體，300 K、5 atm、20 L），改成可逆絕熱膨脹到 1 atm。最後溫度是多少 K？`,
+  answer:157.6, tol:0.01, unit:"K",
+  hint:R`\(\gamma = 5/3\)；\(T_2 = T_1(P_2/P_1)^{(\gamma-1)/\gamma}\)，指數是 0.4。`,
+  sol:R`\(T_2 = 300\times(1/5)^{0.4} \approx 157.6\ \text{K}\)（也可以先用 \(P_1V_1^\gamma = P_2V_2^\gamma\) 求 \(V_2 = 52.5\ \text{L}\)，再由 \(PV = nRT\) 求 \(T_2\)）。`
 },
 {
-  id:"1-P4", kind:"num", title:"絕熱膨脹作的功",
-  text:R`接續 P3，求系統對外作的功 \(w\)，單位 J。`,
-  answer:2252, tol:0.01, unit:"J",
-  hint:R`絕熱 \(q = 0\)，所以 \(w = -\Delta U = C_V(T_1 - T_2)\)。`,
-  sol:R`\(w = \tfrac{3}{2}(8.314)(300 - 119.4) \approx 2252\ \text{J}\)。<br>比等溫膨脹（5743 J）少，因為絕熱時沒有熱補充，只能花內能，氣體越來越冷、壓力掉得更快。`
+  id:"1-P4", kind:"num", title:"可逆絕熱膨脹：ΔU 與 ΔH",
+  text:R`接續 P3，求這個絕熱過程的 \(\Delta H\)，單位 J。（\(\Delta U\) 也一起算算看）`,
+  answer:-12024, tol:0.01, unit:"J",
+  hint:R`理想氣體不論什麼過程：\(\Delta U = nc_V\Delta T\)、\(\Delta H = nc_P\Delta T\)。`,
+  sol:R`\(\Delta U = 4.06\times\tfrac{3}{2}\times8.314\times(157.6 - 300) \approx -7214\ \text{J}\)，\(w = -\Delta U = 7214\ \text{J}\)，\(q = 0\)。<br>\(\Delta H = 4.06\times\tfrac{5}{2}\times8.314\times(157.6 - 300) \approx -12{,}024\ \text{J}\)。<br>對照 P2：同樣膨脹到 1 atm，等溫作功 16.3 kJ，絕熱只作 7.2 kJ。`
 },
 {
-  id:"1-P5", kind:"mc", title:"定壓加熱",
+  id:"1-P5", kind:"num", title:"證明 U 是狀態函數（換一條路走）",
+  text:R`接續 P3，從起點 a（5 atm、20 L、300 K）到終點 c（1 atm、157.6 K），改走另一條路：先可逆等溫膨脹到 e（體積與 c 相同），再定容降溫到 c。求這條路徑的 \(\Delta U_{a\to c}\)，單位 J。`,
+  answer:-7214, tol:0.01, unit:"J",
+  hint:R`a→e 等溫：\(\Delta U = 0\)；e→c 定容：\(\Delta U = q_V = nc_V\Delta T\)。`,
+  sol:R`\(\Delta U_{a\to e} = 0\)，\(\Delta U_{e\to c} = nc_V(157.6 - 300) = -7214\ \text{J}\)，合計 \(-7214\ \text{J}\)，和絕熱路徑（P4）完全一樣，證明 \(U\) 是狀態函數。但兩條路徑的 \(q\)、\(w\) 都不一樣（\(q\)、\(w\) 是路徑函數）。<br>講義提醒：其他路徑（例如先定容再定壓）也要會算，考試常考。`
+},
+{
+  id:"1-P6", kind:"mc", title:"定壓加熱",
   text:R`1 mol 理想氣體在定壓下從 300 K 加熱到 400 K（\(C_P = \tfrac{5}{2}R\)）。下列何者正確？`,
   opts:[R`\(q = \Delta H = \tfrac{5}{2}R\times100\)，\(w = R\times100\)`,R`\(q = \Delta U\)`,R`\(w = 0\)`,R`\(\Delta H = 0\)`], ans:0,
   hint:R`定壓 \(q = \Delta H = C_P\Delta T\)，功 \(= P\Delta V = R\Delta T\)。`,

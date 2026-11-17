@@ -25,6 +25,11 @@
 <tr><td>Gibbs 自由能 \(G\)</td><td>\(G = H - TS\)</td><td>\(dG = -S\,dT + V\,dP\)</td><td>\(T,\ P\)</td></tr>
 </table>
 
+<p><b>熱力學關係式</b>（直接從上表讀出係數）：\(T = \left(\dfrac{\partial U}{\partial S}\right)_V = \left(\dfrac{\partial H}{\partial S}\right)_P\)，\(P = -\left(\dfrac{\partial U}{\partial V}\right)_S = -\left(\dfrac{\partial A}{\partial V}\right)_T\)，\(V = \left(\dfrac{\partial H}{\partial P}\right)_S = \left(\dfrac{\partial G}{\partial P}\right)_T\)，\(S = -\left(\dfrac{\partial A}{\partial T}\right)_V = -\left(\dfrac{\partial G}{\partial T}\right)_P\)。</p>
+<div class="tip"><b>熱力學方塊（講義的記法）</b><br>
+畫一個正方形：四個邊放能量函數 \(U, H, G, A\)，四個角放變數 \(S, P, T, V\)（例如邊上依序 \(A\)、\(G\)、\(H\)、\(U\)；角落 \(V, T\) 在 \(A\) 兩側、\(T, P\) 在 \(G\) 兩側、\(P, S\) 在 \(H\) 兩側、\(S, V\) 在 \(U\) 兩側）。<br>
+兩條對角線各畫一個箭頭：從 \(S\) 指向 \(T\)、從 \(P\) 指向 \(V\)。<br>原則：能量函數兩旁的兩個角是「微分項」，各自斜對面的角是「係數」；從微分項到係數順著箭頭為「＋」，逆著為「－」。<br>例：\(G\) 兩旁是 \(T\)、\(P\)；\(T\) 的對角是 \(S\)（\(T\to S\) 逆箭頭，\(-S\,dT\)），\(P\) 的對角是 \(V\)（\(P\to V\) 順箭頭，\(+V\,dP\)），所以 \(dG = -S\,dT + V\,dP\)。</div>
+
 <h3>2. Maxwell 關係式</h3>
 <p>四個基本方程都是恰當微分，交叉偏導數相等，得到四條 Maxwell 關係式。式子裡沒有 \(U, H, A, G\)，只剩 \(T, S, P, V\)：</p>
 <p style="text-align:center">
@@ -44,7 +49,7 @@
 </table>
 
 <h3>4. 兩個數學工具</h3>
-<p><b>循環關係</b>（「風水輪流轉」）：對任意三個變數 \(x, y, z\)，</p>
+<p><b>循環關係</b>（講義叫 UDIO：Upstairs-Downstairs-Inside-Out；筆記叫「風水輪流轉」）：對任意三個變數 \(x, y, z\)，</p>
 <p style="text-align:center">\( \left(\dfrac{\partial x}{\partial y}\right)_z \left(\dfrac{\partial y}{\partial z}\right)_x \left(\dfrac{\partial z}{\partial x}\right)_y = -1 \)</p>
 <p>實際用法：要求的偏導數＝負號 × 湊出同樣分子分母的兩個偏導數相除。</p>
 <p><b>恰當微分判別</b>：若 \(dZ = M\,dx + N\,dy\) 是全微分，則 \(\left(\dfrac{\partial M}{\partial y}\right)_x = \left(\dfrac{\partial N}{\partial x}\right)_y\)。</p>
@@ -66,7 +71,7 @@
 <h2 id="problems">習題</h2>
 <p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
 <div id="problemList"></div>
-<div class="pager"><a href="unit04.html">← 單元 4</a><a href="index.html">目錄</a></div>
+<div class="pager"><a href="unit04.html">← 單元 4</a><a href="index.html">目錄</a><a href="unit06.html">單元 6 →</a></div>
 <footer>材料熱力學練習簿 · 單元 5 熱力學關係式 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
 </div>
 <script>
@@ -331,7 +336,44 @@ const problems = [
   hint:R`計算 \(T\alpha\)，和 1 比較，再看 D7 的結果。`,
   sol:R`\(T\alpha = 300\times4.0\times10^{-3} = 1.2 > 1\)，所以 \(\mu_{JT} = \dfrac{V}{C_P}(T\alpha - 1) > 0\)。降壓 \(dP < 0\)，因此 \(dT = \mu_{JT}\,dP < 0\)，溫度降低。<br>
   判斷正負號不需要 \(C_P\) 的數值，因為 \(V/C_P\) 一定是正的。`
+},
+{
+  id:"5-P7", kind:"self", title:"證明題：絕熱下溫度隨壓力的變化",
+  text:R`證明 \(\left(\dfrac{\partial T}{\partial P}\right)_S = \dfrac{TV\alpha}{c_P}\)。（可逆絕熱時 \(\delta q = T\,dS = 0\)，所以這也就是絕熱壓縮時的升溫率。）`,
+  hint:R`下標有 \(S\)，先用循環關係把 \(S\) 移出下標：\(\left(\frac{\partial T}{\partial P}\right)_S = -\dfrac{(\partial S/\partial P)_T}{(\partial S/\partial T)_P}\)，再用 Maxwell 關係式和 \(c_P/T\)。`,
+  sol:R`\(\left(\dfrac{\partial T}{\partial P}\right)_S = -\dfrac{(\partial S/\partial P)_T}{(\partial S/\partial T)_P} = -\dfrac{-V\alpha}{c_P/T} = \dfrac{TV\alpha}{c_P}\)。<br>
+  用到：循環關係（UDIO）、Maxwell 關係式 \((\partial S/\partial P)_T = -(\partial V/\partial T)_P = -V\alpha\)、\((\partial S/\partial T)_P = c_P/T\)。`
+},
+{
+  id:"5-P8", kind:"self", title:"證明題：絕熱壓縮係數",
+  text:R`證明 \(\left(\dfrac{\partial P}{\partial V}\right)_S = -\dfrac{c_P}{c_V\,V\beta}\)。`,
+  hint:R`\(\left(\frac{\partial P}{\partial V}\right)_S = -\dfrac{(\partial S/\partial V)_P}{(\partial S/\partial P)_V}\)。分子分母各乘上 \((\partial T/\partial T)\) 湊出 \(c_P/T\) 和 \(c_V/T\)：\((\partial S/\partial V)_P = (\partial S/\partial T)_P(\partial T/\partial V)_P\)、\((\partial S/\partial P)_V = (\partial S/\partial T)_V(\partial T/\partial P)_V\)。`,
+  sol:R`\(\left(\dfrac{\partial P}{\partial V}\right)_S = -\dfrac{(c_P/T)(\partial T/\partial V)_P}{(c_V/T)(\partial T/\partial P)_V} = -\dfrac{c_P}{c_V}\left(\dfrac{\partial P}{\partial T}\right)_V\left(\dfrac{\partial T}{\partial V}\right)_P\)。<br>
+  由循環關係 \(\left(\dfrac{\partial P}{\partial T}\right)_V\left(\dfrac{\partial T}{\partial V}\right)_P = -\left(\dfrac{\partial P}{\partial V}\right)_T = \dfrac{1}{V\beta}\)，所以 \(\left(\dfrac{\partial P}{\partial V}\right)_S = -\dfrac{c_P}{c_V\,V\beta}\)。<br>
+  意義：絕熱時比等溫時「更難壓縮」，差了 \(c_P/c_V = \gamma\) 倍（理想氣體：絕熱線比等溫線陡）。`
+},
+{
+  id:"5-P9", kind:"self", title:"證明題：等焓時熵隨壓力的變化",
+  text:R`證明 \(\left(\dfrac{\partial S}{\partial P}\right)_H = -\dfrac{V}{T}\)。`,
+  hint:R`從 \(dH = T\,dS + V\,dP\) 出發，令 \(dH = 0\)。（或用循環關係，配上 \(T = (\partial H/\partial S)_P\)、\(V = (\partial H/\partial P)_S\)。）`,
+  sol:R`\(dH = 0 \Rightarrow T\,dS + V\,dP = 0 \Rightarrow \left(\dfrac{\partial S}{\partial P}\right)_H = -\dfrac{V}{T}\)。<br>
+  應用：節流過程等焓，降壓（\(dP < 0\)）時 \(dS = -\dfrac{V}{T}dP > 0\)，熵增加，證明節流是不可逆過程。`
+},
+{
+  id:"5-P10", kind:"self", title:"證明題：用 P、V 表示理想氣體的熵變",
+  text:R`證明 1 mol 理想氣體從 \((P_1,V_1)\) 到 \((P_2,V_2)\)：\(\Delta S = c_V\ln\dfrac{P_2}{P_1} + c_P\ln\dfrac{V_2}{V_1}\)。`,
+  hint:R`令 \(S = S(P,V)\)：\(dS = (\partial S/\partial P)_V dP + (\partial S/\partial V)_P dV\)。用 \((\partial S/\partial P)_V = (\partial S/\partial T)_V(\partial T/\partial P)_V = \dfrac{c_V}{T}\cdot\dfrac{V}{R}\)，\((\partial S/\partial V)_P\) 同理。`,
+  sol:R`\(dS = \dfrac{c_V}{T}\dfrac{V}{R}dP + \dfrac{c_P}{T}\dfrac{P}{R}dV\)，用 \(T = PV/R\)：\(dS = c_V\dfrac{dP}{P} + c_P\dfrac{dV}{V}\)，積分得 \(\Delta S = c_V\ln\dfrac{P_2}{P_1} + c_P\ln\dfrac{V_2}{V_1}\)。<br>
+  三種寫法都是同一個 \(\Delta S\)：\(S(T,V)\)：\(c_V\ln\frac{T_2}{T_1} + R\ln\frac{V_2}{V_1}\)；\(S(T,P)\)：\(c_P\ln\frac{T_2}{T_1} - R\ln\frac{P_2}{P_1}\)；\(S(P,V)\)：上式。`
+},
+{
+  id:"5-P11", kind:"self", title:"證明題：熱容隨體積的變化",
+  text:R`證明 \(\left(\dfrac{\partial c_V}{\partial V}\right)_T = T\left(\dfrac{\partial^2 P}{\partial T^2}\right)_V\)，並說明理想氣體的 \(c_V\) 與體積無關。`,
+  hint:R`\(c_V = T(\partial S/\partial T)_V\)。對 \(V\) 偏微時 \(T\) 固定可以提出來；交換微分順序後用 Maxwell 關係式 \((\partial S/\partial V)_T = (\partial P/\partial T)_V\)。`,
+  sol:R`\(\left(\dfrac{\partial c_V}{\partial V}\right)_T = T\dfrac{\partial}{\partial V}\left(\dfrac{\partial S}{\partial T}\right)_V = T\dfrac{\partial}{\partial T}\left(\dfrac{\partial S}{\partial V}\right)_T = T\dfrac{\partial}{\partial T}\left(\dfrac{\partial P}{\partial T}\right)_V = T\left(\dfrac{\partial^2 P}{\partial T^2}\right)_V\)。<br>
+  理想氣體 \(P = RT/V\)，\((\partial P/\partial T)_V = R/V\)，再微一次為 0，所以 \(c_V\) 不隨體積改變。`
 }
+
 ];
 
 </script>

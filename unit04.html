@@ -41,6 +41,11 @@
 <p>兩隊力氣剛好一樣時（\(\Delta G = 0\)），就是平衡，例如熔點、沸點、相變溫度：</p>
 <p style="text-align:center;font-size:18px">\(T_{eq} = \dfrac{\Delta H}{\Delta S}\)</p>
 
+<h3>成分會變時：化學勢 \(\mu\)</h3>
+<p>如果系統裡的物質種類或數量會改變（化學反應、相變、擴散），基本方程要多一項。<b>化學勢</b> \(\mu_i\) 是「在定溫定壓下加進 1 mol 的 \(i\)，系統的 \(G\) 增加多少」（系統要夠大，加進去後成分幾乎不變）：</p>
+<p style="text-align:center">\(dG = -S\,dT + V\,dP + \sum_i \mu_i\,dn_i\)，\(\mu_i = \left(\dfrac{\partial G}{\partial n_i}\right)_{T,P,n_j}\)</p>
+<p>\(dU\)、\(dH\)、\(dA\) 也都多一項 \(\sum\mu_i\,dn_i\)。物質會從 \(\mu\) 高的地方跑到 \(\mu\) 低的地方，就像熱從高溫流到低溫。</p>
+
 <h3>自由能「自由」在哪裡？</h3>
 <p>\(-\Delta A\) 是定溫下系統<b>最多</b>能對外作的功；\(-\Delta G\) 是定溫定壓下，扣掉推開大氣的功之後，<b>最多</b>能拿來作其他功（例如電池的電功）的能量。「自由」就是「可以自由拿來用」的意思。</p>
 </div>
@@ -170,6 +175,36 @@ const derivations = [
      opts:["V","−S","P","H"], ans:0, ex:R`由 \(dG = -S\,dT + V\,dP\)。`},
     {q:"同樣加壓，為什麼固體的 ΔG 比氣體小很多？",
      opts:["固體的莫耳體積小很多","固體的溫度比較低","固體的熵比較大","固體不受壓力影響"], ans:0, ex:R`\(\Delta G \approx V\Delta P\)，固體的 \(V\) 大約只有氣體的千分之一。`}
+  ]
+},
+{
+  id:"4-D5", math:[], title:"講義的寫法：ΔG = −w′ − TΔS_irr",
+  goal:R`定溫定壓下 \(\Delta G = -w' - T\Delta S_{irr}\)；沒有其他功時 \(\Delta G = -T\Delta S_{irr}\)`,
+  from:R`\(G = U + PV - TS\)、第一定律、\(\Delta S = q_{rev}/T\)、\(\Delta S_{irr}\) 的定義`,
+  steps:[
+    {w:"在定溫定壓下寫出 G 的變化。",
+     q:"狀態 1 → 2（T、P 固定），G₂ − G₁ 等於？",
+     hint:R`\(\Delta G = \Delta U + P\Delta V - T\Delta S\)，再代入 \(\Delta U = q - w\)。`,
+     a:R`\(G_2 - G_1 = q - w + P(V_2 - V_1) - T(S_2 - S_1)\)`},
+    {w:"把總功拆成 PV 功和其他功。",
+     q:R`令 \(w = w' + P(V_2 - V_1)\)（\(w'\) 是電功等非 PV 功），代入化簡。`,
+     hint:"PV 功的兩項會互相消掉。",
+     a:R`\(G_2 - G_1 = q - w' - T(S_2 - S_1)\)`},
+    {w:"把系統的熵變換成可逆熱，和實際的熱比較。",
+     q:R`用 \(S_2 - S_1 = q_{rev}/T\)，以及 \(\Delta S_{irr} = (q_{rev} - q)/T\)。`,
+     hint:R`\(T(S_2 - S_1) = q_{rev}\)。`,
+     a:R`\(\Delta G = q - w' - q_{rev} = -w' - T\Delta S_{irr}\)`},
+    {w:"沒有其他功時，看 ΔG 的正負號就知道方向。",
+     q:R`\(w' = 0\) 時，\(\Delta G\) 的正負和 \(\Delta S_{irr}\) 有什麼關係？`,
+     hint:R`\(T > 0\)。`,
+     a:R`\(\Delta G = -T\Delta S_{irr}\)：\(\Delta S_{irr} > 0 \Leftrightarrow \Delta G < 0\)（自發）；\(= 0 \Leftrightarrow\) 平衡；\(\Delta S_{irr} < 0 \Leftrightarrow \Delta G > 0\)（反方向才會發生）`}
+  ],
+  meaning:R`\(\Delta G\) 其實就是「宇宙產生的熵」換了一個樣子：\(-\Delta G/T\) 等於不可逆過程產生的熵。所以「\(G\) 往下走」和「宇宙的熵往上走」是同一件事，只是 \(G\) 只需要看系統自己。`,
+  checks:[
+    {q:R`定溫定壓、沒有其他功時，\(\Delta G = -T\Delta S_{irr}\)。若 \(\Delta G = -500\ \text{J}\)、\(T = 500\ \text{K}\)，產生的熵是？`,
+     opts:["+1 J/K","−1 J/K","+250000 J/K","0"], ans:0, ex:R`\(\Delta S_{irr} = -\Delta G/T = 500/500 = 1\ \text{J/K}\)。`},
+    {q:R`\(w'\) 指的是？`,
+     opts:["PV 功以外的功，例如電功","推開大氣的功","熱","內能"], ans:0, ex:"電池放電作的電功就是 w′，單元 12 會用到。"}
   ]
 }
 ];

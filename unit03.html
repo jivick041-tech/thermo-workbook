@@ -34,6 +34,9 @@
 <p style="text-align:center;font-size:18px">\(\Delta S_{mix} = -R\,(X_A\ln X_A + X_B\ln X_B)\)（每莫耳）</p>
 <p>\(X_A, X_B\) 是莫耳分率（小於 1，所以 ln 是負的，前面的負號讓 \(\Delta S_{mix} > 0\)）。</p>
 
+<h3>兩種熵</h3>
+<p>第 3 章的熵來自熱（\(\delta q_{rev}/T\)），叫<b>熱熵</b> \(S_{th}\)；這一章數排法得到的叫<b>組態熵</b> \(S_{conf}\)。混合時兩種都可能出現：\(\Delta S_{total} = \Delta S_{conf} + \Delta S_{th}\)。</p>
+<p>講義的小例子：3 個電子分到能量 0、U、2U、3U 的能階，總能量固定為 3U，三種分配方式各有 1、3、6 種排法，所以最常出現的是排法最多（6 種）的那一種。</p>
 <div class="tip"><b>新的數學工具：階乘與 Stirling 近似</b><br>
 \(N! = N\times(N-1)\times\cdots\times2\times1\)，例如 \(4! = 24\)。<br>
 \(N\) 很大時（例如 \(10^{23}\)），\(N!\) 大到算不出來，但它的 ln 可以近似：\(\ln N! \approx N\ln N - N\)。
@@ -162,6 +165,66 @@ const derivations = [
     {q:"推導中 −N + n_A + n_B 等於？",
      opts:["0","N","2N","n_A"], ans:0, ex:R`因為 \(N = n_A + n_B\)。`}
   ]
+},
+{
+  id:"3-D5", math:["m4","m6","m7"], title:"混合時的總熵變：組態熵＋熱熵",
+  goal:R`\(\Delta S_{total} = \Delta S_{conf} + \Delta S_{th}\)，其中 \(\Delta S_{th} = \sum n_i\left[\displaystyle\int\dfrac{c_P}{T}dT - \int\dfrac{R}{P}dP\right]\)`,
+  from:R`D4 的組態熵、單元 2 的理想氣體熵變`,
+  steps:[
+    {w:"先分清楚熵的兩個來源。",
+     q:"兩種氣體混合時，熵為什麼會增加？如果兩邊溫度、壓力不同，還多了什麼？",
+     hint:"一個來自「排法變多」，一個來自「熱和體積的變化」。",
+     a:R`(1) 組態熵 \(\Delta S_{conf}\)：A、B 原子的排法變多；(2) 熱熵 \(\Delta S_{th}\)：每種氣體自己的溫度、壓力改變（單元 2、3 章的熵）。兩者相加。`},
+    {w:"組態熵用 Boltzmann 公式加 Stirling 近似。",
+     q:R`\(n_A\) mol A 和 \(n_B\) mol B 混合，寫出 \(\Delta S_{conf}\)。`,
+     hint:R`\(\Delta S_{conf} = k\ln\dfrac{(N_A + N_B)!}{N_A!\,N_B!}\)，和 D4 一樣化簡。`,
+     a:R`\(\Delta S_{conf} = -R\,(n_A\ln X_A + n_B\ln X_B)\)；1 mol A + 1 mol B 時 \(= 2R\ln2 = R\ln4 = 11.53\ \text{J/K}\)`},
+    {w:"熱熵：每種氣體各自從自己的 T、P 變到最後的 T、P。",
+     q:"每一種氣體的熱熵怎麼算？最後的溫度怎麼決定？",
+     hint:R`用單元 2 D5 的式子；最後溫度由「A 放的熱 = B 吸的熱」（\(\Delta H\) 總和為 0）決定。`,
+     a:R`\(\Delta S_{i,th} = n_i\left[c_P\ln\dfrac{T_f}{T_i} - R\ln\dfrac{P_f}{P_i}\right]\)；最後溫度 \(n_Ac_P(T_f - T_A) + n_Bc_P(T_f - T_B) = 0\)，最後壓力由 \(PV = nRT\) 求總壓。`},
+    {w:"如果兩邊是同一種氣體呢？",
+     q:"兩邊都是氣體 A（同溫同壓），拿掉隔板後 ΔS_total 是多少？",
+     hint:"同一種氣體的原子無法分辨，換位置不算新的排法。",
+     a:R`\(\Delta S_{conf} = 0\)，同溫同壓 \(\Delta S_{th} = 0\)，所以 \(\Delta S_{total} = 0\)。若兩邊壓力不同，仍有熱熵（壓力拉平造成）。`}
+  ],
+  meaning:R`講義的四個情況可以整理成一句話：不同氣體才有組態熵；溫度或壓力不同才有熱熵。兩者分開算再相加。`,
+  checks:[
+    {q:"兩邊都是同溫同壓的同一種氣體，拿掉隔板後的總熵變？",
+     opts:["0",R`\(R\ln4\)`,R`\(R\ln2\)`,"無法判斷"], ans:0, ex:"同種原子交換位置不產生新的排法，溫度壓力也沒變。"},
+    {q:"不同溫度的兩種氣體混合，最後溫度怎麼求？",
+     opts:["兩邊的 ΔH 加起來等於 0","取兩個溫度的平均","取比較高的溫度","由組態熵決定"], ans:0, ex:R`容器絕熱，一邊放的熱等於另一邊吸的熱；莫耳數或 \(c_P\) 不同時不是簡單平均。`}
+  ]
+},
+{
+  id:"3-D6", math:["m4","m7"], title:"（進階）Boltzmann 分布與 S = k ln Ω",
+  goal:R`最可能的分布 \(n_i = \dfrac{n\,e^{-\varepsilon_i/kT}}{P}\)（\(P = \sum e^{-\varepsilon_i/kT}\) 為配分函數），並由此得到 \(S = k\ln\Omega\)`,
+  from:R`\(\ln\Omega = \ln n! - \sum\ln n_i!\)、Stirling 近似、粒子數與總能量固定`,
+  steps:[
+    {w:"平衡時排法數最多，所以找 ln Ω 的最大值。",
+     q:"用 Stirling 近似寫出 d(ln Ω) = 0 的條件。",
+     hint:R`\(\ln\Omega = n\ln n - n - \sum(n_i\ln n_i - n_i)\)，對 \(n_i\) 微分。`,
+     a:R`\(d\ln\Omega = -\sum\ln n_i\,dn_i = 0\) …(1)`},
+    {w:"粒子數和總能量都不能變，這是兩個限制條件。",
+     q:"寫出粒子數固定、能量固定的條件。",
+     hint:R`\(n = \sum n_i\)、\(U = \sum n_i\varepsilon_i\)，能階 \(\varepsilon_i\) 固定不變。`,
+     a:R`\(\sum dn_i = 0\) …(2)，\(\sum\varepsilon_i\,dn_i = 0\) …(3)`},
+    {w:"用待定乘數法把三個式子合起來。",
+     q:R`把 (2) 乘 \(\alpha\)、(3) 乘 \(\beta\)，和 (1) 相加，得到每個 \(n_i\) 的條件。`,
+     hint:R`合起來是 \(\sum(\ln n_i + \alpha + \beta\varepsilon_i)dn_i = 0\)，每一項的括號都要是 0。`,
+     a:R`\(\ln n_i + \alpha + \beta\varepsilon_i = 0 \Rightarrow n_i = e^{-\alpha}e^{-\beta\varepsilon_i}\)；由 \(\sum n_i = n\) 得 \(e^{-\alpha} = n/P\)，且 \(\beta = 1/kT\)，所以 \(n_i = \dfrac{n\,e^{-\varepsilon_i/kT}}{P}\)`},
+    {w:"把最可能的分布代回 ln Ω，和熵連起來。",
+     q:R`代回後 \(\ln\Omega = n\ln P + \dfrac{U}{kT}\)。定容下 \(dU = \delta q\)，求 \(d\ln\Omega\) 與 \(dS\) 的關係。`,
+     hint:R`定容時能階不變，\(d\ln\Omega = dU/kT = \delta q/kT\)；而 \(dS = \delta q/T\)。`,
+     a:R`\(d\ln\Omega = \dfrac{\delta q}{kT} = \dfrac{dS}{k} \Rightarrow S = k\ln\Omega\)（Boltzmann 方程式）`}
+  ],
+  meaning:R`古典熱力學的熵（\(\delta q_{rev}/T\)，第 3 章）和統計的熵（數排法，第 4 章）其實是同一個東西。粒子會依能量高低分配到各能階：能量越高的能階，粒子越少（\(e^{-\varepsilon/kT}\)），溫度越高，分布越平均。`,
+  checks:[
+    {q:R`溫度升高時，高能階上的粒子數會？`,
+     opts:["變多","變少","不變","變成 0"], ans:0, ex:R`\(e^{-\varepsilon_i/kT}\) 在 \(T\) 變大時變大，分布變得比較平均。`},
+    {q:"推導中的兩個限制條件是？",
+     opts:["總粒子數固定、總能量固定","溫度固定、壓力固定","體積固定、熵固定","能階數固定、溫度固定"], ans:0, ex:"孤立系統裡粒子只在能階之間交換。"}
+  ]
 }
 ];
 
@@ -200,7 +263,33 @@ const problems = [
   opts:["混合後排法變多，熵增加","混合會放熱","A 和 B 互相吸引","壓力不同"], ans:0,
   hint:"理想氣體之間沒有交互作用，混合時也不吸熱放熱。",
   sol:R`理想混合 \(\Delta H_{mix} = 0\)，推動混合的完全是 \(\Delta S_{mix} > 0\)。`
+},
+{
+  id:"3-P6", kind:"num", title:"拿掉隔板：兩種氣體混合（講義例題型）",
+  text:R`剛性容器用隔板分成兩半，一邊是 2 mol 理想氣體 A，另一邊是 2 mol 理想氣體 B，兩邊都是 1 atm、同溫。拿掉隔板後，總熵增加多少 J/K？`,
+  answer:23.05, tol:0.01, unit:"J/K",
+  hint:R`同溫同壓 → \(\Delta S_{th} = 0\)；\(\Delta S_{conf} = -R(n_A\ln X_A + n_B\ln X_B)\)。`,
+  sol:R`\(X_A = X_B = 0.5\)，\(\Delta S = -8.314\times(2\ln0.5 + 2\ln0.5) = 4R\ln2 \approx 23.05\ \text{J/K}\)。`
+},
+{
+  id:"3-P7", kind:"mc", title:"同一種氣體會不會「混合」？",
+  text:"同一個容器，一邊是 1 mol 氣體 A（1 atm），另一邊也是 1 mol 氣體 A（1 atm），同溫。拿掉隔板後的總熵變是？",
+  opts:["0",R`\(R\ln4\)`,R`\(R\ln2\)`,R`\(-R\ln4\)`], ans:0,
+  hint:"同種原子交換位置算不算新的排法？兩邊的壓力有沒有改變？",
+  sol:R`\(\Delta S_{conf} = 0\)（原子無法分辨），同溫同壓 \(\Delta S_{th} = 0\)，總熵變為 0。<br>若一邊是 2 mol（2 atm）、另一邊 1 mol（1 atm），雖然沒有組態熵，但壓力會拉平到 1.5 atm，有熱熵：\(\Delta S = R\ln\tfrac{16}{9} + R\ln\tfrac{2}{3} = R\ln\tfrac{32}{27} \approx 1.41\ \text{J/K}\)。`
+},
+{
+  id:"3-P8", kind:"num", title:"不同溫度的兩種氣體混合",
+  text:R`剛性絕熱容器用隔板分成體積相等的兩半：一邊 2 mol 理想氣體 A、300 K；另一邊 2 mol 理想氣體 B、500 K。兩者 \(c_P = 2.5R\)。拿掉隔板後，總熵增加多少 J/K？`,
+  answer:24.66, tol:0.01, unit:"J/K",
+  hint:R`(1) 最後溫度：\(2c_P(T_f - 300) + 2c_P(T_f - 500) = 0\)。(2) 壓力：\(P_A = 2R\cdot300/V\)、\(P_B = 2R\cdot500/V\)，最後總壓 \(= 4R\,T_f/(2V)\)。(3) 組態熵 + 每種氣體的熱熵。`,
+  sol:R`\(T_f = 400\ \text{K}\)。以 \(R/V\) 為單位：\(P_A = 600\)、\(P_B = 1000\)、最後 \(P = 800\)。<br>
+  \(\Delta S_{conf} = 4R\ln2 = 23.05\ \text{J/K}\)<br>
+  \(\Delta S_{A} = 2\left[2.5R\ln\tfrac{400}{300} - R\ln\tfrac{800}{600}\right] = 7.18\ \text{J/K}\)<br>
+  \(\Delta S_{B} = 2\left[2.5R\ln\tfrac{400}{500} - R\ln\tfrac{800}{1000}\right] = -5.57\ \text{J/K}\)<br>
+  \(\Delta S_{total} = 23.05 + 7.18 - 5.57 \approx 24.66\ \text{J/K}\)。`
 }
+
 ];
 
 </script>

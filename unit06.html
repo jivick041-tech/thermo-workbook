@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 6 熱容量與第三定律</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 6</div>
+  <h1>熱容量與第三定律</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：熱容是材料的「食量」，而且會隨溫度改變</h3>
+<p>單元 1 說過，熱容是「升溫 1 度要吃多少熱」。這一章要回答三個問題：熱容從哪裡來？溫度改變時，反應熱 \(\Delta H\) 和熵 \(\Delta S\) 怎麼跟著變？熵有沒有「零點」？</p>
+
+<h3>熱容的經驗規則與理論</h3>
+<table>
+<tr><th>名稱</th><th>內容</th><th>適用範圍</th></tr>
+<tr><td>Dulong–Petit（1819）</td><td>固體元素的 \(c_V \approx 3R \approx 24.9\ \text{J/(mol·K)}\)</td><td>室溫附近、不是所有材料</td></tr>
+<tr><td>Kopp（1865）</td><td>化合物的 \(c_V \approx\) 組成元素的 \(c_V\) 加總</td><td>室溫附近</td></tr>
+<tr><td>Einstein 模型</td><td>每個原子是 3 個方向、單一頻率 \(\nu\) 的量子振子：<br>\(c_V = 3R\left(\dfrac{\theta_E}{T}\right)^2\dfrac{e^{\theta_E/T}}{(e^{\theta_E/T}-1)^2}\)，\(\theta_E = h\nu/k\)</td><td>高溫 → \(3R\)；低溫降到 0 太快</td></tr>
+<tr><td>Debye 模型</td><td>振動頻率從 0 到 \(\nu_D\) 都有（像連續固體的彈性波）；低溫時 \(c_V = 1943\left(\dfrac{T}{\theta_D}\right)^3\ \text{J/(mol·K)}\)（\(T^3\) 定律）</td><td>低溫很準</td></tr>
+<tr><td>實務上</td><td>直接量 \(c_P\)，寫成 \(c_P = a + bT + cT^{-2}\)（查附錄表，注意適用溫度範圍）</td><td>計算 \(\Delta H\)、\(\Delta S\) 時用</td></tr>
+</table>
+
+<h3>焓與溫度：焓–溫度圖</h3>
+<p>\(H\) 沒有絕對值，所以約定：<b>穩定狀態的元素在 298 K 時 \(H = 0\)</b>。於是化合物在 298 K 的 \(H\) 就等於它的生成熱，例如 \(H_{PbO,298} = \Delta H_{f,PbO,298} = -219{,}000\ \text{J/mol}\)。</p>
+<p>要算別的溫度的反應熱，就在焓–溫度圖上「繞路」（Hess 定律，\(H\) 是狀態函數）：反應物從 \(T\) 降到 298 K → 在 298 K 反應 → 產物從 298 K 升回 \(T\)。中間如果有熔化或相變，要加上（或減去）潛熱。</p>
+<p style="text-align:center;font-size:18px">\(\Delta H_T = \Delta H_{298} + \displaystyle\int_{298}^{T}\Delta c_P\,dT\)，\(\Delta c_P = \sum c_P(\text{產物}) - \sum c_P(\text{反應物})\)</p>
+<p>熵也一樣：\(\Delta S_T = \Delta S_{298} + \displaystyle\int_{298}^{T}\dfrac{\Delta c_P}{T}dT\)，遇到相變加上 \(\Delta H_{tr}/T_{tr}\)；然後 \(\Delta G_T = \Delta H_T - T\Delta S_T\)。</p>
+
+<h3>第三定律</h3>
+<p>Nernst：溫度接近 0 K 時，系統的熵趨近一個常數。Planck 補充：<b>處在完全內部平衡的純物質（完美晶體），0 K 時熵為 0</b>。因為 0 K 時只剩一種排法（基態），\(S = k\ln1 = 0\)。所以熵有絕對值：</p>
+<p style="text-align:center;font-size:18px">\(S_T = \displaystyle\int_0^T\dfrac{c_P}{T}dT\)（中間有相變時加上 \(\Delta H_{tr}/T_{tr}\)）</p>
+<p>玻璃、有缺陷或排列不規則的晶體，在 0 K 仍留有一點熵（殘餘熵），因為它們不是完全平衡的狀態。</p>
+
+<div class="tip"><b>過冷液體凝固（講義重點題型）</b><br>
+過冷液體在熔點以下自己凝固，是不可逆過程。算系統的 \(\Delta S\) 要繞可逆路徑：液體升溫到熔點 → 在熔點可逆凝固 → 固體降溫回來。外界（恆溫槽）的熵變 = \(-\Delta H_{系統}/T_{槽}\)。兩者相加 > 0，證明它是自發的。</div>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit05.html">← 單元 5</a><a href="index.html">目錄</a><a href="unit07.html">單元 7 →</a></div>
+<footer>材料熱力學練習簿 · 單元 6 熱容量與第三定律 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "6 熱容量與第三定律";
+const R = String.raw;
+const derivations = [
+{
+  id:"6-D1", math:["m6"], title:"反應熱隨溫度的變化（Kirchhoff）",
+  goal:R`\(\Delta H_{T_2} = \Delta H_{T_1} + \displaystyle\int_{T_1}^{T_2}\Delta c_P\,dT\)，\(\Delta c_P = c_P(\text{產物}) - c_P(\text{反應物})\)`,
+  from:R`\(H\) 是狀態函數、定壓下 \(dH = c_P\,dT\)`,
+  steps:[
+    {w:"畫出焓–溫度圖上的兩條路線。",
+     q:R`反應 A → B。想從「\(T_1\) 的 A」到「\(T_2\) 的 B」，可以走哪兩條路？`,
+     hint:"一條先反應再升溫，一條先升溫再反應。",
+     a:R`路線一：在 \(T_1\) 反應（\(\Delta H_{T_1}\)），產物 B 從 \(T_1\) 升溫到 \(T_2\)。路線二：反應物 A 從 \(T_1\) 升溫到 \(T_2\)，再在 \(T_2\) 反應（\(\Delta H_{T_2}\)）。`},
+    {w:"H 是狀態函數，兩條路線的 ΔH 一樣。",
+     q:"寫出兩條路線相等的式子。",
+     hint:R`升溫的 \(\Delta H = \int c_P\,dT\)。`,
+     a:R`\(\Delta H_{T_1} + \displaystyle\int_{T_1}^{T_2}c_{P,B}\,dT = \int_{T_1}^{T_2}c_{P,A}\,dT + \Delta H_{T_2}\)`},
+    {w:"移項整理。",
+     q:R`解出 \(\Delta H_{T_2}\)。`,
+     hint:"兩個積分合併成一個。",
+     a:R`\(\Delta H_{T_2} = \Delta H_{T_1} + \displaystyle\int_{T_1}^{T_2}(c_{P,B} - c_{P,A})\,dT = \Delta H_{T_1} + \int_{T_1}^{T_2}\Delta c_P\,dT\)`},
+    {w:"如果中間有物質熔化或相變，要多加一段。",
+     q:R`例如反應物 M 在 \(T_m\)（介於 298 K 和 \(T\) 之間）熔化。計算 \(\Delta H_T\) 時潛熱 \(\Delta H_m\) 要加還是減？`,
+     hint:"潛熱讓反應物這一側的焓變高。",
+     a:R`反應物熔化讓反應物的焓多了 \(\Delta H_m\)，所以反應熱要減掉：\(\Delta H_T = \Delta H_{298} + \int_{298}^{T_m}\Delta c_P\,dT - \Delta H_{m,M} + \int_{T_m}^{T}\Delta c_P'\,dT\)（\(\Delta c_P'\) 改用液態 M 的 \(c_P\)）。產物相變則是加上。`}
+  ],
+  meaning:R`只要知道 298 K 的生成熱（查表）和各物質的 \(c_P\)，就能算任何溫度的反應熱。講義的提醒：注意化學計量係數（例如 \(\tfrac12\)O₂），注意 \(c_P\) 式子的適用溫度範圍，相變潛熱的正負號看它在反應物還是產物那邊。`,
+  checks:[
+    {q:R`若 \(\Delta c_P = 0\)，反應熱隨溫度會？`,
+     opts:["不變","變大","變小","變成 0"], ans:0, ex:R`積分為 0，\(\Delta H_{T_2} = \Delta H_{T_1}\)。`},
+    {q:"反應物在途中熔化，計算 ΔH_T 時潛熱的處理是？",
+     opts:["減去反應物的熔化熱","加上反應物的熔化熱","不用管","乘上溫度"], ans:0, ex:"反應物焓變高，反應放熱就變少（ΔH 往正方向）。"}
+  ]
+},
+{
+  id:"6-D2", math:["m6","m7"], title:"熵與自由能隨溫度的變化",
+  goal:R`\(\Delta S_T = \Delta S_{298} + \displaystyle\int_{298}^{T}\dfrac{\Delta c_P}{T}dT\)（相變加 \(\Delta H_{tr}/T_{tr}\)），\(\Delta G_T = \Delta H_T - T\Delta S_T\)`,
+  from:R`\(dS = \delta q_{rev}/T = c_P\,dT/T\)（定壓）`,
+  steps:[
+    {w:"定壓升溫時，可逆的熱就是 c_P dT。",
+     q:"寫出定壓下升溫時的 dS。",
+     hint:R`\(\delta q_P = dH = c_P\,dT\)。`,
+     a:R`\(dS = \dfrac{c_P\,dT}{T}\)`},
+    {w:"用和 D1 一樣的繞路方法。",
+     q:R`仿照 D1，寫出 \(\Delta S_T\)。`,
+     hint:R`把 \(c_P\) 換成 \(c_P/T\)。`,
+     a:R`\(\Delta S_T = \Delta S_{298} + \displaystyle\int_{298}^{T}\dfrac{\Delta c_P}{T}dT\)`},
+    {w:"相變發生在固定溫度，熵變是潛熱除以溫度。",
+     q:R`在 \(T_{tr}\) 發生相變（潛熱 \(\Delta H_{tr}\)），這一段的熵變是？`,
+     hint:"定溫、可逆的吸熱。",
+     a:R`\(\Delta S_{tr} = \dfrac{\Delta H_{tr}}{T_{tr}}\)，正負號規則和 D1 的潛熱一樣`},
+    {w:"有了 ΔH 和 ΔS，自由能就出來了。",
+     q:R`寫出 \(\Delta G_T\)。`,
+     hint:"定溫下 G = H − TS。",
+     a:R`\(\Delta G_T = \Delta H_T - T\Delta S_T\)（講義例題：Zr + O₂ → ZrO₂ 在 1600 K，\(\Delta H \approx -1086\ \text{kJ}\)、\(\Delta S \approx -180\ \text{J/K}\)，\(\Delta G \approx -799\ \text{kJ}\)）`}
+  ],
+  meaning:R`第 6 章的計算全部是同一套流程：查表得 298 K 的 \(\Delta H\)、\(S\) → 用 \(c_P\) 積分到目標溫度 → 中途相變加潛熱項 → 組合出 \(\Delta G\)。單元 11 判斷反應能不能發生，就是靠這個 \(\Delta G_T\)。`,
+  checks:[
+    {q:R`\(c_P = a\)（常數）時，從 \(T_1\) 加熱到 \(T_2\) 的熵變是？`,
+     opts:[R`\(a\ln\frac{T_2}{T_1}\)`,R`\(a(T_2 - T_1)\)`,R`\(a/T_2\)`,"0"], ans:0, ex:R`\(\int a\,dT/T = a\ln(T_2/T_1)\)。`},
+    {q:R`熔化時 \(\Delta S_m\) 怎麼算？`,
+     opts:[R`\(\Delta H_m/T_m\)`,R`\(\Delta H_m\times T_m\)`,R`\(c_P\ln T_m\)`,"0"], ans:0, ex:"在熔點熔化是定溫可逆過程。"}
+  ]
+},
+{
+  id:"6-D3", math:["m5","m7"], title:"Einstein 熱容模型",
+  goal:R`\(c_V = 3R\left(\dfrac{\theta_E}{T}\right)^2\dfrac{e^{\theta_E/T}}{(e^{\theta_E/T}-1)^2}\)，\(\theta_E = h\nu/k\)`,
+  from:R`量子振子能階 \(\varepsilon_i = (i + \tfrac12)h\nu\)、Boltzmann 分布（單元 3 D6）、\(c_V = (\partial U/\partial T)_V\)`,
+  steps:[
+    {w:"把晶體想成很多個在原地振動的原子，每個原子有 3 個方向。",
+     q:R`寫出 \(n\) 個原子的內能 \(U\)。`,
+     hint:R`每個方向都是一個量子振子；能階 \(i\) 上有 \(n_i\) 個振子。`,
+     a:R`\(U = 3\displaystyle\sum_i n_i\varepsilon_i\)，\(\varepsilon_i = (i + \tfrac12)h\nu\)`},
+    {w:"用 Boltzmann 分布決定每個能階有多少振子。",
+     q:R`代入 \(n_i = \dfrac{n\,e^{-\varepsilon_i/kT}}{\sum e^{-\varepsilon_i/kT}}\)，令 \(x = e^{-h\nu/kT}\)，整理成只剩 \(\sum x^i\) 與 \(\sum ix^i\)。`,
+     hint:R`\(e^{-\varepsilon_i/kT} = e^{-h\nu/2kT}x^i\)，分子分母的 \(e^{-h\nu/2kT}\) 會消掉。`,
+     a:R`\(U = 3nh\nu\left(\dfrac12 + \dfrac{\sum ix^i}{\sum x^i}\right)\)`},
+    {w:"用等比級數把兩個無窮級數算出來。",
+     q:R`已知 \(\sum x^i = \dfrac{1}{1-x}\)、\(\sum ix^i = \dfrac{x}{(1-x)^2}\)（\(x < 1\)），化簡 \(U\)。`,
+     hint:R`兩者相除得 \(\dfrac{x}{1-x} = \dfrac{1}{e^{h\nu/kT} - 1}\)。`,
+     a:R`\(U = \dfrac32 nh\nu + \dfrac{3nh\nu}{e^{h\nu/kT} - 1}\)`},
+    {w:"內能對溫度微分，就是熱容。",
+     q:R`求 \(c_V = (\partial U/\partial T)_V\)，並用 \(nk = R\)、\(\theta_E = h\nu/k\)。`,
+     hint:R`第一項是常數；第二項用 \(\dfrac{d}{dT}\dfrac{1}{e^{a/T}-1} = \dfrac{a}{T^2}\dfrac{e^{a/T}}{(e^{a/T}-1)^2}\)。`,
+     a:R`\(c_V = 3nk\left(\dfrac{h\nu}{kT}\right)^2\dfrac{e^{h\nu/kT}}{(e^{h\nu/kT}-1)^2} = 3R\left(\dfrac{\theta_E}{T}\right)^2\dfrac{e^{\theta_E/T}}{(e^{\theta_E/T}-1)^2}\)`}
+  ],
+  meaning:R`推導的邏輯：(1) 先寫能量（各能階有多少粒子 × 能量）；(2) 用 Boltzmann 分布把溫度帶進來；(3) 對 \(T\) 微分得到 \(c_V(T)\)。Einstein 第一次解釋了為什麼低溫時熱容會變小：溫度低到連最小的能量 \(h\nu\) 都很難激發，原子「振不起來」。`,
+  checks:[
+    {q:"Einstein 模型和實驗比較，低溫時？",
+     opts:["理論值降到 0 的速度太快","理論值太大","完全吻合","理論值是負的"], ans:0, ex:"真實晶體的原子會互相影響，振動不是單一頻率；Debye 模型修正後低溫符合 T³ 定律。"},
+    {q:R`推導中用到的 \(\sum_{i=0}^{\infty}x^i\) 等於？`,
+     opts:[R`\(\frac{1}{1-x}\)`,R`\(\frac{x}{1-x}\)`,R`\(e^x\)`,R`\(1-x\)`], ans:0, ex:R`等比級數，\(|x| < 1\) 時收斂。`}
+  ]
+},
+{
+  id:"6-D4", math:["m7"], title:"Einstein 模型的高溫與低溫極限",
+  goal:R`高溫：\(c_V \to 3R\)（Dulong–Petit）；低溫：\(c_V \to 0\)`,
+  from:"D3 的結果",
+  steps:[
+    {w:"高溫時 θ_E/T 很小，用近似。",
+     q:R`令 \(y = \theta_E/T \to 0\)，用 \(e^y \approx 1 + y\) 化簡 \(c_V\)。`,
+     hint:R`分母 \((e^y - 1)^2 \approx y^2\)，分子 \(e^y \approx 1\)。`,
+     a:R`\(c_V \approx 3R\cdot y^2\cdot\dfrac{1}{y^2} = 3R \approx 24.9\ \text{J/(mol·K)}\)`},
+    {w:"低溫時 θ_E/T 很大，指數項主導。",
+     q:R`\(y \to \infty\) 時 \(c_V\) 趨近多少？`,
+     hint:R`\((e^y - 1)^2 \approx e^{2y}\)，所以 \(c_V \approx 3Ry^2e^{-y}\)。`,
+     a:R`\(c_V \approx 3Ry^2e^{-y} \to 0\)（指數下降）`}
+  ],
+  meaning:R`高溫極限就是 Dulong–Petit 定律，所以這個經驗規則只在室溫以上準。低溫時實驗是 \(T^3\) 下降（Debye），Einstein 的指數下降太快。高溫時實驗值會比 \(3R\) 再高一點，因為還有電子的貢獻（\(bT\) 項）和振動的非諧性。`,
+  checks:[
+    {q:"Dulong–Petit 定律對應 Einstein 模型的哪個極限？",
+     opts:["高溫","低溫","T = θ_E","T = 0"], ans:0, ex:R`\(T \gg \theta_E\) 時 \(c_V \to 3R\)。`},
+    {q:R`Debye 模型的低溫 \(c_V\) 與溫度的關係是？`,
+     opts:[R`\(\propto T^3\)`,R`\(\propto T\)`,R`\(\propto e^{-\theta/T}\)`,"常數"], ans:0, ex:R`\(c_V = 1943(T/\theta_D)^3\ \text{J/(mol·K)}\)。`}
+  ]
+},
+{
+  id:"6-D5", math:["m6","m7"], title:"過冷液體凝固產生的熵",
+  goal:R`\(\Delta S_{irr} = \Delta S_{系統} + \Delta S_{外界} > 0\)`,
+  from:R`熵是狀態函數、\(\Delta S_{外界} = -\Delta H_{系統}/T\)`,
+  steps:[
+    {w:"過冷凝固不可逆，先設計一條可逆路徑算系統的熵。",
+     q:R`液體在 \(T < T_m\) 凝固。可逆路徑怎麼走？`,
+     hint:"只有在熔點凝固才是可逆的。",
+     a:R`液體從 \(T\) 升溫到 \(T_m\) → 在 \(T_m\) 可逆凝固 → 固體從 \(T_m\) 降溫回 \(T\)。`},
+    {w:"三段的熵變加起來。",
+     q:R`寫出 \(\Delta S_{系統}\)。`,
+     hint:R`升溫用 \(\int c_{P,l}/T\,dT\)，凝固是 \(-\Delta H_m/T_m\)，降溫用 \(\int c_{P,s}/T\,dT\)。`,
+     a:R`\(\Delta S_{系統} = \displaystyle\int_T^{T_m}\dfrac{c_{P,l}}{T}dT - \dfrac{\Delta H_m}{T_m} + \int_{T_m}^{T}\dfrac{c_{P,s}}{T}dT\)（是負的：變整齊了）`},
+    {w:"外界（恆溫槽）收到系統放出的熱。",
+     q:R`凝固放出的熱進入溫度 \(T\) 的恆溫槽，\(\Delta S_{外界}\) 是？`,
+     hint:R`同一條路徑算系統的 \(\Delta H\)（三段相加），恆溫槽收到 \(-\Delta H_{系統}\)。`,
+     a:R`\(\Delta S_{外界} = \dfrac{-\Delta H_{系統}}{T}\)，\(\Delta H_{系統} = \displaystyle\int_T^{T_m}c_{P,l}\,dT - \Delta H_m + \int_{T_m}^{T}c_{P,s}\,dT\)`},
+    {w:"相加判斷是否自發。",
+     q:R`\(\Delta S_{irr} = \Delta S_{系統} + \Delta S_{外界}\) 的正負號？`,
+     hint:R`外界在比 \(T_m\) 低的溫度收熱，\(1/T\) 比較大。`,
+     a:R`\(\Delta S_{irr} > 0\)，所以過冷液體凝固是自發的（講義：Pb 在 590 K，\(\Delta S_{irr} = 0.135\ \text{J/K}\)）。`}
+  ],
+  meaning:R`系統變整齊（熵減少），但放出的熱讓溫度較低的外界熵增加得更多。過冷越多，產生的熵越多，凝固的驅動力越大。如果容器是絕熱的，放出的熱會把系統自己加熱到熔點，只有一部分液體會凝固（習題 P6）。`,
+  checks:[
+    {q:"過冷液體凝固時，系統自己的熵？",
+     opts:["減少","增加","不變","無法判斷"], ans:0, ex:"液體變固體，變得比較整齊；但宇宙的總熵增加。"},
+    {q:R`為什麼不能直接用 \(-\Delta H_m/T\) 算系統的熵變？`,
+     opts:["在 T < T_m 凝固是不可逆的，q/T 不等於 ΔS","因為 ΔH_m 是 0","因為溫度太低","可以直接用"], ans:0, ex:"只有可逆過程 dS = δq/T。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"6-P1", kind:"mc", title:"Dulong–Petit 定律",
+  text:"室溫下，大部分固體元素（例如 Cu、Al、Fe）的莫耳熱容大約是多少？",
+  opts:["約 25 J/(mol·K)","約 8.3 J/(mol·K)","約 75 J/(mol·K)","約 0"], ans:0,
+  hint:R`\(3R\)。`,
+  sol:R`\(3R = 3\times8.314 \approx 24.9\ \text{J/(mol·K)}\)。原因：每個原子有 3 個振動方向，高溫時每個方向貢獻 \(R\)。`
+},
+{
+  id:"6-P2", kind:"num", title:"Einstein 模型算熱容",
+  text:R`用 Einstein 模型，求 \(T = \theta_E\) 時的 \(c_V\)，單位 J/(mol·K)。`,
+  answer:22.96, tol:0.01, unit:"J/(mol·K)",
+  hint:R`\(\theta_E/T = 1\)：\(c_V = 3R\cdot\dfrac{e}{(e-1)^2}\)，\(e \approx 2.718\)。`,
+  sol:R`\(c_V = 3\times8.314\times\dfrac{2.718}{1.718^2} = 24.94\times0.921 \approx 22.96\ \text{J/(mol·K)}\)，已經是 \(3R\) 的 92%。`
+},
+{
+  id:"6-P3", kind:"num", title:"Debye T³ 定律",
+  text:R`銅的 Debye 溫度 \(\theta_D = 343\ \text{K}\)。用低溫近似 \(c_V = 1943(T/\theta_D)^3\)，求 10 K 時的 \(c_V\)，單位 J/(mol·K)。`,
+  answer:0.0481, tol:0.02, unit:"J/(mol·K)",
+  hint:R`\((10/343)^3 \approx 2.48\times10^{-5}\)。`,
+  sol:R`\(c_V = 1943\times(10/343)^3 \approx 0.0481\ \text{J/(mol·K)}\)，只有室溫的約五百分之一。`
+},
+{
+  id:"6-P4", kind:"num", title:"反應熱隨溫度變化",
+  text:R`某反應在 298 K 的 \(\Delta H_{298} = -100{,}000\ \text{J}\)，且 \(\Delta c_P = 4.0 + 2.0\times10^{-3}T\ \text{J/K}\)（298–1000 K 內沒有相變）。求 1000 K 的 \(\Delta H\)，單位 J。`,
+  answer:-96281, tol:0.002, unit:"J",
+  hint:R`\(\int_{298}^{1000}(4.0 + 2.0\times10^{-3}T)dT = 4.0(1000 - 298) + 1.0\times10^{-3}(1000^2 - 298^2)\)。`,
+  sol:R`積分 \(= 2808 + 911.2 = 3719.2\ \text{J}\)，\(\Delta H_{1000} = -100{,}000 + 3719 \approx -96{,}281\ \text{J}\)。`
+},
+{
+  id:"6-P5", kind:"num", title:"過冷 Pb 凝固產生的熵（講義例題型）",
+  text:R`1 mol 過冷液態 Pb 在 580 K、1 atm 自發凝固（恆溫槽 580 K）。Pb 熔點 600 K、熔化熱 4810 J/mol；\(c_{P,l} = 32.4 - 3.1\times10^{-3}T\)，\(c_{P,s} = 23.56 + 9.75\times10^{-3}T\)（J/(mol·K)）。求系統＋恆溫槽產生的總熵 \(\Delta S_{irr}\)，單位 J/K。`,
+  answer:0.276, tol:0.04, unit:"J/K",
+  hint:R`用 D5 的三段路徑。\(\Delta S_{系統} = \int_{580}^{600}\frac{c_{P,l}}{T}dT - \frac{4810}{600} + \int_{600}^{580}\frac{c_{P,s}}{T}dT\)；\(\Delta H_{系統}\) 也用同樣三段；\(\Delta S_{槽} = -\Delta H_{系統}/580\)。`,
+  sol:R`\(\Delta S_{系統} = 1.037 - 8.017 - 0.994 \approx -7.974\ \text{J/K}\)<br>
+  \(\Delta H_{系統} = 611.4 - 4810 - 586.2 \approx -4785\ \text{J}\)，\(\Delta S_{槽} = 4785/580 \approx 8.250\ \text{J/K}\)<br>
+  \(\Delta S_{irr} = -7.974 + 8.250 \approx 0.276\ \text{J/K} > 0\)，自發。比講義 590 K 的 0.135 J/K 大，因為過冷得更多。`
+},
+{
+  id:"6-P6", kind:"num", title:"絕熱容器中的過冷 Sn 有多少會凝固？",
+  text:R`1 mol 過冷液態 Sn 絕熱地裝在 490 K。Sn 熔點 505 K、熔化熱 7070 J/mol，\(c_{P,l} = 34.7 - 9.2\times10^{-3}T\ \text{J/(mol·K)}\)。部分 Sn 自發凝固，放出的熱把系統加熱到 505 K 為止。凝固的莫耳分率 \(x\) 是多少？（請輸入小數）`,
+  answer:0.0639, tol:0.02, unit:"",
+  hint:R`絕熱定壓：\(\Delta H = 0\)。路徑：1 mol 液體從 490 K 加熱到 505 K（吸熱），再在 505 K 凝固 \(x\) mol（放熱 \(x\Delta H_m\)）。`,
+  sol:R`\(\int_{490}^{505}c_{P,l}\,dT = 34.7\times15 - 4.6\times10^{-3}(505^2 - 490^2) \approx 451.8\ \text{J}\)，\(x = 451.8/7070 \approx 0.0639\)，約 6.4% 的 Sn 會凝固（講義 495 K 的例子是 4.26%）。`
+},
+{
+  id:"6-P7", kind:"mc", title:"第三定律",
+  text:"下列哪一種物質在 0 K 時的熵「不是」0？",
+  opts:["玻璃（非晶質）","完美的銅單晶","完美的鑽石晶體","完美的矽單晶"], ans:0,
+  hint:"第三定律講的是「處在完全內部平衡的純物質」。",
+  sol:"玻璃的原子排列是被「凍結」的無序狀態，不是平衡態，0 K 時仍有很多種排法，留有殘餘熵。完美晶體 0 K 時只有一種排法，S = k ln 1 = 0。"
+}
+];
+
+</script>
+<script src="game.js"></script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

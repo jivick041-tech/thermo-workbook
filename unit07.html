@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 7 單成分相平衡</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 7</div>
+  <h1>單成分相平衡</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：哪一相的 G 比較低，就變成哪一相</h3>
+<p>冰和水，誰比較穩定？在定溫定壓下，看誰的莫耳 Gibbs 自由能 \(G\) 比較低（單元 4）。兩相的 \(G\) 剛好相等時，兩相可以共存，這就是<b>相平衡</b>：</p>
+<p style="text-align:center;font-size:18px">平衡：\(G^{\alpha} = G^{\beta}\)；\(\Delta G = G^{\beta} - G^{\alpha} < 0\) 時 α 會自發變成 β</p>
+<p>例：1 atm 下，273 K 時冰水共存（\(\Delta G = 0\)）；高於 273 K，\(G_{水} < G_{冰}\)，冰會熔化；低於 273 K 反過來。</p>
+
+<h3>G 隨溫度、壓力怎麼變？</h3>
+<p>從 \(dG = -S\,dT + V\,dP\)：</p>
+<table>
+<tr><th></th><th>斜率</th><th>彎曲方向</th><th>結論</th></tr>
+<tr><td>G–T 圖（定壓）</td><td>\(\left(\dfrac{\partial G}{\partial T}\right)_P = -S < 0\)</td><td>\(\left(\dfrac{\partial^2 G}{\partial T^2}\right)_P = -\dfrac{c_P}{T} < 0\)，向下彎</td><td>熵越大的相（氣 > 液 > 固）線越陡，溫度升高時會贏</td></tr>
+<tr><td>G–P 圖（定溫）</td><td>\(\left(\dfrac{\partial G}{\partial P}\right)_T = V > 0\)</td><td>\(\left(\dfrac{\partial^2 G}{\partial P^2}\right)_T = -\beta V < 0\)，向下彎</td><td>體積越小的相，壓力升高時會贏</td></tr>
+</table>
+<p>水很特別：冰的體積比水大（冰的密度 0.92、水 1.0 g/cm³），所以加壓會讓冰熔化。</p>
+
+<h3>相圖（P–T 圖）從哪裡來？</h3>
+<p>把每一相的 \(G\) 畫成 \(T\)、\(P\) 空間裡的曲面，兩相曲面的交線投影到 P–T 平面，就是相界線；三相曲面交於一點，就是三相點。沿著相界線移動時，兩相一直保持平衡，界線的斜率由 Clapeyron 方程決定：</p>
+<p style="text-align:center;font-size:18px">\(\left(\dfrac{dP}{dT}\right)_{eq} = \dfrac{\Delta H}{T\Delta V}\)（任何兩相）；\(\dfrac{d\ln P}{dT} = \dfrac{\Delta H}{RT^2}\)（Clausius–Clapeyron，凝相 ↔ 氣相）</p>
+
+<h3>斜率的正負號（以鐵為例）</h3>
+<p>熔化、蒸發、升溫時的相變，\(\Delta H > 0\)，所以界線斜率的正負號由 \(\Delta V\) 決定：</p>
+<ul>
+<li>α-Fe（BCC，APF 0.68）→ γ-Fe（FCC，APF 0.74）：變得更緊密，\(\Delta V < 0\)，斜率 < 0。</li>
+<li>γ-Fe（FCC）→ δ-Fe（BCC）：\(\Delta V > 0\)，斜率 > 0。</li>
+<li>δ-Fe → 液體：\(\Delta V > 0\)，斜率 > 0。</li>
+</ul>
+
+<h3>蒸氣壓式子的常見形式</h3>
+<p>若 \(\Delta H\) 是常數：\(\ln P = -\dfrac{\Delta H}{RT} + C\)。若 \(\Delta c_P \neq 0\)，\(\Delta H_T = (\Delta H_{298} - 298\Delta c_P) + \Delta c_P T\)，積分得 \(\ln P = -\dfrac{A}{T} + B\ln T + C\)。拿到這種式子，就能反推 \(\Delta H = R(A + BT)\)；固→氣、液→氣兩條式子的交點就是三相點。</p>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="pager"><a href="unit06.html">← 單元 6</a><a href="index.html">目錄</a></div>
+<footer>材料熱力學練習簿 · 單元 7 單成分相平衡 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "7 單成分相平衡";
+const R = String.raw;
+const derivations = [
+{
+  id:"7-D1", math:[], title:"相平衡條件：兩相的 G 相等",
+  goal:R`兩相平衡時 \(G^{\alpha} = G^{\beta}\)，因此 \(\Delta H_{tr} = T\Delta S_{tr}\)`,
+  from:R`定溫定壓下 \(G\) 最低為平衡（單元 4）、\(G = H - TS\)`,
+  steps:[
+    {w:"想像把一點點物質從 α 相搬到 β 相。",
+     q:R`定溫定壓下搬 \(dn\) mol，從 α 到 β，系統的 \(dG\) 是多少？`,
+     hint:"α 少了 dn 個莫耳的 G^α，β 多了 dn 個莫耳的 G^β。",
+     a:R`\(dG = (G^{\beta} - G^{\alpha})\,dn\)`},
+    {w:"平衡時往哪邊搬都不會讓 G 下降。",
+     q:"平衡時 dG 必須是多少？由此得到什麼條件？",
+     hint:"平衡時 G 已經在最低點。",
+     a:R`\(dG = 0 \Rightarrow G^{\alpha} = G^{\beta}\)；若 \(G^{\beta} < G^{\alpha}\)，物質會自發從 α 跑到 β。`},
+    {w:"把 G = H − TS 代進去。",
+     q:R`由 \(G^{\alpha} = G^{\beta}\) 推出相變的 \(\Delta H\) 與 \(\Delta S\) 的關係。`,
+     hint:R`\(H^{\alpha} - TS^{\alpha} = H^{\beta} - TS^{\beta}\)。`,
+     a:R`\(\Delta H_{tr} = T\Delta S_{tr}\)，也就是 \(\Delta S_{tr} = \Delta H_{tr}/T_{tr}\)（單元 2 熔化熵的公式）`}
+  ],
+  meaning:R`「哪一相的 G 低就變成哪一相」是整章的核心。在熔點，冰和水的 \(G\) 一樣，所以能共存；只要溫度或壓力一動，就看誰的 \(G\) 下降得比較快。`,
+  checks:[
+    {q:"1 atm、260 K 時，冰和水哪個 G 比較低？",
+     opts:["冰","水","一樣","無法判斷"], ans:0, ex:"低於熔點時固相穩定，所以 G_冰 < G_水。"},
+    {q:R`在熔點，\(\Delta G_{熔化}\) 是？`,
+     opts:["0","大於 0","小於 0","等於 ΔH"], ans:0, ex:"兩相平衡。"}
+  ]
+},
+{
+  id:"7-D2", math:["m4"], title:"Clapeyron 方程",
+  goal:R`\(\left(\dfrac{dP}{dT}\right)_{eq} = \dfrac{\Delta H}{T\Delta V}\)`,
+  from:R`D1 的平衡條件、\(dG = -S\,dT + V\,dP\)`,
+  steps:[
+    {w:"沿著相界線移動時，兩相要一直保持平衡。",
+     q:"T、P 各改變一點點，兩相仍然平衡。兩相的 dG 有什麼關係？",
+     hint:R`原本 \(G^{\alpha} = G^{\beta}\)，改變後也要相等。`,
+     a:R`\(dG^{\alpha} = dG^{\beta}\)`},
+    {w:"把兩相的 dG 展開。",
+     q:R`用 \(dG = -S\,dT + V\,dP\) 寫出等式。`,
+     hint:"每一相用自己的莫耳熵和莫耳體積。",
+     a:R`\(-S^{\alpha}dT + V^{\alpha}dP = -S^{\beta}dT + V^{\beta}dP\)`},
+    {w:"整理出 dP/dT。",
+     q:"移項解出 dP/dT。",
+     hint:"把 dT 的項放一邊，dP 的項放另一邊。",
+     a:R`\(\left(\dfrac{dP}{dT}\right)_{eq} = \dfrac{S^{\beta} - S^{\alpha}}{V^{\beta} - V^{\alpha}} = \dfrac{\Delta S}{\Delta V}\)`},
+    {w:"把 ΔS 換成量得到的潛熱。",
+     q:"用 D1 的結果換掉 ΔS。",
+     hint:R`\(\Delta S = \Delta H/T\)。`,
+     a:R`\(\left(\dfrac{dP}{dT}\right)_{eq} = \dfrac{\Delta H}{T\Delta V}\)（Clapeyron 方程）`}
+  ],
+  meaning:R`Clapeyron 方程就是相圖上相界線的斜率。\(\Delta H\) 通常是正的（往高溫相變化要吸熱），所以斜率的正負號由 \(\Delta V\) 決定：水結冰體積變大，所以冰–水界線向左傾，加壓會讓冰熔化。`,
+  checks:[
+    {q:"冰熔化成水 ΔV < 0。冰–水相界線在 P–T 圖上的斜率是？",
+     opts:["負的","正的","0","無限大"], ans:0, ex:R`\(\Delta H > 0\)、\(\Delta V < 0\)，\(dP/dT < 0\)。`},
+    {q:"Clapeyron 方程推導的關鍵是？",
+     opts:["沿相界線移動時兩相的 dG 相等","兩相的 S 相等","兩相的 V 相等","兩相的 H 相等"], ans:0, ex:"兩相的 G 一直相等，所以變化量也相等。"}
+  ]
+},
+{
+  id:"7-D3", math:["m5","m6","m7"], title:"Clausius–Clapeyron 方程（凝相 ↔ 氣相）",
+  goal:R`\(\dfrac{d\ln P}{dT} = \dfrac{\Delta H}{RT^2}\)；\(\Delta H\) 為常數時 \(\ln P = -\dfrac{\Delta H}{RT} + C\)`,
+  from:R`Clapeyron 方程、理想氣體`,
+  steps:[
+    {w:"氣體的體積比固體、液體大太多，可以忽略凝相的體積。",
+     q:R`蒸發或昇華時，\(\Delta V = V_{氣} - V_{凝相}\) 可以怎麼近似？`,
+     hint:"1 mol 水蒸氣約 30 L，1 mol 液態水只有 0.018 L。",
+     a:R`\(\Delta V \approx V_{氣}\)`},
+    {w:"把氣體當成理想氣體。",
+     q:R`代入 \(V_{氣} = RT/P\)（1 mol）。`,
+     hint:R`\(\dfrac{dP}{dT} = \dfrac{\Delta H}{T\cdot RT/P}\)。`,
+     a:R`\(\dfrac{dP}{dT} = \dfrac{P\Delta H}{RT^2}\)`},
+    {w:"整理成 ln P 的形式。",
+     q:R`兩邊除以 \(P\)，用 \(dP/P = d\ln P\)。`,
+     hint:"M5 的自然對數微分。",
+     a:R`\(\dfrac{d\ln P}{dT} = \dfrac{\Delta H}{RT^2}\)（Clausius–Clapeyron 方程）`},
+    {w:"ΔH 不隨溫度變時，直接積分。",
+     q:R`\(\Delta H\) 為常數，積分得到 \(\ln P\) 與 \(T\) 的關係。`,
+     hint:R`\(\int dT/T^2 = -1/T\)。`,
+     a:R`\(\ln P = -\dfrac{\Delta H}{RT} + C\)；兩個溫度之間：\(\ln\dfrac{P_2}{P_1} = -\dfrac{\Delta H}{R}\left(\dfrac{1}{T_2} - \dfrac{1}{T_1}\right)\)`}
+  ],
+  meaning:R`只適用於「最後是氣相」的相變（蒸發、昇華）；固–液之間要用原本的 Clapeyron 方程。\(\ln P\) 對 \(1/T\) 作圖是一條直線，斜率 \(= -\Delta H/R\)，實驗上常用來量蒸發熱。`,
+  checks:[
+    {q:"Clausius–Clapeyron 方程不能用在哪個相變？",
+     opts:["固體熔化成液體","液體蒸發","固體昇華","液體沸騰"], ans:0, ex:"固液之間不能忽略凝相體積，也不能用理想氣體。"},
+    {q:R`\(\ln P\) 對 \(1/T\) 作圖的斜率是？`,
+     opts:[R`\(-\Delta H/R\)`,R`\(\Delta H/R\)`,R`\(-\Delta S/R\)`,R`\(\Delta H\)`], ans:0, ex:R`\(\ln P = -\frac{\Delta H}{R}\cdot\frac1T + C\)。`}
+  ]
+},
+{
+  id:"7-D4", math:["m5","m6","m7"], title:"ΔH 隨溫度變化時的蒸氣壓式子",
+  goal:R`\(\ln P = -\dfrac{A}{T} + B\ln T + C\)，且由式子可反推 \(\Delta H = R(A + BT)\)`,
+  from:R`Clausius–Clapeyron、單元 6 的 \(\Delta H_T = \Delta H_{298} + \Delta c_P(T - 298)\)`,
+  steps:[
+    {w:"真實情況 Δc_P 不是 0，ΔH 會隨溫度改變。",
+     q:R`\(\Delta c_P\) 為常數時，把 \(\Delta H_T\) 寫成「常數 + 常數 × T」。`,
+     hint:R`\(\Delta H_T = \Delta H_{298} + \Delta c_P(T - 298)\)，展開。`,
+     a:R`\(\Delta H_T = (\Delta H_{298} - 298\Delta c_P) + \Delta c_P T\)`},
+    {w:"代入 Clausius–Clapeyron 再積分。",
+     q:R`\(d\ln P = \dfrac{\Delta H_T}{RT^2}dT\)，積分。`,
+     hint:R`\(\int\frac{dT}{T^2} = -\frac1T\)，\(\int\frac{dT}{T} = \ln T\)。`,
+     a:R`\(\ln P = -\dfrac{\Delta H_{298} - 298\Delta c_P}{R}\cdot\dfrac{1}{T} + \dfrac{\Delta c_P}{R}\ln T + C\)，也就是 \(-\dfrac{A}{T} + B\ln T + C\)`},
+    {w:"反過來：拿到蒸氣壓式子，求相變熱。",
+     q:R`已知 \(\ln P = -\dfrac{A}{T} + B\ln T + C\)，求 \(\Delta H\)。`,
+     hint:R`對 \(T\) 微分，再乘上 \(RT^2\)。`,
+     a:R`\(\dfrac{d\ln P}{dT} = \dfrac{A}{T^2} + \dfrac{B}{T} = \dfrac{\Delta H}{RT^2} \Rightarrow \Delta H = R(A + BT)\)`},
+    {w:"兩條蒸氣壓式子還能求三相點和熔化熱。",
+     q:"已知固→氣、液→氣兩條蒸氣壓式子，怎麼求三相點與三相點的熔化熱？",
+     hint:R`三相點時兩條式子的 \(P\) 相等；\(H\) 是狀態函數。`,
+     a:R`令兩式相等解出 \(T_{tp}\)，代回求 \(P_{tp}\)；\(\Delta H_{s\to l} = \Delta H_{s\to v} - \Delta H_{l\to v}\)（講義：NaF 三相點 1239 K、熔化熱 33.2 kJ/mol）`}
+  ],
+  meaning:R`課本附錄的蒸氣壓都是寫成 \(\ln P = -A/T + B\ln T + C\)。看到這種式子，要能馬上反推出相變熱；兩條式子聯立就能找三相點。`,
+  checks:[
+    {q:R`\(\ln P = -\dfrac{3116}{T} + 16.01\)（CO₂ 固→氣），昇華熱是？`,
+     opts:["3116 × 8.314 ≈ 25.9 kJ/mol","3116 J/mol","16.01 × 8.314 J/mol","無法判斷"], ans:0, ex:R`\(B = 0\)，\(\Delta H = RA = 3116\times8.314 \approx 25{,}906\ \text{J/mol}\)。`},
+    {q:"三相點的熔化熱怎麼求？",
+     opts:["ΔH_昇華 − ΔH_蒸發","ΔH_昇華 + ΔH_蒸發","ΔH_蒸發 − ΔH_昇華","直接等於 ΔH_昇華"], ans:0, ex:"固→氣 = 固→液 + 液→氣（H 是狀態函數）。"}
+  ]
+},
+{
+  id:"7-D5", math:["m3"], title:"G–T、G–P 曲線的斜率與彎曲",
+  goal:R`\(\left(\dfrac{\partial G}{\partial T}\right)_P = -S\)，\(\left(\dfrac{\partial^2 G}{\partial T^2}\right)_P = -\dfrac{c_P}{T}\)；\(\left(\dfrac{\partial G}{\partial P}\right)_T = V\)，\(\left(\dfrac{\partial^2 G}{\partial P^2}\right)_T = -\beta V\)`,
+  from:R`\(dG = -S\,dT + V\,dP\)、\(c_P = T(\partial S/\partial T)_P\)、\(\beta\) 的定義`,
+  steps:[
+    {w:"從 dG 讀出斜率。",
+     q:"定壓時 G 對 T 的斜率、定溫時 G 對 P 的斜率各是什麼？",
+     hint:"分別令 dP = 0、dT = 0。",
+     a:R`\(\left(\dfrac{\partial G}{\partial T}\right)_P = -S < 0\)，\(\left(\dfrac{\partial G}{\partial P}\right)_T = V > 0\)`},
+    {w:"再微分一次，看曲線往哪邊彎。",
+     q:R`對 \(-S\) 再對 \(T\) 微分。`,
+     hint:R`\((\partial S/\partial T)_P = c_P/T\)。`,
+     a:R`\(\left(\dfrac{\partial^2 G}{\partial T^2}\right)_P = -\dfrac{c_P}{T} < 0\)：G–T 曲線向下彎`},
+    {w:"G–P 也一樣。",
+     q:R`對 \(V\) 再對 \(P\) 微分。`,
+     hint:R`\(\beta = -\frac1V(\partial V/\partial P)_T\)。`,
+     a:R`\(\left(\dfrac{\partial^2 G}{\partial P^2}\right)_T = \left(\dfrac{\partial V}{\partial P}\right)_T = -\beta V < 0\)：G–P 曲線也向下彎`}
+  ],
+  meaning:R`畫相的 G 曲線時：G–T 線都往右下走，熵大的相（氣 > 液 > 固）比較陡，所以溫度一高，氣相會贏；G–P 線都往右上走，體積小的相比較平，所以壓力一高，緻密的相會贏。`,
+  checks:[
+    {q:"在 G–T 圖上，哪一相的線最陡？",
+     opts:["氣相","液相","固相","一樣陡"], ans:0, ex:"斜率 = −S，氣相熵最大。"},
+    {q:"加壓時，哪一相比較有利？",
+     opts:["莫耳體積最小的相","莫耳體積最大的相","熵最大的相","都一樣"], ans:0, ex:"G–P 斜率 = V，體積小的相 G 上升得慢。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"7-P1", kind:"num", title:"加壓提高熔點（講義例題型）",
+  text:R`Pb 在正常熔點 600 K 時，固體、液體的莫耳體積分別是 18.92 與 19.47 cm³/mol，熔化熱 4810 J/mol。要讓熔點提高 10 °C（到 610 K），壓力要比原本增加多少 atm？（假設 \(\Delta H\)、\(\Delta V\) 不變；1 atm = 101325 Pa）`,
+  answer:1427, tol:0.01, unit:"atm",
+  hint:R`Clapeyron：\(dP = \dfrac{\Delta H}{\Delta V}\dfrac{dT}{T}\)，積分得 \(\Delta P = \dfrac{\Delta H}{\Delta V}\ln\dfrac{T_2}{T_1}\)。\(\Delta V = 0.55\ \text{cm}^3 = 0.55\times10^{-6}\ \text{m}^3\)。`,
+  sol:R`\(\Delta P = \dfrac{4810}{0.55\times10^{-6}}\ln\dfrac{610}{600} = 8.745\times10^9\times0.01653 \approx 1.446\times10^8\ \text{Pa} \approx 1427\ \text{atm}\)。<br>固體熔點對壓力非常不敏感：要加約 1400 倍大氣壓，熔點才升高 10 °C。`
+},
+{
+  id:"7-P2", kind:"num", title:"Clausius–Clapeyron：水在 80 °C 的蒸氣壓",
+  text:R`水在 1 atm 下 373 K 沸騰，蒸發熱 40.7 kJ/mol（視為常數）。求水在 353 K 的飽和蒸氣壓，單位 atm。`,
+  answer:0.475, tol:0.01, unit:"atm",
+  hint:R`\(\ln\dfrac{P_2}{1} = -\dfrac{40700}{8.314}\left(\dfrac{1}{353} - \dfrac{1}{373}\right)\)。`,
+  sol:R`\(\ln P_2 = -4895\times1.519\times10^{-4} = -0.744\)，\(P_2 \approx 0.475\ \text{atm}\)（實驗值約 0.47 atm）。`
+},
+{
+  id:"7-P3", kind:"num", title:"由兩條蒸氣壓式子求三相點溫度",
+  text:R`某物質：固→氣 \(\ln P(\text{atm}) = -\dfrac{8000}{T} + 20.0\)；液→氣 \(\ln P(\text{atm}) = -\dfrac{7000}{T} + 18.0\)。三相點溫度是多少 K？`,
+  answer:500, tol:0.005, unit:"K",
+  hint:"三相點時固、液、氣三相共存，兩條蒸氣壓相等。",
+  sol:R`\(-\dfrac{8000}{T} + 20 = -\dfrac{7000}{T} + 18 \Rightarrow \dfrac{1000}{T} = 2 \Rightarrow T_{tp} = 500\ \text{K}\)。`
+},
+{
+  id:"7-P4", kind:"num", title:"三相點壓力",
+  text:R`接續 P3，三相點壓力是多少 atm？`,
+  answer:54.6, tol:0.01, unit:"atm",
+  hint:"把 T = 500 K 代回任一條式子。",
+  sol:R`\(\ln P = -8000/500 + 20 = 4\)，\(P = e^4 \approx 54.6\ \text{atm}\)。三相點壓力高於 1 atm，所以在 1 atm 下加熱時，這個物質會直接昇華、不會熔化（就像乾冰 CO₂）。`
+},
+{
+  id:"7-P5", kind:"num", title:"三相點的熔化熱",
+  text:R`接續 P3，求三相點的莫耳熔化熱，單位 J/mol。`,
+  answer:8314, tol:0.01, unit:"J/mol",
+  hint:R`由 D4：\(\Delta H = RA\)。\(\Delta H_{s\to l} = \Delta H_{s\to v} - \Delta H_{l\to v}\)。`,
+  sol:R`\(\Delta H_{s\to v} = 8000R = 66{,}512\ \text{J}\)，\(\Delta H_{l\to v} = 7000R = 58{,}198\ \text{J}\)，\(\Delta H_{s\to l} = 1000R \approx 8314\ \text{J/mol}\)。`
+},
+{
+  id:"7-P6", kind:"mc", title:"鐵的相界線斜率",
+  text:"α-Fe（BCC，APF 0.68）→ γ-Fe（FCC，APF 0.74）這條相界線在 P–T 圖上的斜率是？",
+  opts:["負的","正的","0","無法判斷"], ans:0,
+  hint:R`往高溫相變化 \(\Delta H > 0\)；FCC 堆積得比 BCC 緊密，\(\Delta V\) 的正負？`,
+  sol:R`\(\Delta V_{BCC\to FCC} < 0\)，\(\Delta H > 0\)，所以 \(dP/dT = \Delta H/(T\Delta V) < 0\)。加壓會讓 α→γ 的轉變溫度降低。γ→δ（FCC→BCC）則相反，斜率為正。`
+},
+{
+  id:"7-P7", kind:"mc", title:"為什麼乾冰不會熔化？",
+  text:"CO₂ 的三相點約在 −56.6 °C、5.1 atm。在 1 atm 下把乾冰加熱，會發生什麼事？",
+  opts:["直接昇華成氣體","先熔化成液體再沸騰","不會有任何變化","變成另一種固相"], ans:0,
+  hint:"液態 CO₂ 只存在於三相點壓力以上。",
+  sol:"1 atm 低於三相點壓力 5.1 atm，相圖上這條水平線不經過液相區，所以固體直接變成氣體（昇華）。這就是乾冰不會弄濕東西、被叫做「乾」冰的原因。"
+}
+];
+
+</script>
+<script src="game.js"></script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>
