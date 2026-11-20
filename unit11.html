@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 11 反應平衡與 Ellingham 圖</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 11</div>
+  <h1>反應平衡與 Ellingham 圖</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：反應會走到「G 最低」的地方停下來</h3>
+<p>煉鐵、熱處理爐的保護氣氛、金屬會不會生鏽，都是化學反應。反應 \(aA + bB \rightleftharpoons cC + dD\) 往右走還是往左走、走到哪裡停，全看自由能：</p>
+<p style="text-align:center;font-size:18px">\(\Delta G = \Delta G^\circ + RT\ln Q\)，\(Q = \dfrac{a_C^c\,a_D^d}{a_A^a\,a_B^b}\)</p>
+<ul>
+<li>\(\Delta G^\circ\)：所有東西都在標準狀態（純物質、1 atm 氣體）時的自由能變化，查表得到。</li>
+<li>\(Q\)：反應商，用「現在」的活性算。氣體的活性就是分壓（atm）；純固體、純液體的活性 = 1。</li>
+<li>\(\Delta G < 0\) 往右走；\(\Delta G > 0\) 往左走；\(\Delta G = 0\) 平衡，此時 \(Q = K\)：</li>
+</ul>
+<p style="text-align:center;font-size:18px">\(\Delta G^\circ = -RT\ln K\)</p>
+<p>比喻：\(\Delta G^\circ\) 是「坡道本身有多陡」，\(RT\ln Q\) 是「現在球在坡道上的哪裡」。產物越多，Q 越大，往右推的力量越小，最後停在 K。</p>
+
+<h3>K 隨溫度變化：van't Hoff</h3>
+<p style="text-align:center;font-size:18px">\(\dfrac{d\ln K}{d(1/T)} = -\dfrac{\Delta H^\circ}{R}\)</p>
+<p>吸熱反應（\(\Delta H^\circ > 0\)）溫度越高 K 越大；放熱反應相反。這就是勒沙特列原理的定量版本。</p>
+
+<h3>Ellingham 圖：金屬氧化物有多穩定</h3>
+<p>把各種氧化反應都寫成「每 1 mol O₂」，例如 \(2\text{Ni} + \text{O}_2 \to 2\text{NiO}\)，然後把 \(\Delta G^\circ = \Delta H^\circ - T\Delta S^\circ\) 對 T 畫成直線：</p>
+<figure class="figbox"><svg viewBox="0 0 610 420" class="fig" role="img" aria-label="Ellingham 圖（示意）"><style>.ax{font:italic 17px "Times New Roman",serif;fill:#1f2328}.lb{font:14px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#1f2328}.lbs{font:12.5px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#5f6670}.it{font:italic 15px "Times New Roman",serif}</style><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+<marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d5c8f"/></marker>
+<marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+</defs><line x1="70" y1="40" x2="430" y2="40" stroke="#1f2328" stroke-width="1.5" marker-end="url(#ah)"/><line x1="70" y1="40" x2="70" y2="370" stroke="#1f2328" stroke-width="1.5" marker-end="url(#ah)"/><text x="70.0" y="32.0" class="lbs" text-anchor="middle">0</text><text x="157.5" y="32.0" class="lbs" text-anchor="middle">500</text><text x="245.0" y="32.0" class="lbs" text-anchor="middle">1000</text><text x="332.5" y="32.0" class="lbs" text-anchor="middle">1500</text><text x="420.0" y="32.0" class="lbs" text-anchor="middle">2000</text><line x1="66" y1="40.0" x2="70" y2="40.0" stroke="#1f2328"/><text x="62.0" y="44.0" class="lbs" text-anchor="end">0</text><line x1="66" y1="98.18181818181819" x2="70" y2="98.18181818181819" stroke="#1f2328"/><text x="62.0" y="102.2" class="lbs" text-anchor="end">-200</text><line x1="66" y1="156.36363636363637" x2="70" y2="156.36363636363637" stroke="#1f2328"/><text x="62.0" y="160.4" class="lbs" text-anchor="end">-400</text><line x1="66" y1="214.54545454545453" x2="70" y2="214.54545454545453" stroke="#1f2328"/><text x="62.0" y="218.5" class="lbs" text-anchor="end">-600</text><line x1="66" y1="272.72727272727275" x2="70" y2="272.72727272727275" stroke="#1f2328"/><text x="62.0" y="276.7" class="lbs" text-anchor="end">-800</text><line x1="66" y1="330.9090909090909" x2="70" y2="330.9090909090909" stroke="#1f2328"/><text x="62.0" y="334.9" class="lbs" text-anchor="end">-1000</text><text x="432.0" y="44.0" class="lbs">T (K)</text><text x="78.0" y="364.0" class="lbs">ΔG° (kJ / mol O₂)</text><path d="M122.2,162.2 L420.0,77.0" fill="none" stroke="#b9770e" stroke-width="2.3"/><path d="M122.2,122.3 L420.0,53.7" fill="none" stroke="#7d4e9e" stroke-width="2.3"/><path d="M122.2,182.4 L420.0,118.5" fill="none" stroke="#c0392b" stroke-width="2.3"/><path d="M122.2,173.9 L420.0,119.7" fill="none" stroke="#1d5c8f" stroke-width="2.3"/><path d="M122.2,189.3 L420.0,103.3" fill="none" stroke="#8a8f96" stroke-width="2.3"/><path d="M122.2,120.2 L420.0,207.0" fill="none" stroke="#1f2328" stroke-width="2.3"/><path d="M122.2,287.3 L420.0,201.2" fill="none" stroke="#1f7a4a" stroke-width="2.3"/><path d="M122.2,346.2 L420.0,242.8" fill="none" stroke="#0e7c86" stroke-width="2.3"/><text x="426.0" y="57.7" class="lbs" style="fill:#7d4e9e">4Cu + O₂ → 2Cu₂O</text><text x="426.0" y="81.0" class="lbs" style="fill:#b9770e">2Ni + O₂ → 2NiO</text><text x="426.0" y="107.3" class="lbs" style="fill:#8a8f96">2CO + O₂ → 2CO₂</text><text x="426.0" y="122.5" class="lbs" style="fill:#c0392b">2Fe + O₂ → 2FeO</text><text x="426.0" y="137.5" class="lbs" style="fill:#1d5c8f">2H₂ + O₂ → 2H₂O</text><text x="426.0" y="205.2" class="lbs" style="fill:#1f7a4a">Si + O₂ → SiO₂</text><text x="426.0" y="220.2" class="lbs" style="fill:#1f2328">2C + O₂ → 2CO</text><text x="426.0" y="246.8" class="lbs" style="fill:#0e7c86">4/3 Al + O₂ → 2/3 Al₂O₃</text><text x="250.0" y="412.0" class="lbs" text-anchor="middle">線越低，氧化物越穩定；下方的金屬可以還原上方的氧化物（數據為示意）</text></svg></figure>
+<ul>
+<li><b>線越低，氧化物越穩定</b>，越難還原。Al、Si 在最下面，Cu、Ni 在上面。</li>
+<li><b>下面的金屬可以還原上面的氧化物</b>（例如鋁熱反應：Al 還原 Fe₂O₃）。</li>
+<li><b>斜率 = −ΔS°</b>。金屬 + 氣體 O₂ → 固體氧化物，氣體不見了，熵變小，所以斜率為正（線往上走，高溫比較不穩定）。</li>
+<li>\(2\text{C} + \text{O}_2 \to 2\text{CO}\) 氣體從 1 mol 變 2 mol，熵變大，斜率為負！所以溫度夠高時，碳可以還原幾乎任何氧化物，這是煉鐵、煉矽的關鍵。</li>
+</ul>
+
+<h3>從 Ellingham 圖讀出三種「門檻」</h3>
+<table>
+<tr><th>想知道</th><th>反應</th><th>平衡時</th></tr>
+<tr><td>多少氧分壓以下金屬不會氧化</td><td>\(2M + O_2 = 2MO\)</td><td>\(p_{O_2} = e^{\Delta G^\circ/RT}\)</td></tr>
+<tr><td>用 H₂ 還原，水氣要多乾</td><td>\(MO + H_2 = M + H_2O\)</td><td>\(\dfrac{p_{H_2O}}{p_{H_2}} = K\)</td></tr>
+<tr><td>用 CO 還原，CO 要多少</td><td>\(MO + CO = M + CO_2\)</td><td>\(\dfrac{p_{CO_2}}{p_{CO}} = K\)</td></tr>
+</table>
+
+<h3>溶液中的反應</h3>
+<p>金屬溶在合金裡、氧化物溶在爐渣裡時，活性不是 1，要把單元 9 的活性代進 K。例如合金中 M 的活性 \(a_M < 1\)，要讓它氧化就需要更高的 \(p_{O_2}\)：\(p_{O_2} = \dfrac{a_{MO}^2}{a_M^2\,K}\)。不鏽鋼裡的 Cr 會優先氧化成保護膜，就是因為 Cr₂O₃ 的線比 Fe 的氧化物低很多。</p>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
+<div class="pager"><a href="unit10.html">← 單元 10</a><a href="index.html">目錄</a><a href="unit12.html">單元 12 →</a></div>
+<footer>材料熱力學練習簿 · 單元 11 反應平衡與 Ellingham 圖 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "11 反應平衡與 Ellingham 圖";
+const R = String.raw;
+const derivations = [
+{
+  id:"11-D1", math:["m7"], title:"ΔG = ΔG° + RT ln Q 與 ΔG° = −RT ln K", apps:["11-A1"],
+  goal:R`\(\Delta G = \Delta G^\circ + RT\ln Q\)；平衡時 \(\Delta G^\circ = -RT\ln K\)`,
+  from:R`每個成分 \(\mu_i = G_i^\circ + RT\ln a_i\)（單元 9）；反應的 \(\Delta G = \sum(\text{產物係數}\times\mu) - \sum(\text{反應物係數}\times\mu)\)`,
+  steps:[
+    {w:"反應的 ΔG 就是「產物的 μ 總和 − 反應物的 μ 總和」。",
+     q:R`對 \(aA + bB \to cC + dD\) 寫出 \(\Delta G\)。`,
+     hint:"每個 μ 乘上它的係數。",
+     a:R`\(\Delta G = c\mu_C + d\mu_D - a\mu_A - b\mu_B\)`},
+    {w:"把 μ = G° + RT ln a 代進去，標準部分和活性部分分開。",
+     q:"整理成兩部分。",
+     hint:R`\(c\,RT\ln a_C = RT\ln a_C^c\)。`,
+     a:R`\(\Delta G = \underbrace{(cG_C^\circ + dG_D^\circ - aG_A^\circ - bG_B^\circ)}_{\Delta G^\circ} + RT\ln\dfrac{a_C^ca_D^d}{a_A^aa_B^b} = \Delta G^\circ + RT\ln Q\)`},
+    {w:"平衡時 ΔG = 0，那時的 Q 叫做 K。",
+     q:R`由 \(\Delta G = 0\) 得到什麼？`,
+     hint:"移項。",
+     a:R`\(\Delta G^\circ = -RT\ln K\)，\(K = e^{-\Delta G^\circ/RT}\)`}
+  ],
+  meaning:R`\(\Delta G^\circ\) 只跟溫度有關，所以 K 也只跟溫度有關。查一次表就知道平衡時各成分的比例，不管一開始放多少。\(\Delta G^\circ\) 很負，K 很大，反應幾乎完全往右。`,
+  checks:[
+    {q:"ΔG° > 0 的反應能不能往右進行？",opts:["可以，只要 Q < K（例如把產物一直移走）","絕對不行","只能在高溫","只能在低壓"],ans:0,ex:"決定方向的是 ΔG，不是 ΔG°。把產物（如 CO₂）一直抽走，Q 很小，ΔG 就可以是負的。"},
+    {q:"純固體在 K 裡的活性是？",opts:["1","它的莫耳數","它的質量","0"],ans:0,ex:"純物質就是標準狀態本身。"}
+  ]
+},
+{
+  id:"11-D2", math:["m2","m7"], title:"van't Hoff 方程式",
+  goal:R`\(\dfrac{d\ln K}{dT} = \dfrac{\Delta H^\circ}{RT^2}\)，即 \(\ln\dfrac{K_2}{K_1} = -\dfrac{\Delta H^\circ}{R}\left(\dfrac{1}{T_2} - \dfrac{1}{T_1}\right)\)`,
+  from:R`\(\ln K = -\dfrac{\Delta G^\circ}{RT}\)；Gibbs–Helmholtz \(\dfrac{d(\Delta G^\circ/T)}{dT} = -\dfrac{\Delta H^\circ}{T^2}\)（單元 5）`,
+  steps:[
+    {w:"把 ln K 對 T 微分。",
+     q:R`\(\dfrac{d\ln K}{dT} = \ ?\)`,
+     hint:R`\(\ln K = -\dfrac{1}{R}\cdot\dfrac{\Delta G^\circ}{T}\)。`,
+     a:R`\(\dfrac{d\ln K}{dT} = -\dfrac{1}{R}\dfrac{d(\Delta G^\circ/T)}{dT} = \dfrac{\Delta H^\circ}{RT^2}\)`},
+    {w:"假設 ΔH° 在這段溫度不變，積分。",
+     q:R`從 \(T_1\) 積到 \(T_2\)。`,
+     hint:R`\(\int\dfrac{dT}{T^2} = -\dfrac{1}{T}\)。`,
+     a:R`\(\ln\dfrac{K_2}{K_1} = -\dfrac{\Delta H^\circ}{R}\left(\dfrac{1}{T_2} - \dfrac{1}{T_1}\right)\)`}
+  ],
+  meaning:R`跟單元 7 的 Clausius–Clapeyron 是同一個形式（蒸發也是一種「反應」）。量兩個溫度的 K，就能反推反應熱；吸熱反應升溫有利、放熱反應降溫有利。`,
+  checks:[
+    {q:"放熱反應升高溫度，K 會？",opts:["變小","變大","不變","變成 1"],ans:0,ex:"ΔH° < 0，d ln K/dT < 0。"}
+  ]
+},
+{
+  id:"11-D3", math:["m7"], title:"Ellingham 圖：平衡氧分壓與斜率的意義", apps:["11-A2","11-A3"],
+  goal:R`\(2M + O_2 = 2MO\)（M、MO 為純凝相）：\(p_{O_2}^{eq} = e^{\Delta G^\circ/RT}\)；Ellingham 線的斜率 \(= -\Delta S^\circ\)`,
+  from:R`D1 的 \(\Delta G^\circ = -RT\ln K\)；\(\Delta G^\circ = \Delta H^\circ - T\Delta S^\circ\)`,
+  steps:[
+    {w:"寫出這個反應的 K：純固體活性是 1，只剩氧分壓。",
+     q:"K = ?",
+     hint:R`\(K = \dfrac{a_{MO}^2}{a_M^2\,p_{O_2}}\)。`,
+     a:R`\(K = \dfrac{1}{p_{O_2}}\)`},
+    {w:"代進 ΔG° = −RT ln K。",
+     q:R`平衡氧分壓 \(p_{O_2}^{eq} = \ ?\)`,
+     hint:R`\(-RT\ln(1/p) = RT\ln p\)。`,
+     a:R`\(\Delta G^\circ = RT\ln p_{O_2}^{eq}\)，\(p_{O_2}^{eq} = e^{\Delta G^\circ/RT}\)。環境的 \(p_{O_2}\) 比它大就會氧化，比它小氧化物就會分解。`},
+    {w:"ΔG° 對 T 是直線，看斜率。",
+     q:R`\(\Delta G^\circ = \Delta H^\circ - T\Delta S^\circ\) 的斜率是？為什麼大部分是正的？`,
+     hint:"反應前後氣體的莫耳數怎麼變？氣體的熵遠大於固體。",
+     a:R`斜率 \(= -\Delta S^\circ\)。消耗 1 mol 氣體 O₂，\(\Delta S^\circ \approx -S_{O_2}^\circ\) 是負的，斜率為正，而且各條線斜率都差不多。`}
+  ],
+  meaning:R`Ellingham 圖上每條線，左軸讀 \(\Delta G^\circ\)，換算就是平衡氧分壓。線越低、\(p_{O_2}^{eq}\) 越小，代表這個金屬「搶氧氣」的能力越強。`,
+  checks:[
+    {q:"2C + O₂ → 2CO 的線為什麼往下斜？",opts:["氣體從 1 mol 變 2 mol，熵增加","CO 是固體","碳的熵是負的","畫錯了"],ans:0,ex:"ΔS° > 0，斜率 −ΔS° < 0。"},
+    {q:"某溫度下 NiO 的平衡 p_O₂ 是 10⁻¹⁶ atm，在 10⁻¹² atm 的爐中加熱 Ni 會？",opts:["氧化","不會氧化","NiO 會分解","變成液體"],ans:0,ex:"環境 p_O₂ 高於平衡值，ΔG < 0，往氧化的方向走。"}
+  ]
+},
+{
+  id:"11-D4", math:[], title:"用 H₂ 或 CO 還原：組合兩條 Ellingham 線", apps:["11-A1","11-A4"],
+  goal:R`\(2MO + 2H_2 = 2M + 2H_2O\)：\(\Delta G^\circ = \Delta G^\circ_{H_2O} - \Delta G^\circ_{MO}\)，\(\left(\dfrac{p_{H_2O}}{p_{H_2}}\right)^2_{eq} = e^{-\Delta G^\circ/RT}\)`,
+  from:R`兩條都寫成每 1 mol O₂ 的反應：①\(2H_2 + O_2 = 2H_2O\)、②\(2M + O_2 = 2MO\)；G 是狀態函數，反應可以相加減`,
+  steps:[
+    {w:"反應式可以像方程式一樣相減，O₂ 就會消掉。",
+     q:"① − ② 得到什麼反應？ΔG° 是多少？",
+     hint:"把 ② 反過來寫再加上 ①。",
+     a:R`\(2MO + 2H_2 = 2M + 2H_2O\)，\(\Delta G^\circ = \Delta G^\circ_① - \Delta G^\circ_②\)`},
+    {w:"寫出這個反應的 K。",
+     q:"K = ?",
+     hint:"M、MO 是純固體。",
+     a:R`\(K = \left(\dfrac{p_{H_2O}}{p_{H_2}}\right)^2\)`},
+    {w:"判斷：氣氛裡的水氣比例要多低才能還原。",
+     q:R`要讓 MO 被還原，\(p_{H_2O}/p_{H_2}\) 要比平衡值大還是小？`,
+     hint:"Q < K 才會往右。",
+     a:R`\(p_{H_2O}/p_{H_2} < \sqrt{K}\)，也就是 \(p_{H_2}/p_{H_2O}\) 要大於 \(1/\sqrt{K}\)。H₂O 線在 MO 線上方越多，K 越小，氫氣要越乾。`}
+  ],
+  meaning:R`Ellingham 圖上兩條線的「垂直距離」就是組合反應的 \(\Delta G^\circ\)。H₂O 線在上面，表示要用很乾的氫才能還原；在下面，表示一般的氫就綽綽有餘。CO/CO₂ 完全一樣的做法。`,
+  checks:[
+    {q:"某溫度 MO 的線在 2H₂ + O₂ = 2H₂O 的線上方很多，用 H₂ 還原 MO？",opts:["很容易，含一點水氣也沒關係","非常困難","不可能","要加壓"],ans:0,ex:"ΔG° 很負，K 很大，容許的 p_H₂O/p_H₂ 很高。"}
+  ]
+},
+{
+  id:"11-D5", math:[], title:"總壓的影響（勒沙特列）",
+  goal:R`氣體反應中 \(K_x = K\,P^{-\Delta n}\)（\(\Delta n\) = 產物氣體莫耳數 − 反應物氣體莫耳數）`,
+  from:R`\(p_i = X_iP\)；\(K\) 只跟 T 有關`,
+  steps:[
+    {w:"把 K 裡的分壓換成莫耳分率 × 總壓。",
+     q:R`對 \(aA + bB = cC + dD\)（都是氣體），寫出 K 和 \(K_x = \dfrac{X_C^cX_D^d}{X_A^aX_B^b}\) 的關係。`,
+     hint:R`每個 \(p_i\) 都會帶一個 \(P\)。`,
+     a:R`\(K = K_xP^{(c+d)-(a+b)} = K_xP^{\Delta n}\)，所以 \(K_x = K\,P^{-\Delta n}\)`},
+    {w:"T 固定，K 不變，看 P 改變時 K_x 怎麼變。",
+     q:"Δn < 0（氣體變少）的反應，加壓時產物比例會？",
+     hint:R`\(P^{-\Delta n}\) 中 \(-\Delta n > 0\)。`,
+     a:R`\(K_x\) 變大，產物比例增加。加壓有利於氣體莫耳數減少的方向。`}
+  ],
+  meaning:R`溫度改變的是 K 本身；壓力不改變 K，只改變平衡組成。這就是合成氨（\(N_2 + 3H_2 = 2NH_3\)，Δn = −2）要用高壓的原因。`,
+  checks:[
+    {q:"C(s) + CO₂(g) = 2CO(g)，降低總壓會讓 CO 比例？",opts:["增加","減少","不變","無法判斷"],ans:0,ex:"Δn = +1，降壓有利於氣體變多的方向。"}
+  ]
+},
+{
+  id:"11-D6", math:[], title:"溶液中的金屬要多少氧才會氧化",
+  goal:R`\(M(\text{合金中}) + \tfrac12 O_2 = MO(s)\)：\(p_{O_2} = \dfrac{1}{K^2a_M^2}\)；\(a_M\) 變小 10 倍，所需 \(p_{O_2}\) 變大 100 倍`,
+  from:R`D1；合金中 M 的活性 \(a_M < 1\)（單元 9），MO 為純固體`,
+  steps:[
+    {w:"寫出 K，這次 M 的活性不是 1。",
+     q:"K = ?",
+     hint:R`\(K = \dfrac{a_{MO}}{a_M\,p_{O_2}^{1/2}}\)。`,
+     a:R`\(K = \dfrac{1}{a_M\,p_{O_2}^{1/2}}\)`},
+    {w:"解出平衡氧分壓。",
+     q:R`\(p_{O_2} = \ ?\)`,
+     hint:"兩邊平方。",
+     a:R`\(p_{O_2} = \dfrac{1}{K^2a_M^2}\)：\(a_M\) 越小，要越多氧才能氧化。`}
+  ],
+  meaning:R`把一個金屬溶進另一個金屬，它就比較不容易氧化（活性變小）。反過來，合金中最「愛氧」的元素（Ellingham 線最低者）會優先氧化，這就是不鏽鋼 Cr₂O₃、鋁合金 Al₂O₃ 保護膜的由來。`,
+  checks:[
+    {q:"合金中 a_M 從 1 降到 0.5，平衡 p_O₂ 變成原來的幾倍？",opts:["4","2","0.5","0.25"],ans:0,ex:"p_O₂ ∝ 1/a_M²。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"11-P1", kind:"num", title:"由 ΔG° 求 K",
+  text:R`某反應在 1000 K 的 \(\Delta G^\circ = -50{,}000\ \text{J}\)。平衡常數 K 是多少？`,
+  answer:409, tol:0.01, unit:"",
+  hint:R`\(K = e^{-\Delta G^\circ/RT}\)。`,
+  sol:R`\(K = \exp(50000/8314) = e^{6.014} \approx 409\)。`
+},
+{
+  id:"11-P2", kind:"num", title:"Ni 在 1000 K 的平衡氧分壓",
+  text:R`\(2\text{Ni} + \text{O}_2 = 2\text{NiO}\)：\(\Delta G^\circ = -471{,}200 + 172T\ \text{J}\)。1000 K 時平衡氧分壓的 \(\log_{10}p_{O_2}\)（atm）是多少？`,
+  answer:-15.63, tol:0.005, unit:"",
+  hint:R`\(\ln p_{O_2} = \Delta G^\circ/RT\)，再除以 \(\ln10 = 2.303\)。`,
+  sol:R`\(\Delta G^\circ = -299{,}200\ \text{J}\)，\(\ln p_{O_2} = -299200/8314 = -35.99\)，\(\log p_{O_2} = -15.63\)，也就是 \(2.3\times10^{-16}\ \text{atm}\)。比這更低的氧分壓，NiO 才會分解。`
+},
+{
+  id:"11-P3", kind:"num", title:"用 H₂ 還原 NiO",
+  text:R`接續 P2，另知 \(2\text{H}_2 + \text{O}_2 = 2\text{H}_2\text{O}(g)\)：\(\Delta G^\circ = -492{,}900 + 109.4T\ \text{J}\)。1000 K 時 \(\text{NiO} + \text{H}_2 = \text{Ni} + \text{H}_2\text{O}\) 的平衡 \(p_{H_2O}/p_{H_2}\) 是多少？`,
+  answer:159, tol:0.02, unit:"",
+  hint:R`\(\Delta G^\circ = \tfrac12[(-492900 + 109.4T) - (-471200 + 172T)]\)。`,
+  sol:R`\(\Delta G^\circ = \tfrac12(-21700 - 62.6\times1000) = -42{,}150\ \text{J}\)，\(K = e^{42150/8314} \approx 159\)。只要水氣不超過氫氣的 159 倍，NiO 就會被還原。Ni 非常好還原。`
+},
+{
+  id:"11-P4", kind:"num", title:"van't Hoff：由 K 的變化求 ΔH°",
+  text:R`某反應的 K 從 800 K 升到 900 K 時變成 2 倍。估算 \(\Delta H^\circ\)，單位 J。`,
+  answer:41490, tol:0.01, unit:"J",
+  hint:R`\(\ln2 = -\dfrac{\Delta H^\circ}{R}\left(\dfrac{1}{900} - \dfrac{1}{800}\right)\)。`,
+  sol:R`\(\dfrac{1}{800} - \dfrac{1}{900} = 1.389\times10^{-4}\)，\(\Delta H^\circ = \dfrac{8.314\times0.693}{1.389\times10^{-4}} \approx 41{,}500\ \text{J}\)。吸熱反應，升溫有利。`
+},
+{
+  id:"11-P5", kind:"num", title:"高爐：還原 FeO 要多少 CO",
+  text:R`\(2\text{CO} + \text{O}_2 = 2\text{CO}_2\)：\(\Delta G^\circ = -564{,}800 + 173.6T\)；\(2\text{Fe} + \text{O}_2 = 2\text{FeO}\)：\(\Delta G^\circ = -528{,}000 + 129T\)（J）。1200 K 時要還原 FeO，氣體中 \(p_{CO}/p_{CO_2}\) 至少要多少？`,
+  answer:2.31, tol:0.02, unit:"",
+  hint:R`\(\text{FeO} + \text{CO} = \text{Fe} + \text{CO}_2\)，\(\Delta G^\circ = \tfrac12[(-564800 + 173.6T) - (-528000 + 129T)]\)。`,
+  sol:R`\(\Delta G^\circ = \tfrac12(-36800 + 44.6\times1200) = 8360\ \text{J}\)，\(K = p_{CO_2}/p_{CO} = e^{-8360/9977} = 0.433\)。所以 \(p_{CO}/p_{CO_2} > 2.31\) 才會還原。高爐裡要燒大量焦炭維持高 CO 比例，就是這個原因。`
+},
+{
+  id:"11-P6", kind:"mc", title:"讀 Ellingham 圖",
+  text:"根據摘要中的 Ellingham 圖，在 1000 K，下列哪一個反應可以自發進行？",
+  opts:["Al 去還原 FeO（2Al + 3FeO → Al₂O₃ + 3Fe）","Ni 去還原 Al₂O₃","Cu 去還原 SiO₂","Fe 去還原 Al₂O₃"], ans:0,
+  hint:"下面的金屬可以還原上面的氧化物。",
+  sol:"Al₂O₃ 的線在 FeO 下方很多，鋁可以搶走 FeO 的氧，這就是鋁熱反應（鐵軌焊接）。其他選項都是上面的金屬想還原下面的氧化物，ΔG° > 0。"
+},
+{
+  id:"11-P7", kind:"num", title:"合金中的金屬比較不容易氧化",
+  text:R`M 溶在另一個金屬中，活性 \(a_M = 0.1\)（MO 仍為純固體）。和純 M 相比，讓它氧化所需的平衡 \(p_{O_2}\) 是幾倍？`,
+  answer:100, tol:0.01, unit:"倍",
+  hint:R`D6：\(p_{O_2} \propto 1/a_M^2\)。`,
+  sol:R`\(1/0.1^2 = 100\) 倍。溶在合金裡的 M「沒那麼想」跟氧結合。`
+},
+{
+  id:"11-P8", kind:"mc", title:"壓力的影響",
+  text:R`\(2\text{SO}_2(g) + \text{O}_2(g) = 2\text{SO}_3(g)\) 在固定溫度下把總壓提高，會怎樣？`,
+  opts:["K 不變，SO₃ 比例增加","K 變大","K 變小，SO₃ 比例減少","沒有任何影響"], ans:0,
+  hint:R`\(\Delta n = 2 - 3 = -1\)。`,
+  sol:R`K 只跟溫度有關。\(K_x = KP^{-\Delta n} = KP\)，P 變大，\(K_x\) 變大，產物 SO₃ 增加。`
+},
+{ id:"11-A1", kind:"num", tag:"應用",
+  formula:R`\(\text{FeO} + \text{H}_2 = \text{Fe} + \text{H}_2\text{O}\)：\(\Delta G^\circ = \tfrac12(\Delta G^\circ_{H_2O} - \Delta G^\circ_{FeO})\)，\(K = p_{H_2O}/p_{H_2}\)`, title:"綠色煉鋼：用氫氣取代焦炭",
+  text:R`為了減碳，鋼廠開始用 H₂ 直接還原鐵礦（產物是水，不是 CO₂）。用 P3、P5 的數據，1100 K 時要把 FeO 還原成 Fe，氣體中 \(p_{H_2}/p_{H_2O}\) 至少要多少？`,
+  answer:2.10, tol:0.02, unit:"",
+  hint:R`\(\Delta G^\circ = \tfrac12[(-492900 + 109.4T) - (-528000 + 129T)]\)。`,
+  sol:R`\(\Delta G^\circ = \tfrac12(35100 - 19.6\times1100) = 6770\ \text{J}\)，\(K = e^{-6770/9145} = 0.477\)，所以 \(p_{H_2}/p_{H_2O} > 2.10\)。還原時會一直產生水，所以必須不斷把水氣帶走、補新的氫。從 Ellingham 圖也看得出來：H₂O 的線和 FeO 的線很接近，所以要「過量」的氫。`},
+{ id:"11-A2", kind:"num", tag:"應用",
+  formula:R`\(\ln p_{O_2}^{eq} = \dfrac{\Delta G^\circ}{RT}\)`, title:"銅線退火：爐子要多「乾淨」？",
+  text:R`銅線在 1000 K 退火時不能氧化變黑。\(4\text{Cu} + \text{O}_2 = 2\text{Cu}_2\text{O}\)：\(\Delta G^\circ = -324{,}400 + 138.7T\ \text{J}\)。爐內氧分壓要低於多少？請回答 \(\log_{10}p_{O_2}\)（atm）。`,
+  answer:-9.70, tol:0.005, unit:"",
+  hint:R`先算 \(\Delta G^\circ\)，再除以 \(RT\ln10\)。`,
+  sol:R`\(\Delta G^\circ = -185{,}700\ \text{J}\)，\(\log p_{O_2} = -185700/(8.314\times1000\times2.303) = -9.70\)，也就是 \(2\times10^{-10}\ \text{atm}\)。一般真空幫浦很難抽到這麼低的氧分壓，所以工廠改用含 H₂ 的保護氣（forming gas），讓 H₂ 把殘留的氧吃掉。`},
+{ id:"11-A3", kind:"num", tag:"應用",
+  formula:R`兩條 Ellingham 線相交：\(\Delta G^\circ_{SiO_2}(T) = \Delta G^\circ_{CO}(T)\)`, title:"太陽能電池的矽從哪裡來？用碳還原石英",
+  text:R`工業上把石英砂（SiO₂）和碳放進電弧爐：\(\text{SiO}_2 + 2\text{C} = \text{Si} + 2\text{CO}\)。已知 \(\text{Si} + \text{O}_2 = \text{SiO}_2\)：\(\Delta G^\circ = -902{,}000 + 174T\)；\(2\text{C} + \text{O}_2 = 2\text{CO}\)：\(\Delta G^\circ = -223{,}400 - 175.3T\)（J）。溫度要高於多少 K，這個反應的 \(\Delta G^\circ\) 才會小於 0？`,
+  answer:1943, tol:0.01, unit:"K",
+  hint:"兩條線相交的溫度。之後 CO 的線在 SiO₂ 下面。",
+  sol:R`\(-902000 + 174T = -223400 - 175.3T \Rightarrow 349.3T = 678{,}600 \Rightarrow T \approx 1943\ \text{K}\)（約 1670 °C）。這就是冶金級矽要用電弧爐、在 2000 °C 左右生產的原因。CO 的線往下斜（產生氣體、熵增加），溫度夠高總會贏。鋁的線更低，交點要到約 2320 K，而且會生成碳化物，所以鋁改用電解（單元 12）。`},
+{ id:"11-A4", kind:"num", tag:"應用",
+  formula:R`\(\tfrac23\text{Cr}_2\text{O}_3 + 2\text{H}_2 = \tfrac43\text{Cr} + 2\text{H}_2\text{O}\)：\(K = (p_{H_2O}/p_{H_2})^2\)`, title:"不鏽鋼光亮退火：氫氣要多乾？",
+  text:R`不鏽鋼退火時希望表面保持光亮，不能生成 Cr₂O₃。已知 \(\tfrac43\text{Cr} + \text{O}_2 = \tfrac23\text{Cr}_2\text{O}_3\)：\(\Delta G^\circ = -746{,}800 + 170T\)，H₂O 用 P3 的數據。1200 K 時 \(p_{H_2}/p_{H_2O}\) 至少要多少，才不會氧化 Cr？（視 Cr 活性為 1）`,
+  answer:8780, tol:0.02, unit:"",
+  hint:R`\(\Delta G^\circ = (-492900 + 109.4T) - (-746800 + 170T)\)，\(p_{H_2O}/p_{H_2} = \sqrt{K}\)。`,
+  sol:R`\(\Delta G^\circ = 253900 - 60.6\times1200 = 181{,}180\ \text{J}\)，\(K = e^{-181180/9977} = 1.30\times10^{-8}\)，\(\sqrt{K} = 1.14\times10^{-4}\)，所以 \(p_{H_2}/p_{H_2O} > 8780\)。換算成露點大約 −50 °C 以下的極乾氫氣。Cr 的線在 H₂O 線下方很多，所以只要一點點水氣就會氧化。這也說明了為什麼 Cr 能在不鏽鋼表面自動形成保護膜。`}
+];
+
+</script>
+<script src="game.js"></script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 13 整合：把熱力學串起來</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 13</div>
+  <h1>整合：把熱力學串起來</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要：把整本書串成一條線</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：所有公式都從兩條定律長出來</h3>
+<p>前面 12 個單元看起來公式很多，其實都是從同一個樹根長出來的。這個單元不學新東西，而是練習「把好幾個單元的式子接起來」解決一個真實問題。</p>
+
+<table>
+<tr><th>樹根</th><th>樹幹</th><th>樹枝（應用）</th></tr>
+<tr><td>第一定律 \(dU = \delta q - \delta w\)<br>（單元 1）</td><td rowspan="2">合併成<br>\(dG = -S\,dT + V\,dP + \sum\mu_i\,dn_i\)<br>（單元 4、5）<br><br>平衡判據：定 T、P 下 G 最小</td><td>單成分相圖：兩相 G 相等 → Clapeyron（單元 7）</td></tr>
+<tr><td>第二定律 \(dS \ge \delta q/T\)<br>（單元 2、3）</td><td>溶液與相圖：μ 相等 → 公切線（單元 9、10）</td></tr>
+<tr><td>第三定律 \(S_{0\,K} = 0\)<br>（單元 6）</td><td>\(\mu_i = G_i^\circ + RT\ln a_i\)<br>（單元 8、9）</td><td>反應：\(\Delta G^\circ = -RT\ln K\)（單元 11）<br>電化學：\(\Delta G = -zFE\)（單元 12）</td></tr>
+</table>
+
+<h3>同一件事的三種說法</h3>
+<p>「這個反應想不想發生？」可以用三種量來回答，它們完全等價：</p>
+<p style="text-align:center;font-size:18px">\(\Delta G^\circ = -RT\ln K = -zFE^\circ\)</p>
+<p>例如 Ni/NiO 在 1000 K：Ellingham 圖讀到 \(\Delta G^\circ\)，換成平衡氧分壓 \(p_{O_2}\)，再換成 ZrO₂ 感測器會量到的電壓 E。這三個數字講的是同一件事。</p>
+
+<h3>解綜合題的步驟</h3>
+<ol>
+<li><b>先問「誰和誰平衡」</b>：固和液？溶液和蒸氣？金屬和氧氣？</li>
+<li><b>寫出 μ 相等或 ΔG = 0</b>：純物質活性 1、氣體用分壓、溶液用 \(a = \gamma X\)。</li>
+<li><b>需要別的溫度的數據？</b>用 Kirchhoff（ΔH、ΔS 隨 T）、Clausius–Clapeyron（蒸氣壓）或 van't Hoff（K）搬過去。</li>
+<li><b>算完問「合不合理」</b>：正負號、數量級、跟生活經驗比。</li>
+</ol>
+
+<h3>常用數字的感覺</h3>
+<ul>
+<li>\(RT\)：298 K 約 2.5 kJ/mol；1000 K 約 8.3 kJ/mol。</li>
+<li>\(\Delta G^\circ\) 每差 \(2.3RT\)，K 就差 10 倍。</li>
+<li>\(RT/F\)：298 K 約 25.7 mV；\(2.303RT/F \approx 59\ \text{mV}\)，濃度差 10 倍、z = 1 時電壓差 59 mV。</li>
+<li>1 V × 1 mol 電子 ≈ 96.5 kJ。</li>
+</ul>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
+<div class="pager"><a href="unit12.html">← 單元 12</a><a href="index.html">目錄</a></div>
+<footer>材料熱力學練習簿 · 單元 13 整合：把熱力學串起來 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "13 整合：把熱力學串起來";
+const R = String.raw;
+const derivations = [
+{
+  id:"13-D1", math:["m4"], title:"串連一：從兩條定律到相圖的斜率",
+  goal:R`由 \(dU = T\,dS - P\,dV\) 一路推到 \(\left(\dfrac{dP}{dT}\right)_{eq} = \dfrac{\Delta H}{T\Delta V}\)`,
+  from:R`第一定律 + 可逆過程的第二定律；\(G = U + PV - TS\)`,
+  steps:[
+    {w:"把第一定律中的熱和功，用狀態函數表示。",
+     q:R`可逆時 \(\delta q = ?\)、\(\delta w = ?\)，代入 \(dU = \delta q - \delta w\)。`,
+     hint:"單元 2：δq_rev = T dS；膨脹功 P dV。",
+     a:R`\(dU = T\,dS - P\,dV\)`},
+    {w:"換成實驗上好控制的 T、P 當變數：用 G。",
+     q:R`對 \(G = U + PV - TS\) 微分，代入上式。`,
+     hint:R`\(d(PV) = P\,dV + V\,dP\)，\(d(TS) = T\,dS + S\,dT\)。`,
+     a:R`\(dG = -S\,dT + V\,dP\)`},
+    {w:"兩相共存時，沿著相界線兩相的 G 一直相等。",
+     q:R`由 \(dG^\alpha = dG^\beta\) 得到 \(dP/dT\)。`,
+     hint:R`\(-S^\alpha dT + V^\alpha dP = -S^\beta dT + V^\beta dP\)。`,
+     a:R`\(\dfrac{dP}{dT} = \dfrac{\Delta S}{\Delta V} = \dfrac{\Delta H}{T\Delta V}\)（因為平衡時 \(\Delta G = \Delta H - T\Delta S = 0\)）`}
+  ],
+  meaning:R`三步就從「能量守恆 + 亂度增加」走到「冰為什麼加壓會熔化」。熱力學的力量就在這裡：不用知道原子怎麼排，只用兩條定律就能預測材料行為。`,
+  checks:[
+    {q:"推導 Clapeyron 時，哪一步用到了第二定律？",opts:["δq_rev = T dS","G = H − TS 的定義","dP/dT 的定義","ΔV = V^β − V^α"],ans:0,ex:"熵的定義來自第二定律。"}
+  ]
+},
+{
+  id:"13-D2", math:["m7"], title:"串連二：從排列數到 Raoult 定律與液相線",
+  goal:R`由 \(S = k\ln\Omega\) 推到理想溶液 \(a_i = X_i\)，再推到 \(\ln X_A^l = -\dfrac{\Delta H_m}{R}\left(\dfrac{1}{T} - \dfrac{1}{T_m}\right)\)`,
+  from:R`單元 3 的混合熵；理想溶液 \(\Delta H^M = 0\)`,
+  steps:[
+    {w:"用排列數算混合熵。",
+     q:R`N_A 個 A、N_B 個 B 隨機排，\(\Delta S^M = ?\)（每 mol）`,
+     hint:"Stirling 近似（單元 3）。",
+     a:R`\(\Delta S^M = -R(X_A\ln X_A + X_B\ln X_B)\)`},
+    {w:"理想溶液沒有混合熱，所以混合自由能只有熵的部分。",
+     q:R`\(\Delta G^M = ?\)，並由切線截距得到 \(\Delta\bar{G}_A^M\)。`,
+     hint:R`\(\Delta G^M = \Delta H^M - T\Delta S^M\)。`,
+     a:R`\(\Delta G^M = RT(X_A\ln X_A + X_B\ln X_B)\)，\(\Delta\bar{G}_A^M = RT\ln X_A\)，和 \(RT\ln a_A\) 比較得 \(a_A = X_A\)（Raoult）。`},
+    {w:"純固體 A 和溶液中的 A 平衡。",
+     q:"寫出平衡條件，得到液相線。",
+     hint:R`\(G_A^\circ(s) = G_A^\circ(l) + RT\ln X_A\)，\(\Delta G_m = \Delta H_m(1 - T/T_m)\)。`,
+     a:R`\(\ln X_A^l = -\dfrac{\Delta H_m}{R}\left(\dfrac{1}{T} - \dfrac{1}{T_m}\right)\)`}
+  ],
+  meaning:R`「數排列方法」→「混合熵」→「活性」→「凝固點下降」，從統計力學一路走到相圖。撒鹽融冰和銲錫熔點變低，背後都是「原子排列方法變多」。`,
+  checks:[
+    {q:"這條推導鏈中，哪一步假設了 ΔH^M = 0？",opts:["由混合熵得到混合自由能","Stirling 近似","熔化自由能","S = k ln Ω"],ans:0,ex:"理想溶液假設沒有混合熱。真實溶液要再加 ΩX_AX_B。"}
+  ]
+},
+{
+  id:"13-D3", math:["m7"], title:"串連三：Ellingham、平衡常數、電壓是同一件事", apps:["13-A2"],
+  goal:R`\(2M + O_2 = 2MO\)：\(\Delta G^\circ = RT\ln p_{O_2}^{eq}\)，ZrO₂ 感測器（空氣參考）在 M/MO 平衡時 \(E = \dfrac{RT}{4F}\ln\dfrac{0.21}{p_{O_2}^{eq}} = \dfrac{RT\ln0.21 - \Delta G^\circ}{4F}\)`,
+  from:R`單元 11 D3；單元 12 D4`,
+  steps:[
+    {w:"Ellingham 圖讀出的 ΔG° 換成平衡氧分壓。",
+     q:R`\(p_{O_2}^{eq} = ?\)`,
+     hint:"單元 11 D3。",
+     a:R`\(\ln p_{O_2}^{eq} = \Delta G^\circ/RT\)`},
+    {w:"把這個氧分壓放到氧感測器的量測端。",
+     q:"感測器電壓 E = ?",
+     hint:"單元 12 D4，z = 4。",
+     a:R`\(E = \dfrac{RT}{4F}\left(\ln0.21 - \dfrac{\Delta G^\circ}{RT}\right) = \dfrac{RT\ln0.21 - \Delta G^\circ}{4F}\)`}
+  ],
+  meaning:R`把一小塊 Ni + NiO 粉末壓在感測器的一端，就成了一個「固態參考電極」，不需要通空氣。ΔG°、K、E 三種語言可以隨時互相翻譯，挑最方便量的那一個去量。`,
+  checks:[
+    {q:"氧化物越穩定（ΔG° 越負），M/MO 平衡時感測器電壓會？",opts:["越大","越小","不變","變負"],ans:0,ex:"−ΔG° 越大，E 越大。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"13-P1", kind:"num", title:"蒸氣壓 + 活性：黃銅中 Zn 的蒸氣壓（單元 7 + 9）",
+  text:R`Zn 的正常沸點 1180 K、蒸發熱 115.3 kJ/mol（視為常數）。(1) 用 Clausius–Clapeyron 求純 Zn 在 1300 K 的蒸氣壓；(2) Cu–30 at% Zn 液體中 \(\gamma_{Zn} = 0.20\)，求 Zn 的分壓（atm）。`,
+  answer:0.178, tol:0.02, unit:"atm",
+  hint:R`\(\ln p^\circ = -\dfrac{115300}{8.314}\left(\dfrac{1}{1300} - \dfrac{1}{1180}\right)\)，再乘上 \(\gamma X\)。`,
+  sol:R`\(\ln p^\circ = 1.085\)，\(p^\circ = 2.96\ \text{atm}\)；\(p_{Zn} = 0.20\times0.30\times2.96 \approx 0.178\ \text{atm}\)。這就是單元 9 應用題 A1 裡 3.0 atm 的來源。`
+},
+{
+  id:"13-P2", kind:"num", title:"由稀溶液數據預測相分離（單元 9 + 10）",
+  text:R`在 1000 K 量到 B 在 A 中無限稀釋的活性係數 \(\gamma_B^\circ = 3.0\)。用正規溶液模型，A–B 固溶體在多少 K 以下會出現互溶間隙？`,
+  answer:549, tol:0.01, unit:"K",
+  hint:R`\(\Omega = RT\ln\gamma^\circ\)，\(T_c = \Omega/2R\)。`,
+  sol:R`\(\Omega = 8314\ln3 = 9134\ \text{J/mol}\)，\(T_c = 9134/16.628 \approx 549\ \text{K}\)。只量一個數字，就能預測整張相圖會不會有互溶間隙。`
+},
+{
+  id:"13-P3", kind:"num", title:"Ellingham → 平衡氧分壓 → 感測器電壓（單元 11 + 12）",
+  text:R`\(2\text{Ni} + \text{O}_2 = 2\text{NiO}\)：\(\Delta G^\circ = -471{,}200 + 172T\ \text{J}\)。1000 K 時，把 Ni/NiO 混合粉末放在 ZrO₂ 感測器一端、空氣（0.21 atm）在另一端，電壓是多少 V？`,
+  answer:0.742, tol:0.01, unit:"V",
+  hint:R`先算 \(\ln p_{O_2}^{eq} = \Delta G^\circ/RT = -35.99\)。`,
+  sol:R`\(E = \dfrac{8.314\times1000}{4\times96485}(\ln0.21 + 35.99) = 0.02154\times34.43 \approx 0.742\ \text{V}\)。`
+},
+{
+  id:"13-P4", kind:"num", title:"熱機 vs. 燃料電池（單元 2 + 12）",
+  text:R`燃氣渦輪發電：高溫 873 K、環境 300 K。它的最大（卡諾）效率是多少？（下一題比較燃料電池）`,
+  answer:0.656, tol:0.01, unit:"",
+  hint:R`\(\eta = 1 - T_2/T_1\)。`,
+  sol:R`\(\eta = 1 - 300/873 \approx 0.656\)。而且實際熱機遠低於這個值。`
+},
+{
+  id:"13-P5", kind:"num", title:"燃料電池的最大效率（單元 4 + 11 + 12）",
+  text:R`固態氧化物燃料電池（SOFC）在 1073 K 運作：\(\text{H}_2 + \tfrac12\text{O}_2 = \text{H}_2\text{O}(g)\)，\(\Delta G^\circ = \tfrac12(-492{,}900 + 109.4T)\)，\(\Delta H^\circ \approx -246{,}450\ \text{J}\)。理論最大效率 \(\Delta G^\circ/\Delta H^\circ\) 是多少？`,
+  answer:0.762, tol:0.01, unit:"",
+  hint:"先算 1073 K 的 ΔG°。",
+  sol:R`\(\Delta G^\circ = \tfrac12(-492900 + 117{,}386) = -187{,}760\ \text{J}\)，效率 \(= 187760/246450 \approx 0.76\)。燃料電池不經過「熱」這一步，所以不受卡諾效率限制。`
+},
+{
+  id:"13-P6", kind:"mc", title:"選對工具",
+  text:"想知道「某合金在 800 °C 的氫氣爐中退火，表面的 Cr 會不會氧化」，最主要要用到哪些單元的觀念？",
+  opts:["單元 11（Ellingham、H₂/H₂O 比）＋單元 9（Cr 在合金中的活性）","只要單元 1 的第一定律","單元 7 的 Clapeyron","單元 3 的 Stirling 近似"], ans:0,
+  hint:"問題是「反應會不會發生」，而且 Cr 不是純的。",
+  sol:"這是反應平衡問題：先用 Ellingham 圖組合出 Cr₂O₃ + H₂ 的 ΔG°，得到容許的 p_H₂O/p_H₂；再因為 Cr 溶在合金裡，用活性 a_Cr 修正（單元 11 D6）。"
+},
+{ id:"13-A1", kind:"num", tag:"應用",
+  formula:R`\(E^\circ = -\dfrac{\Delta G^\circ}{zF}\)，\(\Delta G^\circ(T) = \Delta H^\circ - T\Delta S^\circ\)`, title:"SOFC 的開路電壓",
+  text:R`接續 P5，1073 K 時 SOFC（純 H₂、O₂、H₂O 都在 1 atm）的標準開路電壓是多少 V？`,
+  answer:0.973, tol:0.01, unit:"V",
+  hint:"z = 2。",
+  sol:R`\(E^\circ = 187760/(2\times96485) \approx 0.973\ \text{V}\)。比室溫的 1.23 V 小，因為這個反應 ΔS° < 0（氣體變少），高溫時 ΔG° 變得沒那麼負。高溫 SOFC 的電壓雖然低一點，但反應快、不需要白金觸媒，還可以直接用天然氣。`},
+{ id:"13-A2", kind:"num", tag:"應用",
+  formula:R`\(E = \dfrac{RT\ln0.21 - \Delta G^\circ}{4F}\)`, title:"鋼液測氧：Ni/NiO 換成 Cr/Cr₂O₃ 參考電極",
+  text:R`煉鋼用的拋棄式氧探頭常用 Cr/Cr₂O₃ 粉末當參考電極。\(\tfrac43\text{Cr} + \text{O}_2 = \tfrac23\text{Cr}_2\text{O}_3\)：\(\Delta G^\circ = -746{,}800 + 170T\ \text{J}\)。若在 1873 K 拿它和空氣比較，電壓是多少 V？`,
+  answer:1.047, tol:0.01, unit:"V",
+  hint:R`先算 1873 K 的 \(\Delta G^\circ\)，再代公式。`,
+  sol:R`\(\Delta G^\circ = -746800 + 318{,}410 = -428{,}390\ \text{J}\)；\(E = \dfrac{8.314\times1873\times\ln0.21 + 428390}{4\times96485} = \dfrac{-24300 + 428390}{385940} \approx 1.05\ \text{V}\)。實務上就是用量到的電壓，扣掉參考電極這一端的貢獻，換算出鋼液裡的氧含量，決定要加多少鋁脫氧。`},
+{ id:"13-A3", kind:"num", tag:"應用",
+  formula:R`卡諾冷凍機 \(\text{COP} = \dfrac{T_{冷}}{T_{熱} - T_{冷}}\)`, title:"冰箱最省電能到什麼程度？",
+  text:R`冰箱內部 5 °C（278 K），廚房 35 °C（308 K）。理論上每花 1 J 電能，最多能從冰箱裡搬出多少 J 的熱？`,
+  answer:9.27, tol:0.01, unit:"J",
+  hint:"單元 2 的卡諾循環倒過來跑。",
+  sol:R`\(\text{COP} = 278/(308 - 278) \approx 9.27\)。實際冰箱 COP 約 2–4。夏天廚房越熱、溫差越大，COP 越小，冰箱越耗電，所以冰箱背面要留通風空間。`},
+{ id:"13-A4", kind:"num", tag:"應用",
+  formula:R`\(\Delta G = \Delta H - T\Delta S\)；\(\Delta S_{熔} = \Delta H_m/T_m\)`, title:"過冷的矽液：凝固驅動力有多大？",
+  text:R`太陽能電池用的矽晶，長晶時液面附近會稍微過冷。Si 的熔點 1687 K、熔化熱 50,200 J/mol。過冷 10 K（1677 K）時，凝固的驅動力 \(\Delta G_{凝固}\) 大約多少 J/mol？（假設 ΔH、ΔS 不隨溫度變）`,
+  answer:-297.6, tol:0.02, unit:"J/mol",
+  hint:R`\(\Delta G_{凝固} \approx -\Delta H_m\dfrac{\Delta T}{T_m}\)。`,
+  sol:R`\(\Delta G = -50200\times10/1687 \approx -298\ \text{J/mol}\)。只有幾百 J/mol，非常小，所以長晶介面的溫度要控制得非常精準：過冷太少長不動，太多又會在別處冒出新晶粒，變成多晶。`}
+];
+
+</script>
+<script src="game.js"></script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

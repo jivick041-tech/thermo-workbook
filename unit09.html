@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料熱力學練習簿｜單元 9 溶液的行為</title>
+<link rel="stylesheet" href="common.css"></head><body><div class="wrap">
+<header>
+  <div class="kicker"><a href="index.html">材料熱力學練習簿</a> · 單元 9</div>
+  <h1>溶液的行為</h1>
+  <div class="byline">明志科大材料系 黃裕清老師</div>
+  <nav class="toc"><a href="#summary">① 觀念摘要</a><a href="#derive">② 推導練習</a><a href="#problems">③ 習題</a><a href="#apply">④ 應用</a></nav>
+</header>
+<div class="card userbar" id="userbar"></div>
+<div class="tip"><b>先備</b>：符號的意思或數學忘記了？先看 <a href="unit00.html">單元 0：認識主角與數學工具箱</a>。</div>
+<div class="partlbl">第一部分</div>
+<h2 id="summary">觀念摘要</h2>
+<div class="card">
+<h3 style="margin-top:4px">白話說：溶液就是「原子層級的混合」</h3>
+<p>合金、熔融金屬、玻璃、鹽水都是溶液。A 和 B 混在一起後，每一種原子「想跑出去的程度」會改變。熱力學用<b>活性 a</b> 來描述這件事：</p>
+<p style="text-align:center;font-size:18px">\(a_i = \dfrac{p_i}{p_i^\circ}\)（溶液上方 i 的蒸氣壓 ÷ 純 i 的蒸氣壓）</p>
+<p>比喻：純的 B 在自己家（純 B）裡「想出門的程度」是 1。搬到 A 的家裡住之後，如果室友很友善（A、B 互相吸引），就比較不想出門，\(a < X\)；如果室友很討厭（互相排斥），就更想出門，\(a > X\)。</p>
+
+<h3>兩條直線：Raoult 與 Henry</h3>
+<ul>
+<li><b>Raoult 定律</b>（理想溶液）：\(p_i = X_ip_i^\circ\)，也就是 \(a_i = X_i\)。</li>
+<li><b>Henry 定律</b>（很稀的溶質）：\(p_i = k_iX_i\)，也就是 \(a_i = \gamma_i^\circ X_i\)，\(\gamma_i^\circ\) 是常數。</li>
+<li><b>活性係數</b> \(\gamma_i = a_i/X_i\)：\(\gamma = 1\) 理想；\(\gamma > 1\) 正偏差（互相排斥）；\(\gamma < 1\) 負偏差（互相吸引）。</li>
+</ul>
+<figure class="figbox"><svg viewBox="0 0 540 320" class="fig" role="img" aria-label="Raoult 定律與 Henry 定律"><style>.ax{font:italic 17px "Times New Roman",serif;fill:#1f2328}.lb{font:14px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#1f2328}.lbs{font:12.5px "Noto Sans TC","Microsoft JhengHei",sans-serif;fill:#5f6670}.it{font:italic 15px "Times New Roman",serif}</style><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+<marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d5c8f"/></marker>
+<marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+</defs><line x1="60" y1="260" x2="430" y2="260" stroke="#1f2328" stroke-width="1.5" marker-end="url(#ah)"/><line x1="60" y1="260" x2="60" y2="20" stroke="#1f2328" stroke-width="1.5" marker-end="url(#ah)"/><text x="430" y="282" text-anchor="end" class="ax">X</text><text x="50" y="24" text-anchor="end" class="ax">p</text><line x1="60" y1="260" x2="400" y2="40" stroke="#8a8f96" stroke-width="2" stroke-dasharray="6 4"/><path d="M60.0,260.0 L61.7,257.0 L63.4,254.1 L65.1,251.3 L66.8,248.5 L68.5,245.8 L70.2,243.1 L71.9,240.5 L73.6,237.9 L75.3,235.4 L77.0,232.9 L78.7,230.4 L80.4,228.1 L82.1,225.7 L83.8,223.4 L85.5,221.2 L87.2,219.0 L88.9,216.8 L90.6,214.7 L92.3,212.6 L94.0,210.5 L95.7,208.5 L97.4,206.6 L99.1,204.6 L100.8,202.7 L102.5,200.9 L104.2,199.0 L105.9,197.2 L107.6,195.5 L109.3,193.7 L111.0,192.0 L112.7,190.4 L114.4,188.7 L116.1,187.1 L117.8,185.5 L119.5,184.0 L121.2,182.4 L122.9,180.9 L124.6,179.4 L126.3,178.0 L128.0,176.6 L129.7,175.1 L131.4,173.8 L133.1,172.4 L134.8,171.1 L136.5,169.7 L138.2,168.5 L139.9,167.2 L141.6,165.9 L143.3,164.7 L145.0,163.5 L146.7,162.3 L148.4,161.1 L150.1,159.9 L151.8,158.8 L153.5,157.7 L155.2,156.6 L156.9,155.5 L158.6,154.4 L160.3,153.3 L162.0,152.3 L163.7,151.2 L165.4,150.2 L167.1,149.2 L168.8,148.2 L170.5,147.2 L172.2,146.3 L173.9,145.3 L175.6,144.4 L177.3,143.4 L179.0,142.5 L180.7,141.6 L182.4,140.7 L184.1,139.8 L185.8,138.9 L187.5,138.1 L189.2,137.2 L190.9,136.4 L192.6,135.5 L194.3,134.7 L196.0,133.9 L197.7,133.1 L199.4,132.2 L201.1,131.4 L202.8,130.6 L204.5,129.9 L206.2,129.1 L207.9,128.3 L209.6,127.5 L211.3,126.8 L213.0,126.0 L214.7,125.3 L216.4,124.5 L218.1,123.8 L219.8,123.1 L221.5,122.3 L223.2,121.6 L224.9,120.9 L226.6,120.2 L228.3,119.5 L230.0,118.8 L231.7,118.1 L233.4,117.4 L235.1,116.7 L236.8,116.0 L238.5,115.3 L240.2,114.6 L241.9,113.9 L243.6,113.2 L245.3,112.5 L247.0,111.8 L248.7,111.2 L250.4,110.5 L252.1,109.8 L253.8,109.1 L255.5,108.5 L257.2,107.8 L258.9,107.1 L260.6,106.4 L262.3,105.8 L264.0,105.1 L265.7,104.4 L267.4,103.8 L269.1,103.1 L270.8,102.4 L272.5,101.7 L274.2,101.1 L275.9,100.4 L277.6,99.7 L279.3,99.0 L281.0,98.4 L282.7,97.7 L284.4,97.0 L286.1,96.3 L287.8,95.6 L289.5,95.0 L291.2,94.3 L292.9,93.6 L294.6,92.9 L296.3,92.2 L298.0,91.5 L299.7,90.8 L301.4,90.1 L303.1,89.4 L304.8,88.7 L306.5,88.0 L308.2,87.3 L309.9,86.5 L311.6,85.8 L313.3,85.1 L315.0,84.4 L316.7,83.6 L318.4,82.9 L320.1,82.1 L321.8,81.4 L323.5,80.6 L325.2,79.9 L326.9,79.1 L328.6,78.4 L330.3,77.6 L332.0,76.8 L333.7,76.0 L335.4,75.2 L337.1,74.5 L338.8,73.7 L340.5,72.9 L342.2,72.0 L343.9,71.2 L345.6,70.4 L347.3,69.6 L349.0,68.7 L350.7,67.9 L352.4,67.1 L354.1,66.2 L355.8,65.3 L357.5,64.5 L359.2,63.6 L360.9,62.7 L362.6,61.8 L364.3,60.9 L366.0,60.0 L367.7,59.1 L369.4,58.2 L371.1,57.2 L372.8,56.3 L374.5,55.4 L376.2,54.4 L377.9,53.4 L379.6,52.5 L381.3,51.5 L383.0,50.5 L384.7,49.5 L386.4,48.5 L388.1,47.4 L389.8,46.4 L391.5,45.4 L393.2,44.3 L394.9,43.3 L396.6,42.2 L398.3,41.1 L400.0,40.0" fill="none" stroke="#c0392b" stroke-width="2.6"/><line x1="60" y1="260" x2="185.8" y2="38.73185916343374" stroke="#1d5c8f" stroke-width="2" stroke-dasharray="3 3"/><line x1="400" y1="260" x2="400" y2="40" stroke="#8a8f96" stroke-dasharray="2 3"/><text x="406.0" y="45.0" class="lbs">p°（純 B 的蒸氣壓）</text><text x="186.4" y="40.7" class="lb" style="fill:#1d5c8f">Henry：p = k X</text><text x="230.0" y="165.4" class="lb" style="fill:#8a8f96">Raoult：p = X p°（理想）</text><text x="223.2" y="86.2" class="lb" style="fill:#c0392b">真實溶液</text><rect x="60" y="29.0" width="51.0" height="231.0" fill="#1d5c8f" opacity=".07"/><rect x="349.0" y="29.0" width="51.0" height="231.0" fill="#8a8f96" opacity=".12"/><text x="85.5" y="22.4" class="lbs" style="fill:#1d5c8f" text-anchor="middle">B 很少</text><text x="374.5" y="22.4" class="lbs" text-anchor="middle">B 很多</text><text x="60.0" y="278.0" class="lbs" text-anchor="middle">0</text><text x="400.0" y="278.0" class="lbs" text-anchor="middle">1</text><text x="270.0" y="314.0" class="lbs" text-anchor="middle">B 很少時貼著 Henry 直線，B 很多時貼著 Raoult 直線</text></svg></figure>
+
+<h3>部分莫耳量與 Gibbs–Duhem 方程式</h3>
+<p><b>部分莫耳量</b> \(\bar{Q}_i\)：往一大桶溶液裡加 1 mol 的 \(i\)，總量 \(Q'\) 增加多少。例如水和酒精各 50 mL 混合，總體積不到 100 mL，因為每種分子在混合物裡「佔的體積」（部分莫耳體積）跟純的時候不一樣。</p>
+<ul>
+<li>總量由部分莫耳量組成：\(Q = X_A\bar{Q}_A + X_B\bar{Q}_B\)。</li>
+<li><b>切線截距法</b>：在 \(Q\)–\(X_B\) 曲線上某一點畫切線，切線在 \(X_B = 0\) 和 \(X_B = 1\) 的截距，就是 \(\bar{Q}_A\) 和 \(\bar{Q}_B\)。</li>
+<li><b>Gibbs–Duhem</b>：\(X_A\,d\bar{Q}_A + X_B\,d\bar{Q}_B = 0\)。兩個成分的部分莫耳量不能各自亂變，一個上升另一個就要下降。所以只要量到一個成分的活性，另一個就能算出來。</li>
+</ul>
+
+<h3>混合的熱力學量</h3>
+<table>
+<tr><th></th><th>一般溶液</th><th>理想溶液</th><th>正規溶液（regular）</th></tr>
+<tr><td>\(\Delta G^M\)</td><td>\(RT(X_A\ln a_A + X_B\ln a_B)\)</td><td>\(RT(X_A\ln X_A + X_B\ln X_B)\)</td><td>理想值 \(+\ \Omega X_AX_B\)</td></tr>
+<tr><td>\(\Delta H^M\)</td><td>量測</td><td>0</td><td>\(\Omega X_AX_B\)</td></tr>
+<tr><td>\(\Delta S^M\)</td><td>量測</td><td>\(-R(X_A\ln X_A + X_B\ln X_B)\)</td><td>與理想相同</td></tr>
+<tr><td>活性係數</td><td>\(\gamma_i = a_i/X_i\)</td><td>\(\gamma = 1\)</td><td>\(RT\ln\gamma_A = \Omega X_B^2\)</td></tr>
+</table>
+<p><b>超額量</b>（excess）：真實值減去理想值，例如 \(G^{xs} = \Delta G^M - \Delta G^{M,id} = RT(X_A\ln\gamma_A + X_B\ln\gamma_B)\)。</p>
+
+<h3>Ω 從哪裡來？（準化學模型）</h3>
+<p>把溶液想成原子排在格子上，每個原子有 z 個鄰居。A–A、B–B、A–B 三種鍵的能量分別是 \(\omega_{AA}\)、\(\omega_{BB}\)、\(\omega_{AB}\)。隨機混合時：</p>
+<p style="text-align:center;font-size:18px">\(\Omega = zN_0\left[\omega_{AB} - \tfrac{1}{2}(\omega_{AA} + \omega_{BB})\right]\)</p>
+<ul>
+<li>\(\Omega < 0\)：A–B 鍵比平均強，喜歡異類鄰居 → 放熱混合、負偏差，容易形成化合物或有序結構。</li>
+<li>\(\Omega > 0\)：喜歡同類 → 吸熱混合、正偏差，低溫時會分成兩相（單元 10 的互溶間隙）。</li>
+<li>\(\Omega = 0\)：理想溶液。</li>
+</ul>
+</div>
+
+<div class="partlbl">第二部分</div>
+<h2 id="derive">推導練習</h2>
+<p>請先在紙上自己推一遍。每一步上面的綠色小字告訴你「這一步在做什麼」；卡住時按「提示」，還是推不出來才按「顯示這一步」。最後有檢查點與自評，請按「送出紀錄」。</p>
+<div id="derivations"></div>
+<div class="partlbl">第三部分</div>
+<h2 id="problems">習題</h2>
+<p>數值題請輸入答案後按「檢查」，可以重複作答。</p>
+<div id="problemList"></div>
+<div class="partlbl">第四部分</div>
+<h2 id="apply">應用：這些公式用在哪裡？</h2>
+<p>熱力學不是只拿來考試的。下面每一題都是生活或材料工程裡的真實情境，題目上方會先告訴你「這題用到的公式」，請試著把前面推導出來的式子套進去，最後看詳解裡「這個結果代表什麼」。</p>
+<div id="appList"></div>
+<div class="pager"><a href="unit08.html">← 單元 8</a><a href="index.html">目錄</a><a href="unit10.html">單元 10 →</a></div>
+<footer>材料熱力學練習簿 · 單元 9 溶液的行為 · 符號沿用 Gaskell：\(w\) 為系統對外界作的功，\(\beta\) 為等溫壓縮係數。</footer>
+</div>
+<script>
+const UNIT = "9 溶液的行為";
+const R = String.raw;
+const derivations = [
+{
+  id:"9-D1", math:["m7"], title:"由活性得到混合自由能", apps:["9-A1"],
+  goal:R`\(\Delta\bar{G}_i^M = RT\ln a_i\)，\(\Delta G^M = RT(X_A\ln a_A + X_B\ln a_B)\)`,
+  from:R`溶液上方的蒸氣和溶液平衡，所以「i 在溶液裡的 μ」＝「i 在蒸氣裡的 μ」；理想氣體 \(\mu_i = G_i^\circ(g) + RT\ln p_i\)（單元 8）`,
+  steps:[
+    {w:"純 i 和它自己的蒸氣平衡，寫出純 i 的 G。",
+     q:R`純 i（液或固）的莫耳自由能 \(G_i^\circ = \ ?\)`,
+     hint:R`純 i 上方的蒸氣壓是 \(p_i^\circ\)。`,
+     a:R`\(G_i^\circ = G_i^\circ(g) + RT\ln p_i^\circ\)`},
+    {w:"溶液裡的 i 也和它上方的蒸氣平衡。",
+     q:R`溶液裡 i 的部分莫耳自由能 \(\bar{G}_i = \ ?\)`,
+     hint:R`溶液上方 i 的分壓是 \(p_i\)。`,
+     a:R`\(\bar{G}_i = G_i^\circ(g) + RT\ln p_i\)`},
+    {w:"相減：i 從「純的」變成「在溶液裡」，自由能變了多少。",
+     q:R`\(\Delta\bar{G}_i^M = \bar{G}_i - G_i^\circ = \ ?\)`,
+     hint:R`\(\ln p_i - \ln p_i^\circ = \ln(p_i/p_i^\circ)\)。`,
+     a:R`\(\Delta\bar{G}_i^M = RT\ln\dfrac{p_i}{p_i^\circ} = RT\ln a_i\)`},
+    {w:"每個成分的貢獻按比例加起來，就是整個溶液的混合自由能。",
+     q:R`1 mol 溶液的 \(\Delta G^M = \ ?\)`,
+     hint:R`\(\Delta G^M = X_A\Delta\bar{G}_A^M + X_B\Delta\bar{G}_B^M\)。`,
+     a:R`\(\Delta G^M = RT(X_A\ln a_A + X_B\ln a_B)\)；理想溶液 \(a = X\)，就變成 \(RT(X_A\ln X_A + X_B\ln X_B)\)。`}
+  ],
+  meaning:R`活性是「真實溶液版的莫耳分率」。量蒸氣壓（或下一個單元的電池電壓）就能得到活性，有了活性就能算所有混合的熱力學量。`,
+  checks:[
+    {q:"a_B = 0.3、X_B = 0.5，B 在這個溶液裡？",opts:["比理想更穩定（γ < 1），和 A 互相吸引","比理想更不穩定","剛好理想","無法判斷"],ans:0,ex:"γ = 0.6 < 1，負偏差。"}
+  ]
+},
+{
+  id:"9-D2", math:["m2"], title:"切線截距法求部分莫耳量",
+  goal:R`\(\bar{Q}_A = Q - X_B\dfrac{dQ}{dX_B}\)，\(\bar{Q}_B = Q + (1 - X_B)\dfrac{dQ}{dX_B}\)`,
+  from:R`\(Q = X_A\bar{Q}_A + X_B\bar{Q}_B\)；Gibbs–Duhem \(X_A\,d\bar{Q}_A + X_B\,d\bar{Q}_B = 0\)（D3）`,
+  steps:[
+    {w:"先對總量 Q 取微分，看組成改變一點點時 Q 怎麼變。",
+     q:R`對 \(Q = X_A\bar{Q}_A + X_B\bar{Q}_B\) 微分。`,
+     hint:"乘法微分：每一項都有兩部分。",
+     a:R`\(dQ = \bar{Q}_A\,dX_A + \bar{Q}_B\,dX_B + (X_A\,d\bar{Q}_A + X_B\,d\bar{Q}_B)\)`},
+    {w:"括號裡就是 Gibbs–Duhem，等於 0；再用 dX_A = −dX_B。",
+     q:R`化簡得 \(dQ/dX_B\)。`,
+     hint:R`\(X_A + X_B = 1\)，所以 \(dX_A = -dX_B\)。`,
+     a:R`\(\dfrac{dQ}{dX_B} = \bar{Q}_B - \bar{Q}_A\)`},
+    {w:"兩個式子、兩個未知數，解出 Q̄_A 和 Q̄_B。",
+     q:R`由 \(Q = (1-X_B)\bar{Q}_A + X_B\bar{Q}_B\) 和上式解出 \(\bar{Q}_A\)、\(\bar{Q}_B\)。`,
+     hint:R`把 \(\bar{Q}_B = \bar{Q}_A + dQ/dX_B\) 代入。`,
+     a:R`\(\bar{Q}_A = Q - X_B\dfrac{dQ}{dX_B}\)，\(\bar{Q}_B = Q + (1-X_B)\dfrac{dQ}{dX_B}\)`}
+  ],
+  meaning:R`幾何意義：在 Q–\(X_B\) 曲線上畫切線，切線碰到左邊（\(X_B = 0\)）的高度就是 \(\bar{Q}_A\)，碰到右邊（\(X_B = 1\)）的高度就是 \(\bar{Q}_B\)。把 Q 換成 G，切線截距就是化學位能，這是單元 10「公切線」的基礎。`,
+  checks:[
+    {q:"Q 對 X_B 是一條直線時，Q̄_A 和 Q̄_B？",opts:["都是常數，等於純物質的值","都等於 0","隨組成改變","無法判斷"],ans:0,ex:"直線的切線就是它自己，截距固定。理想溶液的體積就是這樣（ΔV^M = 0）。"}
+  ]
+},
+{
+  id:"9-D3", math:["m4"], title:"Gibbs–Duhem 方程式",
+  goal:R`\(X_A\,d\bar{G}_A + X_B\,d\bar{G}_B = 0\)，因此 \(X_A\,d\ln a_A + X_B\,d\ln a_B = 0\)、\(X_A\,d\ln\gamma_A + X_B\,d\ln\gamma_B = 0\)`,
+  from:R`\(G' = n_A\bar{G}_A + n_B\bar{G}_B\)；定溫定壓下 \(dG' = \bar{G}_A\,dn_A + \bar{G}_B\,dn_B\)`,
+  steps:[
+    {w:"把 G' 直接全微分。",
+     q:R`對 \(G' = n_A\bar{G}_A + n_B\bar{G}_B\) 全微分。`,
+     hint:"乘法微分。",
+     a:R`\(dG' = \bar{G}_A\,dn_A + \bar{G}_B\,dn_B + n_A\,d\bar{G}_A + n_B\,d\bar{G}_B\)`},
+    {w:"和定溫定壓下 dG' 的定義比較。",
+     q:"兩式相減得到什麼？",
+     hint:R`定義是 \(dG' = \bar{G}_A\,dn_A + \bar{G}_B\,dn_B\)。`,
+     a:R`\(n_A\,d\bar{G}_A + n_B\,d\bar{G}_B = 0\)，除以總莫耳數：\(X_A\,d\bar{G}_A + X_B\,d\bar{G}_B = 0\)`},
+    {w:"換成活性和活性係數的形式。",
+     q:R`用 \(\bar{G}_i = G_i^\circ + RT\ln a_i\)、\(a_i = \gamma_iX_i\) 改寫。`,
+     hint:R`\(X_A\,d\ln X_A + X_B\,d\ln X_B = dX_A + dX_B = 0\)。`,
+     a:R`\(X_A\,d\ln a_A + X_B\,d\ln a_B = 0\)，以及 \(X_A\,d\ln\gamma_A + X_B\,d\ln\gamma_B = 0\)`}
+  ],
+  meaning:R`量了 A 的活性，B 的活性就不是自由的，可以用積分算出來。實驗上常常只有一個成分容易量（例如只有 Zn 會揮發），這個方程式就讓我們不用量另一個。`,
+  checks:[
+    {q:"在某個組成範圍，A 的 γ_A 隨 X_B 增加而上升，B 的 γ_B 會？",opts:["下降","也上升","不變","無法判斷"],ans:0,ex:"X_A d lnγ_A = −X_B d lnγ_B，兩個變化方向相反。"}
+  ]
+},
+{
+  id:"9-D4", math:["m6"], title:"正規溶液：ln γ_A = αX_B² 推出 ln γ_B = αX_A²", apps:["9-A4"],
+  goal:R`若 \(\ln\gamma_A = \alpha X_B^2\)（\(\alpha = \Omega/RT\)），則 \(\ln\gamma_B = \alpha X_A^2\)，且 \(G^{xs} = \Delta H^M = \Omega X_AX_B\)`,
+  from:R`D3 的 \(X_A\,d\ln\gamma_A + X_B\,d\ln\gamma_B = 0\)；純 B 時 \(\gamma_B = 1\)`,
+  steps:[
+    {w:"先算 A 的那一項：ln γ_A 隨 X_B 怎麼變。",
+     q:R`\(d\ln\gamma_A = \ ?\)`,
+     hint:R`\(\ln\gamma_A = \alpha X_B^2\)，對 \(X_B\) 微分。`,
+     a:R`\(d\ln\gamma_A = 2\alpha X_B\,dX_B\)`},
+    {w:"代進 Gibbs–Duhem，求 B 的變化。",
+     q:R`\(d\ln\gamma_B = \ ?\)`,
+     hint:R`\(d\ln\gamma_B = -\dfrac{X_A}{X_B}d\ln\gamma_A\)。`,
+     a:R`\(d\ln\gamma_B = -2\alpha X_A\,dX_B = 2\alpha X_A\,dX_A\)`},
+    {w:"從純 B（X_A = 0，ln γ_B = 0）積分。",
+     q:R`積分得 \(\ln\gamma_B\)。`,
+     hint:R`\(\int_0^{X_A}2\alpha X_A\,dX_A\)。`,
+     a:R`\(\ln\gamma_B = \alpha X_A^2\)`},
+    {w:"把兩個 ln γ 組合成超額自由能。",
+     q:R`\(G^{xs} = RT(X_A\ln\gamma_A + X_B\ln\gamma_B) = \ ?\)`,
+     hint:R`\(X_AX_B^2 + X_BX_A^2 = X_AX_B(X_A + X_B)\)。`,
+     a:R`\(G^{xs} = RT\alpha X_AX_B = \Omega X_AX_B\)；因為正規溶液的混合熵和理想一樣，\(\Delta H^M = G^{xs} = \Omega X_AX_B\)。`}
+  ],
+  meaning:R`正規溶液只用一個數字 Ω 就描述了整個合金系統的「不理想程度」。無限稀釋時 \(\ln\gamma_B^\circ = \alpha = \Omega/RT\)，所以量一個稀溶液的 Henry 常數就能估出 Ω。`,
+  checks:[
+    {q:"正規溶液 Ω > 0，混合時會？",opts:["吸熱","放熱","不吸不放","看溫度"],ans:0,ex:"ΔH^M = ΩX_AX_B > 0。"}
+  ]
+},
+{
+  id:"9-D5", math:[], title:"為什麼稀溶液的溶質遵守 Henry 定律",
+  goal:R`若溶劑 A 在 \(X_A \to 1\) 時遵守 Raoult（\(a_A = X_A\)），則溶質 B 在同一範圍遵守 Henry（\(a_B = \gamma_B^\circ X_B\)）`,
+  from:R`D3 的 \(X_A\,d\ln a_A + X_B\,d\ln a_B = 0\)`,
+  steps:[
+    {w:"溶劑遵守 Raoult，代進 Gibbs–Duhem。",
+     q:R`若 \(a_A = X_A\)，\(X_A\,d\ln a_A = \ ?\)`,
+     hint:R`\(d\ln X_A = dX_A/X_A\)。`,
+     a:R`\(X_A\,d\ln a_A = dX_A = -dX_B\)`},
+    {w:"所以 B 那一項必須抵消它。",
+     q:R`\(d\ln a_B = \ ?\)，積分後得到什麼？`,
+     hint:R`\(X_B\,d\ln a_B = dX_B\)。`,
+     a:R`\(d\ln a_B = dX_B/X_B = d\ln X_B\)，積分得 \(\ln a_B = \ln X_B + \text{常數}\)，即 \(a_B = \gamma_B^\circ X_B\)（Henry）`}
+  ],
+  meaning:R`Raoult 和 Henry 不是兩個獨立的經驗定律：在稀溶液裡，「溶劑走 Raoult」和「溶質走 Henry」是同一件事的兩面。`,
+  checks:[
+    {q:"Henry 定律的 γ_B° 跟 X_B 有關嗎（在稀溶液範圍）？",opts:["無關，是常數","成正比","成反比","等於 X_B"],ans:0,ex:"積分常數，不隨組成改變。"}
+  ]
+}
+];
+
+const problems = [
+{
+  id:"9-P1", kind:"num", title:"Raoult 定律",
+  text:R`某理想液態合金中 \(X_B = 0.20\)，純 B 在此溫度的蒸氣壓 \(p_B^\circ = 0.050\ \text{atm}\)。合金上方 B 的分壓是多少 atm？`,
+  answer:0.010, tol:0.01, unit:"atm",
+  hint:R`\(p_B = X_Bp_B^\circ\)。`,
+  sol:R`\(p_B = 0.20\times0.050 = 0.010\ \text{atm}\)。`
+},
+{
+  id:"9-P2", kind:"num", title:"由蒸氣壓求活性係數",
+  text:R`接續 P1，實際量到 B 的分壓只有 0.0060 atm。B 的活性係數 \(\gamma_B\) 是多少？`,
+  answer:0.60, tol:0.01, unit:"",
+  hint:R`\(a_B = p_B/p_B^\circ\)，\(\gamma_B = a_B/X_B\)。`,
+  sol:R`\(a_B = 0.0060/0.050 = 0.12\)，\(\gamma_B = 0.12/0.20 = 0.60\)。γ < 1，負偏差：A 和 B 互相吸引，B 比較不想跑出來。`
+},
+{
+  id:"9-P3", kind:"num", title:"正規溶液的活性係數",
+  text:R`A–B 正規溶液 \(\Omega = -20{,}000\ \text{J/mol}\)。1000 K、\(X_B = 0.30\) 時，\(\gamma_A\) 是多少？`,
+  answer:0.805, tol:0.01, unit:"",
+  hint:R`\(\ln\gamma_A = \dfrac{\Omega X_B^2}{RT}\)。`,
+  sol:R`\(\ln\gamma_A = \dfrac{-20000\times0.09}{8.314\times1000} = -0.2165\)，\(\gamma_A \approx 0.805\)。`
+},
+{
+  id:"9-P4", kind:"num", title:"正規溶液的混合自由能",
+  text:R`接續 P3，1 mol 溶液的 \(\Delta G^M\) 是多少 J？`,
+  answer:-9279, tol:0.01, unit:"J",
+  hint:R`\(\Delta G^M = RT(X_A\ln X_A + X_B\ln X_B) + \Omega X_AX_B\)。`,
+  sol:R`理想部分 \(8314\times(0.7\ln0.7 + 0.3\ln0.3) = -5079\ \text{J}\)；非理想部分 \(-20000\times0.21 = -4200\ \text{J}\)。合計 \(\approx -9279\ \text{J}\)。`
+},
+{
+  id:"9-P5", kind:"num", title:"Henry 常數（無限稀釋活性係數）",
+  text:R`接續 P3，B 在 A 中無限稀釋時的活性係數 \(\gamma_B^\circ\) 是多少？`,
+  answer:0.0902, tol:0.02, unit:"",
+  hint:R`\(\ln\gamma_B = \alpha X_A^2\)，\(X_A \to 1\)。`,
+  sol:R`\(\ln\gamma_B^\circ = \Omega/RT = -2.406\)，\(\gamma_B^\circ \approx 0.090\)。很稀的 B 被 A 緊緊抓住，活性只有莫耳分率的 9%。`
+},
+{
+  id:"9-P6", kind:"num", title:"切線截距法",
+  text:R`某二元溶液的莫耳體積 \(V = 20 + 5X_B - 3X_B^2\ (\text{cm}^3/\text{mol})\)。\(X_B = 0.5\) 時，A 的部分莫耳體積 \(\bar{V}_A\) 是多少 cm³/mol？`,
+  answer:20.75, tol:0.01, unit:"cm³/mol",
+  hint:R`\(\bar{V}_A = V - X_B\dfrac{dV}{dX_B}\)。`,
+  sol:R`\(V(0.5) = 20 + 2.5 - 0.75 = 21.75\)；\(dV/dX_B = 5 - 6X_B = 2\)。\(\bar{V}_A = 21.75 - 0.5\times2 = 20.75\ \text{cm}^3/\text{mol}\)。（\(\bar{V}_B = 21.75 + 0.5\times2 = 22.75\)）`
+},
+{
+  id:"9-P7", kind:"mc", title:"Gibbs–Duhem 的應用",
+  text:R`若某溶液 \(\ln\gamma_A = \alpha X_B^2\)，則 \(\ln\gamma_B\) = ？`,
+  opts:[R`\(\alpha X_A^2\)`,R`\(\alpha X_B^2\)`,R`\(-\alpha X_A^2\)`,R`\(\alpha X_AX_B\)`], ans:0,
+  hint:"見推導 D4。",
+  sol:R`由 Gibbs–Duhem 積分得 \(\ln\gamma_B = \alpha X_A^2\)。兩個成分的式子是對稱的。`
+},
+{ id:"9-A1", kind:"num", tag:"應用",
+  formula:R`\(p_i = a_ip_i^\circ = \gamma_iX_ip_i^\circ\)`, title:"熔煉黃銅時，鋅為什麼會冒白煙？",
+  text:R`熔煉 Cu–30 at% Zn 黃銅時溫度約 1300 K，已經超過鋅的沸點（1180 K），純 Zn 在 1300 K 的蒸氣壓約 3.0 atm。鋅在銅液中的活性係數約 0.20。黃銅液面上 Zn 的蒸氣分壓是多少 atm？`,
+  answer:0.18, tol:0.02, unit:"atm",
+  hint:R`\(p_{Zn} = \gamma_{Zn}X_{Zn}p_{Zn}^\circ\)。`,
+  sol:R`\(p_{Zn} = 0.20\times0.30\times3.0 = 0.18\ \text{atm}\)。分壓雖然比純鋅小很多（銅把鋅抓住了），但仍然很可觀，鋅蒸氣在空氣中氧化成 ZnO 就是白煙。所以工廠要蓋爐蓋、控制溫度，並補加鋅。`},
+{ id:"9-A2", kind:"num", tag:"應用",
+  formula:R`Sieverts 定律：\([\text{H}] = k\sqrt{p_{H_2}}\)（雙原子氣體溶進金屬時拆成原子）`, title:"鋁鑄件的氣孔：濕度的影響",
+  text:R`熔融鋁會吸收氫，冷卻時氫跑出來變成氣孔。下雨天爐內水氣多，等效的 \(p_{H_2}\) 從 0.01 atm 升到 0.04 atm。鋁液中溶解的氫濃度變成原來的幾倍？`,
+  answer:2, tol:0.01, unit:"倍",
+  hint:R`\(\text{H}_2(g) \rightleftharpoons 2\underline{\text{H}}\)，平衡常數 \(K = [\text{H}]^2/p_{H_2}\)。`,
+  sol:R`\([\text{H}] \propto \sqrt{p_{H_2}}\)，\(\sqrt{0.04/0.01} = 2\)，變成 2 倍。H₂ 溶進金屬時拆成兩個 H 原子，所以濃度跟壓力的平方根成正比，而不是 Henry 定律的一次方。鑄造廠會用乾燥的氬氣吹鋁液（除氣）降低 \(p_{H_2}\)。`},
+{ id:"9-A3", kind:"num", tag:"應用",
+  formula:R`理想混合熵 \(\Delta S^M = -R\sum X_i\ln X_i\)；n 種等莫耳時 \(= R\ln n\)`, title:"高熵合金：熵多高？",
+  text:R`高熵合金（例如 CoCrFeMnNi）由 5 種元素等莫耳混合。若視為理想溶液，1 mol 合金的混合熵是多少 J/(mol·K)？`,
+  answer:13.38, tol:0.01, unit:"J/(mol·K)",
+  hint:R`每個 \(X_i = 0.2\)，\(-R\times5\times0.2\ln0.2 = R\ln5\)。`,
+  sol:R`\(\Delta S^M = R\ln5 = 8.314\times1.609 \approx 13.4\ \text{J/(mol·K)}\)。在 1500 K，\(T\Delta S^M \approx 20\ \text{kJ/mol}\)，大到可以壓過元素之間形成化合物的焓，所以這麼多元素混在一起，反而能形成簡單的單一固溶體。這是近 20 年材料界很熱門的設計概念。`},
+{ id:"9-A4", kind:"num", tag:"應用",
+  formula:R`正規溶液：\(RT\ln\gamma_B^\circ = \Omega\)`, title:"從量測數據估 Cu–Zn 的交互作用參數",
+  text:R`在 1000 K 量到 Zn 在 Cu 中無限稀釋的活性係數 \(\gamma_{Zn}^\circ = 0.13\)。用正規溶液模型估算 Cu–Zn 的 Ω，單位 J/mol。`,
+  answer:-16962, tol:0.01, unit:"J/mol",
+  hint:R`\(\Omega = RT\ln\gamma^\circ\)。`,
+  sol:R`\(\Omega = 8.314\times1000\times\ln0.13 \approx -16{,}960\ \text{J/mol}\)。Ω < 0：Cu 和 Zn 互相喜歡，所以黃銅很容易形成，還會出現有序的 β′ 相。有了 Ω，就能預測任何組成的活性和混合熱，不用每個成分都去量。`}
+];
+
+</script>
+<script src="game.js"></script>
+<script src="workbook.js"></script>
+<script>window.MathJax = { tex:{inlineMath:[["\\(","\\)"]]}, svg:{fontCache:"global"} };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</body></html>

@@ -24,7 +24,7 @@ function sendRecord(rec, useBeacon){
 
 /* ===== 遊戲（game.js）用的作答歷史 ===== */
 const UNIT_NO = String(UNIT).split(" ")[0];
-const UNIT_NAMES={"0":"單元 0 認識主角與數學","1":"單元 1 第一定律","2":"單元 2 第二定律與熵","3":"單元 3 熵的統計詮釋","4":"單元 4 熱力勢與平衡判據","5":"單元 5 熱力學關係式","6":"單元 6 熱容量與第三定律","7":"單元 7 單成分相平衡"};
+const UNIT_NAMES={"0":"單元 0 認識主角與數學","1":"單元 1 第一定律","2":"單元 2 第二定律與熵","3":"單元 3 熵的統計詮釋","4":"單元 4 熱力勢與平衡判據","5":"單元 5 熱力學關係式","6":"單元 6 熱容量與第三定律","7":"單元 7 單成分相平衡","8":"單元 8 氣體的行為","9":"單元 9 溶液的行為","10":"單元 10 自由能–成分圖與相圖","11":"單元 11 反應平衡","12":"單元 12 電化學","13":"單元 13 整合"};
 let HIST={};
 function loadHist(){ try{ HIST=JSON.parse(localStorage.getItem("thermo-hist-"+(LOGIN.sid||""))||"{}")||{}; }catch(e){ HIST={}; } }
 function saveHist(){ try{ localStorage.setItem("thermo-hist-"+(LOGIN.sid||""),JSON.stringify(HIST)); }catch(e){} }
